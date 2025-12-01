@@ -13,17 +13,18 @@ import java.util.Comparator;
     private String titolo;
     private String autori;
     private String annoPubblicazione;
-    private int isbn;
+    private String isbn;
     private int numeroCopie;
 
-    public Libro(String titolo, String autori, String annoPubblicazione, int isbn, int numeroCopie) {
+    public Libro(String titolo, String autori, String annoPubblicazione, String isbn, int numeroCopie) {
         this.titolo = titolo;
         this.autori = autori;
         this.annoPubblicazione = annoPubblicazione;
         this.isbn = isbn;
         this.numeroCopie = numeroCopie;
     }
-
+    
+    //Getter e Setter
     public String getTitolo() {
         return titolo;
     }
@@ -48,11 +49,11 @@ import java.util.Comparator;
         this.annoPubblicazione = annoPubblicazione;
     }
 
-    public int getIsbn() {
+    public String getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(int isbn) {
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
