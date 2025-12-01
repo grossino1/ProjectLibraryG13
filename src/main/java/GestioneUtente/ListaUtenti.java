@@ -9,6 +9,6 @@ package GestioneUtente;
  *
  * @author chiara
  */
-public class Utente {
+public class ListaUtenti {
     
 }

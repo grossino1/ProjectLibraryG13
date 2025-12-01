@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GestioneUtente;
+package GUI;
 
 /**
  *
  * @author chiara
  */
-public class Utente {
+public class Module {
     
 }
