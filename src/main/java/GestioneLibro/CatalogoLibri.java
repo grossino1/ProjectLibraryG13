@@ -16,4 +16,8 @@ public class CatalogoLibri {
     public CatalogoLibri(){
         catalogo = new TreeSet<>();
     }
+    
+    public boolean registrazioneLibro(Libro l){
+        return catalogo.add(l);
+    }
 }
