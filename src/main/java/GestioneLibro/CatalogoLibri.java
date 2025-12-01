@@ -12,4 +12,8 @@ import java.util.TreeSet;
  */
 public class CatalogoLibri {
     private Set<Libro> catalogo;
+    
+    public CatalogoLibri(){
+        catalogo = new TreeSet<>();
+    }
 }

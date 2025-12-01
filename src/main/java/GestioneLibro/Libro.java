@@ -16,6 +16,14 @@ import java.util.Comparator;
     private int isbn;
     private int numeroCopie;
 
+    public Libro(String titolo, String autori, String annoPubblicazione, int isbn, int numeroCopie) {
+        this.titolo = titolo;
+        this.autori = autori;
+        this.annoPubblicazione = annoPubblicazione;
+        this.isbn = isbn;
+        this.numeroCopie = numeroCopie;
+    }
+
     public String getTitolo() {
         return titolo;
     }
