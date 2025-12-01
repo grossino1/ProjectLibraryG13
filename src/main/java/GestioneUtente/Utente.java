@@ -10,5 +10,5 @@ package GestioneUtente;
  * @author chiara
  */
 public class Utente {
-    
+    xxxx
 }
