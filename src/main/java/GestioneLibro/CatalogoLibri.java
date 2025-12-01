@@ -4,11 +4,12 @@
  * and open the template in the editor.
  */
 package GestioneLibro;
-
+import java.util.Set;
+import java.util.TreeSet;
 /**
  *
  * @author chiara
  */
 public class CatalogoLibri {
-    
+    private Set<Libro> catalogo;
 }
