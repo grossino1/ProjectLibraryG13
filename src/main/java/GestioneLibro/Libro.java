@@ -9,79 +9,44 @@ import java.util.Comparator;
  *
  * @author chiara
  */
- class Libro implements Comparable<Libro>{
+
+class Libro implements Comparable<Libro> {
+
     private String titolo;
     private String autori;
     private String annoPubblicazione;
-    private int isbn;
+    private String isbn;
     private int numeroCopie;
 
-    public Libro(String titolo, String autori, String annoPubblicazione, int isbn, int numeroCopie) {
-        this.titolo = titolo;
-        this.autori = autori;
-        this.annoPubblicazione = annoPubblicazione;
-        this.isbn = isbn;
-        this.numeroCopie = numeroCopie;
+    public Libro(String titolo, String autori, String annoPubblicazione, String isbn, int numeroCopie) {
+        // corpo vuoto (scheletro)
     }
 
-    public String getTitolo() {
-        return titolo;
-    }
+    // Getter e Setter
+    public String getTitolo() { return null; }
+    public void setTitolo(String titolo) {}
 
-    public void setTitolo(String titolo) {
-        this.titolo = titolo;
-    }
+    public String getAutori() { return null; }
+    public void setAutori(String autori) {}
 
-    public String getAutori() {
-        return autori;
-    }
+    public String getAnnoPubblicazione() { return null; }
+    public void setAnnoPubblicazione(String annoPubblicazione) {}
 
-    public void setAutori(String autori) {
-        this.autori = autori;
-    }
+    public String getIsbn() { return null; }
+    public void setIsbn(String isbn) {}
 
-    public String getAnnoPubblicazione() {
-        return annoPubblicazione;
-    }
+    public int getNumeroCopie() { return 0; }
+    public void setNumeroCopie(int numeroCopie) {}
 
-    public void setAnnoPubblicazione(String annoPubblicazione) {
-        this.annoPubblicazione = annoPubblicazione;
-    }
-
-    public int getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(int isbn) {
-        this.isbn = isbn;
-    }
-
-    public int getNumeroCopie() {
-        return numeroCopie;
-    }
-
-    public void setNumeroCopie(int numeroCopie) {
-        this.numeroCopie = numeroCopie;
-    }
-    
     @Override
-    public int hashCode(){
-        return 0;
-    }
-    
+    public int hashCode() { return 0; }
+
     @Override
-    public boolean equals(Object o){
-        return true;
-    }
-    
+    public boolean equals(Object o) { return false; }
+
     @Override
-    public int compareTo(Libro other){
-        return 0;
-    }
-    
+    public int compareTo(Libro other) { return 0; }
+
     @Override
-    public String toString(){
-        StringBuffer str = new StringBuffer();
-        return str.toString();
-    }
+    public String toString() { return ""; }
 }
