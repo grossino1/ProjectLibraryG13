@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -47,28 +46,4 @@ public class CatalogoLibri {
         return ordinato;
     }
 }
-=======
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package GestioneLibro;
-import java.util.Set;
-import java.util.TreeSet;
-/**
- *
- * @author chiara
- */
-public class CatalogoLibri {
-    private Set<Libro> catalogox;
-    
-    public CatalogoLibri(){
-        catalogo = new TreeSet<>();
-    }
-    
-    public boolean registrazioneLibro(Libro l){
-        return catalogo.add(l);
-    }
-}
->>>>>>> 7fa60f2658652f65a14ec1a30e9cf50ae2ccfa5a
+
