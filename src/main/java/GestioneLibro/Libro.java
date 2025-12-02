@@ -38,12 +38,17 @@ class Libro implements Comparable<Libro> {
     public int getNumeroCopie() { return 0; }
     public void setNumeroCopie(int numeroCopie) {}
 
+    // Metodi
+    
+    // hashCode: restituisce un codice numerico univoco basato su ISBN
     @Override
     public int hashCode() { return 0; }
 
+    // equals: confronta due libri per ISBN, evitando duplicati nel catalogo
     @Override
-    public boolean equals(Object o) { return false; }
+    public boolean equals(Object obj) { return false; }
 
+    // compareTo: ordinamento naturale dei libri per titolo
     @Override
     public int compareTo(Libro other) { return 0; }
 

@@ -45,5 +45,10 @@ public class CatalogoLibri {
         ordinato.addAll(catalogo);
         return ordinato;
     }
+    
+    @Override
+    public String toString(){
+        return "";
+    }
 }
 
