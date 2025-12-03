@@ -1,103 +1,104 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI.GUI_Login;
 
-import Autentificazione.Bibliotecario;
-import GUI.MainDashboard;
-import GestioneLibro.CatalogoLibri;
-import GestionePrestito.GestorePrestito;
-import GestioneUtente.ListaUtenti;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 import java.io.IOException;
+
+// Assicurati di importare la tua classe di Autenticazione reale
+// import gestione.Autenticazione; 
 
 public class ControllerLogin {
 
-    // Riferimento alla finestra (Stage) per cambiare scene
-    private final Stage stage;
+    @FXML
+    private TextField usernameField;
 
-    // --- IL MODELLO (Logica di Business) ---
-    private Bibliotecario bibliotecario;
-    private CatalogoLibri catalogoLibri;
-    private ListaUtenti listaUtenti;
-    private GestorePrestito gestorePrestito;
+    @FXML
+    private PasswordField passwordField;
 
-    public ControllerLogin(Stage stage) {
-        this.stage = stage;
-        inizializzaModello();
+    @FXML
+    private Button btnLogin;
+
+    // Riferimento al modulo di logica (Model)
+    // private Autenticazione autenticazioneService = new Autenticazione();
+
+    /**
+     * Metodo chiamato automaticamente da JavaFX quando si clicca il bottone "ACCEDI".
+     * Deve essere collegato nel FXML tramite onAction="#handleLoginAction"
+     */
+    @FXML
+    void handleLoginAction(ActionEvent event) {
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+
+        // 1. Validazione Input (Controllo campi vuoti)
+        if (username.isEmpty() || password.isEmpty()) {
+            mostraAlert(Alert.AlertType.WARNING, "Campi mancanti", "Per favore inserisci username e password.");
+            return;
+        }
+
+        // 2. Verifica Credenziali (Simulazione connessione al Model)
+        // boolean accessoConsentito = autenticazioneService.login(username, password);
+        
+        // --- SIMULAZIONE PER TEST (Rimuovi questo if/else quando colleghi il vero Model) ---
+        boolean accessoConsentito = "admin".equals(username) && "1234".equals(password);
+        // ----------------------------------------------------------------------------------
+
+        if (accessoConsentito) {
+            System.out.println("Login effettuato con successo!");
+            apriDashboard(event);
+        } else {
+            mostraAlert(Alert.AlertType.ERROR, "Errore Login", "Username o password non corretti.");
+        }
     }
 
-    private void inizializzaModello() {
-        // Qui caricheresti i dati da file, per ora istanziamo a vuoto
-        this.bibliotecario = new Bibliotecario("admin", "1234");
-        this.catalogoLibri = new CatalogoLibri();
-        this.listaUtenti = new ListaUtenti();
-        this.gestorePrestito = new GestorePrestito();
-    }
-
-    // --- NAVIGAZIONE ---
-    public void avvia() {
-        mostraLoginView();
-    }
-
-    public void mostraLoginView() {
+    /**
+     * Chiude la finestra di Login e apre la MainDashboard
+     */
+    private void apriDashboard(ActionEvent event) {
         try {
-            // Carica l'FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LoginView.fxml"));
+            // Carica la vista della Dashboard (assicurati che il percorso sia corretto)
+            // Se la Dashboard è in un altro package, aggiusta il path, es: "/GUI/MainDashboard.fxml"
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/MainDashboard.fxml")); 
             Parent root = loader.load();
 
-            // Ottieni il controller della vista e passagli QUESTO controller centrale
-            ViewLogin viewCtrl = loader.getController();
-            viewCtrl.setMainController(this);
+            // Ottieni lo Stage (finestra) attuale dal bottone che è stato cliccato
+            Stage stageAttuale = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            
+            // Opzione A: Chiudi login e apri nuova finestra
+            // stageAttuale.close();
+            // Stage nuovoStage = new Stage();
+            // nuovoStage.setScene(new Scene(root));
+            // nuovoStage.setMaximized(true);
+            // nuovoStage.show();
 
-            // Mostra la scena
-            stage.setTitle("Accesso Biblioteca");
-            stage.setScene(new Scene(root));
-            stage.show();
+            // Opzione B (Consigliata): Cambia semplicemente la scena nella stessa finestra
+            Scene dashboardScene = new Scene(root);
+            stageAttuale.setScene(dashboardScene);
+            stageAttuale.setMaximized(true); // Assicura che si apra a tutto schermo
+            stageAttuale.show();
+
         } catch (IOException e) {
             e.printStackTrace();
+            mostraAlert(Alert.AlertType.ERROR, "Errore Critico", "Impossibile caricare la Dashboard: " + e.getMessage());
         }
     }
 
-    public void mostraDashboard() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/MainDashboard.fxml"));
-            Parent root = loader.load();
-
-            // Collega la dashboard al coordinatore
-            MainDashboard viewCtrl = loader.getController();
-            viewCtrl.setMainController(this);
-
-            stage.setTitle("Dashboard Biblioteca");
-            stage.setScene(new Scene(root));
-            stage.centerOnScreen();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    // Metodo di utilità per mostrare popup
+    private void mostraAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
-
-    // --- METODI FUNZIONALI (API per le View) ---
-
-    // Chiamato da ViewLogin
-    public boolean tentaLogin(String user, String pass) {
-        boolean esito = bibliotecario.login(user, pass);
-        if (esito) {
-            mostraDashboard(); // Se login ok, cambia scena
-        }
-        return esito;
-    }
-
-    public void logout() {
-        mostraLoginView();
-    }
-
-    // Getter per dare accesso ai dati alla Dashboard
-    public CatalogoLibri getCatalogoLibri() { return catalogoLibri; }
-    public ListaUtenti getListaUtenti() { return listaUtenti; }
-    public GestorePrestito getGestorePrestito() { return gestorePrestito; }
 }
