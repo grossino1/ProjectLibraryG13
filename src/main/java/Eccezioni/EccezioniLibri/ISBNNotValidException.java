@@ -9,12 +9,12 @@ package Eccezioni.EccezioniLibri;
  *
  * @author chiara
  */
-public class ISBNException extends EccezioniLibro{
-    public ISBNException(){
+public class ISBNNotValidException extends EccezioniLibro{
+    public ISBNNotValidException(){
         
     }
     
-    public ISBNException(String msg){
+    public ISBNNotValidException(String msg){
         super(msg);
     }
 }

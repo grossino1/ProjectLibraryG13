@@ -9,7 +9,7 @@ package Eccezioni.EccezioniAutenticazione;
  *
  * @author jackross
  */
-public class EccezioneAutenticazione extends Exception {
+public abstract class EccezioneAutenticazione extends Exception {
     public EccezioneAutenticazione(){
     }
     
