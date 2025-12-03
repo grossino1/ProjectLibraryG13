@@ -5,10 +5,40 @@
  */
 package GUI;
 
+import java.awt.Label;
+import java.awt.TextField;
+import javafx.fxml.FXML;
+import javafx.scene.control.PasswordField;
+
 /**
  *
  * @author jackross
  */
 public class LoginView {
-    
+
+    @FXML private TextField txtUsername;
+    @FXML private PasswordField txtPassword;
+    @FXML private Label lblErrore;
+
+    private Controller mainController;
+
+    // Metodo fondamentale per l'Injection
+    public void setMainController(Controller controller) {
+        this.mainController = controller;
+    }
+
+    @FXML
+    private void handleLogin() {
+        String user = txtUsername.getText();
+        String pass = txtPassword.getText();
+
+        if (mainController != null) {
+            boolean successo = mainController.tentaLogin(user, pass);
+            
+            if (!successo) {
+                lblErrore.setText("Credenziali errate!");
+                lblErrore.setVisible(true);
+            }
+        }
+    }
 }
