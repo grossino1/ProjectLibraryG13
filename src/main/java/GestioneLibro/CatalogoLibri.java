@@ -22,12 +22,12 @@ public class CatalogoLibri {
         catalogoLibri = new TreeSet<>();
     }
 
-    public boolean registrazioneLibro(Libro l) {
-        return catalogoLibri.add(l);
+    public void registrazioneLibro(Libro l) {
+        catalogoLibri.add(l);
     }
 
-    public boolean eliminazioneLibro(Object l) {
-        return catalogoLibri.remove(l);
+    public void eliminazioneLibro(Object l) {
+        catalogoLibri.remove(l);
     }
 
     public ArrayList<Libro> cercaLibro(String l) {
