@@ -23,7 +23,9 @@ public class CatalogoLibri {
     }
 
     public void registrazioneLibro(Libro l) {
-        catalogoLibri.add(l);
+        if(catalogoLibri.add(l)){
+            throw new LibroPresenteException("");
+        }
     }
 
     public void eliminazioneLibro(Object l) {
