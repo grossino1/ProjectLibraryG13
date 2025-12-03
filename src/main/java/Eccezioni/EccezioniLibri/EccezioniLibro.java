@@ -9,9 +9,9 @@ package Eccezioni.EccezioniLibri;
  *
  * @author jackross
  */
-public class EccezioniLibro extends Exception {
+
+public abstract class EccezioniLibro extends Exception {
     public EccezioniLibro(){
-        
     }
     
     public EccezioniLibro(String msg){

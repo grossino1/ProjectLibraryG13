@@ -3,12 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Eccezioni.EccezioniAutentificazione;
+package Eccezioni.EccezioniAutenticazione;
 
 /**
  *
  * @author jackross
  */
-public class EccezioneAutentificazione extends Exception {
+public class EccezioneAutenticazione extends Exception {
+    public EccezioneAutenticazione(){
+    }
     
+    public EccezioneAutenticazione(String msg){
+        super(msg);
+    }
 }

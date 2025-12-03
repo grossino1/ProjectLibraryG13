@@ -28,19 +28,13 @@ public class ControllerLogin {
     @FXML
     private Button btnLogin;
 
-    // Riferimento al modulo di logica (Model)
-    // private Autenticazione autenticazioneService = new Autenticazione();
-
-    /**
-     * Metodo chiamato automaticamente da JavaFX quando si clicca il bottone "ACCEDI".
-     * Deve essere collegato nel FXML tramite onAction="#handleLoginAction"
-     */
+    //Metodo chiamato automaticamente da JavaFX quando si clicca il bottone "ACCEDI".
     @FXML
     void handleLoginAction(ActionEvent event) {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        // 1. Validazione Input (Controllo campi vuoti)
+        // Controllo campi vuoti
         if (username.isEmpty() || password.isEmpty()) {
             mostraAlert(Alert.AlertType.WARNING, "Campi mancanti", "Per favore inserisci username e password.");
             return;
@@ -68,7 +62,7 @@ public class ControllerLogin {
         try {
             // Carica la vista della Dashboard (assicurati che il percorso sia corretto)
             // Se la Dashboard è in un altro package, aggiusta il path, es: "/GUI/MainDashboard.fxml"
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/MainDashboard.fxml")); 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/GUI_DashBoard/DashBoardView.fxml")); 
             Parent root = loader.load();
 
             // Ottieni lo Stage (finestra) attuale dal bottone che è stato cliccato
@@ -93,7 +87,7 @@ public class ControllerLogin {
         }
     }
 
-    // Metodo di utilità per mostrare popup
+    // Metodo pop-up di alert
     private void mostraAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);

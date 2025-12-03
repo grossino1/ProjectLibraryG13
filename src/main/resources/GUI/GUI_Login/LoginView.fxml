@@ -78,7 +78,7 @@
              </children>
           </VBox>
 
-          <Button fx:id="btnLogin" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #2196f3; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 5;" text="ACCEDI">
+          <Button fx:id="btnLogin" onAction="#handleLoginAction" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #2196f3; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 5;" text="ACCEDI">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

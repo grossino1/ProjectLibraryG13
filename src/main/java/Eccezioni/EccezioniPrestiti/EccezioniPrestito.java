@@ -9,9 +9,8 @@ package Eccezioni.EccezioniPrestiti;
  *
  * @author jackross
  */
-public class EccezioniPrestito extends Exception {
+public abstract class EccezioniPrestito extends Exception {
     public EccezioniPrestito(){
-        
     }
     
     public EccezioniPrestito(String msg){
