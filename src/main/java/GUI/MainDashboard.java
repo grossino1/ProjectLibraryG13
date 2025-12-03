@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class MainDashboard {
 
+    
     @FXML private TableView<Libro> tableLibri;
     @FXML private TableColumn<Libro, String> colTitolo;
     @FXML private TableColumn<Libro, String> colAutore;
@@ -47,7 +48,7 @@ public class MainDashboard {
     private void aggiornaTabelle() {
         if (mainController != null) {
             // Recuperiamo l'ArrayList dal modello
-            ArrayList<Libro> listaLibri = mainController.getCatalogoLibri().visualizzazioneCatalogoLibri();
+            ArrayList<Libro> listaLibri = mainController.getCatalogoLibri().getCatalogoLibri();
             
             // Convertiamo in ObservableList per JavaFX
             ObservableList<Libro> datiOsservabili = FXCollections.observableArrayList(listaLibri);
