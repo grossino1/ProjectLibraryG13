@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Sorting.OrdinamentoUtenti;
+package Eccezioni;
 
 /**
  *
- * @author chiara
+ * @author jackross
  */
-public class OrdinamentoUtenti {
+public class EccezioniLibro extends Exception {
     
 }

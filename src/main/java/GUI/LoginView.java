@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Sorting.OrdinamentoPrestiti;
+package GUI;
 
 /**
  *
- * @author chiara
+ * @author jackross
  */
-public class OrdinamentoPrestiti {
+public class LoginView {
     
 }

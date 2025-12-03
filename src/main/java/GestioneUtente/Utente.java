@@ -7,6 +7,7 @@ package GestioneUtente;
 import java.util.ArrayList;
 import GestionePrestito.Prestito;
 import java.util.Comparator;
+import java.util.List;
 /**
  *
  * @author chiara
@@ -16,11 +17,12 @@ public class Utente implements Comparable<Utente>{
     private String cognome;
     private String matricola;
     private String emailIstituzionale;
-    private ArrayList<Prestito> listaPrestiti;
+    private List<Prestito> listaPrestiti;
     
     public Utente(String nome, String cognome, String matricola,
-                  String emailIstituzionale, ArrayList<Prestito> listaPrestiti) {
+                  String emailIstituzionale) {
         // corpo vuoto (scheletro)
+        listaPrestiti = new ArrayList();
     }
     
     // getter e setter (scheletro)

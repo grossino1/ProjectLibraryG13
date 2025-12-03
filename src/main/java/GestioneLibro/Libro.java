@@ -10,15 +10,15 @@ import java.util.Comparator;
  * @author chiara
  */
 
-class Libro implements Comparable<Libro> {
+public class Libro implements Comparable<Libro> {
 
     private String titolo;
     private String autori;
-    private String annoPubblicazione;
+    private int annoPubblicazione;
     private String isbn;
     private int numeroCopie;
 
-    public Libro(String titolo, String autori, String annoPubblicazione, String isbn, int numeroCopie) {
+    public Libro(String titolo, String autori, int annoPubblicazione, String isbn, int numeroCopie) {
         // corpo vuoto (scheletro)
     }
 
@@ -29,8 +29,8 @@ class Libro implements Comparable<Libro> {
     public String getAutori() { return null; }
     public void setAutori(String autori) {}
 
-    public String getAnnoPubblicazione() { return null; }
-    public void setAnnoPubblicazione(String annoPubblicazione) {}
+    public int getAnnoPubblicazione() { return 0; }
+    public void setAnnoPubblicazione(int annoPubblicazione) {}
 
     public String getIsbn() { return null; }
     public void setIsbn(String isbn) {}
@@ -39,6 +39,8 @@ class Libro implements Comparable<Libro> {
     public void setNumeroCopie(int numeroCopie) {}
 
     // Metodi
+    public void incrementaCopiaLibro(){}
+    public void decrementaCopiaLibro(){}
     
     // hashCode: restituisce un codice numerico univoco basato su ISBN
     @Override

@@ -11,4 +11,11 @@ package SalvataggioFile;
  */
 public class File {
     
+    public <T> void salva(T dati, String filename){
+               
+    }
+    
+    public static <T> T carica(String filename){
+        return null;
+    }
 }

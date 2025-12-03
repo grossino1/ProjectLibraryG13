@@ -31,7 +31,7 @@ public class ElencoPrestiti {
         // scheletro
     }
 
-    public ArrayList<Utente> cercaPrestito(String chiave) {
+    public ArrayList<Prestito> cercaPrestito(String chiave) {
         return null; // scheletro
     }
 
@@ -41,6 +41,11 @@ public class ElencoPrestiti {
 
     public ArrayList<Prestito> sortListaUtenti(Comparator<Prestito> comp) {
         return null; // scheletro
+    }
+    
+    @Override
+    public String toString() {  
+        return null;
     }
 }
 

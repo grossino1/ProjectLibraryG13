@@ -28,15 +28,15 @@ public class ListaUtenti {
         return false; // scheletro
     }
 
-    public boolean cercaUtente(Object u) {
-        return false; // scheletro
+    public ArrayList<Utente> cercaUtente(String u) {
+        return null; // scheletro
     }
 
     public ArrayList<Utente> visualizzazioneListaUtenti() {
         return null; // scheletro
     }
 
-    public TreeSet<Utente> sortListaUtenti(Comparator<Utente> comp) {
+    public ArrayList<Utente> sortListaUtenti(Comparator<Utente> comp) {
         return null; // scheletro
     }
 

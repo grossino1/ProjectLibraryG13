@@ -16,33 +16,34 @@ import java.util.Comparator;
 
 public class CatalogoLibri {
 
-    private Set<Libro> catalogo;
+    private Set<Libro> catalogoLibri;
 
     public CatalogoLibri() {
-        catalogo = new TreeSet<>();
+        catalogoLibri = new TreeSet<>();
     }
 
     public boolean registrazioneLibro(Libro l) {
-        return catalogo.add(l);
+        return catalogoLibri.add(l);
     }
 
     public boolean eliminazioneLibro(Object l) {
-        return catalogo.remove(l);
+        return catalogoLibri.remove(l);
     }
 
-    public boolean cercaLibro(Object l) {
-        return catalogo.contains(l);
+    public ArrayList<Libro> cercaLibro(String l) {
+        return new ArrayList<>(catalogoLibri);
+        // Ritorna ArrayList perché ci possono essere libri con lo stesso titolo
     }
 
     public ArrayList<Libro> visualizzazioneCatalogoLibri() {
         // restituisce una lista contenente tutti i libri del catalogo
-        return new ArrayList<>(catalogo);
+        return new ArrayList<>(catalogoLibri);
     }
 
     public TreeSet<Libro> sortCatalogoLibri(Comparator<Libro> comp) {
         // nuovo TreeSet ordinato secondo il comparator passato
         TreeSet<Libro> ordinato = new TreeSet<>(comp);
-        ordinato.addAll(catalogo);
+        ordinato.addAll(catalogoLibri);
         return ordinato;
     }
     
