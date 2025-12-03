@@ -35,7 +35,7 @@ public class ElencoPrestiti {
         return null; // scheletro
     }
 
-    public ArrayList<Prestito> visualizzazioneElencoPrestiti() {
+    public ArrayList<Prestito> getElencoPrestiti() {
         return null; // scheletro
     }
 

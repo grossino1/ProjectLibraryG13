@@ -22,12 +22,12 @@ public class CatalogoLibri {
         catalogoLibri = new TreeSet<>();
     }
 
-    public boolean registrazioneLibro(Libro l) {
-        return catalogoLibri.add(l);
+    public void registrazioneLibro(Libro l) {
+        catalogoLibri.add(l);
     }
 
-    public boolean eliminazioneLibro(Object l) {
-        return catalogoLibri.remove(l);
+    public void eliminazioneLibro(Object l) {
+        catalogoLibri.remove(l);
     }
 
     public ArrayList<Libro> cercaLibro(String l) {
@@ -35,7 +35,7 @@ public class CatalogoLibri {
         // Ritorna ArrayList perché ci possono essere libri con lo stesso titolo
     }
 
-    public ArrayList<Libro> visualizzazioneCatalogoLibri() {
+    public ArrayList<Libro> getCatalogoLibri() {
         // restituisce una lista contenente tutti i libri del catalogo
         return new ArrayList<>(catalogoLibri);
     }
