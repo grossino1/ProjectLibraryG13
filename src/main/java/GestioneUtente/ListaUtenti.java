@@ -32,7 +32,7 @@ public class ListaUtenti {
         return null; // scheletro
     }
 
-    public ArrayList<Utente> visualizzazioneListaUtenti() {
+    public ArrayList<Utente> getListaUtenti() {
         return null; // scheletro
     }
 
