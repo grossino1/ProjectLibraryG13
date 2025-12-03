@@ -3,12 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Eccezioni;
+package GUI.GUI_Prestito;
+
+import javafx.fxml.FXML;
 
 /**
  *
- * @author jackross
+ * @author chiara
  */
-public class EccezionePrestito extends Exception {
-    
+public class ControllerPrestito {
+    @FXML
+    private void initialize(){
+        //scheletro del metodo
+    }
 }

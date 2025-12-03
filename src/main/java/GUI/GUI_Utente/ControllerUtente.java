@@ -3,12 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Eccezioni;
+package GUI.GUI_Utente;
+
+import javafx.fxml.FXML;
 
 /**
  *
- * @author jackross
+ * @author chiara
  */
-public class EccezioniUtente extends Exception{
-    
+public class ControllerUtente {
+    @FXML
+    private void initialize(){
+        //scheletro del metodo
+    }
 }

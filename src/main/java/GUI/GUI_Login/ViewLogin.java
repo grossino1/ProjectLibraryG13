@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package GUI.GUI_Login;
 
+import GUI.GUI_Login.ControllerLogin;
 import java.awt.Label;
 import java.awt.TextField;
 import javafx.fxml.FXML;
@@ -14,16 +15,16 @@ import javafx.scene.control.PasswordField;
  *
  * @author jackross
  */
-public class LoginView {
+public class ViewLogin {
 
     @FXML private TextField txtUsername;
     @FXML private PasswordField txtPassword;
     @FXML private Label lblErrore;
 
-    private Controller mainController;
+    private ControllerLogin mainController;
 
     // Metodo fondamentale per l'Injection
-    public void setMainController(Controller controller) {
+    public void setMainController(ControllerLogin controller) {
         this.mainController = controller;
     }
 

@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI;
+package GUI.GUI_Login;
 
 import Autentificazione.Bibliotecario;
+import GUI.MainDashboard;
 import GestioneLibro.CatalogoLibri;
 import GestionePrestito.GestorePrestito;
 import GestioneUtente.ListaUtenti;
@@ -15,7 +16,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
 
-public class Controller {
+public class ControllerLogin {
 
     // Riferimento alla finestra (Stage) per cambiare scene
     private final Stage stage;
@@ -26,7 +27,7 @@ public class Controller {
     private ListaUtenti listaUtenti;
     private GestorePrestito gestorePrestito;
 
-    public Controller(Stage stage) {
+    public ControllerLogin(Stage stage) {
         this.stage = stage;
         inizializzaModello();
     }
@@ -51,7 +52,7 @@ public class Controller {
             Parent root = loader.load();
 
             // Ottieni il controller della vista e passagli QUESTO controller centrale
-            LoginView viewCtrl = loader.getController();
+            ViewLogin viewCtrl = loader.getController();
             viewCtrl.setMainController(this);
 
             // Mostra la scena
@@ -82,7 +83,7 @@ public class Controller {
 
     // --- METODI FUNZIONALI (API per le View) ---
 
-    // Chiamato da LoginView
+    // Chiamato da ViewLogin
     public boolean tentaLogin(String user, String pass) {
         boolean esito = bibliotecario.login(user, pass);
         if (esito) {

@@ -10,7 +10,7 @@ package it.unisa.diem.oop.projectlibraryg13;
  * @author jackross
  */
 
-import GUI.Controller;
+import GUI.GUI_Login.ControllerLogin;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -19,7 +19,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
         // Creiamo il coordinatore passandogli la finestra principale
-        Controller mainController = new Controller(primaryStage);
+        ControllerLogin mainController = new ControllerLogin(primaryStage);
         
         // Avviamo l'applicazione mostrando il login
         mainController.avvia();

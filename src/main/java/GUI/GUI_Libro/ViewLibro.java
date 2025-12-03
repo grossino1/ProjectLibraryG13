@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Eccezioni;
+package GUI.GUI_Libro;
 
 /**
  *
- * @author jackross
+ * @author chiara
  */
-public class EccezioneAutentificazione extends Exception {
+public class ViewLibro {
     
 }

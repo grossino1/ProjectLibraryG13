@@ -20,12 +20,12 @@ public class ListaUtenti {
         listaUtenti = new TreeSet<>();
     }
 
-     public boolean registrazioneUtente(Utente u) {
-        return false; // scheletro
+     public void registrazioneUtente(Utente u) {
+        // scheletro
     }
 
-    public boolean eliminazioneUtente(Object u) {
-        return false; // scheletro
+    public void eliminazioneUtente(Object u) {
+        // scheletro
     }
 
     public ArrayList<Utente> cercaUtente(String u) {
