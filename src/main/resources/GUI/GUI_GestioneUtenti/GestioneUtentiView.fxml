@@ -33,16 +33,14 @@
                <font>
                   <Font size="14.0" />
                </font>
-               <cursor>
-                  </cursor>
             </Button>
 
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="👥  Gestione Utenti">
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: rgba(255,255,255,0.1); -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="👥  Gestione Utenti">
                <padding>
                   <Insets bottom="15.0" left="30.0" top="15.0" />
                </padding>
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
             </Button>
 
@@ -67,12 +65,13 @@
             
             <HBox alignment="CENTER_LEFT" spacing="20.0">
                <children>
-                  <Label text="Catalogo Libri" textFill="#2c3e50">
+                  <Label text="Gestione Utenti" textFill="#2c3e50">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <HBox HBox.hgrow="ALWAYS" /> <Label text="Benvenuto, Bibliotecario" textFill="#7f8c8d">
+                  <HBox HBox.hgrow="ALWAYS" /> 
+                  <Label text="Benvenuto, Bibliotecario" textFill="#7f8c8d">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -86,22 +85,27 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
-                  <Button fx:id="btnAggiungiLibro" style="-fx-background-color: #27ae60; -fx-text-fill: white;" text="+ Nuovo Libro" />
+                  <Button fx:id="btnNuovoUtente" style="-fx-background-color: #27ae60; -fx-text-fill: white;" text="+ Nuovo Utente" />
+                  
                   <HBox HBox.hgrow="ALWAYS" />
+                  
                   <Label text="Ordina per:" textFill="#7f8c8d" />
-                  <Button fx:id="btnAggiungiLibro1" layoutX="20.0" layoutY="20.0" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" text="Titolo" />
-                  <Button fx:id="btnAggiungiLibro11" layoutX="379.0" layoutY="20.0" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" text="Anno" />
-                  <TextField promptText="Cerca per titolo..." layoutX="379.0" layoutY="20.0" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;"/>
+                  <Button fx:id="btnOrdinaCognome" layoutX="20.0" layoutY="20.0" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" text="Cognome" />
+                  <!--<Button fx:id="btnOrdinaMatricola" layoutX="379.0" layoutY="20.0" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" text="Matricola" />-->
+                  <Button fx:id="handleMostRecent" layoutX="20.0" layoutY="20.0" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" text="Più Recente" />
+                  <Button fx:id="handleLatestRecent" layoutX="20.0" layoutY="20.0" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" text="Meno Recente" />
+                  
+                  <TextField fx:id="txtCercaUtente" promptText="Cerca nome o matricola..." layoutX="379.0" layoutY="20.0" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;"/>
                </children>
             </HBox>
 
-            <TableView fx:id="tabellaLibri" VBox.vgrow="ALWAYS">
+            <TableView fx:id="tabellaUtenti" VBox.vgrow="ALWAYS">
               <columns>
-                <TableColumn fx:id="colIsbn" prefWidth="100.0" text="ISBN" />
-                <TableColumn fx:id="colTitolo" prefWidth="250.0" text="Titolo" />
-                <TableColumn fx:id="colAutore" prefWidth="150.0" text="Autore" />
-                <TableColumn fx:id="colAnno" prefWidth="80.0" text="Anno" />
-                <TableColumn fx:id="colDisponibile" prefWidth="80.0" text="Disponibile" />
+                <TableColumn fx:id="colTessera" prefWidth="150.0" text="Matricola" />
+                <TableColumn fx:id="colNome" prefWidth="125.0" text="Nome" />
+                <TableColumn fx:id="colCognome" prefWidth="125.0" text="Cognome" />
+                <TableColumn fx:id="colEmail" prefWidth="200.0" text="Email Istituzionale" />
+                <TableColumn fx:id="colStato" prefWidth="200.0" style="-fx-alignment: CENTER;" text="N. Prestiti Attivi" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

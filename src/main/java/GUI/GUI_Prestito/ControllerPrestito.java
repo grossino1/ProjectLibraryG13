@@ -48,7 +48,7 @@ public class ControllerPrestito {
     
     @FXML
     void handleModifyPrestito(ActionEvent event){
-        //permette di modificare il modificare selezionato tramite handleSelectedLibro
+        //permette di modificare il prestito selezionato tramite handleSelectedLibro
         //scheletro
     }
     
@@ -64,6 +64,23 @@ public class ControllerPrestito {
         //da implemetare con switchScene
         //scheletro
     }
+    
+    void handleSortReturnDate(ActionEvent event){
+        //permette di ordinare in base alla data di restituzione
+        //scheletro
+    }
+    
+    void handleSortMostRecent(ActionEvent event){
+        //permette di ordinare la lista dei prestiti dal più recente
+        //scheletro
+    }
+    
+    void handleSortLatestRecent(ActionEvent event){
+        //permette di ordinare la lista dei prestiti dal meno recente
+        //scheletro
+    }
+    
+    
     
     private void showError(String msg){
         //crea un alert

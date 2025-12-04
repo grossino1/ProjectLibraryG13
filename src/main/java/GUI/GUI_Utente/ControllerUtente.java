@@ -19,8 +19,8 @@ public class ControllerUtente {
     }
     @FXML
     void handleAggiungiUtente(ActionEvent event){
-        //chiama un metodo che permette di aggiungere un prestito nella
-        //lista dei prestiti e aggiorna la vista del catalogo
+        //chiama un metodo che permette di aggiungere un utente nella
+        //lista degli utenti e aggiorna la vista del catalogo
         //scheletro
     }
     
@@ -40,20 +40,20 @@ public class ControllerUtente {
     
     @FXML
     void handlePrestiti(ActionEvent event) {
-        //permette di passare alla schermata per la gesione degli utenti
+        //permette di passare alla schermata per la gesione dei prestiti
         //da implemetare con switchScene
         //scheletro
     }
     
     @FXML
     void handleModifyUtente(ActionEvent event){
-        //permette di modificare il modificare selezionato tramite handleSelectedLibro
+        //permette di modificare l'utente selezionato tramite handleSelectedLibro
         //scheletro
     }
     
     @FXML
     void handleRemoveUtente(ActionEvent event){
-        //permette di rimuovere il prestito selezionato tramite handleSelectedLibro
+        //permette di rimuovere l'utente selezionato tramite handleSelectedLibro
         //scheletro
     }
     
@@ -64,7 +64,17 @@ public class ControllerUtente {
         //scheletro
     }
     
+    void handleSortCognome(ActionEvent event){
+        //permette di ordinare la lista degli utenti per cognome
+        //scheletro
+    }
+    
     void handleSortMostRecent(ActionEvent event){
+        //permette di ordinare la lista degli utenti 
+        //scheletro
+    }
+    
+    void handleSortLatestRecent(ActionEvent event){
         //permette di ordinare la lista degli utenti 
         //scheletro
     }
