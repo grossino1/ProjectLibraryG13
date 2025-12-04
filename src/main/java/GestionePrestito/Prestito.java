@@ -18,8 +18,7 @@ public class Prestito implements Comparable<Prestito> {
     private String matricolaUtente;
     private LocalDate dataRestituzione;
 
-    public Prestito(String IDPrestito, String ISBNLibro, String matricolaUtente,
-                    LocalDate dataRestituzione) {
+    public Prestito(String ISBNLibro, String matricolaUtente) {
         // corpo vuoto (scheletro)
     }
 

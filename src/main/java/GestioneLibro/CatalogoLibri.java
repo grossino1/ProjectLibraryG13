@@ -23,6 +23,16 @@ public class CatalogoLibri {
         catalogoLibri = new TreeSet<> ();
     }
 
+    // CORREZIONE: Implementazione reale della ricerca per ISBN (serve per il prestito)
+    public Libro getLibroByISBN(String isbn) {
+        for (Libro l : catalogoLibri) {
+            if (l.getIsbn().equals(isbn)) {
+                return l;
+            }
+        }
+        return null; // Non trovato
+    }
+    
     public void registrazioneLibro(Libro l) throws ISBNNotValidException {
         //scheletro
     }
@@ -36,7 +46,7 @@ public class CatalogoLibri {
         // Ritorna ArrayList perché ci possono essere libri con lo stesso titolo
     }
 
-    public ArrayList<Libro> getCatalogoLibri() {
+    public ArrayList<Libro> getListaCatalogoLibri() {
         // restituisce una lista contenente tutti i libri del catalogo
         return new ArrayList<>(catalogoLibri);
     }
