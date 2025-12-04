@@ -14,8 +14,7 @@
 <?import javafx.scene.text.Font?>
 
 <GridPane alignment="CENTER" hgap="10.0" vgap="10.0" 
-          xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="GUI.GUI_Login.ControllerLogin">
+          xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.GUI_Login.LoginViewController">
   
   <columnConstraints>
     <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
