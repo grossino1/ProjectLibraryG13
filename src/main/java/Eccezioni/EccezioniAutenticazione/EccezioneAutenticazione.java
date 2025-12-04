@@ -3,18 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Eccezioni.EccezioniLibri;
+package Eccezioni.EccezioniAutenticazione;
 
 /**
  *
- * @author chiara
+ * @author jackross
  */
-public class ISBNException extends EccezioniLibro{
-    public ISBNException(){
-        
+public abstract class EccezioneAutenticazione extends Exception {
+    public EccezioneAutenticazione(){
     }
     
-    public ISBNException(String msg){
+    public EccezioneAutenticazione(String msg){
         super(msg);
     }
 }

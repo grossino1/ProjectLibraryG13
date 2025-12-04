@@ -9,9 +9,8 @@ package Eccezioni.EccezioniUtente;
  *
  * @author jackross
  */
-public class EccezioniUtente extends Exception{
-    public EccezioniUtente(){
-        
+public abstract class EccezioniUtente extends Exception{
+    public EccezioniUtente(){  
     }
     
     public EccezioniUtente(String msg){

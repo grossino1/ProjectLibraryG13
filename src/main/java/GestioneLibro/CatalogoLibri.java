@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.ArrayList;
 import java.util.Comparator;
+import Eccezioni.EccezioniLibri.ISBNNotValidException;
 /**
  *
  * @author chiara
@@ -19,12 +20,12 @@ public class CatalogoLibri {
     private Set<Libro> catalogoLibri;
 
     public CatalogoLibri() {
-        catalogoLibri = new TreeSet<>();
+        catalogoLibri = new TreeSet<> ();
     }
 
-    public void registrazioneLibro(Libro l) {
+    public void registrazioneLibro(Libro l) throws ISBNNotValidException {
         if(catalogoLibri.add(l)){
-            throw new LibroPresenteException("");
+            throw new ISBNNotValidException("");
         }
     }
 

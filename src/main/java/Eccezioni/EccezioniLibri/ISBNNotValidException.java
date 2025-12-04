@@ -3,12 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GUI.GUI_Utente;
+package Eccezioni.EccezioniLibri;
 
 /**
  *
  * @author chiara
  */
-public class ViewUtente {
+public class ISBNNotValidException extends EccezioniLibro{
+    public ISBNNotValidException(){
+        
+    }
     
+    public ISBNNotValidException(String msg){
+        super(msg);
+    }
 }
