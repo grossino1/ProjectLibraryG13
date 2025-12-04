@@ -46,7 +46,7 @@ public class CatalogoLibri {
         // Ritorna ArrayList perché ci possono essere libri con lo stesso titolo
     }
 
-    public ArrayList<Libro> getListaCatalogoLibri() {
+    public ArrayList<Libro> getCatalogoLibri() {
         // restituisce una lista contenente tutti i libri del catalogo
         return new ArrayList<>(catalogoLibri);
     }
