@@ -3,18 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Eccezioni.EccezioniUtente;
+package Eccezioni.EccezioniUtenti;
 
 /**
  *
- * @author chiara
+ * @author jackross
  */
-public class MatricolaException extends EccezioniUtente{
-    public MatricolaException(){
-        
+public abstract class EccezioniUtente extends Exception{
+    public EccezioniUtente(){  
     }
     
-    public MatricolaException(String msg){
+    public EccezioniUtente(String msg){
         super(msg);
     }
 }

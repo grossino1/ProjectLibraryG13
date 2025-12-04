@@ -3,19 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package SalvataggioFile;
+package Eccezioni.EccezioniUtenti;
 
 /**
  *
  * @author chiara
  */
-public class File {
-    
-    public <T> void salva(T dati, String filename){
-               
+public class MatricolaException extends EccezioniUtente{
+    public MatricolaException(){
+        
     }
     
-    public static <T> T carica(String filename){
-        return null;
+    public MatricolaException(String msg){
+        super(msg);
     }
 }
