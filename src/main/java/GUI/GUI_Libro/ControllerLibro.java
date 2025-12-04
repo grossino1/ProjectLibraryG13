@@ -56,7 +56,7 @@ public class ControllerLibro {
     
     @FXML
     void handleGestioneUtenti(ActionEvent event) {
-        //permette di passare alla schermata per la gesione degli utenti
+        //permette di passare alla schermata per la gestione degli utenti
         //da implemetare con switchScene
         //scheletro
     }

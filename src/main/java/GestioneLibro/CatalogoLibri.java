@@ -24,9 +24,7 @@ public class CatalogoLibri {
     }
 
     public void registrazioneLibro(Libro l) throws ISBNNotValidException {
-        if(catalogoLibri.add(l)){
-            throw new ISBNNotValidException("");
-        }
+        //scheletro
     }
 
     public void eliminazioneLibro(Object l) {
