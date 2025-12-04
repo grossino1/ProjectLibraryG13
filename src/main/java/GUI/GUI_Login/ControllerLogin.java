@@ -28,71 +28,22 @@ public class ControllerLogin {
     @FXML
     private Button btnLogin;
 
-    //Metodo chiamato automaticamente da JavaFX quando si clicca il bottone "ACCEDI".
     @FXML
     void handleLoginAction(ActionEvent event) {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
-
-        // Controllo campi vuoti
-        if (username.isEmpty() || password.isEmpty()) {
-            mostraAlert(Alert.AlertType.WARNING, "Campi mancanti", "Per favore inserisci username e password.");
-            return;
-        }
-
-        // 2. Verifica Credenziali (Simulazione connessione al Model)
-        // boolean accessoConsentito = autenticazioneService.login(username, password);
-        
-        // --- SIMULAZIONE PER TEST (Rimuovi questo if/else quando colleghi il vero Model) ---
-        boolean accessoConsentito = "admin".equals(username) && "1234".equals(password);
-        // ----------------------------------------------------------------------------------
-
-        if (accessoConsentito) {
-            System.out.println("Login effettuato con successo!");
-            apriDashboard(event);
-        } else {
-            mostraAlert(Alert.AlertType.ERROR, "Errore Login", "Username o password non corretti.");
-        }
+        //gestore dell'evento quanto viene premuto il bottone login
+        //scheletro
     }
 
     /**
-     * Chiude la finestra di Login e apre la MainDashboard
+     * Chiude la finestra di Login e apre la DashBoard del CatalogoLibri
      */
-    private void apriDashboard(ActionEvent event) {
-        try {
-            // Carica la vista della Dashboard (assicurati che il percorso sia corretto)
-            // Se la Dashboard è in un altro package, aggiusta il path, es: "/GUI/MainDashboard.fxml"
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/GUI_DashBoard/DashBoardView.fxml")); 
-            Parent root = loader.load();
-
-            // Ottieni lo Stage (finestra) attuale dal bottone che è stato cliccato
-            Stage stageAttuale = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            
-            // Opzione A: Chiudi login e apri nuova finestra
-            // stageAttuale.close();
-            // Stage nuovoStage = new Stage();
-            // nuovoStage.setScene(new Scene(root));
-            // nuovoStage.setMaximized(true);
-            // nuovoStage.show();
-
-            // Opzione B (Consigliata): Cambia semplicemente la scena nella stessa finestra
-            Scene dashboardScene = new Scene(root);
-            stageAttuale.setScene(dashboardScene);
-            stageAttuale.setMaximized(true); // Assicura che si apra a tutto schermo
-            stageAttuale.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            mostraAlert(Alert.AlertType.ERROR, "Errore Critico", "Impossibile caricare la Dashboard: " + e.getMessage());
-        }
+    private void switchScene(ActionEvent event) {
+        //permette di cambiare scena
+        //scheletro        
     }
 
-    // Metodo pop-up di alert
+        // Metodo pop-up di alert
     private void mostraAlert(Alert.AlertType type, String title, String content) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
+        //scheletro
     }
 }

@@ -5,6 +5,7 @@
  */
 package GUI.GUI_Utente;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 /**
@@ -16,4 +17,60 @@ public class ControllerUtente {
     private void initialize(){
         //scheletro del metodo
     }
+    @FXML
+    void handleAggiungiUtente(ActionEvent event){
+        //chiama un metodo che permette di aggiungere un prestito nella
+        //lista dei prestiti e aggiorna la vista del catalogo
+        //scheletro
+    }
+    
+    @FXML 
+    void switchScene(ActionEvent event, String fxmlPath){
+        //permette di cambiare scena in base al pulsante cliccato e al path fornito in fxmlPath
+        //si potrebbe effettuare un salvataggio dei dati prima del passaggio
+        //scheletro
+    }
+    
+    @FXML
+    void handleCatalogoLibri(ActionEvent event) {
+        //permette di passare alla schermata del catalogo dei libri
+        //da implemetare con switchScene
+        //scheletro
+    }
+    
+    @FXML
+    void handlePrestiti(ActionEvent event) {
+        //permette di passare alla schermata per la gesione degli utenti
+        //da implemetare con switchScene
+        //scheletro
+    }
+    
+    @FXML
+    void handleModifyUtente(ActionEvent event){
+        //permette di modificare il modificare selezionato tramite handleSelectedLibro
+        //scheletro
+    }
+    
+    @FXML
+    void handleRemoveUtente(ActionEvent event){
+        //permette di rimuovere il prestito selezionato tramite handleSelectedLibro
+        //scheletro
+    }
+    
+    @FXML
+    void handleLogout(ActionEvent event) {
+        //permette di passare alla schermata del login
+        //da implemetare con switchScene
+        //scheletro
+    }
+    
+    void handleSortMostRecent(ActionEvent event){
+        //permette di ordinare la lista degli utenti 
+        //scheletro
+    }
+    
+    private void showError(String msg){
+        //crea un alert
+    }
+    
 }
