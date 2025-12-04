@@ -19,8 +19,18 @@ public class ListaUtenti {
     public ListaUtenti(){
         listaUtenti = new TreeSet<>();
     }
-
-     public void registrazioneUtente(Utente u) {
+    
+    // METODO FONDAMENTALE PER IL PRESTITO
+    public Utente getUtenteByMatricola(String matricola) {
+        for (Utente u : listaUtenti) {
+            if (u.getMatricola().equals(matricola)) {
+                return u;
+            }
+        }
+        return null;
+    }
+    
+    public void registrazioneUtente(Utente u) {
         // scheletro
     }
 
