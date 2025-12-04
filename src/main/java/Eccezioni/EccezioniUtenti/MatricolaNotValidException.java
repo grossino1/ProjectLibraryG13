@@ -9,12 +9,12 @@ package Eccezioni.EccezioniUtenti;
  *
  * @author chiara
  */
-public class MatricolaException extends EccezioniUtente{
-    public MatricolaException(){
+public class MatricolaNotValidException extends EccezioniUtente{
+    public MatricolaNotValidException(){
         
     }
     
-    public MatricolaException(String msg){
+    public MatricolaNotValidException(String msg){
         super(msg);
     }
 }

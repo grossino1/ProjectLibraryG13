@@ -123,9 +123,8 @@
                 <TableColumn fx:id="colIdPrestito" prefWidth="50.0" text="ID" />
                 <TableColumn fx:id="colLibro" prefWidth="200.0" text="Libro (Titolo)" />
                 <TableColumn fx:id="colUtente" prefWidth="150.0" text="Utente (Matricola)" />
-                <TableColumn fx:id="colDataInizio" prefWidth="120.0" text="Data Inizio" />
                 <TableColumn fx:id="colDataScadenza" prefWidth="120.0" text="Data Scadenza" />
-                <TableColumn fx:id="colStato" prefWidth="100.0" style="-fx-alignment: CENTER;" text="Stato" />
+                <!--<TableColumn fx:id="colStato" prefWidth="100.0" style="-fx-alignment: CENTER;" text="Stato" />-->
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

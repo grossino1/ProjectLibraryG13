@@ -6,13 +6,14 @@
 package GestioneUtente;
 import java.util.ArrayList;
 import GestionePrestito.Prestito;
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.List;
 /**
  *
  * @author chiara
  */
-public class Utente implements Comparable<Utente>{
+public class Utente implements Comparable<Utente>, Serializable{
     private String nome;
     private String cognome;
     private String matricola;

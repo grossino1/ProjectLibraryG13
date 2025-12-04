@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 package GestioneLibro;
+import java.io.Serializable;
 
 /**
  *
  * @author chiara
  */
 
-public class Libro implements Comparable<Libro> {
+public class Libro implements Comparable<Libro>, Serializable {
 
     private String titolo;
     private String autori;
