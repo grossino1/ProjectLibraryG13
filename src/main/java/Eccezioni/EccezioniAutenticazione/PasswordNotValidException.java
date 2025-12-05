@@ -1,19 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Eccezioni.EccezioniAutenticazione;
 
 /**
+ * @class PasswordNotValidException
+ * @brief Eccezione lanciata quando una password non rispetta i criteri di validità.
+ *
+ * Questa eccezione segnala che la stringa fornita come password non è accettabile.
+ *
+ * @see EccezioneAutenticazione
  *
  * @author mello
+ * @version 1.0
  */
-public class PasswordNotValidException extends EccezioneAutenticazione{
+
+public class PasswordNotValidException extends EccezioneAutenticazione {
+
+    /**
+     * @brief Costruttore di default.
+     *
+     * Inizializza l'eccezione senza un messaggio di dettaglio specifico.
+     */
     public PasswordNotValidException() {
     }
    
-    public PasswordNotValidException(String msg) {
-        super(msg);
-    }
+    /**
+     * @brief Costruttore con messaggio di errore.
+     *
+     * @param[in] msg La descrizione del motivo per cui la password non è valida (es. "Lunghezza insufficiente").
+     */
 }

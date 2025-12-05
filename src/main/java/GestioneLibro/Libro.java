@@ -1,21 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GestioneLibro;
+
 import java.io.Serializable;
 
 /**
  * @class Libro
- * @brief Rappresenta un libro all'interno del sistema di gestione bibliotecaria.
+ * @brief Rappresenta l'entità libro all'interno del sistema di gestione bibliotecaria.
+ * 
+ * Questa classe gestisce i dati del libro e mantiene lo stato attuale del numero di copie ancora disponibili.
  *
  * @invariant numeroCopie >= 0 (Il numero di copie non può mai essere negativo).
  * @invariant isbn != null (Ogni libro deve avere un codice ISBN).
  * 
  * @see java.io.Serializable
  *
- * @author chiara
+ * @author grossino1
  * @version 1.1
  */
 
@@ -49,65 +47,76 @@ public class Libro implements Comparable<Libro>, Serializable {
     
     /**
      * @brief Restituisce il titolo del libro.
+     * 
      * @return Il titolo corrente.
      */
     public String getTitolo() { return null; }
     
     /**
      * @brief Imposta il titolo del libro.
+     * 
      * @param[in] titolo La stringa del nuovo titolo.
      */
     public void setTitolo(String titolo) {}
 
     /**
      * @brief Restituisce gli autori che hanno scritto il libro.
+     * 
      * @return Gli autori del libro.
      */
     public String getAutori() { return null; }
     
     /**
      * @brief Imposta gli autori che hanno scritto il libro.
+     * 
      * @param[in] autori La stringa degli autori.
      */
     public void setAutori(String autori) {}
 
     /**
      * @brief Restituisce l'anno di pubblicazione del libro.
+     * 
      * @return L'anno di publicazione.
      */
     public int getAnnoPubblicazione() { return 0; }
     
     /**
      * @brief Imposta l'anno di pubblicazione del libro.
+     * 
      * @param[in] annoPubblicazione Un intero dell'anno di pubblicazione
      */
     public void setAnnoPubblicazione(int annoPubblicazione) {}
 
     /**
      * @brief Restituisce il codice ISBN.
+     * 
      * @return Il codice ISBN.
      */
     public String getIsbn() { return null; }
     
     /**
      * @brief Imposta il codice ISBN.
+     * 
      * @pre isbn != null (L'ISBN non può essere nullo).
-     * @post L'ISBN dell'oggetto è aggiornato.
-     * @see #hashCode() Se l'ISBN cambia, cambia anche l'hash.
+     * 
      * @param[in] isbn Il nuovo codice ISBN.
+     * 
+     * @see #hashCode() Se l'ISBN cambia, cambia anche l'hash.
      */
     public void setIsbn(String isbn) {}
 
     /**
      * @brief Restituisce il numero di copie.
+     * 
      * @return Intero rappresentante le copie.
      */
     public int getNumeroCopie() { return 0; }
     
     /**
      * @brief Imposta manualmente il numero di copie.
+     * 
      * @pre numeroCopie >= 0 (Non sono ammesse quantità negative).
-     * @post Il campo numeroCopie viene aggiornato al valore di input.
+     * 
      * @param[in] numeroCopie La nuova quantità di copie.
      */
     public void setNumeroCopie(int numeroCopie) {}
@@ -116,12 +125,14 @@ public class Libro implements Comparable<Libro>, Serializable {
     
     /**
      * @brief Incrementa di una unità il numero di copie.
+     * 
      * @post numeroCopie == old_numeroCopie + 1
      */
     public void incrementaCopiaLibro(){}
     
     /**
      * @brief Decrementa di una unità il numero di copie.
+     * 
      * @pre numeroCopie > 0 (Deve esserci almeno una copia disponibile per decrementare).
      * @post numeroCopie == old_numeroCopie - 1
      */
@@ -129,29 +140,33 @@ public class Libro implements Comparable<Libro>, Serializable {
     
     /**
      * @brief Genera l'hash code basato su ISBN.
-     * @see #equals(Object) Utilizzato per la coerenza con equals.
+     * 
      * @return Codice hash univoco per ISBN.
+     * 
+     * @see #equals(Object) Utilizzato per la coerenza con equals.
      */
     @Override
     public int hashCode() { return 0; }
     
     /**
-     * @brief Confronta due libri per uguaglianza.
+     * @brief Confronta due libri per ISBN, evitando duplicati nel catalogo.
+     * 
      * @param[in] obj L'oggetto da confrontare.
      * @return true se gli ISBN coincidono, false altrimenti.
+     * 
      * @see #hashCode()
      */
-    // equals: confronta due libri per ISBN, evitando duplicati nel catalogo
     @Override
     public boolean equals(Object obj) { return false; }
     
     /**
-     * @brief Ordina i libri per titolo.
+     * @brief Ordina i libri per titolo (ordinamento naturale).
+     * 
      * @pre other != null
-     * @param[in] other Il libro con cui confrontare l'istanza corrente.
+     * 
+     * @param[in] other Il libro da confrontare.
      * @return < 0 se this < other, 0 se uguali, > 0 se this > other.
-     */
-    // compareTo: ordinamento naturale dei libri per titolo
+     */ 
     @Override
     public int compareTo(Libro other) { return 0; }
 
