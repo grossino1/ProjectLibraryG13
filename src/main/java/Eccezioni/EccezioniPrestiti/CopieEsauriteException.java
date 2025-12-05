@@ -9,6 +9,11 @@ package Eccezioni.EccezioniPrestiti;
  *
  * @author mello
  */
-public class CopieEsauriteException {
+public class CopieEsauriteException extends EccezioniPrestito{
+    public CopieEsauriteException() {
+    }
     
+    public CopieEsauriteException(String msg){
+        super(msg);
+    }
 }

@@ -6,6 +6,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -14,11 +16,16 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.GUI_Libro.CatalogoLibriViewController">
 
    <left>
-      <VBox prefHeight="600.0" prefWidth="220.0" spacing="10.0" style="-fx-background-color: #2c3e50;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="600.0" prefWidth="350.0" spacing="10.0" style="-fx-background-color: #2c3e50;" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="80.0" prefWidth="200.0">
                <children>
-                  <Label text="LIBRERIA G13" textFill="WHITE">
+                  <ImageView fitHeight="59.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../../Desktop%20SSD/unisa/logo_standard.png" />
+                     </image>
+                  </ImageView>
+                  <Label text=" LIBRERIA G13" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -91,7 +98,7 @@
                   <Label text="Ordina per:" textFill="#7f8c8d" />
                   <Button fx:id="handleSortTitolo" layoutX="20.0" layoutY="20.0" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" text="Titolo" />
                   <Button fx:id="handleSortAnno" layoutX="379.0" layoutY="20.0" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" text="Anno" />
-                  <TextField promptText="Cerca per titolo..." layoutX="379.0" layoutY="20.0" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;"/>
+                  <TextField layoutX="379.0" layoutY="20.0" promptText="Cerca per titolo..." style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" />
                </children>
             </HBox>
 
