@@ -35,21 +35,21 @@ public class GestorePrestito {
 
         // Controllo preliminare se esistono
         if (libro == null || utente == null) {
-            System.out.println("Errore: Libro o Utente non trovato.");
+            System.err.println("Errore: Libro o Utente non trovato.");
             return false;
         }
 
         // 2. Controllo disponibilità copie del Libro
         // Ipotizzo un metodo in Libro o GestoreLibri che mi dica le copie
         if (libro.getNumeroCopie()< 1) {
-            System.out.println("Errore: Nessuna copia disponibile per il libro " + libro.getTitolo());
+            System.err.println("Errore: Nessuna copia disponibile per il libro " + libro.getTitolo());
             return false;
         }
 
         // 3. Controllo numero di prestiti dell'Utente
     
         if (utente.getListaPrestiti().size() >= 3) {
-            System.out.println("Errore: L'utente " + utente.getNome() + " ha già 3 prestiti attivi.");
+            System.err.println("Errore: L'utente " + utente.getNome() + " ha già 3 prestiti attivi.");
             return false;
         }
 
