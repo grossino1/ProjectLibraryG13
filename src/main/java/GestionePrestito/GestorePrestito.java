@@ -100,4 +100,35 @@ public class GestorePrestito {
         // 4. Se tutti i controlli passano, torno true e aggiungo il numero di copie ed il libro alla lista della matricola....
         return true;
     }
+    
+    /**
+     * @brief Quando un prestito termina (viene eliminato dall'elenco prestiti) la copia del libro relativo viene aumentata
+     *
+     * @pre ISBN != null && !ISBN.isEmpty()
+     * @post Il numero delle copie del libro è aumentato di 1.
+     * 
+     * @param[in] ISBN Il codice del libro restituito.
+     */
+    public void aggiungiCopiaPrestitoLibro(String ISBN) {
+        
+        Libro libro = catalogo.getLibroByISBN(ISBN);
+        libro.setNumeroCopie(libro.getNumeroCopie()+1);
+    }
+    
+    /**
+     * @brief Quando un prestito termina (viene eliminato dall'elenco prestiti) il prestito viene eliminato dalla lista dell'utente che lo ha terminato.
+     *
+     * @pre matricola != null && !matricola.isEmpty()
+     * @pre p != null
+     * @post Il numero delle copie del libro è aumentato di 1.
+     * 
+     * @param[in] matricola La matricola dell'utente cha ha restituito il libro.
+     * @param[in] p Il prestito che l'utente ha appena terminato.
+     * 
+     */
+    public void rimuoviPrestitoListaUtente(String matricola, Prestito p) {
+    
+        Utente utente = utenti.getUtenteByMatricola(matricola);
+        utente.rimuoviPrestito(p);
+    }
 }
