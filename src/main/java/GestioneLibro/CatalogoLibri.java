@@ -83,7 +83,7 @@ public class CatalogoLibri {
     public void registrazioneLibro(Libro l) throws ISBNNotValidException {
         // scheletro: qui andrebbe la logica di validazione prima dell'add
         // if (!isValid(l.getIsbn())) throw new ISBNNotValidException();
-        // catalogoLibri.add(l);
+        catalogoLibri.add(l);
     }
 
     /**

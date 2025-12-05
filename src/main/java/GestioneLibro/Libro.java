@@ -43,6 +43,11 @@ public class Libro implements Comparable<Libro>, Serializable {
     
     public Libro(String titolo, String autori, int annoPubblicazione, String isbn, int numeroCopie) {
         // corpo vuoto (scheletro)
+        this.titolo = titolo;
+        this.autori = autori;
+        this.annoPubblicazione = annoPubblicazione;
+        this.isbn = isbn;
+        this.numeroCopie = numeroCopie;
     }
 
     // Getter e Setter
@@ -51,7 +56,7 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @brief Restituisce il titolo del libro.
      * @return Il titolo corrente.
      */
-    public String getTitolo() { return null; }
+    public String getTitolo() { return titolo; }
     
     /**
      * @brief Imposta il titolo del libro.
@@ -63,7 +68,7 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @brief Restituisce gli autori che hanno scritto il libro.
      * @return Gli autori del libro.
      */
-    public String getAutori() { return null; }
+    public String getAutori() { return autori; }
     
     /**
      * @brief Imposta gli autori che hanno scritto il libro.
@@ -75,7 +80,7 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @brief Restituisce l'anno di pubblicazione del libro.
      * @return L'anno di publicazione.
      */
-    public int getAnnoPubblicazione() { return 0; }
+    public int getAnnoPubblicazione() { return annoPubblicazione; }
     
     /**
      * @brief Imposta l'anno di pubblicazione del libro.
@@ -87,7 +92,7 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @brief Restituisce il codice ISBN.
      * @return Il codice ISBN.
      */
-    public String getIsbn() { return null; }
+    public String getIsbn() { return isbn; }
     
     /**
      * @brief Imposta il codice ISBN.
@@ -102,7 +107,7 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @brief Restituisce il numero di copie.
      * @return Intero rappresentante le copie.
      */
-    public int getNumeroCopie() { return 0; }
+    public int getNumeroCopie() { return numeroCopie; }
     
     /**
      * @brief Imposta manualmente il numero di copie.
