@@ -182,6 +182,15 @@ public class CatalogoLibriViewController implements Initializable {
         //scheletro
     }
     
+    /**
+     * @brief Aggiorna la tabella dei libri sincronizzandola con il catalogo.
+     *
+     * Questo metodo svuota la lista visualizzata nella TableView e la ripopola
+     * recuperando tutti i libri presenti nel catalogo. Serve per riflettere
+     * visivamente eventuali modifiche (come nuove aggiunte o rimozioni).
+     *
+     * @post La lista visibile (libroList) contiene esattamente gli elementi attuali di catalogoLibri.
+     */    
     @FXML
     void refreshTable(){
         libroList.clear(); // 1. Cancella i dati vecchi dalla vista
@@ -203,7 +212,7 @@ public class CatalogoLibriViewController implements Initializable {
         //si potrebbe effettuare un salvataggio dei dati prima del passaggio
         //scheletro
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(filePath));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
             
             Stage stageAttuale = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -321,6 +330,15 @@ public class CatalogoLibriViewController implements Initializable {
         //scheletro
     }
     
+    /**
+     * @brief Mostra una finestra di dialogo (Pop-up) all'utente.
+     *
+     * Utility per visualizzare messaggi di errore, avvisi o conferme in modo modale.
+     *
+     * @param[in] type Il tipo di alert (es. ERROR, INFORMATION, WARNING).
+     * @param[in] title Il titolo della finestra di dialogo.
+     * @param[in] content Il messaggio principale da visualizzare.
+     */
     private void showAlert(Alert.AlertType type, String title, String content) {
         //scheletro
         Alert alert = new Alert(type);
