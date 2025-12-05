@@ -1,7 +1,13 @@
 package GUI.GUI_Prestito;
 
+import GestioneLibro.CatalogoLibri;
+import GestionePrestito.ElencoPrestiti;
+import GestionePrestito.Prestito;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * @class GestionePrestitiViewController
@@ -49,21 +56,22 @@ public class GestionePrestitiViewController implements Initializable {
      * Tabella per la visualizzazione dei prestiti.
      */
     @FXML
-    private TableView<?> tabellaPrestiti;
+    private TableView<Prestito> tabellaPrestiti;
     
     // Colonne della tabella
     @FXML
-    private TableColumn<?, ?> colIdPrestito;
+    private TableColumn<Prestito, String> colIdPrestito;
     @FXML
-    private TableColumn<?, ?> colLibro;
+    private TableColumn<Prestito, String> colLibro;
     @FXML
-    private TableColumn<?, ?> colUtente;
+    private TableColumn<Prestito, String> colUtente;
     @FXML
-    private TableColumn<?, ?> colDataInizio;
-    @FXML
-    private TableColumn<?, ?> colDataScadenza;
+    private TableColumn<Prestito, LocalDate> colDataScadenza;
     @FXML
     private TableColumn<?, ?> colStato;
+    
+    private ObservableList<Prestito> prestitoList;
+    private ElencoPrestiti elencoPrestiti;
 
     /**
      * @brief Inizializza il controller.
@@ -76,7 +84,16 @@ public class GestionePrestitiViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        prestitoList = FXCollections.observableArrayList();
+        tabellaPrestiti.setItems(prestitoList);
+        //elencoPrestiti= new ElencoPrestiti();
+        
+        colIdPrestito.setCellValueFactory(new PropertyValueFactory<>("IDPrestito"));
+        colLibro.setCellValueFactory(new PropertyValueFactory<>("ISBNLibro"));
+        colUtente.setCellValueFactory(new PropertyValueFactory<>("matricolaUtente"));
+        colDataScadenza.setCellValueFactory(new PropertyValueFactory<>("dataRestituzione"));
+        colStato.setCellValueFactory(new PropertyValueFactory<>(""));
+    
     }     
     
     /**

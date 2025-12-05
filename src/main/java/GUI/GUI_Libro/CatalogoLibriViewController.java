@@ -133,6 +133,7 @@ public class CatalogoLibriViewController implements Initializable {
                     TextField numeroCopie = (TextField) child.lookup("#txtNCopie");
             
                     catalogoLibri.registrazioneLibro(new Libro(titolo.getText(), autore.getText(), Integer.parseInt(anno.getText()), isbn.getText(), Integer.parseInt(numeroCopie.getText())));
+                    System.err.println(catalogoLibri.toString());
                     refreshTable();
                     aggiungiLibroStage.close();
                 } catch (NumberFormatException ex) {

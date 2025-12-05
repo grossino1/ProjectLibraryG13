@@ -186,5 +186,8 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @return Una stringa contenente la descrizione completa del libro.
      */
     @Override
-    public String toString() { return ""; }
+    public String toString() {
+        return "ISBN: " + isbn + " | Titolo: " + titolo + " | Autori: " + autori + 
+               " (" + annoPubblicazione + ") | Copie disp: " + numeroCopie;
+    }
 }

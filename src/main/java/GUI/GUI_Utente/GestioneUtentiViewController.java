@@ -1,7 +1,12 @@
 package GUI.GUI_Utente;
 
+import GestioneUtente.ListaUtenti;
+import GestioneUtente.Utente;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * @class GestioneUtentiViewController
@@ -51,20 +57,22 @@ public class GestioneUtentiViewController implements Initializable {
      * Tabella per la visualizzazione degli utenti registrati.
      */
     @FXML
-    private TableView<?> tabellaUtenti;
+    private TableView<Utente> tabellaUtenti;
     
     // Colonne della tabella
     @FXML
-    private TableColumn<?, ?> colTessera;       // Corrisponde alla Matricola
+    private TableColumn<Utente, String> colTessera;       // Corrisponde alla Matricola
     @FXML
-    private TableColumn<?, ?> colNome;
+    private TableColumn<Utente, String> colNome;
     @FXML
-    private TableColumn<?, ?> colCognome;
+    private TableColumn<Utente, String> colCognome;
     @FXML
-    private TableColumn<?, ?> colEmail;
+    private TableColumn<Utente, String> colEmail;
     @FXML
-    private TableColumn<?, ?> colNPrestitiAttivi; // Contatore prestiti correnti
+    private TableColumn<Utente, Integer> colNPrestitiAttivi; // Contatore prestiti correnti
 
+    private ObservableList<Utente> utenteList;
+    private ListaUtenti listaUtenti;
     /**
      * @brief Inizializza il controller.
      *
@@ -76,7 +84,17 @@ public class GestioneUtentiViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        utenteList = FXCollections.observableArrayList();
+        tabellaUtenti.setItems(utenteList);
+        listaUtenti = new ListaUtenti();;
+        
+        colTessera.setCellValueFactory(new PropertyValueFactory<>("matricola"));
+        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colCognome.setCellValueFactory(new PropertyValueFactory<>("cognome"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("emailIstituzionale"));
+        colNPrestitiAttivi.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getListaPrestiti().size()).asObject()
+);
+    
     }     
 
     /**

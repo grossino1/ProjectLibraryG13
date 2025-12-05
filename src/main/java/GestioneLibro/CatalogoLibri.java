@@ -72,8 +72,8 @@ public class CatalogoLibri {
      */
     public void registrazioneLibro(Libro l) throws ISBNNotValidException {
         // scheletro: qui andrebbe la logica di validazione prima dell'add
-        // if (!isValid(l.getIsbn())) throw new ISBNNotValidException();
-        catalogoLibri.add(l);
+        if (!catalogoLibri.add(l))
+            throw new ISBNNotValidException();
     }
 
     /**
@@ -147,7 +147,19 @@ public class CatalogoLibri {
      * @return Una stringa contenente la descrizione completa del catalogo.
      */
     @Override
-    public String toString(){
-        return "";
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("=== Catalogo Libri ===\n");
+
+        if (catalogoLibri.isEmpty()) {
+            sb.append("Il catalogo è attualmente vuoto.\n");
+        } else {
+            for (Libro l : catalogoLibri) {
+                sb.append(l.toString()).append("\n");
+                sb.append("----------------------\n");
+            }
+        }
+        
+        return sb.toString();
     }
 }
