@@ -70,6 +70,8 @@ public class Bibliotecario {
     public boolean login(String user, String pass){
         // Logica fittizia dello scheletro: return true
         // Logica reale: return this.username.equals(user) && this.password.equals(pass);
-        return true;
+        if (user == null || pass == null)
+            return false;
+        else return this.username.equals(user) && this.password.equals(pass);
     }
 }
