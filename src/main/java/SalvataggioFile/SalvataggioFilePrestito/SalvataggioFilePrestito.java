@@ -1,6 +1,6 @@
 package SalvataggioFile.SalvataggioFilePrestito;
 
-import GestionePrestito.Prestito;
+import GestionePrestito.ElencoPrestiti;
 
 /**
  * @class SalvataggioFilePrestito
@@ -29,10 +29,10 @@ public class SalvataggioFilePrestito {
      * @pre filename != null && !filename.isEmpty() (Il nome del file deve essere valido).
      * @post Viene creato o aggiornato un file contenente i dati dei prestiti.
      *
-     * @param[in] dati L'oggetto Prestito da serializzare.
-     * @param[in] filename Il percorso o nome del file di destinazione.
+     * @param[in] dati: L'oggetto ElencoPrestiti da serializzare.
+     * @param[in] filename: Il percorso o nome del file di destinazione.
      */
-    public void salva(Prestito dati, String filename){
+    public void salva(ElencoPrestiti dati, String filename){
      
     }
     
@@ -45,10 +45,10 @@ public class SalvataggioFilePrestito {
      * @post Restituisce un oggetto Prestito valido se la lettura ha successo.
      * @post Restituisce null se il file non esiste o la deserializzazione fallisce.
      *
-     * @param[in] filename Il percorso del file da leggere.
-     * @return L'istanza del Prestito recuperata, oppure null in caso di errore.
+     * @param[in] filename: Il percorso del file da leggere.
+     * @return L'istanza di ElencoPrestiti recuperata, oppure null in caso di errore.
      */
-    public static Prestito carica(String filename){
+    public static ElencoPrestiti carica(String filename){
         return null;
     }
 }

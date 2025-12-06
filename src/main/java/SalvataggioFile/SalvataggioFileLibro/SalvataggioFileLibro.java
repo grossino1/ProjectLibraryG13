@@ -1,6 +1,6 @@
 package SalvataggioFile.SalvataggioFileLibro;
 
-import GestioneLibro.Libro;
+import GestioneLibro.CatalogoLibri;
 
 /**
  * @class SalvataggioFileLibro
@@ -29,10 +29,10 @@ public class SalvataggioFileLibro {
      * @pre filename != null && !filename.isEmpty() (Il nome del file deve essere valido).
      * @post Viene creato o aggiornato un file contenente i dati dei libri.
      *
-     * @param[in] dati L'oggetto Libro da serializzare.
-     * @param[in] filename Il percorso o nome del file di destinazione (es. "libro.dat").
+     * @param[in] dati: L'oggetto CatalogoLibri da serializzare.
+     * @param[in] filename: Il percorso o nome del file di destinazione (es. "libro.dat").
      */
-    public void salva(Libro dati, String filename){
+    public void salva(CatalogoLibri dati, String filename){
         // scheletro: qui andrebbe new ObjectOutputStream(new FileOutputStream(filename))...
     }
     
@@ -45,10 +45,10 @@ public class SalvataggioFileLibro {
      * @post Restituisce un oggetto Libro valido se la lettura ha successo.
      * @post Restituisce null se il file non esiste o la deserializzazione fallisce.
      *
-     * @param[in] filename Il percorso del file da leggere.
-     * @return L'istanza di Libro recuperata, oppure null in caso di errore.
+     * @param[in] filename: Il percorso del file da leggere.
+     * @return L'istanza di CatalogoLibri recuperata, oppure null in caso di errore.
      */
-    public static Libro carica(String filename){
+    public static CatalogoLibri carica(String filename){
         return null;
     }
 }

@@ -5,7 +5,7 @@
  */
 package SalvataggioFile.SalvataggioFileUtente;
 
-import GestioneUtente.Utente;
+import GestioneUtente.ListaUtenti;
 
 /**
  * @class SalvataggioFileUtente
@@ -34,10 +34,10 @@ public class SalvataggioFileUtente {
      * @pre filename != null && !filename.isEmpty() (Il nome del file deve essere valido).
      * @post Viene creato o aggiornato un file contenente i dati degli utenti.
      *
-     * @param[in] dati L'oggetto Utente da serializzare.
-     * @param[in] filename Il percorso o nome del file di destinazione.
+     * @param[in] dati: L'oggetto Utente da serializzare.
+     * @param[in] filename: Il percorso o nome del file di destinazione.
      */
-     public void salva(Utente dati, String filename){
+     public void salva(ListaUtenti dati, String filename){
                
     }
     
@@ -50,10 +50,10 @@ public class SalvataggioFileUtente {
      * @post Restituisce un oggetto Utente valido se la lettura ha successo.
      * @post Restituisce null se il file non esiste o la deserializzazione fallisce.
      *
-     * @param[in] filename Il percorso del file da leggere.
-     * @return L'istanza dell'Utente recuperata, oppure null in caso di errore.
+     * @param[in] filename: Il percorso del file da leggere.
+     * @return L'istanza di ListaUtenti recuperata, oppure null in caso di errore.
      */
-    public static Utente carica(String filename){
+    public static ListaUtenti carica(String filename){
         return null;
     }
 }
