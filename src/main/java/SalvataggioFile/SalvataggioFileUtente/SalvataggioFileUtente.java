@@ -34,7 +34,7 @@ public class SalvataggioFileUtente {
      * @pre filename != null && !filename.isEmpty() (Il nome del file deve essere valido).
      * @post Viene creato o aggiornato un file contenente i dati degli utenti.
      *
-     * @param[in] dati: L'oggetto Utente da serializzare.
+     * @param[in] dati: L'oggetto ListaUtenti da serializzare.
      * @param[in] filename: Il percorso o nome del file di destinazione.
      */
      public void salva(ListaUtenti dati, String filename){
