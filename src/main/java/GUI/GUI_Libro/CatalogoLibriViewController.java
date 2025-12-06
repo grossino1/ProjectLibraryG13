@@ -40,7 +40,7 @@ import javafx.stage.Stage;
  * @version 1.0
  */
 
-public class GestioneLibriViewController implements Initializable {
+public class CatalogoLibriViewController implements Initializable {
 
     @FXML
     private Button handleAggiungiLibro;

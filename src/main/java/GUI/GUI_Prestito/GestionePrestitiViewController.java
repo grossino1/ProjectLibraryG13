@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -230,13 +231,21 @@ public class GestionePrestitiViewController implements Initializable {
         //permette di ordinare la lista dei prestiti dal meno recente
         //scheletro
     }
-    
     /**
-     * @brief Mostra un messaggio di errore all'utente.
-     * 
-     * @param[in] msg Il contenuto del messaggio di errore.
+     * @brief Mostra una finestra di dialogo (Pop-up) all'utente.
+     *
+     * Utility per visualizzare messaggi di errore, avvisi o conferme in modo modale.
+     *
+     * @param[in] type Il tipo di alert (es. ERROR, INFORMATION, WARNING).
+     * @param[in] title Il titolo della finestra di dialogo.
+     * @param[in] content Il messaggio principale da visualizzare.
      */
-    private void showError(String msg){
-        //crea un alert
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        //scheletro
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }
