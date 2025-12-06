@@ -67,7 +67,7 @@ public class CatalogoLibri {
      * @post catalogoLibri.contains(l) == true.
      * @post size() >= old_size().
      *
-     * @param[in] l L'oggetto Libro da aggiungere.
+     * @param[in] l: L'oggetto Libro da aggiungere.
      * @throws ISBNNotValidException Se il libro ha un formato ISBN non valido.
      */
     public void registrazioneLibro(Libro l) throws ISBNNotValidException {
@@ -83,7 +83,7 @@ public class CatalogoLibri {
      * @post Il libro specificato non è più presente nel catalogo.
      * @post Se il libro non c'è, il catalogo resta invariato.
      *
-     * @param[in] l L'oggetto Libro da rimuovere.
+     * @param[in] l: L'oggetto Libro da rimuovere.
      */
     public void eliminazioneLibro(Libro l) {
         catalogoLibri.remove(l);
