@@ -117,7 +117,8 @@ public class ListaUtenti {
             if (utente.getNome().toLowerCase().contains(ricerca) || utente.getCognome().toLowerCase().contains(ricerca))
                     trovato.add(utente);
         }
-        return trovato;        
+
+        return trovato;
     }
 
     /**
