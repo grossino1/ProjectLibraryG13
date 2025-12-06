@@ -1,22 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GestionePrestito;
 
+import Eccezioni.EccezioniLibri.EccezioniLibro;
+import Eccezioni.EccezioniPrestiti.EccezioniPrestito;
+import Eccezioni.EccezioniUtenti.EccezioniUtente;
 import java.util.TreeSet;
 import java.util.Set;
 import java.util.ArrayList;
 import java.util.Comparator;
-import GestioneUtente.Utente;
 
 /**
  * @class ElencoPrestiti
- * @brief Gestisce il registro dei prestiti attivi.
+ * @brief Gestisce l'insieme di tutti i prestiti attivi.
  *
- * Mantiene una collezione ordinata di prestiti e delega le regole di validazione
- * (numero minimo di copie e numero massimo di prestiti per utente) alla classe @ref GestorePrestito.
+ * Questa classe agisce come contenitore principale per gli oggetti @ref Prestito.
+ * Utilizza un `TreeSet` per garantire che i Prestiti siano sempre ordinati
+ * (in base alla data di restituzione, come definito in Prestito.compareTo) e che non ci siano duplicati. 
+ * Delega le regole di validazione (numero minimo di copie e numero massimo di prestiti per utente) 
+ * alla classe @ref GestorePrestito.
  *
  * @invariant elencoPrestiti != null (La struttura dati è sempre inizializzata).
  * @invariant gestore != null (La classe deve sempre avere un riferimento valido al gestore delle regole).
@@ -24,28 +24,17 @@ import GestioneUtente.Utente;
  * @see GestorePrestito
  * @see Prestito
  *
- * @author jackross
+ * @author grossino1
  * @version 1.0
  */
 
 public class ElencoPrestiti {
 
-    /**
-     * Struttura dati principale (TreeSet) per memorizzare i prestiti in ordine naturale.
-     */
     private Set<Prestito> elencoPrestiti;
-
-    /**
-     * Riferimento al componente che esegue la logica di controllo (validazione).
-     */
     private GestorePrestito gestore; 
 
     /**
      * @brief Costruttore della classe ElencoPrestiti.
-     *
-     * Inizializza la collezione utilizzando un TreeSet per garantire
-     * l'ordinamento automatico e l'unicità degli elementi. 
-     * E associa il gestore delle regole.
      *
      * @pre gestore != null (Non è possibile creare un elenco prestiti senza un gestore logico).
      * @post elencoPrestiti.isEmpty() == true (Appena creato, l'elenco è vuoto).
@@ -76,12 +65,8 @@ public class ElencoPrestiti {
     public void registrazionePrestito(String isbn, String matricola) {
         // scheletro
         try {
-            // 1. CHIAMO IL GESTORE per validare e creare il prestito
-            // Gli passo 'this.listaPrestiti' così lui può contare i prestiti dell'utente
-            // NOTA: Qui presuppongo che GestorePrestito.nuovoPrestito accetti parametri diversi 
-            // o abbia accesso a questa lista in altro modo, dato che qui passo solo stringhe.
             boolean flag = gestore.nuovoPrestito(isbn, matricola);
-
+            
             // 2. Se il gestore non ha lanciato eccezioni e restituisce true
             if (flag) {
                 Prestito nuovoPrestito = new Prestito(isbn, matricola);
@@ -89,29 +74,35 @@ public class ElencoPrestiti {
                 System.out.println("Prestito aggiunto con successo!");
             }
 
-        } catch (Exception e) {
-            // Gestisco l'errore (es. mostro a video o rilancio al controller)
+        } catch (EccezioniLibro | EccezioniUtente | EccezioniPrestito e) {
             System.out.println("Errore inserimento prestito: " + e.getMessage());
         }
     }
     
     /**
-     * @brief Rimuove un prestito dall'elenco (es. alla restituzione del libro).
+     * @brief Rimuove un prestito dall'elenco
      *
      * @pre p != null
      * @post Il prestito p non è più presente nella collezione.
-     * * @param[in] p L'oggetto Prestito da rimuovere.
+     * 
+     * @param[in] p L'oggetto Prestito da rimuovere.
      */
     public void eliminazionePrestito(Prestito p) {
         // scheletro
     }
 
     /**
-     * @brief Cerca prestiti in base a una chiave di ricerca.
+     * @brief Cerca Prestiti in base a una stringa generica (IDPrestito, ISBN o Matricola).
+     * 
+     * Restituisce una lista di prestiti che corrispondono alla ricerca.
+     * Nota: Restituisce un ArrayList invece di un Set per gestire potenziali
+     * omonimie.
      *
-     * @param[in] chiave La stringa da cercare (es. matricola utente o ISBN).
+     * @pre l != null.
+     * @post La lista restituita (può essere vuota).
+     * 
+     * @param[in] chaive la stringa di ricerca.
      * @return ArrayList<Prestito> contenente i prestiti che soddisfano il criterio.
-     * @post La lista restituita non è mai null.
      */
     public ArrayList<Prestito> cercaPrestito(String chiave) {
         return null; // scheletro
@@ -120,33 +111,42 @@ public class ElencoPrestiti {
     /**
      * @brief Restituisce l'elenco completo dei prestiti attivi.
      *
-     * @post La lista restituita è una copia indipendente (modificarla non altera i dati interni).
-     * @post La lista mantiene l'ordinamento naturale definito in Prestito.compareTo().
+     *Crea un nuovo ArrayList contenente tutti gli elementi presenti nel TreeSet.
      *
-     * @return Un ArrayList contenente tutti i prestiti.
+     * @post La lista restituita è una copia indipendente.
+     * @post La lista mantiene lo stesso ordinamento del TreeSet.
+     * @post La lista non è mai null (può essere vuota).
+     *
+     * @return Un ArrayListt<Prestito>  ordinato contenente tutti i libri presenti.
      */
     public ArrayList<Prestito> getElencoPrestiti() {
         return null; // scheletro
     }
 
     /**
-     * @brief Restituisce una lista di prestiti ordinata secondo un criterio personalizzato.
-     * * Nota: Il nome del metodo `sortListaUtenti` suggerisce un ordinamento di utenti, 
-     * ma la firma indica un ordinamento di Prestiti.
+     * @brief Restituisce una vista ordinata dell'elenco secondo un criterio personalizzato.
+     *
+     * Permette di ottenere i libri ordinati diversamente dall'ordine naturale
+     * (scadenza, più recente o meno recente) utilizzando un Comparator.
      *
      * @pre comp != null (Il comparatore non deve essere nullo).
-     * @post La lista restituita è ordinata secondo 'comp'.
+     * @post Viene restituito una nuova ArrayList ordinata secondo 'comp'.
      *
-     * @param[in] comp Il comparatore per definire l'ordine dei prestiti.
-     * @return ArrayList<Prestito> ordinata.
+     * @param[in] comp Il comparatore che definisce il nuovo criterio di ordinamento.
+     * @return Un ArrayList<Prestito> contenente gli stessi libri, ma riordinati.
+     * 
+     * @see java.util.Comparator
      */
     public ArrayList<Prestito> sortListaUtenti(Comparator<Prestito> comp) {
         return null; // scheletro
     }
     
     /**
-     * @brief Rappresentazione testuale dell'elenco prestiti.
-     * @return Stringa descrittiva dello stato corrente.
+     * @brief Restituisce una rappresentazione testuale dell'oggetto ElencoPrestiti.
+     *
+     * @post Il risultato non è mai null (restituisce sempre una stringa, anche vuota).
+     *
+     * @return Una stringa contenente la descrizione completa dell'elenco prestiti.
      */
     @Override
     public String toString() {  
