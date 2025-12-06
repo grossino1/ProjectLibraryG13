@@ -23,12 +23,13 @@ public class PrestitiEsauritiException extends EccezioniPrestito {
      * Inizializza l'eccezione senza un messaggio di dettaglio specifico.
      */
     public PrestitiEsauritiException() {
+        
     }
     
     /**
      * @brief Costruttore con messaggio di errore.
      *
-     * @param[in] msg La descrizione dell'errore (es. "L'utente ha raggiunto il limite di 3 prestiti").
+     * @param[in] msg La descrizione dell'errore.
      */
     public PrestitiEsauritiException(String msg){
         super(msg);

@@ -32,7 +32,7 @@ public class SalvataggioFilePrestito {
      * @param[in] dati: L'oggetto ElencoPrestiti da serializzare.
      * @param[in] filename: Il percorso o nome del file di destinazione.
      */
-    public void salva(ElencoPrestiti dati, String filename){
+    public static void salva(ElencoPrestiti dati, String filename){
      
     }
     

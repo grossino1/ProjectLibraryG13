@@ -1,8 +1,12 @@
 package GestionePrestito;
 
 import Eccezioni.EccezioniLibri.EccezioniLibro;
+import Eccezioni.EccezioniLibri.LibroNotFoundException;
 import Eccezioni.EccezioniPrestiti.EccezioniPrestito;
+import Eccezioni.EccezioniPrestiti.PrestitoNonTrovatoException;
 import Eccezioni.EccezioniUtenti.EccezioniUtente;
+import Eccezioni.EccezioniUtenti.UtenteNotFoundException;
+import SalvataggioFile.SalvataggioFilePrestito.SalvataggioFilePrestito;
 import java.util.TreeSet;
 import java.util.Set;
 import java.util.ArrayList;
@@ -56,13 +60,17 @@ public class ElencoPrestiti {
      *
      * @pre isbn != null && !isbn.isEmpty()
      * @pre matricola != null && !matricola.isEmpty()
-     * @post Se successo: elencoPrestiti.size() == old_size + 1
+     * @post Se successo: elencoPrestiti.size() == old_size + 1 e l'elenco prestiti aggiornato viene salvato sul file binario.
      * @post Se fallimento/errore: elencoPrestiti.size() == old_size
-     *
+     * 
      * @param[in] isbn Il codice ISBN del libro da prestare.
      * @param[in] matricola La matricola dell'utente che richiede il prestito.
+     * 
+     * @throws LibroNotFoundException Se il codice ISBN non corrisponde a nessun libro nel catalogo.
+     * @throws UtenteNotFoundException Se la matricola non corrisponde a nessun utente registrato.
+     * @throws EccezioniPrestito Se uno dei vincoli per il prestito non sono rispettati.
      */
-    public void registrazionePrestito(String isbn, String matricola) {
+    public void registrazionePrestito(String isbn, String matricola) throws LibroNotFoundException, UtenteNotFoundException, EccezioniPrestito{
         // scheletro
         try {
             boolean flag = gestore.nuovoPrestito(isbn, matricola);
@@ -71,11 +79,11 @@ public class ElencoPrestiti {
             if (flag) {
                 Prestito nuovoPrestito = new Prestito(isbn, matricola);
                 elencoPrestiti.add(nuovoPrestito);
-                System.out.println("Prestito aggiunto con successo!");
+                SalvataggioFilePrestito.salva(this, "Elenco Prestiti");
             }
 
         } catch (EccezioniLibro | EccezioniUtente | EccezioniPrestito e) {
-            System.out.println("Errore inserimento prestito: " + e.getMessage());
+            throw e;        
         }
     }
     
@@ -83,12 +91,18 @@ public class ElencoPrestiti {
      * @brief Rimuove un prestito dall'elenco
      *
      * @pre p != null
-     * @post Il prestito p non è più presente nella collezione.
+     * @post Il prestito p non è più presente nell'elenco prestiti.
+     * @post L'elenco prestiti aggiornato viene salvato sul file binario.
      * 
      * @param[in] p L'oggetto Prestito da rimuovere.
      */
-    public void eliminazionePrestito(Prestito p) {
-        // scheletro
+    public void eliminazionePrestito(Prestito p) throws PrestitoNonTrovatoException{
+        
+        if(!elencoPrestiti.remove(p)){
+            throw new PrestitoNonTrovatoException("Il prestito che vuoi eliminare non è presente all'interno del catalogo.");
+        }
+        
+        SalvataggioFilePrestito.salva(this, "Elenco Prestiti");
     }
 
     /**

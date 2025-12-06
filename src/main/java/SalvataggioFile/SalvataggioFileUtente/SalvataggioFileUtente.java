@@ -37,7 +37,7 @@ public class SalvataggioFileUtente {
      * @param[in] dati: L'oggetto ListaUtenti da serializzare.
      * @param[in] filename: Il percorso o nome del file di destinazione.
      */
-     public void salva(ListaUtenti dati, String filename){
+    public static void salva(ListaUtenti dati, String filename){
                
     }
     

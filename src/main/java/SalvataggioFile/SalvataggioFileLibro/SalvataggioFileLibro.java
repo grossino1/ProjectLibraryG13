@@ -32,7 +32,7 @@ public class SalvataggioFileLibro {
      * @param[in] dati: L'oggetto CatalogoLibri da serializzare.
      * @param[in] filename: Il percorso o nome del file di destinazione (es. "libro.dat").
      */
-    public void salva(CatalogoLibri dati, String filename){
+    public static void salva(CatalogoLibri dati, String filename){
         // scheletro: qui andrebbe new ObjectOutputStream(new FileOutputStream(filename))...
     }
     

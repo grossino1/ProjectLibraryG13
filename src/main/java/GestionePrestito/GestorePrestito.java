@@ -2,6 +2,7 @@ package GestionePrestito;
 
 import Eccezioni.EccezioniLibri.LibroNotFoundException;
 import Eccezioni.EccezioniPrestiti.CopieEsauriteException;
+import Eccezioni.EccezioniPrestiti.EccezioniPrestito;
 import Eccezioni.EccezioniPrestiti.PrestitiEsauritiException;
 import Eccezioni.EccezioniUtenti.UtenteNotFoundException;
 import GestioneLibro.CatalogoLibri;
@@ -73,7 +74,7 @@ public class GestorePrestito {
      * @throws CopieEsauriteException Se il libro esiste ma il numero di copie disponibili è < 1.
      * @throws PrestitiEsauritiException Se l'utente ha già raggiunto il limite massimo di prestiti attivi (>= 3).
      */
-    public boolean nuovoPrestito(String ISBN, String matricola) throws LibroNotFoundException, UtenteNotFoundException, CopieEsauriteException, PrestitiEsauritiException {
+    public boolean nuovoPrestito(String ISBN, String matricola) throws LibroNotFoundException, UtenteNotFoundException, EccezioniPrestito {
         
         // 1. Recupero le entità Libro e Utente tramite gli identificativi
         // Ipotizzo che questi metodi restituiscano null se non trovano l'oggetto
