@@ -225,7 +225,7 @@ public class CatalogoLibriViewController implements Initializable {
             
         }catch(IOException e){
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR,"Errore Critico!","Errore nel caricamento della Scena: " + e.getMessage());
+            showError(Alert.AlertType.ERROR,"Errore Critico!","Errore nel caricamento della Scena: " + e.getMessage());
         }
     }
     
@@ -340,7 +340,7 @@ public class CatalogoLibriViewController implements Initializable {
      * @param[in] title Il titolo della finestra di dialogo.
      * @param[in] content Il messaggio principale da visualizzare.
      */
-    private void showAlert(Alert.AlertType type, String title, String content) {
+    private void showError(Alert.AlertType type, String title, String content) {
         //scheletro
         Alert alert = new Alert(type);
         alert.setTitle(title);
