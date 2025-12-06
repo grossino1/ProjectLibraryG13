@@ -39,8 +39,19 @@ public class Prestito implements Comparable<Prestito> {
      * @param[in] matricolaUtente La matricola dell'utente richiedente.
      */
     public Prestito(String ISBNLibro, String matricolaUtente) {
-        // corpo vuoto (scheletro)
-    }
+    
+        if (ISBNLibro == null || ISBNLibro.isEmpty())
+            throw new IllegalArgumentException("ISBN non può essere nullo o vuoto");
+        if (matricolaUtente == null || matricolaUtente.isEmpty())
+            throw new IllegalArgumentException("Matricola non può essere nulla o vuota");
+
+        this.ISBNLibro = ISBNLibro;
+        this.matricolaUtente = matricolaUtente;
+        this.IDPrestito = java.util.UUID.randomUUID().toString(); // genera ID univoco
+        this.dataRestituzione = LocalDate.now().plusDays(30); // oggi + 30 giorni
+}
+        
+        
 
     // Getter
 
@@ -49,28 +60,36 @@ public class Prestito implements Comparable<Prestito> {
      *
      * @return La stringa identificativa del prestito.
      */
-    public String getIDPrestito() { return null; }
+    public String getIDPrestito() {
+        return IDPrestito;
+    }
 
     /**
      * @brief Restituisce l'ISBN del libro prestato.
      *
      * @return Il codice ISBN.
      */
-    public String getISBNLibro() { return null; }
+    public String getISBNLibro() {
+        return ISBNLibro;
+    }
 
     /**
      * @brief Restituisce la matricola dell'utente.
      *
      * @return La matricola dell'utente.
      */
-    public String getMatricolaUtente() { return null; }
+    public String getMatricolaUtente() {
+        return matricolaUtente;
+    }
 
     /**
      * @brief Restituisce la data prevista per la restituzione.
      *
      * @return La data di scadenza del prestito.
      */
-    public LocalDate getDataRestituzione() { return null; }
+    public LocalDate getDataRestituzione() {
+        return dataRestituzione;
+    }
 
     // Setter
 
@@ -81,7 +100,9 @@ public class Prestito implements Comparable<Prestito> {
      *
      * @param[in] IDPrestito Il nuovo ID da assegnare.
      */
-    public void setIDPrestito(String IDPrestito) {}
+    public void setIDPrestito(String IDPrestito) {
+        this.IDPrestito = IDPrestito;
+    }
 
     /**
      * @brief Imposta l'ISBN del libro.
@@ -90,7 +111,9 @@ public class Prestito implements Comparable<Prestito> {
      *
      * @param[in] ISBNLibro Il nuovo ISBN.
      */
-    public void setISBNLibro(String ISBNLibro) {}
+    public void setISBNLibro(String ISBNLibro) {
+        this.ISBNLibro = ISBNLibro;
+    }
 
     /**
      * @brief Imposta la matricola dell'utente.
@@ -99,14 +122,18 @@ public class Prestito implements Comparable<Prestito> {
      *
      * @param[in] matricolaUtente La nuova matricola.
      */
-    public void setMatricolaUtente(String matricolaUtente) {}
+    public void setMatricolaUtente(String matricolaUtente) {
+        this.matricolaUtente = matricolaUtente;
+    }
 
     /**
      * @brief Imposta la data di restituzione.
      *
      * @param[in] dataRestituzione La nuova data di restituzione.
      */
-    public void setDataRestituzione(LocalDate dataRestituzione) {}
+    public void setDataRestituzione(LocalDate dataRestituzione) {
+        this.dataRestituzione = dataRestituzione;
+    }
 
     // Metodi Logici
 
@@ -118,7 +145,11 @@ public class Prestito implements Comparable<Prestito> {
      * @see #equals(Object) Utilizzato per la coerenza con equals.
      */
     @Override
-    public int hashCode() { return 0; }
+    public int hashCode() {
+        if (IDPrestito != null)
+            return IDPrestito.hashCode();
+        else return 0;
+    }
 
     /**
      * @brief Confronta due prestiti per per IDPrestito, evitando duplicati nell'elenco.
@@ -130,9 +161,21 @@ public class Prestito implements Comparable<Prestito> {
      * @return true se gli IDPrestito coincidono, false altrimenti.
      *
      * @see #hashCode()
-     */
+     */           
+    
     @Override
-    public boolean equals(Object obj) { return false; }
+    
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        Prestito other = (Prestito) obj;
+        if (IDPrestito != null && IDPrestito.equals(other.IDPrestito))
+            return true;
+        else return false;            
+    }
+
 
     /**
      * @brief Ordina i prestiti in base alla data di restituzione (ordinamento naturale).
@@ -145,7 +188,11 @@ public class Prestito implements Comparable<Prestito> {
      * @return < 0 se this scade prima, 0 se stesso giorno, > 0 se scade dopo.
      */
     @Override
-    public int compareTo(Prestito other) { return 0; }
+    public int compareTo(Prestito other) { 
+        if (other == null)
+            return 0;
+        return this.dataRestituzione.compareTo(other.dataRestituzione);
+    }
 
     /**
      * @brief Restituisce una rappresentazione testuale del prestito.
@@ -158,5 +205,16 @@ public class Prestito implements Comparable<Prestito> {
      * @return Una stringa contenente ID, ISBN, Matricola e Data.
      */
     @Override
-    public String toString() { return ""; }
+    
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("ID prestito: "+ getIDPrestito());
+        sb.append("\n");
+        sb.append("ISBN: "+ getISBNLibro());
+        sb.append("\n");
+        sb.append(" Matricola: " + getMatricolaUtente());
+        sb.append("\n");
+        sb.append("Restituzione: " + getDataRestituzione());
+        return sb.toString();
+    }
 }

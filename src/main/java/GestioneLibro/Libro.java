@@ -62,7 +62,7 @@ public class Libro implements Comparable<Libro>, Serializable {
      * 
      * @param[in] titolo La stringa del nuovo titolo.
      */
-    public void setTitolo(String titolo) {}
+    public void setTitolo(String titolo) { this.titolo = titolo; }
 
     /**
      * @brief Restituisce gli autori che hanno scritto il libro.
@@ -76,7 +76,7 @@ public class Libro implements Comparable<Libro>, Serializable {
      * 
      * @param[in] autori La stringa degli autori.
      */
-    public void setAutori(String autori) {}
+    public void setAutori(String autori) { this.autori = autori; }
 
     /**
      * @brief Restituisce l'anno di pubblicazione del libro.
@@ -90,7 +90,7 @@ public class Libro implements Comparable<Libro>, Serializable {
      * 
      * @param[in] annoPubblicazione Un intero dell'anno di pubblicazione
      */
-    public void setAnnoPubblicazione(int annoPubblicazione) {}
+    public void setAnnoPubblicazione(int annoPubblicazione) { this.annoPubblicazione = annoPubblicazione; }
 
     /**
      * @brief Restituisce il codice ISBN.
@@ -108,7 +108,9 @@ public class Libro implements Comparable<Libro>, Serializable {
      * 
      * @see #hashCode() Se l'ISBN cambia, cambia anche l'hash.
      */
-    public void setIsbn(String isbn) {}
+    public void setIsbn(String isbn) {
+ 
+    }
 
     /**
      * @brief Restituisce il numero di copie.
@@ -124,7 +126,7 @@ public class Libro implements Comparable<Libro>, Serializable {
      * 
      * @param[in] numeroCopie La nuova quantità di copie.
      */
-    public void setNumeroCopie(int numeroCopie) {}
+    public void setNumeroCopie(int numeroCopie) { this.numeroCopie = numeroCopie; }
 
     // Metodi Logici
     
