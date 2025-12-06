@@ -42,7 +42,11 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @param[in] emailIstituzionale L'indirizzo email dell'utente.
      */
     public Utente(String nome, String cognome, String matricola, String emailIstituzionale) {
-        listaPrestiti = new ArrayList<>();
+        this.nome = nome;
+        this.cognome = cognome;
+        this.matricola = matricola;
+        this.emailIstituzionale = emailIstituzionale;
+        this.listaPrestiti = new ArrayList<>();
     }
     
     // --- Getter e Setter ---
@@ -52,35 +56,45 @@ public class Utente implements Comparable<Utente>, Serializable {
      * 
      * @return Il nome.
      */
-    public String getNome() { return null; }
+    public String getNome() { 
+        return nome; 
+    }
 
     /**
      * @brief Imposta il nome dell'utente.
      * 
      * @param[in] nome Il nuovo nome.
      */
-    public void setNome(String nome) {}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
     /**
      * @brief Restituisce il cognome dell'utente.
      * 
      * @return Il cognome.
      */
-    public String getCognome() { return null; }
+    public String getCognome() { 
+        return cognome;
+    }
 
     /**
      * @brief Imposta il cognome dell'utente.
      * 
      * @param[in] cognome Il nuovo cognome.
      */
-    public void setCognome(String cognome) {}
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
 
     /**
      * @brief Restituisce la matricola.
      * 
      * @return La matricola univoca.
      */
-    public String getMatricola() { return null; }
+    public String getMatricola() { 
+        return matricola;
+    }
 
     /**
      * @brief Imposta la matricola dell'utente.
@@ -89,21 +103,27 @@ public class Utente implements Comparable<Utente>, Serializable {
      *
      * @param[in] matricola La nuova matricola.
      */
-    public void setMatricola(String matricola) {}
+    public void setMatricola(String matricola) {
+        this.matricola = matricola;
+    }
 
     /**
      * @brief Restituisce l'email istituzionale.
      * 
      * @return L'email.
      */
-    public String getEmailIstituzionale() { return null; }
+    public String getEmailIstituzionale() { 
+        return emailIstituzionale;
+      }
 
     /**
      * @brief Imposta l'email istituzionale.
      * 
      * @param[in] emailIstituzionale La nuova email.
      */
-    public void setEmailIstituzionale(String emailIstituzionale) {}
+    public void setEmailIstituzionale(String emailIstituzionale) {
+        this.emailIstituzionale = emailIstituzionale;
+    }
 
     /**
      * @brief Restituisce la lista dei prestiti dell'utente.
@@ -112,7 +132,9 @@ public class Utente implements Comparable<Utente>, Serializable {
      * 
      * @return ArrayList contenente i prestiti.
      */
-    public ArrayList<Prestito> getListaPrestiti() { return null; }
+    public List<Prestito> getListaPrestiti() { 
+        return listaPrestiti; 
+    }
 
     // Metodi Logici
 
@@ -127,6 +149,9 @@ public class Utente implements Comparable<Utente>, Serializable {
      */
     public void addPrestito(Prestito p) {
         // scheletro
+        if (p!= null){
+            listaPrestiti.add(p);
+        }
     }
 
     /**
@@ -139,6 +164,9 @@ public class Utente implements Comparable<Utente>, Serializable {
      */
     public void rimuoviPrestito(Prestito p) {
         // scheletro
+        if (p!=null){
+            listaPrestiti.remove(p);
+        }
     }
 
     /**
@@ -149,7 +177,11 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @see #equals(Object) Utilizzato per la coerenza con equals.
      */
     @Override
-    public int hashCode() { return 0; }
+    public int hashCode() {
+        if (matricola == null)
+            return 0;
+        else return matricola.hashCode();
+    }
 
     /**
      * @brief Confronta due utenti per matricola, evitando duplicati nella lista.
@@ -160,7 +192,16 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @see #hashCode()
      */
     @Override
-    public boolean equals(Object obj) { return false; }
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        Utente other = (Utente) obj;
+        if (matricola != null && matricola.equals(other.matricola))
+            return true;
+        else return false;            
+    }
 
     /**
      * @brief Ordina gli utenti per Cognome e poi per Nome (ordinamento naturale).
@@ -171,7 +212,12 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @return < 0 se this < other, 0 se uguali, > 0 se this > other.
      */
     @Override
-    public int compareTo(Utente other) { return 0; }
+    public int compareTo(Utente other) {
+        int compare = this.cognome.compareToIgnoreCase(other.cognome);
+        if (compare != 0)
+            return compare;
+        else return this.nome.compareToIgnoreCase(other.nome);
+    }
     
     /**
      * @brief Restituisce una rappresentazione testuale dell'utente.
@@ -185,7 +231,14 @@ public class Utente implements Comparable<Utente>, Serializable {
      */
     @Override
     public String toString() {
-        return "";
+        StringBuffer sb = new StringBuffer();
+        sb.append("Utente: ");
+        sb.append(getNome());
+        sb.append(" " + getCognome()+ "\n");
+        sb.append("Matricola: " + getMatricola() + "\n");
+        sb.append("Email: " + getEmailIstituzionale() + "\n");
+        sb.append("Prestiti: " + listaPrestiti.size()+ "\n");
+        return sb.toString();
     }
 
 }
