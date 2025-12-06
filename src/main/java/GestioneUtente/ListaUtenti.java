@@ -74,6 +74,12 @@ public class ListaUtenti {
      */
     public void registrazioneUtente(Utente u) throws MatricolaNotValidException {
         // scheletro
+        if (u == null)
+        return;
+            if (!u.getMatricola().matches("\\d{10}")){
+                throw new MatricolaNotValidException ("La matricola deve esser composta da 10 cifre");
+        }
+            listaUtenti.add(u);
     }
 
     /**
@@ -87,6 +93,10 @@ public class ListaUtenti {
      */
     public void eliminazioneUtente(Object u) {
         // scheletro
+        if (u == null || u.getClass() != Utente.class)
+            return;
+        listaUtenti.remove(u);
+        
     }
 
     /**
@@ -99,7 +109,15 @@ public class ListaUtenti {
      * @return ArrayList<Utente> contenente gli utenti che corrispondono ai criteri.
      */
     public ArrayList<Utente> cercaUtente(String u) {
-        return null; // scheletro
+        ArrayList<Utente> trovato = new ArrayList<>(); // scheletro
+        if(u== null)
+            return trovato; //restituisce una lista vuota
+        String ricerca = u.toLowerCase();
+        for(Utente utente : listaUtenti){
+            if (utente.getNome().toLowerCase().contains(ricerca) || utente.getCognome().toLowerCase().contains(ricerca))
+                    trovato.add(utente);
+        }
+        return trovato;        
     }
 
     /**
@@ -114,7 +132,7 @@ public class ListaUtenti {
      * @return Un ArrayList contenente tutti gli utenti iscritti.
      */
     public ArrayList<Utente> getListaUtenti() {
-        return null; // scheletro
+        return new ArrayList<>(listaUtenti); // scheletro
     }
 
     /**
@@ -132,7 +150,9 @@ public class ListaUtenti {
      * @see java.util.Comparator
      */
     public ArrayList<Utente> sortListaUtenti(Comparator<Utente> comp) {
-        return null; // scheletro
+        ArrayList<Utente> listaOrdinata = new ArrayList<>(listaUtenti);
+        listaOrdinata.sort(comp);
+        return listaOrdinata;
     }
 
    /**
@@ -144,7 +164,11 @@ public class ListaUtenti {
      */
     @Override
     public String toString() {
-        return ""; // scheletro
+        StringBuffer sb = new StringBuffer(); // scheletro
+        for (Utente u : listaUtenti){
+            sb.append(u.toString() + "\n");            
+        }
+        return sb.toString();
     }
     
 }
