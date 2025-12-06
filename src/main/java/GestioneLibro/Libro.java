@@ -109,7 +109,7 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @see #hashCode() Se l'ISBN cambia, cambia anche l'hash.
      */
     public void setIsbn(String isbn) {
-
+ 
     }
 
     /**
