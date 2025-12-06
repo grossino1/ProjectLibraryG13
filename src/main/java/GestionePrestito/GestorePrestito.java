@@ -34,7 +34,7 @@ public class GestorePrestito {
     /**
      * @brief Costruttore del GestorePrestito.
      *
-     * Associa le dipendenze necessarie per effettuare i controlli incrociati.
+     * Associa le dipendenze necessarie per effettuare i controlli incrociati e aggiorna.
      *
      * @pre catalogo != null
      * @pre utenti != null
