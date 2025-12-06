@@ -340,7 +340,7 @@ public class CatalogoLibriViewController implements Initializable {
      * @param[in] title Il titolo della finestra di dialogo.
      * @param[in] content Il messaggio principale da visualizzare.
      */
-    private void showAlert(Alert.AlertType type, String title, String content) {
+    private void showError(Alert.AlertType type, String title, String content) {
         //scheletro
         Alert alert = new Alert(type);
         alert.setTitle(title);
