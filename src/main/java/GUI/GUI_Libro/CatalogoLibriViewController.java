@@ -225,7 +225,7 @@ public class CatalogoLibriViewController implements Initializable {
             
         }catch(IOException e){
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR,"Errore Critico!","Errore nel caricamento della Scena: " + e.getMessage());
+            showError(Alert.AlertType.ERROR,"Errore Critico!","Errore nel caricamento della Scena: " + e.getMessage());
         }
     }
     
