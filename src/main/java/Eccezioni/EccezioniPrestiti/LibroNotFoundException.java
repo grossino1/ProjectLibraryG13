@@ -13,14 +13,14 @@ package Eccezioni.EccezioniPrestiti;
  * @version 1.0
  */
 
-public class IDPrestitoException extends EccezioniPrestito {
+public class LibroNotFoundException extends EccezioniPrestito {
 
     /**
      * @brief Costruttore di default.
      *
      * Inizializza l'eccezione senza un messaggio di dettaglio specifico.
      */
-    public IDPrestitoException(){
+    public LibroNotFoundException(){
         
     }
     
@@ -29,7 +29,7 @@ public class IDPrestitoException extends EccezioniPrestito {
      *
      * @param[in] msg La descrizione dell'errore (es. "ID Prestito non valido o non trovato").
      */
-    public IDPrestitoException(String msg){
+    public LibroNotFoundException(String msg){
         super(msg);
     }
 }
