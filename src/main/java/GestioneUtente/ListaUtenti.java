@@ -76,24 +76,19 @@ public class ListaUtenti {
      *    @throws UtentePresenteException: Se l'utente passato come parametro è già presente all'interno della lista degli utenti.
      */
     public void registrazioneUtente(Utente u) throws MatricolaNotValidException, UtentePresenteException {
-        // Controllo della matricola
+        // Controllo della matricola: la matricola deve avere 10 caratteri
         if (!u.getMatricola().matches("\\d{10}")){
                 throw new MatricolaNotValidException ("La matricola deve esser composta da 10 cifre");
         }
         
-        // Controllo dell'esistenza dell'utente
-        // Il metodo add() restituisce:
-        // - true: se l'utente è stato inserito (non c'erano duplicati secondo il compareTo)
-        // - false: se l'utente c'era già (stesso Cognome, Nome E Matricola)
-        boolean inserito = listaUtenti.add(u);
-        
-        if(!inserito){
-            // Esiste già un utente identico (stessa matricola compresa)
+        // Controllo dell'esistenza dell'utente: se esiste già la matricola nella lista l'utente non può essere inserito
+        if(getUtenteByMatricola(u.getMatricola()) != null){
+            // Esiste già un utente identico (stessa matricola)
             throw new UtentePresenteException("L'utente è già presente all'interno della lista.");
         }
         
-        // Se vengono superati tutti i criteri, all'ora l'inserimento è andato a buon fine.
-        // L'Utente u è stato aggiunto alla listaUtenti.
+        // Se vengono superati tutti i criteri, allora l'Utente u può essere aggiunto alla listaUtenti
+        listaUtenti.add(u);
         System.out.println("Utente inserito con successo: " + u.getMatricola());
  
     }
