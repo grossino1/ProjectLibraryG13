@@ -5,6 +5,9 @@ import java.util.TreeSet;
 import java.util.ArrayList;
 import java.util.Comparator;
 import Eccezioni.EccezioniLibri.ISBNNotValidException;
+import Eccezioni.EccezioniLibri.LibroPresenteException;
+import Eccezioni.EccezioniLibri.LibroNotFoundException;
+
 
 /**
  * @class CatalogoLibri
@@ -70,10 +73,16 @@ public class CatalogoLibri {
      * @param[in] l: L'oggetto Libro da aggiungere.
      * @throws ISBNNotValidException Se il libro ha un formato ISBN non valido.
      */
-    public void registrazioneLibro(Libro l) throws ISBNNotValidException {
+    public void registrazioneLibro(Libro l) throws ISBNNotValidException, LibroPresenteException, LibroNotFoundException {
         // scheletro: qui andrebbe la logica di validazione prima dell'add
+        if (l==null)
+            throw new LibroNotFoundException("Il libro non può essere nullo");
+        if (!l.getIsbn().matches("\\d{10}")){
+            throw new ISBNNotValidException("Il formato dell'IBSN non è valido");
+        }
         if (!catalogoLibri.add(l))
-            throw new ISBNNotValidException();
+            throw new LibroPresenteException("Il libro scelto è già presente nel catalogo libri");
+        
     }
 
     /**
@@ -85,8 +94,12 @@ public class CatalogoLibri {
      *
      * @param[in] l: L'oggetto Libro da rimuovere.
      */
-    public void eliminazioneLibro(Libro l) {
-        catalogoLibri.remove(l);
+    public void eliminazioneLibro(Libro l) throws LibroNotFoundException{
+        if (l==null)
+            throw new LibroNotFoundException("Il libro non può essere nullo");
+        if (!catalogoLibri.contains(l))
+            throw new LibroNotFoundException("Il libro non è presente nel catalogo");
+        catalogoLibri.remove(l); 
     }
 
     /**
@@ -102,8 +115,16 @@ public class CatalogoLibri {
      * @param[in] l La stringa di ricerca.
      * @return ArrayList<Libro> contenente i risultati della ricerca.
      */
-    public ArrayList<Libro> cercaLibro(String l) {
-        return new ArrayList<>(catalogoLibri);
+    public ArrayList<Libro> cercaLibro(String l) throws LibroNotFoundException {
+        if (l==null)
+            throw new LibroNotFoundException("È stata inserita una stringa vuota");
+        ArrayList<Libro> trovati = new ArrayList<>();
+        for (Libro lib : catalogoLibri){
+            if(lib.getIsbn().compareToIgnoreCase(l) == 0 || lib.getTitolo().compareToIgnoreCase(l) == 0 || lib.getAutori().compareToIgnoreCase(l) == 0){
+                trovati.add(lib);
+            }
+        }
+        return trovati;
     }
 
  /**
@@ -135,8 +156,12 @@ public class CatalogoLibri {
      * 
      * @see java.util.Comparator
      */
-    public ArrayList<Libro> sortCatalogoLibri(Comparator<Libro> comp) {
-        return null; // scheletro
+    public ArrayList<Libro> sortCatalogoLibri(Comparator<Libro> comp) throws LibroNotFoundException {
+        if (comp == null)
+            throw new LibroNotFoundException("È stato inserito un comparatore nullo");
+        ArrayList<Libro> listaordinata = new ArrayList<>(catalogoLibri);
+        listaordinata.sort(comp);
+        return listaordinata;
     }
 
     /**
