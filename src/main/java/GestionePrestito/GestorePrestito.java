@@ -9,6 +9,8 @@ import GestioneLibro.CatalogoLibri;
 import GestioneLibro.Libro;
 import GestioneUtente.ListaUtenti;
 import GestioneUtente.Utente;
+import SalvataggioFile.SalvataggioFileLibro.SalvataggioFileLibro;
+import SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente;
 
 /**
  * @class GestorePrestito
@@ -107,6 +109,7 @@ public class GestorePrestito {
      *
      * @pre ISBN != null && !ISBN.isEmpty()
      * @post Il numero delle copie del libro è aumentato di 1.
+     * @post Il catalogo dei libri aggiornato viene salvato sul file binario.
      * 
      * @param[in] ISBN Il codice del libro restituito.
      */
@@ -114,6 +117,7 @@ public class GestorePrestito {
         
         Libro libro = catalogo.getLibroByISBN(ISBN);
         libro.setNumeroCopie(libro.getNumeroCopie()+1);
+        SalvataggioFileLibro.salva(catalogo, "Catalogo Libri");
     }
     
     /**
@@ -121,7 +125,8 @@ public class GestorePrestito {
      *
      * @pre matricola != null && !matricola.isEmpty()
      * @pre p != null
-     * @post Il numero delle copie del libro è aumentato di 1.
+     * @post Il numero dei prestiti dell'utente è diminuito di 1.
+     * @post La lista dei prestiti aggiornato viene salvata sul file binario.
      * 
      * @param[in] matricola La matricola dell'utente cha ha restituito il libro.
      * @param[in] p Il prestito che l'utente ha appena terminato.
@@ -131,5 +136,6 @@ public class GestorePrestito {
     
         Utente utente = utenti.getUtenteByMatricola(matricola);
         utente.rimuoviPrestito(p);
+        SalvataggioFileUtente.salva(utenti, "Lista Utenti");
     }
 }

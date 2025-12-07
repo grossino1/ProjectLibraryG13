@@ -56,7 +56,7 @@ public class ElencoPrestiti {
      *
      * Il metodo orchestra l'operazione in due fasi:
      * 1. Delega al @ref GestorePrestito la validazione dei dati.
-     * 2. Se la validazione passa, crea l'oggetto Prestito e lo aggiunge al Set.      
+     * 2. Se la validazione passa, crea l'oggetto Prestito e lo aggiunge al TreeSet.      
      *
      * @pre isbn != null && !isbn.isEmpty()
      * @pre matricola != null && !matricola.isEmpty()
@@ -71,11 +71,9 @@ public class ElencoPrestiti {
      * @throws EccezioniPrestito Se uno dei vincoli per il prestito non sono rispettati.
      */
     public void registrazionePrestito(String isbn, String matricola) throws LibroNotFoundException, UtenteNotFoundException, EccezioniPrestito{
-        // scheletro
         try {
             boolean flag = gestore.nuovoPrestito(isbn, matricola);
             
-            // 2. Se il gestore non ha lanciato eccezioni e restituisce true
             if (flag) {
                 Prestito nuovoPrestito = new Prestito(isbn, matricola);
                 elencoPrestiti.add(nuovoPrestito);
@@ -95,6 +93,8 @@ public class ElencoPrestiti {
      * @post L'elenco prestiti aggiornato viene salvato sul file binario.
      * 
      * @param[in] p L'oggetto Prestito da rimuovere.
+     * 
+     * throws PrestitoNonTrovatoException
      */
     public void eliminazionePrestito(Prestito p) throws PrestitoNonTrovatoException{
         
@@ -112,29 +112,50 @@ public class ElencoPrestiti {
      * Nota: Restituisce un ArrayList invece di un Set per gestire potenziali
      * omonimie.
      *
-     * @pre l != null.
-     * @post La lista restituita (può essere vuota).
+     * @pre chiave != null.
+     * @post La lista restituita.
      * 
      * @param[in] chaive la stringa di ricerca.
      * @return ArrayList<Prestito> contenente i prestiti che soddisfano il criterio.
+     * 
+     * @throws PrestitoNonTrovatoException
      */
-    public ArrayList<Prestito> cercaPrestito(String chiave) {
-        return null; // scheletro
+    public ArrayList<Prestito> cercaPrestito(String chiave) throws PrestitoNonTrovatoException {
+        
+        ArrayList<Prestito> listaRicerca = new ArrayList<>();
+        
+        for(Prestito p: elencoPrestiti) {
+            
+            if(p.getIDPrestito().equals(chiave)) {
+                listaRicerca.add(p);
+            }
+            else if(p.getMatricolaUtente().equals(chiave)) {
+                listaRicerca.add(p);
+            }
+            else if(p.getISBNLibro().equals(chiave)) {
+                listaRicerca.add(p);
+            }         
+        }
+        
+        if(listaRicerca == null) throw new PrestitoNonTrovatoException("Nessun prestito presente");
+        else return listaRicerca;
     }
 
     /**
-     * @brief Restituisce l'elenco completo dei prestiti attivi.
+     * @brief Restituisce l'elenco completo dei prestiti attivi secondo l'ordinamento naturale (data di restituzione).
      *
-     *Crea un nuovo ArrayList contenente tutti gli elementi presenti nel TreeSet.
+     * Crea un nuovo ArrayList contenente tutti gli elementi presenti nel TreeSet.
      *
      * @post La lista restituita è una copia indipendente.
      * @post La lista mantiene lo stesso ordinamento del TreeSet.
      * @post La lista non è mai null (può essere vuota).
      *
-     * @return Un ArrayListt<Prestito>  ordinato contenente tutti i libri presenti.
+     * @return Un ArrayList<Prestito> ordinato contenente tutti i libri presenti.
      */
     public ArrayList<Prestito> getElencoPrestiti() {
-        return null; // scheletro
+        
+        ArrayList<Prestito> elencoCompleto = new ArrayList<>(elencoPrestiti);
+        return elencoCompleto;
     }
 
     /**
@@ -152,7 +173,11 @@ public class ElencoPrestiti {
      * @see java.util.Comparator
      */
     public ArrayList<Prestito> sortListaUtenti(Comparator<Prestito> comp) {
-        return null; // scheletro
+        
+        ArrayList<Prestito> lista = this.getElencoPrestiti();
+    
+        lista.sort(comp);
+        return lista;
     }
     
     /**
@@ -164,6 +189,36 @@ public class ElencoPrestiti {
      */
     @Override
     public String toString() {  
-        return null;
+        StringBuffer sb = new StringBuffer();
+        sb.append("Prestiti all'interno della lista:\n" );
+        
+        for(Prestito p: elencoPrestiti) {
+            
+            sb.append(p.toString() + "\n");
+        }
+        
+        return sb.toString();
+    }
+    
+    /**
+     * @brief Restituisce una rappresentazione testuale della lista dei prestiti ordinata 
+     * precedentemente tramite un'ordinamento scelto.
+     *
+     * @post Il risultato non è mai null (restituisce sempre una stringa, anche vuota).
+     * 
+     * @param[in] ArrayList<Prestito> listaOrdinata L'insieme dei prestiti ordinati.
+     * @return Una stringa contenente la descrizione completa dell'elenco prestiti ordinato.
+     */
+    public String toStringListaOrdinata(ArrayList<Prestito> listaOrdinata) {
+        
+        StringBuffer sb = new StringBuffer();
+        sb.append("Prestiti all'interno della lista:\n" );
+        
+        for(Prestito p: listaOrdinata) {
+            
+            sb.append(p.toString() + "\n");
+        }
+        
+        return sb.toString();
     }
 }
