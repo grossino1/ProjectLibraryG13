@@ -1,6 +1,9 @@
 package GestioneLibro;
 
 import java.io.Serializable;
+import Eccezioni.EccezioniLibri.ISBNNotValidException;
+import Eccezioni.EccezioniLibri.LibroPresenteException;
+import Eccezioni.EccezioniPrestiti.CopieEsauriteException;
 
 /**
  * @class Libro
@@ -108,9 +111,12 @@ public class Libro implements Comparable<Libro>, Serializable {
      * 
      * @see #hashCode() Se l'ISBN cambia, cambia anche l'hash.
      */
-    public void setIsbn(String isbn) {
- 
-    }
+    public void setIsbn(String isbn) throws ISBNNotValidException {
+        if (isbn == null || !isbn.matches("\\d{10}")) {
+            throw new ISBNNotValidException("ISBN non valido: deve avere 10 cifre.");
+        }
+        this.isbn = isbn;
+}
 
     /**
      * @brief Restituisce il numero di copie.
@@ -126,7 +132,11 @@ public class Libro implements Comparable<Libro>, Serializable {
      * 
      * @param[in] numeroCopie La nuova quantità di copie.
      */
-    public void setNumeroCopie(int numeroCopie) { this.numeroCopie = numeroCopie; }
+    public void setNumeroCopie(int numeroCopie) throws LibroPresenteException { 
+        if (numeroCopie<0)
+            throw new LibroPresenteException ("Non sono ammesse quantità di copie negative");
+        this.numeroCopie = numeroCopie; 
+    }
 
     // Metodi Logici
     
@@ -135,7 +145,9 @@ public class Libro implements Comparable<Libro>, Serializable {
      * 
      * @post numeroCopie == old_numeroCopie + 1
      */
-    public void incrementaCopiaLibro(){}
+    public void incrementaCopiaLibro(){
+        numeroCopie++;
+    }
     
     /**
      * @brief Decrementa di una unità il numero di copie.
@@ -143,7 +155,12 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @pre numeroCopie > 0 (Deve esserci almeno una copia disponibile per decrementare).
      * @post numeroCopie == old_numeroCopie - 1
      */
-    public void decrementaCopiaLibro(){}
+    public void decrementaCopiaLibro() throws CopieEsauriteException { 
+        if (numeroCopie<0)
+            throw new CopieEsauriteException ("Non sono ammessi decrementi per questo libro");
+        numeroCopie--;
+    
+    }
     
     /**
      * @brief Genera l'hash code basato su ISBN.
@@ -153,8 +170,14 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @see #equals(Object) Utilizzato per la coerenza con equals.
      */
     @Override
-    public int hashCode() { return 0; }
-    
+        public int hashCode() {
+        if(isbn == null)
+            return 0;        
+        int result = 17;
+        result = 31* result + this.isbn.hashCode();
+        return result;
+    }
+
     /**
      * @brief Confronta due libri per ISBN, evitando duplicati nel catalogo.
      * 
@@ -164,7 +187,19 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @see #hashCode()
      */
     @Override
-    public boolean equals(Object obj) { return false; }
+    public boolean equals(Object obj) { 
+        if (this == obj)
+            return true;
+        if (obj == null) 
+            return false;
+        if(this.getClass() != obj.getClass())
+            return false;    
+        Libro other = (Libro) obj;
+        if( this.isbn.equals(other.isbn))
+            return true;
+        else return false;
+    }
+
     
     /**
      * @brief Ordina i libri per titolo (ordinamento naturale).
@@ -175,8 +210,11 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @return < 0 se this < other, 0 se uguali, > 0 se this > other.
      */ 
     @Override
-    public int compareTo(Libro other) { return 0; }
-
+    public int compareTo(Libro other) { 
+        return this.titolo.compareTo(other.titolo);
+    }
+    
+    
     /**
      * @brief Restituisce una rappresentazione testuale dell'oggetto Libro.
      *
