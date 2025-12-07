@@ -82,6 +82,8 @@ public class ListaUtenti {
         }
         // Controllo dell'esistenza dell'utente
         if(getUtenteByMatricola(u.getMatricola()) != null)
+            // Invocando il metodo getUtenteByMatyricola() controllo se esiste già un utente con questa matricola.
+            // Si suppone che ogni studente abbia una matricola unica.
             throw new UtentePresenteException("L'utente è già presente all'interno della lista.");
         // Se vengono passati questi due controlli, all'ora l'utente può essere
         // effettivamente aggiunto all'interno della lista
