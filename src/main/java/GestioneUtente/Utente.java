@@ -231,12 +231,18 @@ public class Utente implements Comparable<Utente>, Serializable {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        sb.append("Utente: ");
+        sb.append("Utente: \n");
+        sb.append("Nome: ");
         sb.append(getNome());
-        sb.append(" " + getCognome()+ "\n");
-        sb.append("Matricola: " + getMatricola() + "\n");
-        sb.append("Email: " + getEmailIstituzionale() + "\n");
-        sb.append("Prestiti: " + listaPrestiti.size()+ "\n");
+        sb.append("Cognome: ");
+        sb.append(getCognome());
+        sb.append("Matricola: ");
+        sb.append(getMatricola());
+        sb.append("E-Mail Istituzionale: ");
+        sb.append(getEmailIstituzionale());
+        sb.append("Elenco dei Prestiti Attivi: ");
+        sb.append(getListaPrestiti());
+        
         return sb.toString();
     }
 

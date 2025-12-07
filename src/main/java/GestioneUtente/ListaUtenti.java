@@ -34,6 +34,7 @@ public class ListaUtenti {
      * @post listaUtenti != null && listaUtenti.isEmpty()
      */
     public ListaUtenti(){
+        // Viene scelto come Collection il TreeSet per la sua capacità di ordinamento.
         listaUtenti = new TreeSet<>();
     }
     
@@ -46,7 +47,7 @@ public class ListaUtenti {
      * @pre matricola != null (La chiave di ricerca non può essere nulla).
      * @post Lo stato della lista rimane invariato (sola lettura).
      *
-     * @param[in] matricola La stringa univoca identificativa dell'utente.
+     * @param[in] matricola: La stringa univoca identificativa dell'utente.
      * @return L'oggetto Utente corrispondente se trovato, altrimenti `null`.
      */
     // METODO FONDAMENTALE PER IL PRESTITO
@@ -63,28 +64,31 @@ public class ListaUtenti {
      * @brief Registra un nuovo utente nel sistema.
      *
      * Aggiunge un utente alla collezione. Se l'utente è già presente (stessa Matricola),
-     * il Set non lo duplicherà (rispettando l'equals di Utente), ma non verrà lanciato errore.
-     * L'errore viene lanciato solo se la matricola non è valida strutturalmente.
+     * il Set non lo duplicherà (rispettando l'equals di Utente) e sarà lanciato un errore.
+     * Inoltre se la matricola non è valida strutturalmente verrà lanciato un altro tipo di errore.
      * 
      * @pre u != null (Non è possibile registrare utenti nulli).
      * @post listaUtenti.contains(u) == true.
      * @post size() >= old_size().
      *
-     * @param[in] u L'oggetto Utente da registrare.
-     *  * @throws MatricolaNotValidException Se l'utente ha un formato di matricola non valido.
+     * @param[in] u: L'oggetto Utente da registrare.
+     *  * @throws MatricolaNotValidException: Se l'utente ha un formato di matricola non valido.
+     *    @throws UtentePresenteException: Se l'utente passato come parametro è già presente all'interno della lista degli utenti.
      */
     public void registrazioneUtente(Utente u) throws MatricolaNotValidException, UtentePresenteException {
-        // scheletro
-        if (u == null)
-            throw new IllegalArgumentException("L'utente non può essere nullo.");
-        else if (!u.getMatricola().matches("\\d{10}")){
+        // Controllo della matricola
+        if (!u.getMatricola().matches("\\d{10}")){
                 throw new MatricolaNotValidException ("La matricola deve esser composta da 10 cifre");
         }
-        boolean aggiunto = listaUtenti.add(u);
-        if(aggiunto == false)
+        // Controllo dell'esistenza dell'utente
+        if(getUtenteByMatricola(u.getMatricola()) != null)
             throw new UtentePresenteException("L'utente è già presente all'interno della lista.");
-        else
+        // Se vengono passati questi due controlli, all'ora l'utente può essere
+        // effettivamente aggiunto all'interno della lista
+        else{
+            listaUtenti.add(u);
             System.out.println("Utente inserito con successo: " + u.getMatricola());
+        }
     }
 
     /**
@@ -92,38 +96,47 @@ public class ListaUtenti {
      *
      * @pre u != null
      * @post L'utente specificato non è più presente nella lista.
-     * @post Se l'utente non c'è, la lista resta invariata.
+     * @post Se l'utente passato come parametro non è presente all'interno della lista, 
+     *       essa resta invariata.
      *
-     * @param[in] u L'oggetto da rimuovere (deve essere un'istanza di Utente).
+     * @param[in] u: L'oggetto da rimuovere (deve essere un'istanza di Utente).
      */
     public void eliminazioneUtente(Object u) {
-        // scheletro
-        if (u == null || u.getClass() != Utente.class)
+        // Se l'oggetto passato non appartine alla classe Utente, allora non può essere rimosso.
+        // Nota: Utilizzo "instanceof" e non "getClass()" perchè se in futuro si vorrà 
+        // aggiungere una sottoclasse di Utente il metodo resta sempre valido anche per essa!
+        if (!(u instanceof Utente))
             return;
+        // Se l'utente passato come parametro fa parte della lista allora viene eliminato.
         listaUtenti.remove(u);
         
     }
 
     /**
-     * @brief Cerca utenti in base a una stringa generica (es. Nome o Cognome).
+     * @brief Cerca utenti in base a una stringa generica che rappresenta il Cognome o la Matricola.
      *
      * @pre u != null (La stringa di ricerca non deve essere nulla).
      * @post La lista restituita non è mai null (può essere vuota).
      *
-     * @param[in] u La stringa di ricerca (es. "Rossi").
+     * @param[in] u: La stringa di ricerca (es. "Rossi").
      * @return ArrayList<Utente> contenente gli utenti che corrispondono ai criteri.
      */
     public ArrayList<Utente> cercaUtente(String u) {
-        ArrayList<Utente> trovato = new ArrayList<>(); // scheletro
-        if(u== null)
-            return trovato; //restituisce una lista vuota
-        String ricerca = u.toLowerCase();
+        // Creo un ArrayList<Utente> per contenere la lista di utenti.
+        ArrayList<Utente> listaRicerca = new ArrayList<>(); 
+        
+        // Per rendere las ricerca Case-Insensitive trasformo la stringa passata con tutte lettere minuscole.
+        String utenteCercato = u.toLowerCase();
         for(Utente utente : listaUtenti){
-            if (utente.getNome().toLowerCase().contains(ricerca) || utente.getCognome().toLowerCase().contains(ricerca))
-                    trovato.add(utente);
+            // Controllo se la stringa corrisponde al Cognome o alla Matricola di ogni utente appartenente a listaUtenti
+            if (utente.getCognome().toLowerCase().contains(utenteCercato) || utente.getMatricola().toLowerCase().contains(utenteCercato)){
+                // Se un utente corrisponde ai criteri allora viene aggiunto all'interno dell'ArrayList
+                listaRicerca.add(utente);
+            }           
         }
-
-        return trovato;
+        
+        // Viene ritornato l'ArrayList contenente tutti gli utenti che rispettano i requisiti.
+        return listaRicerca;
     }
 
     /**
@@ -131,33 +144,39 @@ public class ListaUtenti {
      * 
      * Crea un nuovo ArrayList contenente tutti gli elementi presenti nel TreeSet.
      *
-     * @post La lista restituita è una copia indipendente.
-     * @post La lista mantiene l'ordinamento del TreeSet
+     * @post La lista è una "Shallow Copy": la collezione è nuova, ma gli oggetti contenuti sono riferimenti agli stessi del TreeSet.
+     * @post La lista mantiene l'ordinamento del TreeSet.
      * @post La lista non è mai null (può essere vuota).
      *
      * @return Un ArrayList contenente tutti gli utenti iscritti.
      */
     public ArrayList<Utente> getListaUtenti() {
-        return new ArrayList<>(listaUtenti); // scheletro
+        // Creo un'ArrayList contenente gli stessi riferimenti del TreeSet listaUtenti e lo restituisco.
+        // Nota: Poichè viene passato il TreeSet al costruttore dell'ArrayList, significa che inserirà ogni elemento in ordine.
+        // Quindi la lista mantiene l'ordinamento del TreeSet.
+        return new ArrayList<>(listaUtenti); 
     }
 
     /**
      * @brief Restituisce una vista ordinata della lista secondo un criterio personalizzato.
      *
-     * Permette di ottenere gli utenti ordinati diversamente dall'ordine naturale
-     * (aggiunto piu recente o meno recente) utilizzando un Comparator.
+     * Permette di ottenere una copia della lista ordinata secondo un criterio diverso dall'ordine naturale 
+     * (es. per Cognome invece che per Matricola).
      *
      * @pre comp != null (Il comparatore non deve essere nullo).
      * @post La lista restituita è ordinata secondo le regole di 'comp'.
      *
-     * @param[in] comp Il comparatore da utilizzare.
+     * @param[in] comp: Il comparatore da utilizzare.
      * @return ArrayList<Utente> riordinato.
      *
      * @see java.util.Comparator
      */
     public ArrayList<Utente> sortListaUtenti(Comparator<Utente> comp) {
+        // Creo una lista di appoggio in cui inserisco tutti gli elementi del TreeSet.
         ArrayList<Utente> listaOrdinata = new ArrayList<>(listaUtenti);
+        // Ordino la lista secondo al Comparator passato come parametro, invocando il metodo sort() sulla lista e passando il comparatore.
         listaOrdinata.sort(comp);
+        // Ritorno la lista ordinata.
         return listaOrdinata;
     }
 
@@ -170,9 +189,11 @@ public class ListaUtenti {
      */
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer(); // scheletro
+        StringBuffer sb = new StringBuffer(); 
+        sb.append("Lista Utenti:");
         for (Utente u : listaUtenti){
-            sb.append(u.toString() + "\n");            
+            sb.append("\n*****\n");
+            sb.append(u.toString());    
         }
         return sb.toString();
     }
