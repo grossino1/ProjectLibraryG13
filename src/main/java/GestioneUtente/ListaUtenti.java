@@ -1,6 +1,7 @@
 package GestioneUtente;
 
 import Eccezioni.EccezioniUtenti.MatricolaNotValidException;
+import Eccezioni.EccezioniUtenti.UtentePresenteException;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.ArrayList;
@@ -72,13 +73,16 @@ public class ListaUtenti {
      * @param[in] u L'oggetto Utente da registrare.
      *  * @throws MatricolaNotValidException Se l'utente ha un formato di matricola non valido.
      */
-    public void registrazioneUtente(Utente u) throws MatricolaNotValidException {
+    public void registrazioneUtente(Utente u) throws MatricolaNotValidException, UtentePresenteException {
         // scheletro
         if (u == null)
-        return;
-            if (!u.getMatricola().matches("\\d{10}")){
+            throw new IllegalArgumentException("L'utente non può essere nullo.");
+        else if (!u.getMatricola().matches("\\d{10}")){
                 throw new MatricolaNotValidException ("La matricola deve esser composta da 10 cifre");
         }
+        else if(listaUtenti.add(u)==false)
+            throw new UtentePresenteException("L'utente è già presente all'interno della lista.");
+        else
             listaUtenti.add(u);
     }
 
