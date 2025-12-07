@@ -190,6 +190,6 @@ public class CatalogoLibri {
             }
         }
         
-        return sb.toString();
+        return sb.toString(); 
     }
 }
