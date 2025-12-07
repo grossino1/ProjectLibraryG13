@@ -1,12 +1,14 @@
 package GestionePrestito;
 
+import Eccezioni.EccezioniPrestiti.dataRestituzioneException;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 /**
  * @class Prestito
  * @brief Rappresenta l'entità prestito all'interno del sistema di gestione bibliotecaria.
  * 
- * Il presto nasce dall'associazione di un libro ed un utente per un periodo di tempo limitato. 
+ * Il prestito nasce dall'associazione di un libro ed un utente per un periodo di tempo limitato. 
  *
  * @see Libro
  * @see Utente
@@ -21,10 +23,11 @@ import java.time.LocalDate;
 
 public class Prestito implements Comparable<Prestito> {
 
-    private String IDPrestito;
-    private String ISBNLibro;
-    private String matricolaUtente;
+    private final String IDPrestito;
+    private final String ISBNLibro;
+    private final String matricolaUtente;
     private LocalDate dataRestituzione;
+    private static int contatoreID;
 
     /**
      * @brief Costruttore della classe Prestito.
@@ -40,19 +43,18 @@ public class Prestito implements Comparable<Prestito> {
      */
     public Prestito(String ISBNLibro, String matricolaUtente) {
     
-        if (ISBNLibro == null || ISBNLibro.isEmpty())
-            throw new IllegalArgumentException("ISBN non può essere nullo o vuoto");
-        if (matricolaUtente == null || matricolaUtente.isEmpty())
-            throw new IllegalArgumentException("Matricola non può essere nulla o vuota");
-
+        if (ISBNLibro == null || ISBNLibro.isEmpty() || !ISBNLibro.matches("\\d{13}"))
+            throw new IllegalArgumentException("Formato ISBN non valido");
+        if (matricolaUtente == null || matricolaUtente.isEmpty() || !matricolaUtente.matches("d\\{10}"))
+            throw new IllegalArgumentException("Formato matricola non valido");
+        
         this.ISBNLibro = ISBNLibro;
         this.matricolaUtente = matricolaUtente;
-        this.IDPrestito = java.util.UUID.randomUUID().toString(); // genera ID univoco
+        this.contatoreID++;
+        this.IDPrestito = String.valueOf(contatoreID);
         this.dataRestituzione = LocalDate.now().plusDays(30); // oggi + 30 giorni
 }
-        
-        
-
+       
     // Getter
 
     /**
@@ -61,6 +63,7 @@ public class Prestito implements Comparable<Prestito> {
      * @return La stringa identificativa del prestito.
      */
     public String getIDPrestito() {
+     
         return IDPrestito;
     }
 
@@ -70,6 +73,7 @@ public class Prestito implements Comparable<Prestito> {
      * @return Il codice ISBN.
      */
     public String getISBNLibro() {
+        //Controllo sull'ISBN
         return ISBNLibro;
     }
 
@@ -79,6 +83,7 @@ public class Prestito implements Comparable<Prestito> {
      * @return La matricola dell'utente.
      */
     public String getMatricolaUtente() {
+        //Controllo sulla matricola
         return matricolaUtente;
     }
 
@@ -88,50 +93,37 @@ public class Prestito implements Comparable<Prestito> {
      * @return La data di scadenza del prestito.
      */
     public LocalDate getDataRestituzione() {
+        
         return dataRestituzione;
     }
 
     // Setter
 
     /**
-     * @brief Imposta l'ID del prestito.
-     *
-     * @pre IDPrestito != null
-     *
-     * @param[in] IDPrestito Il nuovo ID da assegnare.
-     */
-    public void setIDPrestito(String IDPrestito) {
-        this.IDPrestito = IDPrestito;
-    }
-
-    /**
-     * @brief Imposta l'ISBN del libro.
-     *
-     * @pre ISBNLibro != null
-     *
-     * @param[in] ISBNLibro Il nuovo ISBN.
-     */
-    public void setISBNLibro(String ISBNLibro) {
-        this.ISBNLibro = ISBNLibro;
-    }
-
-    /**
-     * @brief Imposta la matricola dell'utente.
-     *
-     * @pre matricolaUtente != null
-     *
-     * @param[in] matricolaUtente La nuova matricola.
-     */
-    public void setMatricolaUtente(String matricolaUtente) {
-        this.matricolaUtente = matricolaUtente;
-    }
-
-    /**
-     * @brief Imposta la data di restituzione.
+     * @brief Imposta la data di restituzione, che non può essere maggiore di 30 giorni dal giorno corrente 
+     * e non può essere un valore negatio o nullo.
      *
      * @param[in] dataRestituzione La nuova data di restituzione.
      */
-    public void setDataRestituzione(LocalDate dataRestituzione) {
+    public void setDataRestituzione(LocalDate dataRestituzione) throws dataRestituzioneException{
+        
+        // Controllo 1: La data non deve essere null
+        if (dataRestituzione == null) {
+            throw new dataRestituzioneException("La data di restituzione non può essere nulla.");
+        }
+
+        // Controllo 2: La data non deve superare i 30 giorni da oggi
+        long giorniDiDifferenza = ChronoUnit.DAYS.between(LocalDate.now(), dataRestituzione);
+
+        if (giorniDiDifferenza > 30) {
+            throw new dataRestituzioneException("La data di restituzione non può superare i 30 giorni da oggi.");
+        } 
+        
+        // Controllo opzionale consigliato: La data non deve essere nel passato!
+        if (giorniDiDifferenza < 0) {
+             throw new dataRestituzioneException("La data di restituzione non può essere nel passato.");
+        }
+        
         this.dataRestituzione = dataRestituzione;
     }
 
@@ -146,9 +138,10 @@ public class Prestito implements Comparable<Prestito> {
      */
     @Override
     public int hashCode() {
-        if (IDPrestito != null)
-            return IDPrestito.hashCode();
-        else return 0;
+        
+        int result = 17;
+        result = 31* result + this.IDPrestito.hashCode();
+        return result;
     }
 
     /**
@@ -161,24 +154,21 @@ public class Prestito implements Comparable<Prestito> {
      * @return true se gli IDPrestito coincidono, false altrimenti.
      *
      * @see #hashCode()
-     */           
-    
+     */             
     @Override
-    
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null || getClass() != obj.getClass())
-            return false;
+        
+        if(obj == null) return false;
+        if(this == obj) return true;
+        if(this.getClass() != obj.getClass()) return false;
+        
         Prestito other = (Prestito) obj;
-        if (IDPrestito != null && IDPrestito.equals(other.IDPrestito))
-            return true;
-        else return false;            
+        return this.IDPrestito.equals(other.IDPrestito);               
     }
 
-
     /**
-     * @brief Ordina i prestiti in base alla data di restituzione (ordinamento naturale).
+     * @brief Ordina i prestiti in base alla data di restituzione (ordinamento naturale)
+     * nel caso due prestiti dovessero avere la stessa data, si considera l'ID del Prestito.
      *
      * Utile per visualizzare i prestiti in ordine di scadenza (dal più urgente al meno urgente).
      *
@@ -189,9 +179,11 @@ public class Prestito implements Comparable<Prestito> {
      */
     @Override
     public int compareTo(Prestito other) { 
-        if (other == null)
-            return 0;
-        return this.dataRestituzione.compareTo(other.dataRestituzione);
+        
+        int result = this.dataRestituzione.compareTo(other.dataRestituzione);
+        if(result != 0) return result;
+        
+        return this.IDPrestito.compareTo(other.IDPrestito);
     }
 
     /**
@@ -205,7 +197,6 @@ public class Prestito implements Comparable<Prestito> {
      * @return Una stringa contenente ID, ISBN, Matricola e Data.
      */
     @Override
-    
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append("ID prestito: "+ getIDPrestito());
@@ -214,7 +205,7 @@ public class Prestito implements Comparable<Prestito> {
         sb.append("\n");
         sb.append(" Matricola: " + getMatricolaUtente());
         sb.append("\n");
-        sb.append("Restituzione: " + getDataRestituzione());
+        sb.append("Data di Restituzione: " + getDataRestituzione());
         return sb.toString();
     }
 }
