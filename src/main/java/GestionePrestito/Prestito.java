@@ -103,7 +103,10 @@ public class Prestito implements Comparable<Prestito> {
      * @brief Imposta la data di restituzione, che non può essere maggiore di 30 giorni dal giorno corrente 
      * e non può essere un valore negatio o nullo.
      *
+     * @pre dataRestituzione < 30 giorni dal giorno corrente.
+     * 
      * @param[in] dataRestituzione La nuova data di restituzione.
+     * @throws dataRestituzioneException
      */
     public void setDataRestituzione(LocalDate dataRestituzione) throws dataRestituzioneException{
         

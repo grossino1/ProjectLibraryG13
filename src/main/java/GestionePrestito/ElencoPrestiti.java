@@ -118,7 +118,7 @@ public class ElencoPrestiti {
      * @param[in] chaive la stringa di ricerca.
      * @return ArrayList<Prestito> contenente i prestiti che soddisfano il criterio.
      * 
-     * throws PrestitoNonTrovatoException
+     * @throws PrestitoNonTrovatoException
      */
     public ArrayList<Prestito> cercaPrestito(String chiave) throws PrestitoNonTrovatoException {
         
