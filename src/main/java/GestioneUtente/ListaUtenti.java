@@ -63,8 +63,8 @@ public class ListaUtenti {
     /**
      * @brief Registra un nuovo utente nel sistema.
      *
-     * Aggiunge un utente alla collezione. Se l'utente è già presente (stessa Matricola),
-     * il Set non lo duplicherà (rispettando l'equals di Utente) e sarà lanciato un errore.
+     * Aggiunge un utente alla collezione. Se l'utente è già presente (stesso Cognome, Nome e Matricola),
+     * il Set non lo duplicherà (rispettando l'implementazione del compareTo() definito in Utente) e sarà lanciato un errore.
      * Inoltre se la matricola non è valida strutturalmente verrà lanciato un altro tipo di errore.
      * 
      * @pre u != null (Non è possibile registrare utenti nulli).
@@ -80,17 +80,22 @@ public class ListaUtenti {
         if (!u.getMatricola().matches("\\d{10}")){
                 throw new MatricolaNotValidException ("La matricola deve esser composta da 10 cifre");
         }
+        
         // Controllo dell'esistenza dell'utente
-        if(getUtenteByMatricola(u.getMatricola()) != null)
-            // Invocando il metodo getUtenteByMatyricola() controllo se esiste già un utente con questa matricola.
-            // Si suppone che ogni studente abbia una matricola unica.
+        // Il metodo add() restituisce:
+        // - true: se l'utente è stato inserito (non c'erano duplicati secondo il compareTo)
+        // - false: se l'utente c'era già (stesso Cognome, Nome E Matricola)
+        boolean inserito = listaUtenti.add(u);
+        
+        if(!inserito){
+            // Esiste già un utente identico (stessa matricola compresa)
             throw new UtentePresenteException("L'utente è già presente all'interno della lista.");
-        // Se vengono passati questi due controlli, all'ora l'utente può essere
-        // effettivamente aggiunto all'interno della lista
-        else{
-            listaUtenti.add(u);
-            System.out.println("Utente inserito con successo: " + u.getMatricola());
         }
+        
+        // Se vengono superati tutti i criteri, all'ora l'inserimento è andato a buon fine.
+        // L'Utente u è stato aggiunto alla listaUtenti.
+        System.out.println("Utente inserito con successo: " + u.getMatricola());
+ 
     }
 
     /**
@@ -115,7 +120,7 @@ public class ListaUtenti {
     }
 
     /**
-     * @brief Cerca utenti in base a una stringa generica che rappresenta il Cognome o la Matricola.
+     * @brief Cerca utenti in base a una Stringa generica che rappresenta il Cognome o la Matricola.
      *
      * @pre u != null (La stringa di ricerca non deve essere nulla).
      * @post La lista restituita non è mai null (può essere vuota).
@@ -130,7 +135,7 @@ public class ListaUtenti {
         // Per rendere las ricerca Case-Insensitive trasformo la stringa passata con tutte lettere minuscole.
         String utenteCercato = u.toLowerCase();
         for(Utente utente : listaUtenti){
-            // Controllo se la stringa corrisponde al Cognome o alla Matricola di ogni utente appartenente a listaUtenti
+            // Controllo se la stringa corrisponde al Cognome o alla Matricola di ogni utente appartenente a listaUtenti.
             if (utente.getCognome().toLowerCase().contains(utenteCercato) || utente.getMatricola().toLowerCase().contains(utenteCercato)){
                 // Se un utente corrisponde ai criteri allora viene aggiunto all'interno dell'ArrayList
                 listaRicerca.add(utente);

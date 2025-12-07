@@ -26,7 +26,7 @@ public class Utente implements Comparable<Utente>, Serializable {
     private String cognome;
     private String matricola;
     private String emailIstituzionale;
-    private List<Prestito> listaPrestiti;
+    private ArrayList<Prestito> listaPrestiti;
     
     /**
      * @brief Costruttore della classe Utente.
@@ -35,10 +35,11 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @post Viene creata una nuova istanza di Utente.
      * @post listaPrestiti != null && listaPrestiti.isEmpty() (La lista viene inizializzata vuota).
      *
-     * @param[in] nome Il nome dell'utente.
-     * @param[in] cognome Il cognome dell'utente.
-     * @param[in] matricola Il codice identificativo univoco (es. numero di matricola universitaria).
-     * @param[in] emailIstituzionale L'indirizzo email dell'utente.
+     * @param[in] nome: Il nome dell'utente.
+     * @param[in] cognome: Il cognome dell'utente.
+     * @param[in] matricola: Il codice identificativo univoco (es. numero di matricola universitaria).
+     * @param[in] emailIstituzionale: L'indirizzo email dell'utente.
+     * @param[in] listaPrestiti: La lista dei Prestiti Attivi dell'Utente.
      */
     public Utente(String nome, String cognome, String matricola, String emailIstituzionale) {
         this.nome = nome;
@@ -48,7 +49,7 @@ public class Utente implements Comparable<Utente>, Serializable {
         this.listaPrestiti = new ArrayList<>();
     }
     
-    // --- Getter e Setter ---
+    // Getter e Setter 
 
     /**
      * @brief Restituisce il nome dell'utente.
@@ -62,7 +63,7 @@ public class Utente implements Comparable<Utente>, Serializable {
     /**
      * @brief Imposta il nome dell'utente.
      * 
-     * @param[in] nome Il nuovo nome.
+     * @param[in] nome: Il nuovo nome.
      */
     public void setNome(String nome) {
         this.nome = nome;
@@ -80,7 +81,7 @@ public class Utente implements Comparable<Utente>, Serializable {
     /**
      * @brief Imposta il cognome dell'utente.
      * 
-     * @param[in] cognome Il nuovo cognome.
+     * @param[in] cognome: Il nuovo cognome.
      */
     public void setCognome(String cognome) {
         this.cognome = cognome;
@@ -100,7 +101,7 @@ public class Utente implements Comparable<Utente>, Serializable {
      *
      * @pre matricola != null
      *
-     * @param[in] matricola La nuova matricola.
+     * @param[in] matricola: La nuova matricola.
      */
     public void setMatricola(String matricola) {
         this.matricola = matricola;
@@ -118,7 +119,7 @@ public class Utente implements Comparable<Utente>, Serializable {
     /**
      * @brief Imposta l'email istituzionale.
      * 
-     * @param[in] emailIstituzionale La nuova email.
+     * @param[in] emailIstituzionale: La nuova email.
      */
     public void setEmailIstituzionale(String emailIstituzionale) {
         this.emailIstituzionale = emailIstituzionale;
@@ -131,42 +132,43 @@ public class Utente implements Comparable<Utente>, Serializable {
      * 
      * @return ArrayList contenente i prestiti.
      */
-    public List<Prestito> getListaPrestiti() { 
-        return listaPrestiti; 
+    public ArrayList<Prestito> getListaPrestiti() { 
+        // Inserisco la lista dei prestiti dell'utente in un ArrayList e lo restituisco.
+        return new ArrayList<Prestito>(listaPrestiti); 
     }
 
-    // Metodi Logici
+    // METODI LOGICI
 
     /**
-     * @brief Aggiunge un prestito alla lista dell'utente.
+     * Aggiunge un prestito alla lista dei prestiti attivi dell'utente.
      *
-     * @pre p != null
+     * @pre  p != null
      * @post listaPrestiti.size() == old_size + 1
      * @post listaPrestiti.contains(p) == true
      *
-     * @param[in] p L'oggetto Prestito da aggiungere.
+     * @param p Il prestito da aggiungere.
      */
     public void addPrestito(Prestito p) {
-        // scheletro
-        if (p!= null){
-            listaPrestiti.add(p);
-        }
+       // La precondizione garantisce che p non sia null; quindi è sufficiente aggiungerlo alla lista.
+       listaPrestiti.add(p);
     }
 
     /**
-     * @brief Rimuove un prestito dalla lista dell'utente (es. alla restituzione).
+     * Rimuove un prestito dalla lista dei prestiti attivi dell'utente
+     * (ad esempio in caso di restituzione del materiale).
      *
-     * @pre p != null
+     * @pre  p != null
      * @post listaPrestiti.contains(p) == false
      *
-     * @param[in] p L'oggetto Prestito da rimuovere.
+     * @param p Il prestito da rimuovere.
      */
-    public void rimuoviPrestito(Prestito p) {
-        // scheletro
-        if (p!=null){
-            listaPrestiti.remove(p);
-        }
+   public void rimuoviPrestito(Prestito p) {
+       // Se p è presente nella lista, viene rimosso (p != null è garantito dalla precondizione.)
+       if (listaPrestiti.contains(p)) {
+           listaPrestiti.remove(p);
+       }
     }
+
 
     /**
      * @brief Genera l'hash code basato sulla matricola.
@@ -177,46 +179,61 @@ public class Utente implements Comparable<Utente>, Serializable {
      */
     @Override
     public int hashCode() {
-        if (matricola == null)
-            return 0;
-        else return matricola.hashCode();
+        int res = 7;
+        res = 31 * res + getMatricola().hashCode();
+        return res;
     }
 
     /**
-     * @brief Confronta due utenti per matricola, evitando duplicati nella lista.
-     *
-     * @param[in] obj L'oggetto da confrontare.
-     * @return true se le matricole coincidono, false altrimenti.
+     * @brief Confronta due utenti per matricola, determinando se sono uguali oppure no in modo da evitare duplicati.
+     *        Due utenti sono considerati uguali se possiedono la stessa matricola.
+     * 
+     * @param[in] obj: L'oggetto da confrontare.
+     * @return    true se le matricole coincidono, false altrimenti.
      * 
      * @see #hashCode()
      */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null || getClass() != obj.getClass())
-            return false;
-        Utente other = (Utente) obj;
-        if (matricola != null && matricola.equals(other.matricola))
-            return true;
-        else return false;            
+    public boolean equals(Object other) {
+        // Se l'oggetto dato come parametro è nullo, allora di sicuro sono diversi.
+        if(other == null) return false;
+        // Se i due oggetti hanno la stessa reference, allora sono uguali.
+        if(this == other) return true;
+        // Se i due oggetti appartengono a classi diverse allora sono diversi.
+        if(getClass() != other.getClass()) return false;
+        // L'oggetto other di sicuro appartiene alla classe Utente, quindi posso fare un cast con sicurezza.
+        Utente u = (Utente) other;
+        // Due utenti sono uguali se hanno la stessa matricola (confronto Case-Insensitive).
+        return this.matricola.equalsIgnoreCase(u.getMatricola());
     }
 
     /**
-     * @brief Ordina gli utenti per Cognome e poi per Nome (ordinamento naturale).
+     * Confronta questo utente con un altro in base all'ordinamento alfabetico.
+     * L'ordinamento avviene prima per cognome e, in caso di parità, per nome.
      *
-     * @pre other != null
-     *
-     * @param[in] other L'utente da confrontare.
-     * @return < 0 se this < other, 0 se uguali, > 0 se this > other.
+     * @param other L'utente da confrontare con quello corrente.
+     * @return un numero negativo se questo utente precede {@code other},
+     *         zero se sono equivalenti per ordinamento,
+     *         un numero positivo se questo utente segue {@code other}.
      */
     @Override
     public int compareTo(Utente other) {
-        int compare = this.cognome.compareToIgnoreCase(other.cognome);
-        if (compare != 0)
+        // Confronto i due oggetti per cognome.
+        int cmp = this.cognome.compareToIgnoreCase(other.cognome);
+        // Se compareTo() restituisce un numero diverso da 0, allora i due cognomi sono diversi e restituisco questo ordinamento.
+        if (cmp != 0) {
+            return cmp;
+        }
+        // Se i due utenti hanno lo stesso cognome l'ordinamento è sul nome.
+        int compare = this.nome.compareToIgnoreCase(other.nome);
+        if (compare != 0){
             return compare;
-        else return this.nome.compareToIgnoreCase(other.nome);
+        }
+        
+        // Se due utenti hanno lo stesso cognome e nome, allora ordino per matricola,
+        // la quale è per definizione univoca.
+        return this.matricola.compareToIgnoreCase(other.matricola);
     }
+
     
     /**
      * @brief Restituisce una rappresentazione testuale dell'utente.
@@ -226,7 +243,7 @@ public class Utente implements Comparable<Utente>, Serializable {
      * 
      * @post Il risultato non è mai null (restituisce sempre una stringa, anche vuota).
      * 
-     * @return Stringa con Nome, Cognome, Matricola ed Email.
+     * @return Stringa con Nome, Cognome, Matricola, Email Istituzionale e Lista dei Prestiti.
      */
     @Override
     public String toString() {
