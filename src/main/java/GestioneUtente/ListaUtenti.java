@@ -84,7 +84,7 @@ public class ListaUtenti {
         if(aggiunto == false)
             throw new UtentePresenteException("L'utente è già presente all'interno della lista.");
         else
-            System.out.println("Libro inserito con successo: " + libro.getTitolo());
+            System.out.println("Utente inserito con successo: " + u.getMatricola());
     }
 
     /**
