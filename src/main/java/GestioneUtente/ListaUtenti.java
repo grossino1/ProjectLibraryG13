@@ -80,10 +80,11 @@ public class ListaUtenti {
         else if (!u.getMatricola().matches("\\d{10}")){
                 throw new MatricolaNotValidException ("La matricola deve esser composta da 10 cifre");
         }
-        else if(listaUtenti.add(u)==false)
+        boolean aggiunto = listaUtenti.add(u);
+        if(aggiunto == false)
             throw new UtentePresenteException("L'utente è già presente all'interno della lista.");
         else
-            listaUtenti.add(u);
+            System.out.println("Libro inserito con successo: " + libro.getTitolo());
     }
 
     /**
