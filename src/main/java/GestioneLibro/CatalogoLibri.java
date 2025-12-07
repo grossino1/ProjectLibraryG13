@@ -161,7 +161,7 @@ public class CatalogoLibri {
             throw new LibroNotFoundException("È stato inserito un comparatore nullo");
         ArrayList<Libro> listaordinata = new ArrayList<>(catalogoLibri);
         listaordinata.sort(comp);
-        return listaordinata;
+        return listaordinata; 
     }
 
     /**
