@@ -1,5 +1,4 @@
 package GestioneUtente;
-
 import java.util.ArrayList;
 import GestionePrestito.Prestito;
 import java.io.Serializable;
