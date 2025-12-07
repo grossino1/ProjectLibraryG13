@@ -180,7 +180,7 @@ public class Utente implements Comparable<Utente>, Serializable {
     @Override
     public int hashCode() {
         int res = 7;
-        res = 31 * res + getMatricola().hashCode();
+        res = 31 * res + getMatricola().toLowerCase().hashCode();
         return res;
     }
 
@@ -209,11 +209,12 @@ public class Utente implements Comparable<Utente>, Serializable {
     /**
      * Confronta questo utente con un altro in base all'ordinamento alfabetico.
      * L'ordinamento avviene prima per cognome e, in caso di parità, per nome.
-     *
-     * @param other L'utente da confrontare con quello corrente.
-     * @return un numero negativo se questo utente precede {@code other},
+     * Nel caso in cui due utenti hanno lo stesso cognome e nome, allora si ordina per matricola.
+     * 
+     * @param other: L'utente da confrontare con quello corrente.
+     * @return un numero negativo se questo utente precede other {@code other},
      *         zero se sono equivalenti per ordinamento,
-     *         un numero positivo se questo utente segue {@code other}.
+     *         un numero positivo se questo utente segue other {@code other}.
      */
     @Override
     public int compareTo(Utente other) {
@@ -230,7 +231,8 @@ public class Utente implements Comparable<Utente>, Serializable {
         }
         
         // Se due utenti hanno lo stesso cognome e nome, allora ordino per matricola,
-        // la quale è per definizione univoca.
+        // la quale è per definizione univoca. 
+        // Questo confronto permette di inserire due utenti con stesso cognome e nome ma con matricola diversa.
         return this.matricola.compareToIgnoreCase(other.matricola);
     }
 
@@ -247,7 +249,7 @@ public class Utente implements Comparable<Utente>, Serializable {
      */
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("Utente: \n");
         sb.append("Nome: ");
         sb.append(getNome());
