@@ -7,6 +7,7 @@ import java.util.Comparator;
 import Eccezioni.EccezioniLibri.ISBNNotValidException;
 import Eccezioni.EccezioniLibri.LibroPresenteException;
 import Eccezioni.EccezioniLibri.LibroNotFoundException;
+import SalvataggioFile.SalvataggioFileLibro.SalvataggioFileLibro;
 
 
 /**
@@ -58,7 +59,7 @@ public class CatalogoLibri {
         }
         return null; 
     }
-    
+
     /**
      * @brief Registra un nuovo libro nel catalogo.
      *
@@ -82,6 +83,8 @@ public class CatalogoLibri {
         }
         if (!catalogoLibri.add(l))
             throw new LibroPresenteException("Il libro scelto è già presente nel catalogo libri");
+        CatalogoLibri catalogo = (CatalogoLibri) catalogoLibri;
+        SalvataggioFileLibro.salva(catalogo, "Catalogo Libri");
         
     }
 
@@ -100,6 +103,8 @@ public class CatalogoLibri {
         if (!catalogoLibri.contains(l))
             throw new LibroNotFoundException("Il libro non è presente nel catalogo");
         catalogoLibri.remove(l); 
+        CatalogoLibri catalogo = (CatalogoLibri) catalogoLibri;
+        SalvataggioFileLibro.salva(catalogo, "Catalogo Libri");
     }
 
     /**
