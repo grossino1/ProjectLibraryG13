@@ -173,7 +173,7 @@ public class CatalogoLibri {
      */
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(); 
         sb.append("=== Catalogo Libri ===\n");
 
         if (catalogoLibri.isEmpty()) {
