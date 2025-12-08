@@ -41,7 +41,7 @@ public class Prestito implements Comparable<Prestito> {
      * @param[in] ISBNLibro Il codice ISBN del libro da prestare.
      * @param[in] matricolaUtente La matricola dell'utente richiedente.
      */
-    public Prestito(String ISBNLibro, String matricolaUtente) {
+    public Prestito(String ISBNLibro, String matricolaUtente) throws IllegalArgumentException{
     
         if (ISBNLibro == null || ISBNLibro.isEmpty() || !ISBNLibro.matches("\\d{13}"))
             throw new IllegalArgumentException("Formato ISBN non valido");

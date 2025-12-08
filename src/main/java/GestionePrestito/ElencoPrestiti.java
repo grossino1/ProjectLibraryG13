@@ -7,6 +7,7 @@ import Eccezioni.EccezioniPrestiti.PrestitoNonTrovatoException;
 import Eccezioni.EccezioniUtenti.EccezioniUtente;
 import Eccezioni.EccezioniUtenti.UtenteNotFoundException;
 import SalvataggioFile.SalvataggioFilePrestito.SalvataggioFilePrestito;
+import java.io.IOException;
 import java.util.TreeSet;
 import java.util.Set;
 import java.util.ArrayList;
@@ -40,15 +41,31 @@ public class ElencoPrestiti {
     /**
      * @brief Costruttore della classe ElencoPrestiti.
      *
+     * Controlla una flag che indica se deve caricare i dati da un file. 
+     * Se la flag è true li carica.
+     * Se la flag è false inizializza gli attributi a valori nulli
+     * 
      * @pre gestore != null (Non è possibile creare un elenco prestiti senza un gestore logico).
      * @post elencoPrestiti.isEmpty() == true (Appena creato, l'elenco è vuoto).
      * @post this.gestore == gestore.
      *
-     * @param[in] gestore L'istanza di GestorePrestito già configurata.
+     * @param[in] caricamentoFile Flag indica se prendere i dati da un file.
+     * @param[in] filename Nome del file.
+     * 
+     * @throws IOException Se il caricamento dal file fallisce.
+     * @throws ClassNotFoundException Se il casting dell'oggetto dal file fallisce.
      */
-    public ElencoPrestiti(GestorePrestito gestore) {
-        this.elencoPrestiti = new TreeSet<>();
-        this.gestore = gestore;
+    public ElencoPrestiti(boolean caricamentoFile, String filename, GestorePrestito gestore) throws IOException, ClassNotFoundException {
+       
+        if (caricamentoFile) {
+            ElencoPrestiti oggettoSalvato = SalvataggioFilePrestito.carica(filename);
+            this.elencoPrestiti = oggettoSalvato.elencoPrestiti;
+            this.gestore = oggettoSalvato.gestore;
+        }
+        else {
+            this.elencoPrestiti = new TreeSet<>();
+            this.gestore = gestore;
+        }
     }
 
     /**
@@ -69,8 +86,9 @@ public class ElencoPrestiti {
      * @throws LibroNotFoundException Se il codice ISBN non corrisponde a nessun libro nel catalogo.
      * @throws UtenteNotFoundException Se la matricola non corrisponde a nessun utente registrato.
      * @throws EccezioniPrestito Se uno dei vincoli per il prestito non sono rispettati.
+     * @throws IOException Se il salvataggio sul file fallisce.
      */
-    public void registrazionePrestito(String isbn, String matricola) throws LibroNotFoundException, UtenteNotFoundException, EccezioniPrestito{
+    public void registrazionePrestito(String isbn, String matricola) throws LibroNotFoundException, UtenteNotFoundException, EccezioniPrestito, IOException{
         try {
             boolean flag = gestore.nuovoPrestito(isbn, matricola);
             
@@ -94,9 +112,10 @@ public class ElencoPrestiti {
      * 
      * @param[in] p L'oggetto Prestito da rimuovere.
      * 
-     * throws PrestitoNonTrovatoException
+     * @throws IOException Se il salvataggio sul file fallisce
+     * @throws PrestitoNonTrovatoException
      */
-    public void eliminazionePrestito(Prestito p) throws PrestitoNonTrovatoException{
+    public void eliminazionePrestito(Prestito p) throws PrestitoNonTrovatoException, IOException{
         
         if(!elencoPrestiti.remove(p)){
             throw new PrestitoNonTrovatoException("Il prestito che vuoi eliminare non è presente all'interno del catalogo.");
