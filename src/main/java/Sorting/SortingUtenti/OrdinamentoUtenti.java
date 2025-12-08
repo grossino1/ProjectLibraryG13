@@ -36,9 +36,15 @@ public class OrdinamentoUtenti {
          * @return <0, 0, >0 in base all'ordine lessicografico.
          */
         @Override
-        public int compare(Utente l1, Utente l2) {
-            return 0; 
-        }
+        public int compare(Utente u1, Utente u2) {
+            int comp;
+            comp = u1.getCognome().compareToIgnoreCase(u2.getCognome());
+            if (comp != 0) return comp;
+            comp = u1.getNome().compareToIgnoreCase(u2.getNome());
+            if (comp != 0) return comp;
+            return u1.getMatricola().compareToIgnoreCase(u2.getMatricola());
+
+        } 
     };
 
     /**
