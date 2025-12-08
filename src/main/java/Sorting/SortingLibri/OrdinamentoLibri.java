@@ -38,7 +38,7 @@ public class OrdinamentoLibri {
          */
         @Override
         public int compare(Libro l1, Libro l2) {
-            return 0; // Implementazione: l1.getTitolo().compareToIgnoreCase(l2.getTitolo());
+            return l1.getTitolo().compareToIgnoreCase(l2.getTitolo()); // Implementazione: l1.getTitolo().compareToIgnoreCase(l2.getTitolo());
         }
     };
 
@@ -59,7 +59,7 @@ public class OrdinamentoLibri {
          */
         @Override
         public int compare(Libro l1, Libro l2) {
-            return 0; // Implementazione: l1.getAutori().compareToIgnoreCase(l2.getAutori());
+            return l1.getAutori().compareToIgnoreCase(l2.getAutori()); // Implementazione: l1.getAutori().compareToIgnoreCase(l2.getAutori());
         }
     };
 
@@ -80,7 +80,7 @@ public class OrdinamentoLibri {
          */
         @Override
         public int compare(Libro l1, Libro l2) {
-            return 0; // Implementazione: Integer.compare(l1.getAnno(), l2.getAnno());
+            return Integer.compare(l1.getAnnoPubblicazione(), l2.getAnnoPubblicazione()); // Implementazione: Integer.compare(l1.getAnno(), l2.getAnno());
         }
     };
 }

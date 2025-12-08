@@ -6,6 +6,16 @@
 package SalvataggioFile.SalvataggioFileUtente;
 
 import GestioneUtente.ListaUtenti;
+import com.sun.jmx.mbeanserver.Util;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  * @class SalvataggioFileUtente
@@ -37,10 +47,19 @@ public class SalvataggioFileUtente {
      * @param[in] dati: L'oggetto ListaUtenti da serializzare.
      * @param[in] filename: Il percorso o nome del file di destinazione.
      */
-    public static void salva(ListaUtenti dati, String filename){
-               
+    public static void salva(ListaUtenti dati, String filename) throws IOException{
+        // scheletro: qui andrebbe new ObjectOutputStream(new FileOutputStream(filename))...
+        if(dati == null)
+            throw new IOException("Non puoi salvare un oggetto vuoto!");
+        if(filename == null)
+            throw new IOException("Percorso non specificato!");
+        
+        try(ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filename)))){
+            out.writeObject(dati);
+        }catch(IOException ex){
+            throw new IOException(ex.getMessage());
+        }
     }
-    
     /**
      * @brief Carica un oggetto Utente da un file binario.
      *
@@ -53,7 +72,22 @@ public class SalvataggioFileUtente {
      * @param[in] filename: Il percorso del file da leggere.
      * @return L'istanza di ListaUtenti recuperata, oppure null in caso di errore.
      */
-    public static ListaUtenti carica(String filename){
-        return null;
+    public static ListaUtenti carica(String filename)  throws IOException, ClassNotFoundException{
+
+        if(filename == null)
+            throw new IOException("Percorso non specificato!");
+        
+        File file = new File(filename);
+        if (!file.exists())
+            throw new IOException("File non trovato!");
+        
+        try(ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))){
+            ListaUtenti datiLetti = (ListaUtenti) in.readObject();
+            return datiLetti;
+        }catch(IOException ex){
+            throw new IOException(ex.getMessage());
+        }catch(ClassNotFoundException ex){
+            throw new ClassNotFoundException(ex.getMessage());
+        }
     }
 }
