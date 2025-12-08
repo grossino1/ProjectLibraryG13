@@ -72,7 +72,7 @@ public class SalvataggioFileLibro implements Serializable{
         if(filename == null)
             throw new IOException("Percorso non specificato!");
         
-        File file = new File(filename);
+        File file = new File(filename); 
         if (!file.exists())
             throw new IOException("File non trovato!");
         
