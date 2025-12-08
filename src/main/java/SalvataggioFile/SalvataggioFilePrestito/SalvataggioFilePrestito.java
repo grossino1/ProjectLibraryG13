@@ -52,7 +52,7 @@ public class SalvataggioFilePrestito {
         try(ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filename)))){
             out.writeObject(dati);
         }catch(IOException ex){
-            throw new IOException(ex.getMessage());
+            throw new IOException(ex.getMessage());  
         }
     }
     /**
