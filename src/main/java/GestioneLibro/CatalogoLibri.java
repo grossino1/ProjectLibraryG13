@@ -8,6 +8,7 @@ import Eccezioni.EccezioniLibri.ISBNNotValidException;
 import Eccezioni.EccezioniLibri.LibroPresenteException;
 import Eccezioni.EccezioniLibri.LibroNotFoundException;
 import SalvataggioFile.SalvataggioFileLibro.SalvataggioFileLibro;
+import java.io.Serializable;
 
 
 /**
@@ -25,7 +26,7 @@ import SalvataggioFile.SalvataggioFileLibro.SalvataggioFileLibro;
  * @version 1.0
  */
 
-public class CatalogoLibri {
+public class CatalogoLibri implements Serializable{
 
     private Set<Libro> catalogoLibri;
 
@@ -83,8 +84,8 @@ public class CatalogoLibri {
         }
         if (!catalogoLibri.add(l))
             throw new LibroPresenteException("Il libro scelto è già presente nel catalogo libri");
-        CatalogoLibri catalogo = (CatalogoLibri) catalogoLibri;
-        SalvataggioFileLibro.salva(catalogo, "Catalogo Libri");
+        //CatalogoLibri catalogo = (CatalogoLibri) catalogoLibri;
+        //SalvataggioFileLibro.salva(this, "CatalogoLibri.bin");
         
     }
 
@@ -103,8 +104,8 @@ public class CatalogoLibri {
         if (!catalogoLibri.contains(l))
             throw new LibroNotFoundException("Il libro non è presente nel catalogo");
         catalogoLibri.remove(l); 
-        CatalogoLibri catalogo = (CatalogoLibri) catalogoLibri;
-        SalvataggioFileLibro.salva(catalogo, "Catalogo Libri");
+        //CatalogoLibri catalogo = (CatalogoLibri) catalogoLibri;
+        //SalvataggioFileLibro.salva(catalogo, "CatalogoLibri.txt");
     }
 
     /**

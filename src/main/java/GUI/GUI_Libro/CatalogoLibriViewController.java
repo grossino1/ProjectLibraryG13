@@ -1,12 +1,19 @@
 package GUI.GUI_Libro;
 
 import Eccezioni.EccezioniLibri.ISBNNotValidException;
+import Eccezioni.EccezioniLibri.LibroNotFoundException;
+import Eccezioni.EccezioniLibri.LibroPresenteException;
+import Eccezioni.EccezioniPrestiti.CopieEsauriteException;
 import GestioneLibro.CatalogoLibri;
 import GestioneLibro.Libro;
+import SalvataggioFile.SalvataggioFileLibro.SalvataggioFileLibro;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
@@ -19,6 +26,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -42,12 +50,23 @@ import javafx.stage.Stage;
 
 public class CatalogoLibriViewController implements Initializable {
 
+    //bottoni presenti nella GUI
     @FXML
     private Button handleAggiungiLibro;
     @FXML
     private Button handleSortTitolo;
     @FXML
     private Button handleSortAnno;
+    @FXML 
+    private Button btnModifica;
+    @FXML 
+    private Button btnElimina;
+    @FXML
+    private Button btnPiuCopie;
+    @FXML
+    private Button btnMenoCopie;
+    @FXML
+    private Button handleLogout;
     
     /**
      * Tabella per la visualizzazione dei libri.
@@ -64,10 +83,11 @@ public class CatalogoLibriViewController implements Initializable {
     private TableColumn<Libro, Integer> colAnno;
     @FXML
     private TableColumn<Libro, Integer> colNCopie;
-    @FXML
-    private Button handleLogout;
     
+    //ObservableList per il funzionamento della tabella
     private ObservableList<Libro> libroList;
+    
+    //Oggetto di classe catalogo libro per svolgere diverse funzioni
     private CatalogoLibri catalogoLibri;
 
     /**
@@ -83,15 +103,30 @@ public class CatalogoLibriViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        libroList = FXCollections.observableArrayList();
+        try {
+            catalogoLibri = SalvataggioFileLibro.carica("catalogoLibri.bin");
+        } catch (IOException ex) {
+            showAlert(Alert.AlertType.ERROR, "Errore critico!", ex.getMessage());
+            System.exit(0);
+        } catch (ClassNotFoundException ex) {
+            showAlert(Alert.AlertType.ERROR, "Errore generico!", ex.getMessage());
+        }
+        
+        libroList = FXCollections.observableArrayList(catalogoLibri.getCatalogoLibri());
         tabellaLibri.setItems(libroList);
-        catalogoLibri = new CatalogoLibri();
         
         colIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         colTitolo.setCellValueFactory(new PropertyValueFactory<>("titolo"));
         colAutore.setCellValueFactory(new PropertyValueFactory<>("autori"));
         colAnno.setCellValueFactory(new PropertyValueFactory<>("annoPubblicazione"));
         colNCopie.setCellValueFactory(new PropertyValueFactory<>("numeroCopie"));
+        
+        //per rimuovere la funzione si sort quando si clicca il nome della colonna 
+        colIsbn.setSortable(false);
+        colTitolo.setSortable(false);
+        colAutore.setSortable(false);
+        colAnno.setSortable(false);
+        colNCopie.setSortable(false);
     }    
     
     /**
@@ -106,23 +141,36 @@ public class CatalogoLibriViewController implements Initializable {
      * @param[in] event L'evento di click sul pulsante.
      */
     @FXML
-    void handleAggiungiLibro(ActionEvent event) throws ISBNNotValidException{
+    void handleAggiungiLibro(ActionEvent event){
         //chiama un metodo che permette di aggiungere un libro nel catalogo dei 
         //libri e aggiorna la vista del catalogo
         //scheletro
         try{
+            
+            //inizio della parte di codice per il caricamento della finestra per l'aggiunta di un nuovo libro
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/GUI_CatalogoLibri/LibroView.fxml"));
             Parent child = loader.load();
+            
+            //modifica della label di titolo e desc 
+            Label lblTitolo = (Label) child.lookup("#lblTitolo");
+            if (lblTitolo != null)
+                lblTitolo.setText("Nuovo Libro");
+            
+            Label lblDesc = (Label) child.lookup("#lblDesc");
+            if (lblDesc != null)
+                lblDesc.setText("Inserisci i dettagli del libro da aggiungere al catalogo.");
             
             Stage aggiungiLibroStage = new Stage();
             aggiungiLibroStage.setTitle("Aggiungi Nuovo Libro");
             Scene sceneLibri = new Scene(child);
             aggiungiLibroStage.setScene(sceneLibri);
             aggiungiLibroStage.show();
+            //fine 
             
             Button btnSalva = (Button) child.lookup("#btnSalva");
             Button btnAnnulla = (Button) child.lookup("#btnAnnulla");
             
+            //lambda expression per la registrazione del libro
             btnSalva.setOnAction(e -> {
                 try {
                     // Leggiamo i dati dai campi che abbiamo appena trovato
@@ -132,14 +180,24 @@ public class CatalogoLibriViewController implements Initializable {
                     TextField anno = (TextField) child.lookup("#txtAnno");
                     TextField numeroCopie = (TextField) child.lookup("#txtNCopie");
             
+                    System.out.println("DEBUG DATI LETTI:");
+                    System.out.println("ISBN letto: '" + isbn.getText() + "'");
+                    System.out.println("Titolo letto: '" + titolo.getText() + "'");
+                    
                     catalogoLibri.registrazioneLibro(new Libro(titolo.getText(), autore.getText(), Integer.parseInt(anno.getText()), isbn.getText(), Integer.parseInt(numeroCopie.getText())));
-                    System.err.println(catalogoLibri.toString());
+                    System.out.println(catalogoLibri.toString());
                     refreshTable();
                     aggiungiLibroStage.close();
-                } catch (NumberFormatException ex) {
-                    System.out.println("Errore: Anno non valido");
-                } catch (Exception ex) {
-                    System.out.println("Errore generico: " + ex.getMessage());
+                } catch (LibroNotFoundException ex) {
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
+                } catch (ISBNNotValidException ex) {
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
+                } catch (LibroPresenteException ex) {
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
+                } catch (IOException ex) {
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
+                } catch (ClassNotFoundException ex) {
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
                 }
             });
             
@@ -147,11 +205,11 @@ public class CatalogoLibriViewController implements Initializable {
                 try {
                     aggiungiLibroStage.close();
                 } catch (Exception ex) {
-                    System.out.println("Errore generico: " + ex.getMessage());
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
                 }
             });
         }catch(IOException e){
-            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Errore generico", e.getMessage()); //gestione delle eccezioni
         }   
     }
     
@@ -189,12 +247,19 @@ public class CatalogoLibriViewController implements Initializable {
      * Questo metodo svuota la lista visualizzata nella TableView e la ripopola
      * recuperando tutti i libri presenti nel catalogo. Serve per riflettere
      * visivamente eventuali modifiche (come nuove aggiunte o rimozioni).
+     * Inoltre, questo metodo salva le operazioni effettuate e ricarica il catalogo e di conseguenza la tabella
      *
      * @post La lista visibile (libroList) contiene esattamente gli elementi attuali di catalogoLibri.
+     * 
+     * @throws IOException se il path passato è errato.
+     * @throws ClassNotFoundExcepiton se durante la deserializzazione la classe del catalogo salvato 
+     * non corrisponde alla versione della classe locale.
      */    
     @FXML
-    void refreshTable(){
+    void refreshTable() throws IOException, ClassNotFoundException{
+        SalvataggioFileLibro.salva(catalogoLibri, "catalogoLibri.bin");
         libroList.clear(); // 1. Cancella i dati vecchi dalla vista
+        catalogoLibri = SalvataggioFileLibro.carica("catalogoLibri.bin");
         libroList.addAll(catalogoLibri.getCatalogoLibri());
     }
     
@@ -206,23 +271,22 @@ public class CatalogoLibriViewController implements Initializable {
      *
      * @param[in] event L'evento che ha scatenato il cambio (per recuperare lo Stage).
      * @param[in] fxmlPath Il percorso del file FXML da caricare.
+     * 
+     * @throws IOException se il path passato è errato (per maggiori informazioni si veda la classe SalvataggioFileLibro).
      */
     @FXML 
-    void switchScene(ActionEvent event, String fxmlPath){
+    void switchScene(ActionEvent event, String fxmlPath) throws IOException{
         //permette di cambiare scena in base al pulsante cliccato e al path fornito in fxmlPath
         //si potrebbe effettuare un salvataggio dei dati prima del passaggio
         //scheletro
+        SalvataggioFileLibro.salva(catalogoLibri, "catalogoLibri.bin");
+
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
             
-            Stage stageAttuale = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            
-            Scene DashScene = new Scene(root);
-            stageAttuale.setScene(DashScene);
-            stageAttuale.setMaximized(true);
-            stageAttuale.show();
-            
+            Scene stageAttuale = ((Node) event.getSource()).getScene();       
+            stageAttuale.setRoot(root);
         }catch(IOException e){
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR,"Errore Critico!","Errore nel caricamento della Scena: " + e.getMessage());
@@ -234,12 +298,15 @@ public class CatalogoLibriViewController implements Initializable {
      *
      * @see #switchScene(ActionEvent, String)
      * @param[in] event L'evento di click.
+     * 
+     * * @throws IOException se il path passato è errato e/o per SalvataggioFileLibro.
      */
     @FXML
-    void handlePrestiti(ActionEvent event) {
+    void handlePrestiti(ActionEvent event) throws IOException {
         //permette di passare alla schermata dei prestiti
         //da implemetare con switchScene
         //scheletro
+        switchScene(event, "/GUI/GUI_Prestiti/PrestitiView.fxml");
     }
     
     /**
@@ -247,12 +314,15 @@ public class CatalogoLibriViewController implements Initializable {
      *
      * @see #switchScene(ActionEvent, String)
      * @param[in] event L'evento di click.
+     * 
+     * @throws IOException se il path passato è errato e/o per SalvataggioFileLibro.
      */
     @FXML
-    void handleGestioneUtenti(ActionEvent event) {
+    void handleGestioneUtenti(ActionEvent event) throws IOException {
         //permette di passare alla schermata per la gesione degli utenti
         //da implemetare con switchScene
         //scheletro
+        switchScene(event, "/GUI/GUI_GestioneUtenti/GestioneUtentiView.fxml");
     }
     
     /**
@@ -262,12 +332,16 @@ public class CatalogoLibriViewController implements Initializable {
      * Abilita i pulsanti contestuali (Aggiungi Copia, Rimuovi Copia, Modifica).
      *
      * @post I pulsanti di modifica diventano visibili/cliccabili.
-     * @param[in] event L'evento di selezione.
      */
     @FXML
-    void handleSelectedLibro(ActionEvent event){
-        //permette di selezionare un libro e far apparire delle icone per la modifica del libro, aggiunta e rimozione di una copia
-        //scheletro
+    void handleSelectedLibro(){
+        // Grazie al binding in initialize, non serve scrivere nulla qui per attivare i bottoni.
+        // JavaFX lo fa da solo.
+        // Puoi lasciare questo metodo vuoto o usarlo per debug:
+        Libro selezionato = tabellaLibri.getSelectionModel().getSelectedItem();
+        if (selezionato != null) {
+            System.out.println("Selezionato: " + selezionato.getTitolo());
+        }
     }
     
     /**
@@ -276,13 +350,26 @@ public class CatalogoLibriViewController implements Initializable {
      * @pre Un libro deve essere attualmente selezionato nella tabella.
      * @post Il numero di copie del libro selezionato aumenta di 1.
      * @post La vista della tabella viene aggiornata.
+     * 
+     * @see #refreshTable() 
      *
      * @param[in] event L'evento di click.
+     * 
+     * @throws IOException se il path passato è errato.
+     * @throws ClassNotFoundExcepiton se durante la deserializzazione la classe del catalogo salvato 
+     * non corrisponde alla versione della classe locale.
      */
     @FXML
-    void handleAddCopyLibro(ActionEvent event){
-        //permette di aggiungere una copia del libro selezionato tramite handleSelectedLibro
-        //scheletro
+    void handleAddCopyLibro(ActionEvent event) throws IOException, ClassNotFoundException{
+        // 1. Recupera il libro selezionato
+        Libro selected = tabellaLibri.getSelectionModel().getSelectedItem();
+        
+        if (selected != null) {
+            selected.incrementaCopiaLibro();
+            // Feedback visivo (opzionale)
+            System.out.println("Copia aggiunta. Totale: " + selected.getNumeroCopie());
+        }
+        refreshTable();
     }
     
     /**
@@ -293,13 +380,57 @@ public class CatalogoLibriViewController implements Initializable {
      * @post Il numero di copie diminuisce di 1.
      * @post Se le copie scendono a zero (o soglia minima), potrebbe essere rimosso o disattivato.
      *
+     * @see #refreshTable() 
+     *
      * @param[in] event L'evento di click.
+     * 
+     * @throws IOException se il path passato è errato.
+     * @throws ClassNotFoundExcepiton se durante la deserializzazione la classe del catalogo salvato 
+     * non corrisponde alla versione della classe locale.
      */
     @FXML
-    void handleRemoveCopyLibro(ActionEvent event){
+    void handleRemoveCopyLibro(ActionEvent event) throws IOException, ClassNotFoundException{
         //permette di rimuovere una copia del libro selezionato tramite handleSelectedLibro
         //controllo per quanto riguarda presenza di 1 sola copia
         //scheletro
+        Libro selected = tabellaLibri.getSelectionModel().getSelectedItem();
+        
+        if(selected != null){
+            try{
+                selected.decrementaCopiaLibro();
+            }catch(CopieEsauriteException ex){
+                showAlert(Alert.AlertType.ERROR, "Errore", ex.getMessage());
+            }
+        }   
+        refreshTable();
+    }
+    
+    
+    /**
+     * @brief Elimina il libro selezionato
+     * 
+     * @pre Un libro deve essere selezionato
+     * 
+     * @post Il libro viene eliminato dal catalogo libri
+     * 
+     * @see #refreshTable() 
+     *
+     * @param[in] event L'evento di click.
+     * 
+     * @throws IOException se il path passato è errato.
+     * @throws ClassNotFoundExcepiton se durante la deserializzazione la classe del catalogo salvato 
+     * non corrisponde alla versione della classe locale.
+     */
+    @FXML
+    void handleDeleteLibro(ActionEvent event) throws IOException, ClassNotFoundException{
+        Libro selected = tabellaLibri.getSelectionModel().getSelectedItem();
+        
+        try{
+            catalogoLibri.eliminazioneLibro(selected);
+            refreshTable();
+        }catch(LibroNotFoundException ex){
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage());
+        }
     }
     
     /**
@@ -307,13 +438,92 @@ public class CatalogoLibriViewController implements Initializable {
      *
      * @pre Un libro deve essere selezionato.
      * @post I dati del libro vengono aggiornati nel catalogo e nella vista.
+     * 
+     * @see #refreshTable() 
      *
      * @param[in] event L'evento di click.
+     * 
+     * @throws IOException se il path passato è errato.
+     * @throws ClassNotFoundExcepiton se durante la deserializzazione la classe del catalogo salvato 
+     * non corrisponde alla versione della classe locale.
      */
     @FXML
-    void handleModifyLibro(ActionEvent event){
+    void handleModifyLibro(ActionEvent event) throws LibroNotFoundException{
         //permette di modificare il libro selezionato tramite handleSelectedLibro
         //scheletro
+        Libro selected = tabellaLibri.getSelectionModel().getSelectedItem();   
+
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/GUI_CatalogoLibri/LibroView.fxml"));
+            Parent child = loader.load();
+            
+            Label lblTitolo = (Label) child.lookup("#lblTitolo");
+            if (lblTitolo != null)
+                lblTitolo.setText("Modifica Libro");
+            
+            Label lblDesc = (Label) child.lookup("#lblDesc");
+            if(lblDesc != null)
+                lblDesc.setText("Inserisci i dettagli del libro da modificare nel catalogo.");
+            
+            Stage aggiungiLibroStage = new Stage();
+            aggiungiLibroStage.setTitle("Modifica Libro");
+            Scene sceneLibri = new Scene(child);
+            aggiungiLibroStage.setScene(sceneLibri);
+            aggiungiLibroStage.show();
+            javafx.application.Platform.runLater(() -> {
+                child.requestFocus(); 
+            });
+            
+            Button btnSalva = (Button) child.lookup("#btnSalva");
+            Button btnAnnulla = (Button) child.lookup("#btnAnnulla");
+            TextField isbn = (TextField) child.lookup("#txtIsbn");
+            isbn.setText(selected.getIsbn());
+            isbn.setDisable(true);
+            TextField titolo = (TextField) child.lookup("#txtTitolo");
+            titolo.setText(selected.getTitolo());
+            TextField autore = (TextField) child.lookup("#txtAutore");
+            autore.setText(selected.getAutori());
+            TextField anno = (TextField) child.lookup("#txtAnno");
+            anno.setText(String.valueOf(selected.getAnnoPubblicazione()));
+            TextField numeroCopie = (TextField) child.lookup("#txtNCopie");
+            numeroCopie.setText(String.valueOf(selected.getNumeroCopie()));
+                    
+            btnSalva.setOnAction(e -> {
+                try {
+                    // Leggiamo i dati dai campi che abbiamo appena trovato           
+                    System.out.println("DEBUG DATI LETTI:");
+                    System.out.println("ISBN letto: '" + isbn.getText() + "'");
+                    System.out.println("Titolo letto: '" + titolo.getText() + "'");
+                    
+                    selected.setAnnoPubblicazione(Integer.parseInt(anno.getText()));
+                    selected.setAutori(autore.getText());
+                    selected.setNumeroCopie(Integer.parseInt(numeroCopie.getText()));
+                    selected.setTitolo(titolo.getText());
+                    
+                    System.out.println(catalogoLibri.toString());
+                    refreshTable();
+                    aggiungiLibroStage.close();
+                }catch(LibroPresenteException ex){
+                    showAlert(Alert.AlertType.ERROR, "Errore generico ", ex.getMessage());
+                }catch(NumberFormatException ex){
+                    showAlert(Alert.AlertType.ERROR, "Errore generico ", ex.getMessage());
+                } catch (IOException ex) {
+                    showAlert(Alert.AlertType.ERROR, "Errore generico ", ex.getMessage());
+                } catch (ClassNotFoundException ex) {
+                    showAlert(Alert.AlertType.ERROR, "Errore generico ", ex.getMessage());
+                }
+            });
+            
+            btnAnnulla.setOnAction(e -> { 
+                try {
+                    aggiungiLibroStage.close();
+                } catch (Exception ex) {
+                    System.out.println("Errore generico: " + ex.getMessage());
+                }
+            });
+        }catch(IOException e){
+            e.printStackTrace();
+        }  
     }
 
     /**
@@ -325,10 +535,11 @@ public class CatalogoLibriViewController implements Initializable {
      * @param[in] event L'evento di click.
      */
     @FXML
-    void handleLogout(ActionEvent event) {
+    void handleLogout(ActionEvent event) throws IOException {
         //permette di passare alla schermata del login
         //da implemetare con switchScene
         //scheletro
+        switchScene(event, "/GUI/GUI_Login/LoginView.fxml");
     }
     
     /**

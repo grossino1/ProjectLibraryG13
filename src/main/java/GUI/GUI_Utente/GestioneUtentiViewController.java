@@ -2,6 +2,7 @@ package GUI.GUI_Utente;
 
 import GestioneUtente.ListaUtenti;
 import GestioneUtente.Utente;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -9,13 +10,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 /**
  * @class GestioneUtentiViewController
@@ -93,8 +99,13 @@ public class GestioneUtentiViewController implements Initializable {
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colCognome.setCellValueFactory(new PropertyValueFactory<>("cognome"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("emailIstituzionale"));
-        colNPrestitiAttivi.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getListaPrestiti().size()).asObject()
-);
+        colNPrestitiAttivi.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getListaPrestiti().size()).asObject());
+        
+        colTessera.setSortable(false);
+        colNome.setSortable(false);
+        colCognome.setSortable(false);
+        colEmail.setSortable(false);
+        colNPrestitiAttivi.setSortable(false);
     
     }     
 
@@ -170,7 +181,35 @@ public class GestioneUtentiViewController implements Initializable {
      */
     @FXML
     void handleLogout(ActionEvent event) {
-        // scheletro: switchScene(event, "/GUI/GUI_Login/LoginView.fxml");
+        // scheletro: 
+        switchScene(event, "/GUI/GUI_Login/LoginView.fxml");
+    }
+    
+    /**
+     * @brief Passa alla schermata del Catalogo Libri.
+     * 
+     * @see #switchScene(ActionEvent, String)
+     */
+    @FXML
+    void handleCatalogoLibri(ActionEvent event) {
+        //permette di passare alla schermata del catalogo dei libri
+        //da implemetare con switchScene
+        //scheletro
+        switchScene(event, "/GUI/GUI_CatalogoLibri/CatalogoLibriView.fxml");
+    }
+    
+    /**
+     * @brief Naviga alla sezione Gestione Prestiti.
+     *
+     * @see #switchScene(ActionEvent, String)
+     * @param[in] event L'evento di click.
+     */
+    @FXML
+    void handlePrestiti(ActionEvent event) {
+        //permette di passare alla schermata dei prestiti
+        //da implemetare con switchScene
+        //scheletro
+        switchScene(event, "/GUI/GUI_Prestiti/PrestitiView.fxml");
     }
     
     /**
@@ -179,8 +218,21 @@ public class GestioneUtentiViewController implements Initializable {
      * @param[in] event Evento scatenante.
      * @param[in] fxmlPath Percorso della nuova vista.
      */
-    private void switchScene(ActionEvent event, String fxmlPath) {
-        // scheletro
+    @FXML 
+    void switchScene(ActionEvent event, String fxmlPath){
+        //permette di cambiare scena in base al pulsante cliccato e al path fornito in fxmlPath
+        //si potrebbe effettuare un salvataggio dei dati prima del passaggio
+        //scheletro
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+            
+            Scene stageAttuale = ((Node) event.getSource()).getScene();       
+            stageAttuale.setRoot(root);
+        }catch(IOException e){
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR,"Errore Critico!","Errore nel caricamento della Scena: " + e.getMessage());
+        }
     }
     
         /**

@@ -16,12 +16,12 @@
       <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
    </padding>
    <children>
-      <Label text="Nuovo Libro" textFill="#2c3e50">
+      <Label fx:id="lblTitolo" text="Nuovo Libro" textFill="#2c3e50">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label text="Inserisci i dettagli del libro da aggiungere al catalogo." textFill="#7f8c8d" wrapText="true" />
+      <Label fx:id="lblDesc" text="Inserisci i dettagli del libro da aggiungere al catalogo." textFill="#7f8c8d" wrapText="true" />
 
       <GridPane hgap="10.0" vgap="15.0" VBox.vgrow="ALWAYS">
         <columnConstraints>

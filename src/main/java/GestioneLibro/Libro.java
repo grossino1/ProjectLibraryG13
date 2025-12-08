@@ -156,7 +156,7 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @post numeroCopie == old_numeroCopie - 1
      */
     public void decrementaCopiaLibro() throws CopieEsauriteException { 
-        if (numeroCopie<0)
+        if (numeroCopie<=1)
             throw new CopieEsauriteException ("Non sono ammessi decrementi per questo libro");
         numeroCopie--;
     
@@ -210,8 +210,19 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @return < 0 se this < other, 0 se uguali, > 0 se this > other.
      */ 
     @Override
-    public int compareTo(Libro other) { 
-        return this.titolo.compareTo(other.titolo);
+    public int compareTo(Libro altroLibro) {
+        // Questo è il metodo che usa il TreeSet!
+        // Restituisce 0 se gli ISBN sono uguali.
+        if (altroLibro == null) return 1;
+        
+        // Ordina alfabeticamente per ISBN (o converti in intero se preferisci)
+        return this.isbn.compareTo(altroLibro.isbn);
+        
+        /* * NOTA BENE:
+         * Se qui tu avessi messo un confronto per Titolo, il TreeSet 
+         * impedirebbe l'inserimento di due libri con lo stesso Titolo 
+         * ma ISBN diverso! Deve essere coerente con equals().
+         */
     }
     
     

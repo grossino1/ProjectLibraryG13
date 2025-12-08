@@ -73,6 +73,7 @@ public class App extends Application {
             // Imposta dimensioni minime per evitare che l'interfaccia si rompa se rimpicciolita troppo
             primaryStage.setMinWidth(600);
             primaryStage.setMinHeight(400);
+            primaryStage.setMaximized(true);
 
             // Avvia la finestra massimizzata (Opzionale, togli il commento se vuoi)
             // primaryStage.setMaximized(true);

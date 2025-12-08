@@ -1,5 +1,16 @@
 package Autenticazione;
 
+import Eccezioni.EccezioniAutenticazione.LoginCredentialsNotValidException;
+import Eccezioni.EccezioniAutenticazione.PasswordFieldEmptyException;
+import Eccezioni.EccezioniAutenticazione.UsernameFieldEmptyException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * @class Bibliotecario
  * @brief Rappresenta l'utente con privilegi amministrativi (Librarian).
@@ -15,10 +26,12 @@ package Autenticazione;
  * @version 1.0
  */
 
-public class Bibliotecario {
+public class Bibliotecario implements Serializable {
     
     private final String username;
     private final String password;
+    
+    private static final String FILE_PATH = "us.bin";
     
     /**
      * @brief Costruttore della classe Bibliotecario.
@@ -36,7 +49,8 @@ public class Bibliotecario {
         this.username = username;
         this.password = password;
     }
-
+    
+    
     /**
      * @brief Restituisce lo username.
      * 
@@ -55,6 +69,26 @@ public class Bibliotecario {
         return password;
     }
     
+    public static Bibliotecario caricaDaFile() throws IOException {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_PATH))) {
+            return (Bibliotecario) ois.readObject();
+        } catch (FileNotFoundException e) {
+            System.err.println("Errore: File credenziali 'us.bin' non trovato.");
+        } catch (ClassNotFoundException e) {
+            System.err.println("Errore durante la lettura del file credenziali: " + e.getMessage());
+        }
+        return null;
+    }
+    
+    public void salvaSuFile() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
+            oos.writeObject(this);
+            System.out.println("Credenziali salvate correttamente in " + FILE_PATH);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     /**
      * @brief Verifica le credenziali di accesso (Login).
      *
@@ -67,11 +101,15 @@ public class Bibliotecario {
      * @param[in] pass La password inserita dall'utente.
      * @return true se user e pass coincidono con quelli del bibliotecario, false altrimenti.
      */
-    public boolean login(String user, String pass){
+    public boolean login(String user, String pass) throws UsernameFieldEmptyException, PasswordFieldEmptyException, LoginCredentialsNotValidException{
         // Logica fittizia dello scheletro: return true
         // Logica reale: return this.username.equals(user) && this.password.equals(pass);
-        if (user == null || pass == null)
-            return false;
-        else return this.username.equals(user) && this.password.equals(pass);
+        if (user.isEmpty())
+            throw new UsernameFieldEmptyException("Campo Username mancante!");
+        if(pass.isEmpty())
+            throw new PasswordFieldEmptyException("Campo Password mancante!");
+        if(this.username.equals(user) && this.password.equals(pass))
+            return true;
+        else throw new LoginCredentialsNotValidException("Username o Password errate!");
     }
 }
