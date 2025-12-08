@@ -503,8 +503,6 @@ public class CatalogoLibriViewController implements Initializable {
                     System.out.println(catalogoLibri.toString());
                     refreshTable();
                     aggiungiLibroStage.close();
-                }catch(LibroPresenteException ex){
-                    showAlert(Alert.AlertType.ERROR, "Errore generico ", ex.getMessage());
                 }catch(NumberFormatException ex){
                     showAlert(Alert.AlertType.ERROR, "Errore generico ", ex.getMessage());
                 } catch (IOException ex) {
