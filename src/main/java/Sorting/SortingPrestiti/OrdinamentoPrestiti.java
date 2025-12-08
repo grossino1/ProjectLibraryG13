@@ -37,7 +37,7 @@ public class OrdinamentoPrestiti {
          */
         @Override
         public int compare(Prestito l1, Prestito l2) {
-            return 0; // l1.getDataRestituzione().compareTo(l2.getDataRestituzione());
+            return l1.getDataRestituzione().compareTo(l2.getDataRestituzione()); // l1.getDataRestituzione().compareTo(l2.getDataRestituzione());
         }
     };
 
@@ -58,7 +58,7 @@ public class OrdinamentoPrestiti {
          */
         @Override
         public int compare(Prestito l1, Prestito l2) {
-            return 0; // l2.getData...().compareTo(l1.getData...()); (Inverso)
+            return l1.getDataRestituzione().minusDays(30).compareTo(l2.getDataRestituzione().minusDays(30)); // l2.getData...().compareTo(l1.getData...()); (Inverso)
         }
     };
 
@@ -79,7 +79,8 @@ public class OrdinamentoPrestiti {
          */
         @Override
         public int compare(Prestito l1, Prestito l2) {
-            return 0; // l1.getData...().compareTo(l2.getData...());
+            return (-1)*(l1.getDataRestituzione().minusDays(30).compareTo(l2.getDataRestituzione().minusDays(30))); // l2.getData...().compareTo(l1.getData...());) (Inverso)
+// l1.getData...().compareTo(l2.getData...());
         }
     };
 }
