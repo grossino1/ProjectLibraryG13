@@ -63,7 +63,7 @@ public class OrdinamentoUtenti {
          * @return Un intero che privilegia gli utenti inseriti più di recente.
          */
         @Override
-        public int compare(Utente l1, Utente l2) {
+        public int compare(Utente u1, Utente u2) {
             
             return 0;
         }
@@ -75,7 +75,7 @@ public class OrdinamentoUtenti {
      * Ordina in base all'ordine di registrazione *decrescente*.
      * Utile per visualizzare gli utenti storici.
      */
-    public static final Comparator<Utente> MENO_RECENTI = new Comparator<Utente>() {
+    public static final Comparator<Utente> MENO_RECENTI = new Comparator<Utente>() { 
         /**
          * @brief Confronta due utenti per data di iscrizione (Oldest First).
          * 
