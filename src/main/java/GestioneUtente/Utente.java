@@ -28,6 +28,12 @@ public class Utente implements Comparable<Utente>, Serializable {
     private String emailIstituzionale;
     private ArrayList<Prestito> listaPrestiti;
     
+    // Attributo statico per indicare l'ID di ogni studente
+    // Serve per ordinare gli utenti dal più recente al meno recente e viceversa
+    // Ogni volta che si crea un Utente nuovo l'ID aumenta
+    private static int cnt = 0;
+    private final int idUtente;
+    
     /**
      * @brief Costruttore della classe Utente.
      *
@@ -47,6 +53,7 @@ public class Utente implements Comparable<Utente>, Serializable {
         this.matricola = matricola;
         this.emailIstituzionale = emailIstituzionale;
         this.listaPrestiti = new ArrayList<>();
+        this.idUtente = cnt++;
     }
     
     // Getter e Setter 
@@ -135,6 +142,10 @@ public class Utente implements Comparable<Utente>, Serializable {
     public ArrayList<Prestito> getListaPrestiti() { 
         // Inserisco la lista dei prestiti dell'utente in un ArrayList e lo restituisco.
         return new ArrayList<Prestito>(listaPrestiti); 
+    }
+
+    public int getIdUtente() {
+        return idUtente;
     }
 
     // METODI LOGICI

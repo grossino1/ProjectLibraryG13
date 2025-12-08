@@ -50,7 +50,7 @@ public class OrdinamentoUtenti {
     /**
      * @brief Comparatore per ordinare gli utenti dai più recenti ai più vecchi.
      *
-     * Ordina in base all'ordine di registrazione *crescente*.
+     * Ordina in base all'ordine di registrazione *decrescente*.
      * Utile per vedere chi sono i nuovi iscritti alla biblioteca.
      */
     public static final Comparator<Utente> PIU_RECENTI = new Comparator<Utente>() {
@@ -64,14 +64,15 @@ public class OrdinamentoUtenti {
          */
         @Override
         public int compare(Utente l1, Utente l2) {
-            return 0;
+            // ORDINE DECRESCENTE
+            return Integer.compare(l2.getIdUtente(), l1.getIdUtente());
         }
     };
 
     /**
      * @brief Comparatore per ordinare gli utenti dai più vecchi ai più recenti.
      *
-     * Ordina in base all'ordine di registrazione *decrescente*.
+     * Ordina in base all'ordine di registrazione *crescente*.
      * Utile per visualizzare gli utenti storici.
      */
     public static final Comparator<Utente> MENO_RECENTI = new Comparator<Utente>() {
@@ -84,7 +85,8 @@ public class OrdinamentoUtenti {
          */
         @Override
         public int compare(Utente l1, Utente l2) {
-            return 0; 
+            // ORDINE CRESCENTE
+            return Integer.compare(l1.getIdUtente(), l2.getIdUtente()); 
         }
     };
 }
