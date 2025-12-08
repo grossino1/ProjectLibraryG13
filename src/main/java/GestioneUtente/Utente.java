@@ -4,6 +4,7 @@ import GestionePrestito.Prestito;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.List;
+import java.time.LocalDate;
 
 /**
  * @class Utente
@@ -179,7 +180,7 @@ public class Utente implements Comparable<Utente>, Serializable {
      *
      * @param p Il prestito da rimuovere.
      */
-   public void rimuoviPrestito(Prestito p) {
+    public void rimuoviPrestito(Prestito p) {
        // Controllo non necessario (lo deve fare il client)
         // Inserito per motivi di sicurezza del programma
         if(p == null){
@@ -192,7 +193,29 @@ public class Utente implements Comparable<Utente>, Serializable {
        }
     }
 
-
+    /**
+     * Genera un elenco delle date di restituzione a partire da una lista di prestiti.
+     * Il metodo itera attraverso la lista fornita ed estrae la data di restituzione
+     * da ciascun prestito.
+     *
+     * @param listaPrestiti La lista di oggetti Prestito da elaborare.
+     * @return Un ArrayList contenente le date di restituzione.
+     * Restituisce una lista vuota se il parametro listaPrestiti è null o vuoto.
+     */
+    public ArrayList<LocalDate> getListaDataRestituzione(ArrayList<Prestito> listaPrestiti){
+        // Se listaPrestiti è vuota ritorna una lista vuota
+        if(listaPrestiti == null)
+            return new ArrayList<LocalDate>();
+        // Creo un ArrayList di appoggio
+        ArrayList<LocalDate> listaDataRestituzione = new ArrayList<>();
+        // Scorro listaPrestiti e aggiungo l'attributo "dataRestituzione" di ogni prestito nell'ArrayList
+        for(Prestito p : listaPrestiti){
+            listaDataRestituzione.add(p.getDataRestituzione());
+        }
+        // Ritorna la lista contenente le date di restituzioni di tutti i prestiti attivi dell'Utente
+        return listaDataRestituzione;
+    }
+    
     /**
      * @brief Genera l'hash code basato sulla matricola.
      *
