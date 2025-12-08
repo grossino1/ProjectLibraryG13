@@ -132,9 +132,9 @@ public class Libro implements Comparable<Libro>, Serializable {
      * 
      * @param[in] numeroCopie La nuova quantità di copie.
      */
-    public void setNumeroCopie(int numeroCopie) throws LibroPresenteException { 
+    public void setNumeroCopie(int numeroCopie) { 
         if (numeroCopie<0)
-            throw new LibroPresenteException ("Non sono ammesse quantità di copie negative");
+            throw new IllegalArgumentException("Non sono ammesse quantità di copie negative");
         this.numeroCopie = numeroCopie; 
     }
 

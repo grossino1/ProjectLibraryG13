@@ -113,11 +113,19 @@ public class GestorePrestito {
      * 
      * @param[in] ISBN Il codice del libro restituito.
      */
-    public void aggiungiCopiaPrestitoLibro(String ISBN) {
+    public void aggiungiCopiaPrestitoLibro(String ISBN){
         
         Libro libro = catalogo.getLibroByISBN(ISBN);
-        libro.setNumeroCopie(libro.getNumeroCopie()+1);
-        SalvataggioFileLibro.salva(catalogo, "Catalogo Libri");
+        // Controllo Libro Null
+        if (libro != null) {
+            libro.setNumeroCopie(libro.getNumeroCopie() + 1);
+            // try-catch per il salvataggio
+            try {
+                 SalvataggioFileLibro.salva(catalogo, "Catalogo Libri");
+            } catch (Exception e) {
+                 e.printStackTrace();
+            }
+        }
     }
     
     /**
