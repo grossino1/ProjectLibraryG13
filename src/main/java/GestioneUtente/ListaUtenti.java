@@ -6,7 +6,8 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.ArrayList;
 import java.util.Comparator;
-
+import SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente;
+import java.io.IOException;
 /**
  * @class ListaUtenti
  * @brief Gestisce l'insieme di tutti gli utenti registrati.
@@ -52,6 +53,12 @@ public class ListaUtenti {
      */
     // METODO FONDAMENTALE PER IL PRESTITO
     public Utente getUtenteByMatricola(String matricola) {
+        // Controllo non necessario (lo deve fare il client)
+        // Inserito per motivi di sicurezza del programma
+        if(matricola == null){
+            throw new IllegalArgumentException("Errore: La chiave di ricerca non può essere nulla.");
+        }
+        
         for (Utente u : listaUtenti) {
             if (u.getMatricola().equals(matricola)) {
                 return u;
@@ -76,6 +83,12 @@ public class ListaUtenti {
      *    @throws UtentePresenteException: Se l'utente passato come parametro è già presente all'interno della lista degli utenti.
      */
     public void registrazioneUtente(Utente u) throws MatricolaNotValidException, UtentePresenteException {
+        // Controllo non necessario (lo deve fare il client)
+        // Inserito per motivi di sicurezza del programma
+        if(u == null){
+            throw new IllegalArgumentException("Errore: Impossibile aggiungere un utente nullo.");
+        }
+        
         // Controllo della matricola: la matricola deve avere 10 caratteri
         if (!u.getMatricola().matches("\\d{10}")){
                 throw new MatricolaNotValidException ("La matricola deve esser composta da 10 cifre");
@@ -90,7 +103,21 @@ public class ListaUtenti {
         // Se vengono superati tutti i criteri, allora l'Utente u può essere aggiunto alla listaUtenti
         listaUtenti.add(u);
         System.out.println("Utente inserito con successo: " + u.getMatricola());
- 
+        
+        // Salvo la listaUtenti aggiornata sul file
+        try {
+        String nomeFile = "archivioUtenti.dat"; 
+        
+        // Chiamata statica al metodo salva passando l'oggetto ListaUtenti corrente e il nome file
+        SalvataggioFileUtente.salva(this, nomeFile);
+        
+        System.out.println("Salvataggio su file completato.");
+        
+        } catch (IOException e) {
+            // Gestione errore di salvataggio
+            System.err.println("ERRORE: Impossibile salvare i dati su disco: " + e.getMessage());
+            e.printStackTrace();
+        }   
     }
 
     /**
@@ -104,11 +131,18 @@ public class ListaUtenti {
      * @param[in] u: L'oggetto da rimuovere (deve essere un'istanza di Utente).
      */
     public void eliminazioneUtente(Object u) {
+        // Controllo non necessario (lo deve fare il client)
+        // Inserito per motivi di sicurezza del programma
+        if(u == null){
+            throw new IllegalArgumentException("Errore: Impossibile rimuovere un utente nullo.");
+        }
+        
         // Se l'oggetto passato non appartine alla classe Utente, allora non può essere rimosso.
         // Nota: Utilizzo "instanceof" e non "getClass()" perchè se in futuro si vorrà 
         // aggiungere una sottoclasse di Utente il metodo resta sempre valido anche per essa!
         if (!(u instanceof Utente))
             return;
+        
         // Se l'utente passato come parametro fa parte della lista allora viene eliminato.
         listaUtenti.remove(u);
         
@@ -124,6 +158,12 @@ public class ListaUtenti {
      * @return ArrayList<Utente> contenente gli utenti che corrispondono ai criteri.
      */
     public ArrayList<Utente> cercaUtente(String u) {
+        // Controllo non necessario (lo deve fare il client)
+        // Inserito per motivi di sicurezza del programma
+        if(u == null){
+            throw new IllegalArgumentException("Errore: La stringa di ricerca non può essere nulla.");
+        }
+        
         // Creo un ArrayList<Utente> per contenere la lista di utenti.
         ArrayList<Utente> listaRicerca = new ArrayList<>(); 
         
@@ -174,6 +214,12 @@ public class ListaUtenti {
      * @see java.util.Comparator
      */
     public ArrayList<Utente> sortListaUtenti(Comparator<Utente> comp) {
+        // Controllo non necessario (lo deve fare il client)
+        // Inserito per motivi di sicurezza del programma
+        if(comp == null){
+            throw new IllegalArgumentException("Errore: Il comparatore non può essere nullo.");
+        }
+        
         // Creo una lista di appoggio in cui inserisco tutti gli elementi del TreeSet.
         ArrayList<Utente> listaOrdinata = new ArrayList<>(listaUtenti);
         // Ordino la lista secondo al Comparator passato come parametro, invocando il metodo sort() sulla lista e passando il comparatore.

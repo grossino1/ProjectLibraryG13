@@ -149,6 +149,12 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @param p Il prestito da aggiungere.
      */
     public void addPrestito(Prestito p) {
+        // Controllo non necessario (lo deve fare il client)
+        // Inserito per motivi di sicurezza del programma
+        if(p == null){
+            throw new IllegalArgumentException("Errore: Impossibile aggiungere un prestito nullo.");
+        }
+        
        // La precondizione garantisce che p non sia null; quindi è sufficiente aggiungerlo alla lista.
        listaPrestiti.add(p);
     }
@@ -163,6 +169,12 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @param p Il prestito da rimuovere.
      */
    public void rimuoviPrestito(Prestito p) {
+       // Controllo non necessario (lo deve fare il client)
+        // Inserito per motivi di sicurezza del programma
+        if(p == null){
+            throw new IllegalArgumentException("Errore: Impossibile rimuovere un prestito nullo.");
+        }
+        
        // Se p è presente nella lista, viene rimosso (p != null è garantito dalla precondizione.)
        if (listaPrestiti.contains(p)) {
            listaPrestiti.remove(p);
