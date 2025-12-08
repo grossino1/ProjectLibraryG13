@@ -1,6 +1,16 @@
 package SalvataggioFile.SalvataggioFilePrestito;
 
 import GestionePrestito.ElencoPrestiti;
+import com.sun.jmx.mbeanserver.Util;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  * @class SalvataggioFilePrestito
@@ -32,10 +42,19 @@ public class SalvataggioFilePrestito {
      * @param[in] dati: L'oggetto ElencoPrestiti da serializzare.
      * @param[in] filename: Il percorso o nome del file di destinazione.
      */
-    public static void salva(ElencoPrestiti dati, String filename){
-     
+    public static void salva(ElencoPrestiti dati, String filename) throws IOException{
+
+        if(dati == null)
+            throw new IOException("Non puoi salvare un oggetto vuoto!");
+        if(filename == null)
+            throw new IOException("Percorso non specificato!");
+        
+        try(ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filename)))){
+            out.writeObject(dati);
+        }catch(IOException ex){
+            throw new IOException(ex.getMessage());
+        }
     }
-    
     /**
      * @brief Carica un oggetto Prestito da un file binario.
      *
@@ -48,7 +67,23 @@ public class SalvataggioFilePrestito {
      * @param[in] filename: Il percorso del file da leggere.
      * @return L'istanza di ElencoPrestiti recuperata, oppure null in caso di errore.
      */
-    public static ElencoPrestiti carica(String filename){
-        return null;
+    public static ElencoPrestiti carica(String filename) throws IOException, ClassNotFoundException{
+
+        if(filename == null)
+            throw new IOException("Percorso non specificato!");
+        
+        File file = new File(filename);
+        if (!file.exists())
+            throw new IOException("File non trovato!");
+        
+        try(ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))){
+            ElencoPrestiti datiLetti = (ElencoPrestiti) in.readObject();
+            return datiLetti;
+        }catch(IOException ex){
+            throw new IOException(ex.getMessage());
+        }catch(ClassNotFoundException ex){
+            throw new ClassNotFoundException(ex.getMessage());
+        }
     }
+    
 }
