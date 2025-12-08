@@ -40,11 +40,9 @@
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
-               <cursor>
-                  </cursor>
             </Button>
 
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="👥  Gestione Utenti">
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleGestioneUtenti" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="👥  Gestione Utenti">
                <padding>
                   <Insets bottom="15.0" left="30.0" top="15.0" />
                </padding>
@@ -53,7 +51,7 @@
                </font>
             </Button>
 
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="📋  Prestiti">
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlePrestiti" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="📋  Prestiti">
                <padding>
                   <Insets bottom="15.0" left="30.0" top="15.0" />
                </padding>
@@ -79,30 +77,43 @@
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <HBox HBox.hgrow="ALWAYS" /> <Label text="Benvenuto, Bibliotecario" textFill="#7f8c8d">
+                  <HBox HBox.hgrow="ALWAYS" /> 
+                  <Label text="Benvenuto, Bibliotecario" textFill="#7f8c8d">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="handleLogout" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Logout" />
+                  <Button fx:id="handleLogout" onAction="#handleLogout" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Logout" />
                </children>
             </HBox>
 
             <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 5; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);">
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="10.0" left="10.0" right="20.0" top="10.0" />
                </padding>
+               <children> 
+                    <Button fx:id="handleAggiungiLibro" onAction="#handleAggiungiLibro" style="-fx-background-color: #27ae60; -fx-text-fill: white;" text="+ Nuovo Libro" />
+                    <HBox HBox.hgrow="ALWAYS" />
+                    <Label text="Ordina per:" textFill="#7f8c8d" />
+                    <Button fx:id="handleSortTitolo" onAction="#handleSortLibro" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" text="Titolo" />
+                    <Button fx:id="handleSortAnno" onAction="#handleSortAnno" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" text="Anno" />
+                    <TextField promptText="Cerca per titolo..." style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" />
+                </children>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
-                  <Button fx:id="handleAggiungiLibro" onAction="#handleAggiungiLibro" style="-fx-background-color: #27ae60; -fx-text-fill: white;" text="+ Nuovo Libro" />
-                  <HBox HBox.hgrow="ALWAYS" />
-                  <Label text="Ordina per:" textFill="#7f8c8d" />
-                  <Button fx:id="handleSortTitolo" layoutX="20.0" layoutY="20.0" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" text="Titolo" />
-                  <Button fx:id="handleSortAnno" layoutX="379.0" layoutY="20.0" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" text="Anno" />
-                  <TextField layoutX="379.0" layoutY="20.0" promptText="Cerca per titolo..." style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" />
+                   <HBox HBox.hgrow="ALWAYS" />
+                  <Label text="Azioni Libro Selezionato:" textFill="#7f8c8d" />
+                  
+                  <Button fx:id="btnModifica" onAction="#handleModifyLibro" style="-fx-background-color: #f39c12; -fx-text-fill: white;" text="Modifica" />
+                  <Button fx:id="btnElimina" onAction="#handleDeleteLibro" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Elimina" />
+                  <Button fx:id="btnPiuCopie" onAction="#handleAddCopyLibro" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;" text="+" />
+                  <Button fx:id="btnMenoCopie" onAction="#handleRemoveCopyLibro" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;" text="-" />
                </children>
             </HBox>
 
-            <TableView fx:id="tabellaLibri" VBox.vgrow="ALWAYS">
+            <TableView fx:id="tabellaLibri" onMouseClicked="#handleSelectedLibro" style="-fx-background-color: white; -fx-text-fill: #2c3e50;" VBox.vgrow="ALWAYS"> 
               <columns>
                 <TableColumn fx:id="colIsbn" prefWidth="100.0" text="ISBN" />
                 <TableColumn fx:id="colTitolo" prefWidth="250.0" text="Titolo" />

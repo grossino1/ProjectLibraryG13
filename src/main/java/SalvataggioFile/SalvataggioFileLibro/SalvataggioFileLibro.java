@@ -1,6 +1,16 @@
 package SalvataggioFile.SalvataggioFileLibro;
 
 import GestioneLibro.CatalogoLibri;
+import com.sun.jmx.mbeanserver.Util;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  * @class SalvataggioFileLibro
@@ -17,7 +27,7 @@ import GestioneLibro.CatalogoLibri;
  * @version 1.0
  */
 
-public class SalvataggioFileLibro {
+public class SalvataggioFileLibro implements Serializable{
     
     /**
      * @brief Salva lo stato di un oggetto Libro su un file binario.
@@ -32,8 +42,18 @@ public class SalvataggioFileLibro {
      * @param[in] dati: L'oggetto CatalogoLibri da serializzare.
      * @param[in] filename: Il percorso o nome del file di destinazione (es. "libro.dat").
      */
-    public static void salva(CatalogoLibri dati, String filename){
+    public static void salva(CatalogoLibri dati, String filename) throws IOException{
         // scheletro: qui andrebbe new ObjectOutputStream(new FileOutputStream(filename))...
+        if(dati == null)
+            throw new IOException("Non puoi salvare un oggetto vuoto!");
+        if(filename == null)
+            throw new IOException("Percorso non specificato!");
+        
+        try(ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filename)))){
+            out.writeObject(dati);
+        }catch(IOException ex){
+            throw new IOException(ex.getMessage());
+        }
     }
     
     /**
@@ -48,7 +68,21 @@ public class SalvataggioFileLibro {
      * @param[in] filename: Il percorso del file da leggere.
      * @return L'istanza di CatalogoLibri recuperata, oppure null in caso di errore.
      */
-    public static CatalogoLibri carica(String filename){
-        return null;
+    public static CatalogoLibri carica(String filename) throws IOException, ClassNotFoundException{
+        if(filename == null)
+            throw new IOException("Percorso non specificato!");
+        
+        File file = new File(filename);
+        if (!file.exists())
+            throw new IOException("File non trovato!");
+        
+        try(ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))){
+            CatalogoLibri datiLetti = (CatalogoLibri) in.readObject();
+            return datiLetti;
+        }catch(IOException ex){
+            throw new IOException(ex.getMessage());
+        }catch(ClassNotFoundException ex){
+            throw new ClassNotFoundException(ex.getMessage());
+        }
     }
 }

@@ -22,7 +22,7 @@
                <children>
                   <ImageView fitHeight="59.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../Desktop%20SSD/unisa/logo_standard.png" />
+                        <Image url="@../logo_standard.png" />
                      </image>
                   </ImageView>
                   <Label text=" LIBRERIA G13" textFill="WHITE">
@@ -33,7 +33,7 @@
                </children>
             </HBox>
 
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="📚  Catalogo Libri">
+            <Button maxWidth="1.7976931348623157E308" onAction="#handleCatalogoLibri" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="📚  Catalogo Libri">
                <padding>
                   <Insets bottom="15.0" left="30.0" top="15.0" />
                </padding>
@@ -51,7 +51,7 @@
                </font>
             </Button>
 
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="📋  Prestiti">
+            <Button maxWidth="1.7976931348623157E308" onAction="#handlePrestiti" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="📋  Prestiti">
                <padding>
                   <Insets bottom="15.0" left="30.0" top="15.0" />
                </padding>
@@ -83,7 +83,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="handleLogout" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Logout" />
+                  <Button fx:id="handleLogout" onAction="#handleLogout"  style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Logout" />
                </children>
             </HBox>
 

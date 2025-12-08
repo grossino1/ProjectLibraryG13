@@ -3,6 +3,7 @@ package GUI.GUI_Prestito;
 import GestioneLibro.CatalogoLibri;
 import GestionePrestito.ElencoPrestiti;
 import GestionePrestito.Prestito;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -10,13 +11,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 /**
  * @class GestionePrestitiViewController
@@ -69,7 +75,7 @@ public class GestionePrestitiViewController implements Initializable {
     @FXML
     private TableColumn<Prestito, LocalDate> colDataScadenza;
     @FXML
-    private TableColumn<?, ?> colStato;
+    //private TableColumn<?, ?> colStato;
     
     private ObservableList<Prestito> prestitoList;
     private ElencoPrestiti elencoPrestiti;
@@ -93,7 +99,13 @@ public class GestionePrestitiViewController implements Initializable {
         colLibro.setCellValueFactory(new PropertyValueFactory<>("ISBNLibro"));
         colUtente.setCellValueFactory(new PropertyValueFactory<>("matricolaUtente"));
         colDataScadenza.setCellValueFactory(new PropertyValueFactory<>("dataRestituzione"));
-        colStato.setCellValueFactory(new PropertyValueFactory<>(""));
+        //colStato.setCellValueFactory(new PropertyValueFactory<>(""));
+        
+        //no sorting 
+        colIdPrestito.setSortable(false);
+        colLibro.setSortable(false);
+        colUtente.setSortable(false);
+        colDataScadenza.setSortable(false);
     
     }     
     
@@ -126,6 +138,16 @@ public class GestionePrestitiViewController implements Initializable {
         //permette di cambiare scena in base al pulsante cliccato e al path fornito in fxmlPath
         //si potrebbe effettuare un salvataggio dei dati prima del passaggio
         //scheletro
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+            
+            Scene stageAttuale = ((Node) event.getSource()).getScene();       
+            stageAttuale.setRoot(root);
+        }catch(IOException e){
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR,"Errore Critico!","Errore nel caricamento della Scena: " + e.getMessage());
+        }
     }
     
     /**
@@ -138,6 +160,7 @@ public class GestionePrestitiViewController implements Initializable {
         //permette di passare alla schermata del catalogo dei libri
         //da implemetare con switchScene
         //scheletro
+        switchScene(event, "/GUI/GUI_CatalogoLibri/CatalogoLibriView.fxml");
     }
     
     /**
@@ -150,6 +173,7 @@ public class GestionePrestitiViewController implements Initializable {
         //permette di passare alla schermata per la gesione degli utenti
         //da implemetare con switchScene
         //scheletro
+        switchScene(event, "/GUI/GUI_GestioneUtenti/GestioneUtentiView.fxml");
     }
     
     /**
@@ -191,6 +215,7 @@ public class GestionePrestitiViewController implements Initializable {
         //permette di passare alla schermata del login
         //da implemetare con switchScene
         //scheletro
+        switchScene(event, "/GUI/GUI_Login/LoginView.fxml");
     }
     
     /**
