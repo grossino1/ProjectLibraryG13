@@ -46,7 +46,8 @@ public class SalvataggioFileUtente {
      * @param[in] filename: Il percorso o nome del file di destinazione.
      */
     public static void salva(ListaUtenti dati, String filename) throws IOException{
-        // scheletro: qui andrebbe new ObjectOutputStream(new FileOutputStream(filename))...
+        // Controllo non necessario (lo deve fare il client)
+        // Inserito per motivi di sicurezza del programma
         if(dati == null)
             throw new IOException("Non puoi salvare un oggetto vuoto!");
         if(filename == null)
