@@ -4,10 +4,12 @@ import Eccezioni.EccezioniLibri.EccezioniLibro;
 import Eccezioni.EccezioniLibri.LibroNotFoundException;
 import Eccezioni.EccezioniPrestiti.EccezioniPrestito;
 import Eccezioni.EccezioniPrestiti.PrestitoNonTrovatoException;
+import Eccezioni.EccezioniPrestiti.dataRestituzioneException;
 import Eccezioni.EccezioniUtenti.EccezioniUtente;
 import Eccezioni.EccezioniUtenti.UtenteNotFoundException;
 import SalvataggioFile.SalvataggioFilePrestito.SalvataggioFilePrestito;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.TreeSet;
 import java.util.Set;
 import java.util.ArrayList;
@@ -158,6 +160,30 @@ public class ElencoPrestiti {
         
         if(listaRicerca == null) throw new PrestitoNonTrovatoException("Nessun prestito presente");
         else return listaRicerca;
+    }
+    
+    /**
+     * @brief Modifica le informazioni del prestito.
+     * 
+     * Nello specifico modifica solo la data di restituzione, visto che gli altri 
+     * attributi non sono modificabili
+     * 
+     * @post L'elemento prestito viene modificato.
+     * 
+     * @param[in] p Il Prestito da modificare.
+     * @param[i] dataNuova La nuova data del prestito.
+     * 
+     * @throws dataRestituzioneException 
+     */
+    
+    
+    public void modificaPrestito(Prestito p, LocalDate dataNuova) throws dataRestituzioneException {
+        
+        try {
+            p.setDataRestituzione(dataNuova);
+        } catch(dataRestituzioneException e) {
+            throw e;
+        }
     }
 
     /**
