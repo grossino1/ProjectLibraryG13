@@ -11,6 +11,7 @@ import GestioneUtente.ListaUtenti;
 import GestioneUtente.Utente;
 import SalvataggioFile.SalvataggioFileLibro.SalvataggioFileLibro;
 import SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente;
+import java.io.IOException;
 
 /**
  * @class GestorePrestito
@@ -33,6 +34,8 @@ public class GestorePrestito {
     
     private CatalogoLibri catalogo;
     private ListaUtenti utenti;
+    private final String filenameLibri;
+    private final String filenameUtenti;
 
     /**
      * @brief Costruttore del GestorePrestito.
@@ -45,10 +48,14 @@ public class GestorePrestito {
      *
      * @param[in] catalogo Il catalogo dei libri esistente.
      * @param[in] utenti La lista degli utenti esistenti.
+     * @param[in] filenameLibri il nome del file dove salvare il catalogo dei libri.
+     * @param[in] filenameUtenti il nome del file dove salvare la lista degli utenti.
      */
-    public GestorePrestito(CatalogoLibri catalogo, ListaUtenti utenti) {
+    public GestorePrestito(CatalogoLibri catalogo, ListaUtenti utenti, String filenameLibri, String filenameUtenti) {
         this.catalogo = catalogo;
         this.utenti = utenti;
+        this.filenameLibri = filenameLibri;
+        this.filenameUtenti = filenameUtenti;
     }
     
     /**
@@ -112,19 +119,16 @@ public class GestorePrestito {
      * @post Il catalogo dei libri aggiornato viene salvato sul file binario.
      * 
      * @param[in] ISBN Il codice del libro restituito.
+     * 
+     * @throws IOException Se il salvataggio sul file fallsice;
      */
-    public void aggiungiCopiaPrestitoLibro(String ISBN){
+    public void aggiungiCopiaPrestitoLibro(String ISBN) throws IOException{
         
         Libro libro = catalogo.getLibroByISBN(ISBN);
         // Controllo Libro Null
         if (libro != null) {
             libro.setNumeroCopie(libro.getNumeroCopie() + 1);
-            // try-catch per il salvataggio
-            try {
-                 SalvataggioFileLibro.salva(catalogo, "Catalogo Libri");
-            } catch (Exception e) {
-                 e.printStackTrace();
-            }
+            SalvataggioFileLibro.salva(catalogo, filenameLibri);
         }
     }
     
@@ -139,11 +143,12 @@ public class GestorePrestito {
      * @param[in] matricola La matricola dell'utente cha ha restituito il libro.
      * @param[in] p Il prestito che l'utente ha appena terminato.
      * 
+     * @throws IOException Se il salvataggio sul file fallisce;
      */
-    public void rimuoviPrestitoListaUtente(String matricola, Prestito p) {
+    public void rimuoviPrestitoListaUtente(String matricola, Prestito p) throws IOException {
     
         Utente utente = utenti.getUtenteByMatricola(matricola);
         utente.rimuoviPrestito(p);
-        SalvataggioFileUtente.salva(utenti, "Lista Utenti");
+        SalvataggioFileUtente.salva(utenti, filenameUtenti);
     }
 }
