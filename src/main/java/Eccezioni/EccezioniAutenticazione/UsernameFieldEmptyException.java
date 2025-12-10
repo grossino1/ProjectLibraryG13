@@ -13,14 +13,14 @@ package Eccezioni.EccezioniAutenticazione;
  * @version 1.0
  */
 
-public class UsernameNotValidException extends EccezioneAutenticazione {
+public class UsernameFieldEmptyException extends EccezioneAutenticazione {
 
     /**
      * @brief Costruttore di default.
      *
      * Inizializza l'eccezione senza un messaggio di dettaglio specifico.
      */
-    public UsernameNotValidException() {
+    public UsernameFieldEmptyException() {
     }
    
     /**
@@ -28,7 +28,7 @@ public class UsernameNotValidException extends EccezioneAutenticazione {
      *
      * @param[in] msg La descrizione del motivo per cui lo username è invalido (es. "Username non può essere vuoto").
      */
-    public UsernameNotValidException(String msg) {
+    public UsernameFieldEmptyException(String msg) {
         super(msg);
     }
 }
