@@ -39,8 +39,16 @@ public class CatalogoLibri {
      *
      * @post catalogoLibri != null && catalogoLibri.isEmpty()
      */
-    public CatalogoLibri() {
-        catalogoLibri = new TreeSet<>();
+    public CatalogoLibri(boolean caricamentoFile, String filename) throws IOException, ClassNotFoundException {
+        if (caricamentoFile) {
+            CatalogoLibri oggettoSalvato = SalvataggioFileLibro.carica(filename);
+            this.catalogoLibri = oggettoSalvato.catalogoLibri;
+        }
+        else {
+            this.catalogoLibri = new TreeSet<>();
+        }
+    
+
     }
 
     /**
