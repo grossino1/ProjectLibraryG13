@@ -1,6 +1,7 @@
 package GestionePrestito;
 
 import Eccezioni.EccezioniPrestiti.dataRestituzioneException;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -21,7 +22,7 @@ import java.time.temporal.ChronoUnit;
  * @version 1.0
  */
 
-public class Prestito implements Comparable<Prestito> {
+public class Prestito implements Comparable<Prestito>, Serializable {
 
     private final String IDPrestito;
     private final String ISBNLibro;
