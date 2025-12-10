@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import GestionePrestito.Prestito;
 import SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente;
 import Eccezioni.EccezioniUtenti.MatricolaNotValidException;
+import Eccezioni.EccezioniPrestiti.PrestitiEsauritiException;
+import Eccezioni.EccezioniPrestiti.PrestitoNonTrovatoException;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.List;
@@ -184,12 +186,16 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @param p Il prestito da aggiungere.
      * @throws IllegalArgumentException: Se il prestito inserito come parametro è nullo.
      */
-    public void addPrestito(Prestito p) {
+    public void addPrestito(Prestito p) throws PrestitiEsauritiException{
         // Controllo non necessario (lo deve fare il client)
         // Inserito per motivi di sicurezza del programma
         if(p == null){
             throw new IllegalArgumentException("Errore: Impossibile aggiungere un prestito nullo.");
         }
+        
+        // Controllo che l'utente abbia meno di 3 prestiti attivi
+        if(listaPrestiti.size() == 3)
+            throw new PrestitiEsauritiException("L'utente non può avere più di 3 prestiti attivi!");
         
        // La precondizione garantisce che p non sia null; quindi è sufficiente aggiungerlo alla lista.
        listaPrestiti.add(p);
@@ -205,21 +211,19 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @param p Il prestito da rimuovere.
      * @throws IllegalArgumentException: Se il prestito inserito come parametro è nullo.
      */
-    public void rimuoviPrestito(Prestito p) {
+    public void rimuoviPrestito(Prestito p) throws PrestitoNonTrovatoException{
        // Controllo non necessario (lo deve fare il client)
         // Inserito per motivi di sicurezza del programma
         if(p == null){
             throw new IllegalArgumentException("Errore: Impossibile rimuovere un prestito nullo.");
         }
-        
-       // Se p è presente nella lista, viene rimosso (p != null è garantito dalla precondizione.)
-       if (listaPrestiti.contains(p)) {
-           listaPrestiti.remove(p);
-       }
+        if(!listaPrestiti.contains(p)){
+            throw new PrestitoNonTrovatoException("Il prestito non è presente nella lista!");
+        }
+        // Se p è presente nella lista, viene rimosso (p != null è garantito dalla precondizione.)
+        listaPrestiti.remove(p);
     }
-
-    
-    
+   
     /**
      * @brief Genera l'hash code basato sulla matricola.
      *
