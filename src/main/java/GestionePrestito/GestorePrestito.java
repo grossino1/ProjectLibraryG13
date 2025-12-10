@@ -41,13 +41,12 @@ public class GestorePrestito {
      * @brief Costruttore del GestorePrestito.
      *
      * Associa le dipendenze necessarie per effettuare i controlli incrociati e aggiorna.
+     * I cataloghi dei libri e degli utenti vengono caricati da file.
      *
      * @pre catalogo != null
      * @pre utenti != null
      * @post L'oggetto è inizializzato e pronto per validare i prestiti.
      *
-     * @param[in] catalogo Il catalogo dei libri esistente.
-     * @param[in] utenti La lista degli utenti esistenti.
      * @param[in] filenameLibri il nome del file dove salvare il catalogo dei libri.
      * @param[in] filenameUtenti il nome del file dove salvare la lista degli utenti.
      */

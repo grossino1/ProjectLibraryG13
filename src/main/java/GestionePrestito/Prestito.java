@@ -45,7 +45,7 @@ public class Prestito implements Comparable<Prestito> {
     
         if (ISBNLibro == null || ISBNLibro.isEmpty() || !ISBNLibro.matches("\\d{13}"))
             throw new IllegalArgumentException("Formato ISBN non valido");
-        if (matricolaUtente == null || matricolaUtente.isEmpty() || !matricolaUtente.matches("d\\{10}"))
+        if (matricolaUtente == null || matricolaUtente.isEmpty() || !matricolaUtente.matches("\\d{10}"))
             throw new IllegalArgumentException("Formato matricola non valido");
         
         this.ISBNLibro = ISBNLibro;
@@ -53,7 +53,7 @@ public class Prestito implements Comparable<Prestito> {
         this.contatoreID++;
         this.IDPrestito = String.valueOf(contatoreID);
         this.dataRestituzione = LocalDate.now().plusDays(30); // oggi + 30 giorni
-}
+    }
        
     // Getter
 
