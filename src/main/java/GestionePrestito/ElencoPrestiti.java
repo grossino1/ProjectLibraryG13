@@ -90,7 +90,7 @@ public class ElencoPrestiti {
      * @throws EccezioniPrestito Se uno dei vincoli per il prestito non sono rispettati.
      * @throws IOException Se il salvataggio sul file fallisce.
      */
-    public void registrazionePrestito(String isbn, String matricola) throws LibroNotFoundException, UtenteNotFoundException, EccezioniPrestito, IOException{
+    public void registrazionePrestito(String isbn, String matricola) throws LibroNotFoundException, UtenteNotFoundException, EccezioniPrestito, IOException, ClassNotFoundException{
         try {
             boolean flag = gestore.nuovoPrestito(isbn, matricola);
             
@@ -174,16 +174,15 @@ public class ElencoPrestiti {
      * @param[i] dataNuova La nuova data del prestito.
      * 
      * @throws dataRestituzioneException 
-     */
-    
-    
-    public void modificaPrestito(Prestito p, LocalDate dataNuova) throws dataRestituzioneException {
-        
+     */ 
+    public void modificaPrestito(Prestito p, LocalDate dataNuova) throws dataRestituzioneException, IOException {
+             
         try {
             p.setDataRestituzione(dataNuova);
         } catch(dataRestituzioneException e) {
             throw e;
-        }
+        }        
+        SalvataggioFilePrestito.salva(this, "Elenco Prestiti");
     }
 
     /**
