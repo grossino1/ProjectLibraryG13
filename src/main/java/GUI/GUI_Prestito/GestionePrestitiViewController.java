@@ -1,12 +1,15 @@
 package GUI.GUI_Prestito;
 
-import GestioneLibro.CatalogoLibri;
 import GestionePrestito.ElencoPrestiti;
+import GestionePrestito.GestorePrestito;
 import GestionePrestito.Prestito;
+import SalvataggioFile.SalvataggioFilePrestito.SalvataggioFilePrestito;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -79,6 +82,7 @@ public class GestionePrestitiViewController implements Initializable {
     
     private ObservableList<Prestito> prestitoList;
     private ElencoPrestiti elencoPrestiti;
+    private GestorePrestito gestorePrestito;
 
     /**
      * @brief Inizializza il controller.
@@ -93,7 +97,24 @@ public class GestionePrestitiViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         prestitoList = FXCollections.observableArrayList();
         tabellaPrestiti.setItems(prestitoList);
-        //elencoPrestiti= new ElencoPrestiti();
+        try {
+            gestorePrestito = new GestorePrestito("catalogoLibri.bin", "listaUtenti.bin");
+        } catch (IOException ex) {
+            showAlert(Alert.AlertType.ERROR, "Errore Critico!", ex.getMessage());
+            System.exit(0);
+        } catch (ClassNotFoundException ex) {
+            showAlert(Alert.AlertType.ERROR, "Errore Critico!", ex.getMessage());
+            System.exit(0);
+        }
+        try {
+            elencoPrestiti= new ElencoPrestiti(true, "elencoPrestiti.bin", gestorePrestito);
+        } catch (IOException ex) {
+            showAlert(Alert.AlertType.ERROR, "Errore Critico!", ex.getMessage());
+            System.exit(0);
+        } catch (ClassNotFoundException ex) {
+            showAlert(Alert.AlertType.ERROR, "Errore Critico!", ex.getMessage());
+            System.exit(0);
+        }
         
         colIdPrestito.setCellValueFactory(new PropertyValueFactory<>("IDPrestito"));
         colLibro.setCellValueFactory(new PropertyValueFactory<>("ISBNLibro"));
@@ -107,21 +128,6 @@ public class GestionePrestitiViewController implements Initializable {
         colUtente.setSortable(false);
         colDataScadenza.setSortable(false);
     
-    }     
-    
-    /**
-     * @brief Gestisce l'apertura del modulo per un nuovo prestito.
-     *
-     * @post Se l'operazione va a buon fine, un nuovo prestito viene aggiunto alla lista.
-     * @post La TableView viene aggiornata per mostrare il nuovo record.
-     *
-     * @param[in] event L'evento di click sul pulsante.
-     */
-    @FXML
-    void handleAggiungiPrestito(ActionEvent event){
-        //chiama un metodo che permette di aggiungere un prestito nella
-        //lista dei prestiti e aggiorna la vista del catalogo
-        //scheletro
     }
     
     /**
@@ -134,10 +140,12 @@ public class GestionePrestitiViewController implements Initializable {
      * @param[in] fxmlPath Il percorso della risorsa FXML da caricare.
      */
     @FXML 
-    void switchScene(ActionEvent event, String fxmlPath){
+    void switchScene(ActionEvent event, String fxmlPath) throws IOException{
         //permette di cambiare scena in base al pulsante cliccato e al path fornito in fxmlPath
         //si potrebbe effettuare un salvataggio dei dati prima del passaggio
         //scheletro
+        SalvataggioFilePrestito.salva(elencoPrestiti, "elencoPrestiti.bin");
+
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
@@ -156,7 +164,7 @@ public class GestionePrestitiViewController implements Initializable {
      * @see #switchScene(ActionEvent, String)
      */
     @FXML
-    void handleCatalogoLibri(ActionEvent event) {
+    void handleCatalogoLibri(ActionEvent event) throws IOException {
         //permette di passare alla schermata del catalogo dei libri
         //da implemetare con switchScene
         //scheletro
@@ -169,11 +177,39 @@ public class GestionePrestitiViewController implements Initializable {
      * @see #switchScene(ActionEvent, String)
      */
     @FXML
-    void handleGestioneUtenti(ActionEvent event) {
+    void handleGestioneUtenti(ActionEvent event) throws IOException {
         //permette di passare alla schermata per la gesione degli utenti
         //da implemetare con switchScene
         //scheletro
         switchScene(event, "/GUI/GUI_GestioneUtenti/GestioneUtentiView.fxml");
+    }
+    
+    /**
+     * @brief Effettua il logout dal sistema.
+     * 
+     * @post Ritorna alla schermata di Login.
+     */
+    @FXML
+    void handleLogout(ActionEvent event) throws IOException {
+        //permette di passare alla schermata del login
+        //da implemetare con switchScene
+        //scheletro
+        switchScene(event, "/GUI/GUI_Login/LoginView.fxml");
+    }
+    
+    /**
+     * @brief Gestisce l'apertura del modulo per un nuovo prestito.
+     *
+     * @post Se l'operazione va a buon fine, un nuovo prestito viene aggiunto alla lista.
+     * @post La TableView viene aggiornata per mostrare il nuovo record.
+     *
+     * @param[in] event L'evento di click sul pulsante.
+     */
+    @FXML
+    void handleAggiungiPrestito(ActionEvent event){
+        //chiama un metodo che permette di aggiungere un prestito nella
+        //lista dei prestiti e aggiorna la vista del catalogo
+        //scheletro
     }
     
     /**
@@ -203,19 +239,6 @@ public class GestionePrestitiViewController implements Initializable {
     void handleRemovePrestito(ActionEvent event){
         //permette di rimuovere il prestito selezionato tramite handleSelectedLibro
         //scheletro
-    }
-    
-    /**
-     * @brief Effettua il logout dal sistema.
-     * 
-     * @post Ritorna alla schermata di Login.
-     */
-    @FXML
-    void handleLogout(ActionEvent event) {
-        //permette di passare alla schermata del login
-        //da implemetare con switchScene
-        //scheletro
-        switchScene(event, "/GUI/GUI_Login/LoginView.fxml");
     }
     
     /**
