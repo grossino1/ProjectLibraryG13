@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PrestitoTest;
+package GestionePrestitoTest;
 import Eccezioni.EccezioniPrestiti.dataRestituzioneException;
 import GestionePrestito.Prestito;
 import org.junit.jupiter.api.*;
@@ -31,6 +31,12 @@ public class PrestitoTest {
         prestitoValido = new Prestito(ISBN_VALIDO, MATRICOLA_VALIDA);
     }
 
+    // JUnit esegue questo blocco di codice automaticamente dopo ogni singolo metodo @Test.
+    @AfterEach
+    public void Pulizia() {
+        prestitoValido = null;
+    }
+    
     // --- TEST ---
     
     @Test

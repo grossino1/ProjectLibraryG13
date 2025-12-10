@@ -1,5 +1,6 @@
 package GUI.GUI_Libro;
 
+import Eccezioni.EccezioniLibri.CatalogoPienoException;
 import Eccezioni.EccezioniLibri.ISBNNotValidException;
 import Eccezioni.EccezioniLibri.LibroNotFoundException;
 import Eccezioni.EccezioniLibri.LibroPresenteException;
@@ -197,6 +198,8 @@ public class CatalogoLibriViewController implements Initializable {
                     showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
                 } catch (ClassNotFoundException ex) {
                     showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
+                } catch (CatalogoPienoException ex) {
+                    Logger.getLogger(CatalogoLibriViewController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
             

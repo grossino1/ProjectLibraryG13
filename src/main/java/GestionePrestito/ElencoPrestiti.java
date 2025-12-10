@@ -3,12 +3,14 @@ package GestionePrestito;
 import Eccezioni.EccezioniLibri.EccezioniLibro;
 import Eccezioni.EccezioniLibri.LibroNotFoundException;
 import Eccezioni.EccezioniPrestiti.EccezioniPrestito;
+import Eccezioni.EccezioniPrestiti.ElencoPienoException;
 import Eccezioni.EccezioniPrestiti.PrestitoNonTrovatoException;
 import Eccezioni.EccezioniPrestiti.dataRestituzioneException;
 import Eccezioni.EccezioniUtenti.EccezioniUtente;
 import Eccezioni.EccezioniUtenti.UtenteNotFoundException;
 import SalvataggioFile.SalvataggioFilePrestito.SalvataggioFilePrestito;
 import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.TreeSet;
 import java.util.Set;
@@ -35,10 +37,11 @@ import java.util.Comparator;
  * @version 1.0
  */
 
-public class ElencoPrestiti {
+public class ElencoPrestiti implements Serializable{
 
     private Set<Prestito> elencoPrestiti;
     private GestorePrestito gestore; 
+    private final String filename;
 
     /**
      * @brief Costruttore della classe ElencoPrestiti.
@@ -59,6 +62,7 @@ public class ElencoPrestiti {
      */
     public ElencoPrestiti(boolean caricamentoFile, String filename, GestorePrestito gestore) throws IOException, ClassNotFoundException {
        
+        this.filename = filename;
         if (caricamentoFile) {
             ElencoPrestiti oggettoSalvato = SalvataggioFilePrestito.carica(filename);
             this.elencoPrestiti = oggettoSalvato.elencoPrestiti;
@@ -92,12 +96,15 @@ public class ElencoPrestiti {
      */
     public void registrazionePrestito(String isbn, String matricola) throws LibroNotFoundException, UtenteNotFoundException, EccezioniPrestito, IOException, ClassNotFoundException{
         try {
+            if(elencoPrestiti.size() > 99) {
+                throw new ElencoPienoException();
+            }
             boolean flag = gestore.nuovoPrestito(isbn, matricola);
             
             if (flag) {
                 Prestito nuovoPrestito = new Prestito(isbn, matricola);
                 elencoPrestiti.add(nuovoPrestito);
-                SalvataggioFilePrestito.salva(this, "Elenco Prestiti");
+                SalvataggioFilePrestito.salva(this, filename);
             }
 
         } catch (EccezioniLibro | EccezioniUtente | EccezioniPrestito e) {
@@ -123,7 +130,7 @@ public class ElencoPrestiti {
             throw new PrestitoNonTrovatoException("Il prestito che vuoi eliminare non è presente all'interno del catalogo.");
         }
         
-        SalvataggioFilePrestito.salva(this, "Elenco Prestiti");
+        SalvataggioFilePrestito.salva(this, filename);
     }
 
     /**
@@ -182,7 +189,7 @@ public class ElencoPrestiti {
         } catch(dataRestituzioneException e) {
             throw e;
         }        
-        SalvataggioFilePrestito.salva(this, "Elenco Prestiti");
+        SalvataggioFilePrestito.salva(this, filename);
     }
 
     /**
