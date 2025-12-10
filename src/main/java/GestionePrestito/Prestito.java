@@ -52,7 +52,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
         this.ISBNLibro = ISBNLibro;
         this.matricolaUtente = matricolaUtente;
         this.contatoreID++;
-        this.IDPrestito = String.valueOf(contatoreID);
+        this.IDPrestito = Integer.toString(contatoreID);
         this.dataRestituzione = LocalDate.now().plusDays(30); // oggi + 30 giorni
     }
        

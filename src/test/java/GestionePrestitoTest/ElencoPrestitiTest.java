@@ -17,32 +17,15 @@ import GestionePrestito.GestorePrestito;
 import GestionePrestito.Prestito;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.time.LocalDate;
-import java.util.concurrent.TimeUnit;
-
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.time.LocalDate;
-import java.util.concurrent.TimeUnit;
 import java.io.File;
-
-// Assicurati di importare le tue eccezioni corrette
-// import mio.package.eccezioni.*;
-
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+import GestioneLibro.CatalogoLibri;
+import GestioneUtente.ListaUtenti;
 
 // Assicurati che le eccezioni siano visibili (importa il package se necessario)
 // import mio.progetto.eccezioni.*; 
@@ -54,7 +37,9 @@ public class ElencoPrestitiTest {
     private GestoreStub gestoreStub;
     
     // Costanti
-    private final String FILENAME_TEST = "test_elencoPrestiti.dat";
+    private final String FILENAMEPRESTITI_TEST = "test_elencoPrestiti.dat";
+    private final String FILENAMEUTENTI_TEST = "stub_utenti.dat";
+    private final String FILENAMELIBRI_TEST = "stub_libri.dat";
     private final String ISBN_VALIDO = "9781234567897";
     private final String MATRICOLA_VALIDA = "1234567890";
 
@@ -74,7 +59,7 @@ public class ElencoPrestitiTest {
         
         public GestoreStub() throws IOException, ClassNotFoundException {
             // Passiamo file fittizi
-            super("stub_libri.dat", "stub_utenti.dat");
+            super(FILENAMELIBRI_TEST, FILENAMEUTENTI_TEST);
         }
 
         @Override
@@ -98,13 +83,36 @@ public class ElencoPrestitiTest {
     @BeforeEach
     public void setUp() {
         try {
-            // 1. Creiamo lo stub
-            gestoreStub = new GestoreStub();
             
-            // 2. Creiamo l'elenco pulito (false = non caricare da file)
-            elenco = new ElencoPrestiti(false, FILENAME_TEST, gestoreStub);
+            // 2. Creamo il file fittizio 
+            File fp = new File(FILENAMEPRESTITI_TEST);
+            fp.createNewFile(); 
+            
+            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fp))) {
+                out.writeObject(new ArrayList<>()); // Scrive una lista vuota nel file
+            }
+            
+            File fl = new File(FILENAMELIBRI_TEST);
+            fl.createNewFile(); 
+            
+            try (ObjectOutputStream outLibri = new ObjectOutputStream(new FileOutputStream(fl))) {
+                outLibri.writeObject(new CatalogoLibri());
+            }
+            
+            File fu = new File(FILENAMEUTENTI_TEST);
+            fu.createNewFile(); 
+            try (ObjectOutputStream outUtenti = new ObjectOutputStream(new FileOutputStream(fu))) {
+                outUtenti.writeObject(new ListaUtenti()); 
+            }
+            
+            // 3. Creiamo l'elenco pulito (false = non caricare da file)
+            gestoreStub = new GestoreStub();
+            elenco = new ElencoPrestiti(false, FILENAMEPRESTITI_TEST, gestoreStub);
+            
+            
             
         } catch (Exception e) {
+            e.printStackTrace();
             fail("Setup fallito: " + e.getMessage());
         }
     }
@@ -116,9 +124,19 @@ public class ElencoPrestitiTest {
         gestoreStub = null;
         
         // Cancelliamo il file creato dai test per non lasciare spazzatura
-        File f = new File(FILENAME_TEST);
-        if (f.exists()) {
-            f.delete();
+        File fp = new File(FILENAMEPRESTITI_TEST);
+        if (fp.exists()) {
+            fp.delete();
+        }
+        
+        File fl = new File(FILENAMELIBRI_TEST);
+        if (fl.exists()) {
+            fl.delete();
+        }
+        
+        File fu = new File(FILENAMEUTENTI_TEST);
+        if (fu.exists()) {
+            fu.delete();
         }
     }
     
@@ -198,23 +216,23 @@ public class ElencoPrestitiTest {
         
         // Aggiungiamo i libri
         gestoreStub.risultatoNuovoPrestito = true;
-        elenco.registrazionePrestito("1111111111111", "MAT01");
-        elenco.registrazionePrestito("2222222222222", "MAT02");
+        elenco.registrazionePrestito("1111111111111", "0612708792");
+        elenco.registrazionePrestito("2222222222222", "0612709999");
 
         // Verifica ricerca per matricola
-        ArrayList<Prestito> risultatiMatricola = elenco.cercaPrestito("MAT02");
+        ArrayList<Prestito> risultatiMatricola = elenco.cercaPrestito("0612709999");
         assertEquals(1, risultatiMatricola.size());
         assertEquals("2222222222222", risultatiMatricola.get(0).getISBNLibro());
         
         // Verifica ricerca per ISBN
         ArrayList<Prestito> risultatiISBN = elenco.cercaPrestito("2222222222222");
         assertEquals(1, risultatiISBN.size());
-        assertEquals("MAT02", risultatiISBN.get(0).getISBNLibro());
+        assertEquals("0612709999", risultatiISBN.get(0).getMatricolaUtente());
         
         // Verifica tramite IDPrestito
-        ArrayList<Prestito> risultatiID = elenco.cercaPrestito("2");
+        ArrayList<Prestito> risultatiID = elenco.cercaPrestito(risultatiISBN.get(0).getIDPrestito());
         assertEquals(1, risultatiID.size());
-        assertEquals("MAT02", risultatiID.get(0).getISBNLibro());
+        assertEquals("0612709999", risultatiID.get(0).getMatricolaUtente());
     }
 
     @Test

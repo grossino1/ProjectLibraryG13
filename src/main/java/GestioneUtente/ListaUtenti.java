@@ -36,6 +36,12 @@ public class ListaUtenti implements Serializable{
     private String filename;
     
     /**
+     * @brief Costruttore di default.
+    */
+    public ListaUtenti() {
+        
+    }
+    /**
      * @brief Costruttore predefinito.
      *
      * @post listaUtenti != null && listaUtenti.isEmpty()

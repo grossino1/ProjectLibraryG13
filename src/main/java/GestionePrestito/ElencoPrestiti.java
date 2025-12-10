@@ -40,7 +40,8 @@ import java.util.Comparator;
 public class ElencoPrestiti implements Serializable{
 
     private Set<Prestito> elencoPrestiti;
-    private GestorePrestito gestore; 
+    private static final int MAX_PRESTITI = 100;
+    private transient GestorePrestito gestore; 
     private final String filename;
 
     /**
@@ -63,14 +64,13 @@ public class ElencoPrestiti implements Serializable{
     public ElencoPrestiti(boolean caricamentoFile, String filename, GestorePrestito gestore) throws IOException, ClassNotFoundException {
        
         this.filename = filename;
+        this.gestore = gestore;
         if (caricamentoFile) {
             ElencoPrestiti oggettoSalvato = SalvataggioFilePrestito.carica(filename);
             this.elencoPrestiti = oggettoSalvato.elencoPrestiti;
-            this.gestore = oggettoSalvato.gestore;
         }
         else {
             this.elencoPrestiti = new TreeSet<>();
-            this.gestore = gestore;
         }
     }
 
@@ -96,7 +96,7 @@ public class ElencoPrestiti implements Serializable{
      */
     public void registrazionePrestito(String isbn, String matricola) throws LibroNotFoundException, UtenteNotFoundException, EccezioniPrestito, IOException, ClassNotFoundException{
         try {
-            if(elencoPrestiti.size() > 99) {
+            if(elencoPrestiti.size() >= MAX_PRESTITI) {
                 throw new ElencoPienoException();
             }
             boolean flag = gestore.nuovoPrestito(isbn, matricola);

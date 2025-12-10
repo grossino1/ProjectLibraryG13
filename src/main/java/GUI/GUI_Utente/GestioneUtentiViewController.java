@@ -292,7 +292,8 @@ public class GestioneUtentiViewController implements Initializable {
                 } catch (ClassNotFoundException ex) {
                     showAlert(Alert.AlertType.ERROR, "Errore generico4", ex.getMessage());
                 } catch (ListaUtentiPienaException ex) {
-                    Logger.getLogger(GestioneUtentiViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    showAlert(Alert.AlertType.ERROR, "Errore generico4", ex.getMessage());
+
                 }
             });
             

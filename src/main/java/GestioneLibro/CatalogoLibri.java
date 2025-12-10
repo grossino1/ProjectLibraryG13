@@ -36,10 +36,12 @@ public class CatalogoLibri implements Serializable{
     private Set<Libro> catalogoLibri;
 
     /**
-     * @brief Costruttore predefinito.
-     *
-     * @post catalogoLibri != null && catalogoLibri.isEmpty()
-     */
+     * @brief Costruttore di default.
+    */
+    public CatalogoLibri() {
+        
+    }
+    
     public CatalogoLibri(boolean caricamentoFile, String filename) throws IOException, ClassNotFoundException {
         if (caricamentoFile) {
             CatalogoLibri oggettoSalvato = SalvataggioFileLibro.carica(filename);
