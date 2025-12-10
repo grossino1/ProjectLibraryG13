@@ -528,7 +528,30 @@ public class CatalogoLibriViewController implements Initializable {
     void handleSortLibro(ActionEvent event){
         //richiama il metodo sort e ordina il catalogo libri in base al codice ISBN
         //e aggiorna la vista del catalogo
-        //scheletro
+        colAutore.setSortable(true);
+        // 1. Controlla se stiamo già ordinando per questa colonna
+        if (tabellaLibri.getSortOrder().contains(colAutore)) {
+            // Se sì, inverti l'ordine (da ASC a DESC o viceversa)
+            if (colAutore.getSortType() == TableColumn.SortType.ASCENDING) {
+                colAutore.setSortType(TableColumn.SortType.DESCENDING);
+                tabellaLibri.getSortOrder().clear();
+                tabellaLibri.getSortOrder().add(colAutore);
+                tabellaLibri.sort();
+            }else if (colAutore.getSortType() == TableColumn.SortType.DESCENDING){
+                colTitolo.setSortable(true);
+                colTitolo.setSortType(TableColumn.SortType.ASCENDING);
+                tabellaLibri.getSortOrder().clear();
+                tabellaLibri.getSortOrder().add(colTitolo);
+                tabellaLibri.sort();
+                colTitolo.setSortable(false);
+            }
+        } else {
+            colAutore.setSortType(TableColumn.SortType.ASCENDING);
+            tabellaLibri.getSortOrder().clear();
+            tabellaLibri.getSortOrder().add(colAutore);
+            tabellaLibri.sort();
+        }
+        colAutore.setSortable(false);
     }
     
     /**
@@ -539,15 +562,31 @@ public class CatalogoLibriViewController implements Initializable {
      * @param[in] event L'evento di click sul pulsante di ordinamento.
      */
     @FXML
-    void handleSortAnno(ActionEvent event) throws LibroNotFoundException, IOException, ClassNotFoundException{
-        //richiama il metodo sort e ordina il catalogo libri in base all'anno di pubblicazione
-        //e aggiorna la vista del catalogo
-        //scheletro
-        colAnno.setSortType(TableColumn.SortType.ASCENDING);
-        
-        
-    
-    
+    void handleSortAnno(ActionEvent event) {
+        colAnno.setSortable(true);
+        // 1. Controlla se stiamo già ordinando per questa colonna
+        if (tabellaLibri.getSortOrder().contains(colAnno)) {
+            // Se sì, inverti l'ordine (da ASC a DESC o viceversa)
+            if (colAnno.getSortType() == TableColumn.SortType.ASCENDING) {
+                colAnno.setSortType(TableColumn.SortType.DESCENDING);
+                tabellaLibri.getSortOrder().clear();
+                tabellaLibri.getSortOrder().add(colAnno);
+                tabellaLibri.sort();
+            }else if (colAnno.getSortType() == TableColumn.SortType.DESCENDING){
+                colTitolo.setSortable(true);
+                colTitolo.setSortType(TableColumn.SortType.ASCENDING);
+                tabellaLibri.getSortOrder().clear();
+                tabellaLibri.getSortOrder().add(colTitolo);
+                tabellaLibri.sort();
+                colTitolo.setSortable(false);
+            }
+        } else {
+            colAnno.setSortType(TableColumn.SortType.ASCENDING);
+            tabellaLibri.getSortOrder().clear();
+            tabellaLibri.getSortOrder().add(colAnno);
+            tabellaLibri.sort();
+        }
+        colAnno.setSortable(false);
     }
     
     /**

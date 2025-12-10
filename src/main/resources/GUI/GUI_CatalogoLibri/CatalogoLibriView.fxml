@@ -95,7 +95,7 @@
                     <Button fx:id="handleAggiungiLibro" onAction="#handleAggiungiLibro" style="-fx-background-color: #27ae60; -fx-text-fill: white;" text="+ Nuovo Libro" />
                     <HBox HBox.hgrow="ALWAYS" />
                     <Label text="Ordina per:" textFill="#7f8c8d" />
-                    <Button fx:id="handleSortTitolo" onAction="#handleSortLibro" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" text="Titolo" />
+                    <Button fx:id="handleSortTitolo" onAction="#handleSortLibro" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" text="Autore" />
                     <Button fx:id="handleSortAnno" onAction="#handleSortAnno" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" text="Anno" />
                     <TextField promptText="Cerca per titolo..." style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" />
                 </children>

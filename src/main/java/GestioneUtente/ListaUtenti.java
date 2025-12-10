@@ -98,7 +98,7 @@ public class ListaUtenti implements Serializable{
      *    @throws UtentePresenteException: Se l'utente passato come parametro è già presente all'interno della lista degli utenti.
      *    @throws IOException Se si verifica un errore di input/output durante la scrittura sul file.
      */
-    public void registrazioneUtente(Utente u, String nomeFile) throws ListaUtentiPienaException, MatricolaNotValidException, UtentePresenteException, IOException {
+    public void registrazioneUtente(Utente u)throws ListaUtentiPienaException, MatricolaNotValidException, UtentePresenteException, IOException {
         // Controllo non necessario (lo deve fare il client)
         // Inserito per motivi di sicurezza del programma
         if(u == null){
@@ -127,7 +127,7 @@ public class ListaUtenti implements Serializable{
         System.out.println("Utente inserito con successo: " + u.getMatricola());
         
         // Chiamata al metodo statico salva, a cui passo l'oggetto listaUtente corrente e il nome del file
-        SalvataggioFileUtente.salva(this, nomeFile);
+        SalvataggioFileUtente.salva(this, filename);
 
         System.out.println("Salvataggio su file completato.");
     }

@@ -45,7 +45,7 @@ public class Libro implements Comparable<Libro>, Serializable {
     
     public Libro(String titolo, String autori, int annoPubblicazione, String isbn, int numeroCopie) throws ISBNNotValidException {
         // corpo vuoto (scheletro)
-        if (isbn == null || isbn.isEmpty() || !isbn.matches("\\d{10}"))
+        if (isbn == null || isbn.isEmpty() || !isbn.matches("\\d{13}"))
             throw new ISBNNotValidException("Formato ISBN non valido");
         this.titolo = titolo;
         this.autori = autori;

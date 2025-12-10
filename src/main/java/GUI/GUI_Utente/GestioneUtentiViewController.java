@@ -1,5 +1,6 @@
 package GUI.GUI_Utente;
 
+import Eccezioni.EccezioniUtenti.ListaUtentiPienaException;
 import Eccezioni.EccezioniUtenti.MatricolaNotValidException;
 import Eccezioni.EccezioniUtenti.UtenteNotFoundException;
 import Eccezioni.EccezioniUtenti.UtentePresenteException;
@@ -278,7 +279,7 @@ public class GestioneUtentiViewController implements Initializable {
                     System.out.println("ISBN letto: '" + nome.getText() + "'");
                     System.out.println("Titolo letto: '" + cognome.getText() + "'");
                     
-                    listaUtenti.registrazioneUtente(new Utente(nome.getText(), cognome.getText(), matricola.getText(), email.getText()), filename);
+                    listaUtenti.registrazioneUtente(new Utente(nome.getText(), cognome.getText(), matricola.getText(), email.getText()));
                     System.out.println(listaUtenti.toString());
                     refreshTable();
                     aggiungiUtenteStage.close();
@@ -290,6 +291,8 @@ public class GestioneUtentiViewController implements Initializable {
                     showAlert(Alert.AlertType.ERROR, "Errore generico3", ex.getMessage());
                 } catch (ClassNotFoundException ex) {
                     showAlert(Alert.AlertType.ERROR, "Errore generico4", ex.getMessage());
+                } catch (ListaUtentiPienaException ex) {
+                    Logger.getLogger(GestioneUtentiViewController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
             
@@ -356,9 +359,36 @@ public class GestioneUtentiViewController implements Initializable {
      * @param[in] event L'evento di click.
      */
     @FXML
+    void handleSortCognome(ActionEvent event) {}
+    /*
     void handleSortCognome(ActionEvent event) {
-        // scheletro
-    }
+        //richiama il metodo sort e ordina il catalogo libri in base al codice ISBN
+        //e aggiorna la vista del catalogo
+        colCognome.setSortable(true);
+        // 1. Controlla se stiamo già ordinando per questa colonna
+        if (tabellaUtenti.getSortOrder().contains(colCognome)) {
+            // Se sì, inverti l'ordine (da ASC a DESC o viceversa)
+            if (colCognome.getSortType() == TableColumn.SortType.ASCENDING) {
+                colCognome.setSortType(TableColumn.SortType.DESCENDING);
+                tabellaUtenti.getSortOrder().clear();
+                tabellaUtenti.getSortOrder().add(colCognome);
+                tabellaUtenti.sort();
+            }else if (colCognome.getSortType() == TableColumn.SortType.DESCENDING){
+                colIsbn.setSortable(true);
+                colIsbn.setSortType(TableColumn.SortType.ASCENDING);
+                tabellaUtenti.getSortOrder().clear();
+                tabellaUtenti.getSortOrder().add(colIsbn);
+                tabellaUtenti.sort();
+                colIsbn.setSortable(false);
+            }
+        } else {
+            colTitolo.setSortType(TableColumn.SortType.ASCENDING);
+            tabellaLibri.getSortOrder().clear();
+            tabellaLibri.getSortOrder().add(colTitolo);
+            tabellaLibri.sort();
+        }
+        colTitolo.setSortable(false);
+    }*/
 
     /**
      * @brief Ordina gli utenti dal più recente al meno recente (Newest First).
