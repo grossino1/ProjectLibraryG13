@@ -22,6 +22,7 @@ import Eccezioni.EccezioniPrestiti.CopieEsauriteException;
 
 public class Libro implements Comparable<Libro>, Serializable { 
 
+    private static final long serialVersionUID = 1L;
     private String titolo;
     private String autori;
     private int annoPubblicazione;
@@ -44,7 +45,7 @@ public class Libro implements Comparable<Libro>, Serializable {
     
     public Libro(String titolo, String autori, int annoPubblicazione, String isbn, int numeroCopie) throws ISBNNotValidException {
         // corpo vuoto (scheletro)
-        if (isbn == null || isbn.isEmpty() || !isbn.matches("\\d{13}"))
+        if (isbn == null || isbn.isEmpty() || !isbn.matches("\\d{10}"))
             throw new ISBNNotValidException("Formato ISBN non valido");
         this.titolo = titolo;
         this.autori = autori;
@@ -145,7 +146,6 @@ public class Libro implements Comparable<Libro>, Serializable {
         if (numeroCopie<=1)
             throw new CopieEsauriteException ("Non sono ammessi decrementi per questo libro");
         numeroCopie--;
-    
     }
     
     /**

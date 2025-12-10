@@ -10,6 +10,7 @@ import Eccezioni.EccezioniLibri.LibroNotFoundException;
 import Eccezioni.EccezioniLibri.CatalogoPienoException;
 import SalvataggioFile.SalvataggioFileLibro.SalvataggioFileLibro;
 import java.io.IOException;
+import java.io.Serializable;
 
 
 /**
@@ -27,7 +28,7 @@ import java.io.IOException;
  * @version 1.0
  */
 
-public class CatalogoLibri {
+public class CatalogoLibri implements Serializable{
     
     private static final long serialVersionUID = 1L;
     private String filename;
@@ -47,6 +48,7 @@ public class CatalogoLibri {
         else {
             this.catalogoLibri = new TreeSet<>();
         } 
+        this.filename = filename;
     
 
     }
@@ -195,8 +197,9 @@ public class CatalogoLibri {
      * 
      * 
      */ 
-    public void modificaLibro(Libro l, String titolo, String autori, int annoPubblicazione, int numeroCopie) throws IOException {
-             
+    public void modificaLibro(Libro l, String titolo, String autori, int annoPubblicazione, int numeroCopie) throws IOException, LibroNotFoundException {
+        if(l == null)
+            throw new LibroNotFoundException("Non hai selezionato un libro!");
         l.setTitolo(titolo); 
         l.setAutori(autori);
         l.setAnnoPubblicazione(annoPubblicazione);

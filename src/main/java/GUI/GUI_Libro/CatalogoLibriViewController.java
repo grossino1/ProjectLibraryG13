@@ -1,5 +1,6 @@
 package GUI.GUI_Libro;
 
+import Eccezioni.EccezioniLibri.CatalogoPienoException;
 import Eccezioni.EccezioniLibri.ISBNNotValidException;
 import Eccezioni.EccezioniLibri.LibroNotFoundException;
 import Eccezioni.EccezioniLibri.LibroPresenteException;
@@ -9,6 +10,7 @@ import GestioneLibro.Libro;
 import SalvataggioFile.SalvataggioFileLibro.SalvataggioFileLibro;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.attribute.FileAttribute;
 import java.util.Observable;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -88,7 +90,8 @@ public class CatalogoLibriViewController implements Initializable {
     
     //Oggetto di classe catalogo libro per svolgere diverse funzioni
     private CatalogoLibri catalogoLibri;
-
+    
+    private String filename = "catalogoLibri.bin";
     /**
      * @brief Inizializza il controller e configura la tabella.
      *
@@ -103,10 +106,9 @@ public class CatalogoLibriViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         try {
-            catalogoLibri = SalvataggioFileLibro.carica("catalogoLibri.bin");
+            catalogoLibri = new CatalogoLibri(true, filename);
         } catch (IOException ex) {
             showAlert(Alert.AlertType.ERROR, "Errore critico!", ex.getMessage());
-            System.exit(0);
         } catch (ClassNotFoundException ex) {
             showAlert(Alert.AlertType.ERROR, "Errore generico!", ex.getMessage());
         }
@@ -126,118 +128,6 @@ public class CatalogoLibriViewController implements Initializable {
         colAutore.setSortable(false);
         colAnno.setSortable(false);
         colNCopie.setSortable(false);
-    }    
-    
-    /**
-     * @brief Gestisce l'aggiunta di un nuovo libro.
-     *
-     * Apre una finestra di dialogo o cambia scena per permettere l'inserimento
-     * dei dati di un nuovo libro.
-     *
-     * @post Il catalogo viene aggiornato con il nuovo libro (se confermato).
-     * @post La TableView riflette la nuova aggiunta.
-     *
-     * @param[in] event L'evento di click sul pulsante.
-     */
-    @FXML
-    private void handleAggiungiLibro(ActionEvent event){
-        //chiama un metodo che permette di aggiungere un libro nel catalogo dei 
-        //libri e aggiorna la vista del catalogo
-        //scheletro
-        try{
-            
-            //inizio della parte di codice per il caricamento della finestra per l'aggiunta di un nuovo libro
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/GUI_CatalogoLibri/LibroView.fxml"));
-            Parent child = loader.load();
-            
-            //modifica della label di titolo e desc 
-            Label lblTitolo = (Label) child.lookup("#lblTitolo");
-            if (lblTitolo != null)
-                lblTitolo.setText("Nuovo Libro");
-            
-            Label lblDesc = (Label) child.lookup("#lblDesc");
-            if (lblDesc != null)
-                lblDesc.setText("Inserisci i dettagli del libro da aggiungere al catalogo.");
-            
-            Stage aggiungiLibroStage = new Stage();
-            aggiungiLibroStage.setTitle("Aggiungi Nuovo Libro");
-            Scene sceneLibri = new Scene(child);
-            aggiungiLibroStage.setScene(sceneLibri);
-            aggiungiLibroStage.show();
-            //fine 
-            
-            Button btnSalva = (Button) child.lookup("#btnSalva");
-            Button btnAnnulla = (Button) child.lookup("#btnAnnulla");
-            
-            //lambda expression per la registrazione del libro
-            btnSalva.setOnAction(e -> {
-                try {
-                    // Leggiamo i dati dai campi che abbiamo appena trovato
-                    TextField isbn = (TextField) child.lookup("#txtIsbn");
-                    TextField titolo = (TextField) child.lookup("#txtTitolo");
-                    TextField autore = (TextField) child.lookup("#txtAutore");
-                    TextField anno = (TextField) child.lookup("#txtAnno");
-                    TextField numeroCopie = (TextField) child.lookup("#txtNCopie");
-            
-                    System.out.println("DEBUG DATI LETTI:");
-                    System.out.println("ISBN letto: '" + isbn.getText() + "'");
-                    System.out.println("Titolo letto: '" + titolo.getText() + "'");
-                    
-                    catalogoLibri.registrazioneLibro(new Libro(titolo.getText(), autore.getText(), Integer.parseInt(anno.getText()), isbn.getText(), Integer.parseInt(numeroCopie.getText())));
-                    System.out.println(catalogoLibri.toString());
-                    refreshTable();
-                    aggiungiLibroStage.close();
-                } catch (LibroNotFoundException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
-                } catch (ISBNNotValidException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
-                } catch (LibroPresenteException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
-                } catch (IOException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
-                } catch (ClassNotFoundException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
-                }
-            });
-            
-            btnAnnulla.setOnAction(e -> { 
-                try {
-                    aggiungiLibroStage.close();
-                } catch (Exception ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
-                }
-            }); 
-        }catch(IOException e){
-            showAlert(Alert.AlertType.ERROR, "Errore generico", e.getMessage()); //gestione delle eccezioni
-        }   
-    }
-    
-    /**
-     * @brief Ordina il catalogo per codice ISBN.
-     *
-     * @post La lista visualizzata nella tabella viene riordinata secondo l'ISBN.
-     *
-     * @param[in] event L'evento di click sul pulsante di ordinamento.
-     */
-    @FXML
-    void handleSortLibro(ActionEvent event){
-        //richiama il metodo sort e ordina il catalogo libri in base al codice ISBN
-        //e aggiorna la vista del catalogo
-        //scheletro
-    }
-    
-    /**
-     * @brief Ordina il catalogo per Anno di Pubblicazione.
-     *
-     * @post La lista visualizzata nella tabella viene riordinata cronologicamente.
-     *
-     * @param[in] event L'evento di click sul pulsante di ordinamento.
-     */
-    @FXML
-    void handleSortAnno(ActionEvent event){
-        //richiama il metodo sort e ordina il catalogo libri in base all'anno di pubblicazione
-        //e aggiorna la vista del catalogo
-        //scheletro
     }
     
     /**
@@ -257,7 +147,7 @@ public class CatalogoLibriViewController implements Initializable {
     @FXML
     void refreshTable() throws IOException, ClassNotFoundException{
         libroList.clear(); // 1. Cancella i dati vecchi dalla vista
-        catalogoLibri = SalvataggioFileLibro.carica("catalogoLibri.bin");
+        //catalogoLibri = SalvataggioFileLibro.carica(filename);
         libroList.addAll(catalogoLibri.getCatalogoLibri());
     }
     
@@ -324,6 +214,108 @@ public class CatalogoLibriViewController implements Initializable {
     }
     
     /**
+     * @brief Effettua il logout e torna alla schermata di Login.
+     *
+     * @post La sessione utente corrente viene terminata.
+     * @post Viene visualizzata la schermata di Login.
+     *
+     * @param[in] event L'evento di click.
+     */
+    @FXML
+    void handleLogout(ActionEvent event) throws IOException {
+        //permette di passare alla schermata del login
+        //da implemetare con switchScene
+        //scheletro
+        switchScene(event, "/GUI/GUI_Login/LoginView.fxml");
+    }
+    
+    /**
+     * @brief Gestisce l'aggiunta di un nuovo libro.
+     *
+     * Apre una finestra di dialogo o cambia scena per permettere l'inserimento
+     * dei dati di un nuovo libro.
+     *
+     * @post Il catalogo viene aggiornato con il nuovo libro (se confermato).
+     * @post La TableView riflette la nuova aggiunta.
+     *
+     * @param[in] event L'evento di click sul pulsante.
+     */
+    @FXML
+    private void handleAggiungiLibro(ActionEvent event){
+        //chiama un metodo che permette di aggiungere un libro nel catalogo dei 
+        //libri e aggiorna la vista del catalogo
+        //scheletro
+        try{
+            
+            //inizio della parte di codice per il caricamento della finestra per l'aggiunta di un nuovo libro
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/GUI_CatalogoLibri/LibroView.fxml"));
+            Parent child = loader.load();
+            
+            //modifica della label di titolo e desc 
+            Label lblTitolo = (Label) child.lookup("#lblTitolo");
+            if (lblTitolo.getText() != null)
+                lblTitolo.setText("Nuovo Libro");
+            
+            Label lblDesc = (Label) child.lookup("#lblDesc");
+            if (lblDesc.getText() != null)
+                lblDesc.setText("Inserisci i dettagli del libro da aggiungere al catalogo.");
+            
+            Stage aggiungiLibroStage = new Stage();
+            aggiungiLibroStage.setTitle("Aggiungi Nuovo Libro");
+            Scene sceneLibri = new Scene(child);
+            aggiungiLibroStage.setScene(sceneLibri);
+            aggiungiLibroStage.show();
+            //fine 
+            
+            Button btnSalva = (Button) child.lookup("#btnSalva");
+            Button btnAnnulla = (Button) child.lookup("#btnAnnulla");
+            
+            //lambda expression per la registrazione del libro
+            btnSalva.setOnAction(e -> {
+                try {
+                    // Leggiamo i dati dai campi che abbiamo appena trovato
+                    TextField isbn = (TextField) child.lookup("#txtIsbn");
+                    TextField titolo = (TextField) child.lookup("#txtTitolo");
+                    TextField autore = (TextField) child.lookup("#txtAutore");
+                    TextField anno = (TextField) child.lookup("#txtAnno");
+                    TextField numeroCopie = (TextField) child.lookup("#txtNCopie");
+            
+                    System.out.println("DEBUG DATI LETTI:");
+                    System.out.println("ISBN letto: '" + isbn.getText() + "'");
+                    System.out.println("Titolo letto: '" + titolo.getText() + "'");
+                    
+                    catalogoLibri.registrazioneLibro(new Libro(titolo.getText(), autore.getText(), Integer.parseInt(anno.getText()), isbn.getText(), Integer.parseInt(numeroCopie.getText())));
+                    System.out.println(catalogoLibri.toString());
+                    refreshTable();
+                    aggiungiLibroStage.close();
+                } catch (LibroNotFoundException ex) {
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
+                } catch (ISBNNotValidException ex) {
+                    showAlert(Alert.AlertType.ERROR, "Errore generico2", ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
+                } catch (LibroPresenteException ex) {
+                    showAlert(Alert.AlertType.ERROR, "Errore generico3",ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
+                } catch (IOException ex) {
+                    showAlert(Alert.AlertType.ERROR, "Errore generico4", ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
+                } catch (ClassNotFoundException ex) {
+                    showAlert(Alert.AlertType.ERROR, "Errore generico5", ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
+                } catch (CatalogoPienoException ex) {
+                    Logger.getLogger(CatalogoLibriViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+            
+            btnAnnulla.setOnAction(e -> { 
+                try {
+                    aggiungiLibroStage.close();
+                } catch (Exception ex) {
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
+                }
+            }); 
+        }catch(IOException e){
+            showAlert(Alert.AlertType.ERROR, "Errore generico", e.getMessage()); //gestione delle eccezioni
+        }   
+    }
+    
+    /**
      * @brief Gestisce la selezione di un libro nella tabella.
      *
      * Questo metodo viene attivato quando l'utente clicca su una riga della tabella.
@@ -358,12 +350,13 @@ public class CatalogoLibriViewController implements Initializable {
      * non corrisponde alla versione della classe locale.
      */
     @FXML
-    void handleAddCopyLibro(ActionEvent event) throws IOException, ClassNotFoundException{
+    void handleAddCopyLibro(ActionEvent event) throws IOException, ClassNotFoundException, LibroNotFoundException{
         // 1. Recupera il libro selezionato
         Libro selected = tabellaLibri.getSelectionModel().getSelectedItem();
         
         if (selected != null) {
             selected.incrementaCopiaLibro();
+            catalogoLibri.modificaLibro(selected, selected.getTitolo(), selected.getAutori(),selected.getAnnoPubblicazione(), selected.getNumeroCopie());
             // Feedback visivo (opzionale)
             System.out.println("Copia aggiunta. Totale: " + selected.getNumeroCopie());
         }
@@ -387,22 +380,21 @@ public class CatalogoLibriViewController implements Initializable {
      * non corrisponde alla versione della classe locale.
      */
     @FXML
-    void handleRemoveCopyLibro(ActionEvent event) throws IOException, ClassNotFoundException{
+    void handleRemoveCopyLibro(ActionEvent event) throws IOException, ClassNotFoundException, LibroNotFoundException{
         //permette di rimuovere una copia del libro selezionato tramite handleSelectedLibro
         //controllo per quanto riguarda presenza di 1 sola copia
         //scheletro
         Libro selected = tabellaLibri.getSelectionModel().getSelectedItem();
         
         if(selected != null){
-            try{
-                selected.decrementaCopiaLibro();
+            try{selected.decrementaCopiaLibro();
+                catalogoLibri.modificaLibro(selected, selected.getTitolo(), selected.getAutori(),selected.getAnnoPubblicazione(), selected.getNumeroCopie());
             }catch(CopieEsauriteException ex){
                 showAlert(Alert.AlertType.ERROR, "Errore", ex.getMessage());
             }
         }   
         refreshTable();
     }
-    
     
     /**
      * @brief Elimina il libro selezionato
@@ -449,8 +441,8 @@ public class CatalogoLibriViewController implements Initializable {
     void handleModifyLibro(ActionEvent event) throws LibroNotFoundException{
         //permette di modificare il libro selezionato tramite handleSelectedLibro
         //scheletro
-        Libro selected = tabellaLibri.getSelectionModel().getSelectedItem();   
-
+        Libro selected = tabellaLibri.getSelectionModel().getSelectedItem();
+        if(selected != null){
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/GUI_CatalogoLibri/LibroView.fxml"));
             Parent child = loader.load();
@@ -493,10 +485,7 @@ public class CatalogoLibriViewController implements Initializable {
                     System.out.println("ISBN letto: '" + isbn.getText() + "'");
                     System.out.println("Titolo letto: '" + titolo.getText() + "'");
                     
-                    selected.setAnnoPubblicazione(Integer.parseInt(anno.getText()));
-                    selected.setAutori(autore.getText());
-                    selected.setNumeroCopie(Integer.parseInt(numeroCopie.getText()));
-                    selected.setTitolo(titolo.getText());
+                    catalogoLibri.modificaLibro(selected, titolo.getText(), autore.getText(), Integer.parseInt(anno.getText()), Integer.parseInt(numeroCopie.getText()));
                     
                     System.out.println(catalogoLibri.toString());
                     refreshTable();
@@ -508,6 +497,8 @@ public class CatalogoLibriViewController implements Initializable {
                 } catch (ClassNotFoundException ex) {
                     showAlert(Alert.AlertType.ERROR, "Errore generico ", ex.getMessage());
                 }catch(IllegalArgumentException ex){
+                    showAlert(Alert.AlertType.ERROR, "Errore generico ", ex.getMessage());                    
+                } catch (LibroNotFoundException ex) {
                     showAlert(Alert.AlertType.ERROR, "Errore generico ", ex.getMessage());                    
                 }
             });
@@ -521,23 +512,42 @@ public class CatalogoLibriViewController implements Initializable {
             });
         }catch(IOException e){
             e.printStackTrace();
-        }  
+        }
+        }else
+            showAlert(Alert.AlertType.ERROR, "Errore generico", "Libro non selezionato!");
     }
-
+    
     /**
-     * @brief Effettua il logout e torna alla schermata di Login.
+     * @brief Ordina il catalogo per codice ISBN.
      *
-     * @post La sessione utente corrente viene terminata.
-     * @post Viene visualizzata la schermata di Login.
+     * @post La lista visualizzata nella tabella viene riordinata secondo l'ISBN.
      *
-     * @param[in] event L'evento di click.
+     * @param[in] event L'evento di click sul pulsante di ordinamento.
      */
     @FXML
-    void handleLogout(ActionEvent event) throws IOException {
-        //permette di passare alla schermata del login
-        //da implemetare con switchScene
+    void handleSortLibro(ActionEvent event){
+        //richiama il metodo sort e ordina il catalogo libri in base al codice ISBN
+        //e aggiorna la vista del catalogo
         //scheletro
-        switchScene(event, "/GUI/GUI_Login/LoginView.fxml");
+    }
+    
+    /**
+     * @brief Ordina il catalogo per Anno di Pubblicazione.
+     *
+     * @post La lista visualizzata nella tabella viene riordinata cronologicamente.
+     *
+     * @param[in] event L'evento di click sul pulsante di ordinamento.
+     */
+    @FXML
+    void handleSortAnno(ActionEvent event) throws LibroNotFoundException, IOException, ClassNotFoundException{
+        //richiama il metodo sort e ordina il catalogo libri in base all'anno di pubblicazione
+        //e aggiorna la vista del catalogo
+        //scheletro
+        colAnno.setSortType(TableColumn.SortType.ASCENDING);
+        
+        
+    
+    
     }
     
     /**

@@ -109,6 +109,7 @@ public class LoginViewController implements Initializable {
             if (accessoConsentito = admin.login(username, password) ) {
                 System.out.println("Login effettuato con successo!");
                 switchScene(event, "/GUI/GUI_CatalogoLibri/CatalogoLibriView.fxml");
+                //switchScene(event, "/GUI/GUI_GestioneUtenti/GestioneUtentiView.fxml");
             }
         }catch (UsernameFieldEmptyException eu){
             showAlert(Alert.AlertType.ERROR, "Errore Login", eu.getMessage());
