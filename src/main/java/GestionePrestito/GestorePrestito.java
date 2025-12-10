@@ -51,11 +51,11 @@ public class GestorePrestito {
      * @param[in] filenameLibri il nome del file dove salvare il catalogo dei libri.
      * @param[in] filenameUtenti il nome del file dove salvare la lista degli utenti.
      */
-    public GestorePrestito(CatalogoLibri catalogo, ListaUtenti utenti, String filenameLibri, String filenameUtenti) {
-        this.catalogo = catalogo;
-        this.utenti = utenti;
+    public GestorePrestito(String filenameLibri, String filenameUtenti) throws IOException, ClassNotFoundException {
         this.filenameLibri = filenameLibri;
-        this.filenameUtenti = filenameUtenti;
+        this.filenameUtenti = filenameUtenti;          
+        this.catalogo = SalvataggioFileLibro.carica(filenameLibri);
+        this.utenti = SalvataggioFileUtente.carica(filenameUtenti);     
     }
     
     /**
@@ -83,7 +83,10 @@ public class GestorePrestito {
      * @throws CopieEsauriteException Se il libro esiste ma il numero di copie disponibili è < 1.
      * @throws PrestitiEsauritiException Se l'utente ha già raggiunto il limite massimo di prestiti attivi (>= 3).
      */
-    public boolean nuovoPrestito(String ISBN, String matricola) throws LibroNotFoundException, UtenteNotFoundException, EccezioniPrestito {
+    public boolean nuovoPrestito(String ISBN, String matricola) throws LibroNotFoundException, UtenteNotFoundException, EccezioniPrestito, IOException, ClassNotFoundException {
+        
+        this.catalogo = SalvataggioFileLibro.carica(filenameLibri);
+        this.utenti = SalvataggioFileUtente.carica(filenameUtenti);   
         
         // 1. Recupero le entità Libro e Utente tramite gli identificativi
         // Ipotizzo che questi metodi restituiscano null se non trovano l'oggetto
