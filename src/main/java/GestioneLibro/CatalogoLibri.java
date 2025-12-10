@@ -189,7 +189,7 @@ public class CatalogoLibri {
      */ 
     public void modificaLibro(Libro l, String titolo, String autori, int annoPubblicazione, int numeroCopie) throws IOException {
              
-        l.setTitolo(titolo);
+        l.setTitolo(titolo); 
         l.setAutori(autori);
         l.setAnnoPubblicazione(annoPubblicazione);
         l.setNumeroCopie(numeroCopie);
