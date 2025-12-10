@@ -2,11 +2,13 @@ package GestioneUtente;
 import java.util.ArrayList;
 import GestionePrestito.Prestito;
 import SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente;
+import Eccezioni.EccezioniUtenti.MatricolaNotValidException;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.List;
 import java.time.LocalDate;
 import java.io.IOException;
+
 
 /**
  * @class Utente
@@ -50,9 +52,15 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @param[in] emailIstituzionale: L'indirizzo email dell'utente.
      * @param[in] listaPrestiti: La lista dei Prestiti Attivi dell'Utente.
      */
-    public Utente(String nome, String cognome, String matricola, String emailIstituzionale) {
+    public Utente(String nome, String cognome, String matricola, String emailIstituzionale) throws IllegalArgumentException, MatricolaNotValidException {
         this.nome = nome;
         this.cognome = cognome;
+        
+        //Controllo che la matricola sia corretta 
+        if(matricola == null)
+            throw new IllegalArgumentException("La matricola non può essere nulla!");
+        if(matricola.length() != 10 || matricola.matches("\\d{10}"))
+            throw new MatricolaNotValidException("La matricola deve essere di 10 cifre!");
         this.matricola = matricola;
         this.emailIstituzionale = emailIstituzionale;
         this.listaPrestiti = new ArrayList<>();
