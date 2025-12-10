@@ -7,7 +7,9 @@ import java.util.Comparator;
 import Eccezioni.EccezioniLibri.ISBNNotValidException;
 import Eccezioni.EccezioniLibri.LibroPresenteException;
 import Eccezioni.EccezioniLibri.LibroNotFoundException;
+import Eccezioni.EccezioniLibri.CatalogoPienoException;
 import SalvataggioFile.SalvataggioFileLibro.SalvataggioFileLibro;
+import java.io.IOException;
 
 
 /**
@@ -26,6 +28,9 @@ import SalvataggioFile.SalvataggioFileLibro.SalvataggioFileLibro;
  */
 
 public class CatalogoLibri {
+    
+    private static final long serialVersionUID = 1L;
+    private String filename;
 
     private Set<Libro> catalogoLibri;
 
@@ -74,8 +79,11 @@ public class CatalogoLibri {
      * @param[in] l: L'oggetto Libro da aggiungere.
      * @throws ISBNNotValidException Se il libro ha un formato ISBN non valido.
      */
-    public void registrazioneLibro(Libro l) throws ISBNNotValidException, LibroPresenteException, LibroNotFoundException {
+    public void registrazioneLibro(Libro l) throws ISBNNotValidException, LibroPresenteException, LibroNotFoundException, CatalogoPienoException, IOException {
         // scheletro: qui andrebbe la logica di validazione prima dell'add
+        if (catalogoLibri.size()>999){
+            throw new CatalogoPienoException("È stato raggionto il numero massimo dei libri nel catalogo");
+        }
         if (l==null)
             throw new LibroNotFoundException("Il libro non può essere nullo");
         if (!l.getIsbn().matches("\\d{10}")){
@@ -83,8 +91,7 @@ public class CatalogoLibri {
         }
         if (!catalogoLibri.add(l))
             throw new LibroPresenteException("Il libro scelto è già presente nel catalogo libri");
-        CatalogoLibri catalogo = (CatalogoLibri) catalogoLibri;
-        SalvataggioFileLibro.salva(catalogo, "Catalogo Libri");
+        SalvataggioFileLibro.salva(this, "Catalogo Libri");
         
     }
 
@@ -97,14 +104,13 @@ public class CatalogoLibri {
      *
      * @param[in] l: L'oggetto Libro da rimuovere.
      */
-    public void eliminazioneLibro(Libro l) throws LibroNotFoundException{
+    public void eliminazioneLibro(Libro l) throws LibroNotFoundException, IOException{
         if (l==null)
             throw new LibroNotFoundException("Il libro non può essere nullo");
         if (!catalogoLibri.contains(l))
             throw new LibroNotFoundException("Il libro non è presente nel catalogo");
         catalogoLibri.remove(l); 
-        CatalogoLibri catalogo = (CatalogoLibri) catalogoLibri;
-        SalvataggioFileLibro.salva(catalogo, "Catalogo Libri");
+        SalvataggioFileLibro.salva(this, "Catalogo Libri");
     }
 
     /**

@@ -14,14 +14,14 @@ package Eccezioni.EccezioniLibri;
  * @version 1.0
  */
 
-public class CatalogoPienoExceptoin extends EccezioniLibro {
+public class CatalogoPienoException extends EccezioniLibro {
 
     /**
      * @brief Costruttore di default.
      *
      * Inizializza l'eccezione senza un messaggio di dettaglio specifico.
      */
-    public CatalogoPienoExceptoin(){
+    public CatalogoPienoException(){
         
     }
     
@@ -30,7 +30,7 @@ public class CatalogoPienoExceptoin extends EccezioniLibro {
      *
      * @param[in] msg La descrizione specifica dell'errore.
      */
-    public CatalogoPienoExceptoin(String msg){
+    public CatalogoPienoException(String msg){
         super(msg);
     }
 }
