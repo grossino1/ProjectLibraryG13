@@ -12,14 +12,14 @@ package Eccezioni.EccezioniAutenticazione;
  * @version 1.0
  */
 
-public class PasswordNotValidException extends EccezioneAutenticazione {
+public class LoginCredentialsNotValidException extends EccezioneAutenticazione {
 
     /**
      * @brief Costruttore di default.
      *
      * Inizializza l'eccezione senza un messaggio di dettaglio specifico.
      */
-    public PasswordNotValidException() {
+    public LoginCredentialsNotValidException() {
     }
    
     /**
@@ -27,4 +27,8 @@ public class PasswordNotValidException extends EccezioneAutenticazione {
      *
      * @param[in] msg La descrizione del motivo per cui la password non è valida (es. "Lunghezza insufficiente").
      */
+    public LoginCredentialsNotValidException(String msg) {
+        super(msg);
+    
+    }
 }
