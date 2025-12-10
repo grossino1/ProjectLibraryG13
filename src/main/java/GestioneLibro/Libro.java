@@ -20,12 +20,12 @@ import Eccezioni.EccezioniPrestiti.CopieEsauriteException;
  * @version 1.1
  */
 
-public class Libro implements Comparable<Libro>, Serializable {
+public class Libro implements Comparable<Libro>, Serializable { 
 
     private String titolo;
     private String autori;
     private int annoPubblicazione;
-    private String isbn;
+    private final String isbn;
     private int numeroCopie;
 
     /**
@@ -42,8 +42,10 @@ public class Libro implements Comparable<Libro>, Serializable {
      * @param[in] numeroCopie Il numero iniziale di copie (deve essere >= 0).
      */
     
-    public Libro(String titolo, String autori, int annoPubblicazione, String isbn, int numeroCopie) {
+    public Libro(String titolo, String autori, int annoPubblicazione, String isbn, int numeroCopie) throws ISBNNotValidException {
         // corpo vuoto (scheletro)
+        if (isbn == null || isbn.isEmpty() || !isbn.matches("\\d{13}"))
+            throw new ISBNNotValidException("Formato ISBN non valido");
         this.titolo = titolo;
         this.autori = autori;
         this.annoPubblicazione = annoPubblicazione;
@@ -102,22 +104,6 @@ public class Libro implements Comparable<Libro>, Serializable {
      */
     public String getIsbn() { return isbn; }
     
-    /**
-     * @brief Imposta il codice ISBN.
-     * 
-     * @pre isbn != null (L'ISBN non può essere nullo).
-     * 
-     * @param[in] isbn Il nuovo codice ISBN.
-     * 
-     * @see #hashCode() Se l'ISBN cambia, cambia anche l'hash.
-     */
-    public void setIsbn(String isbn) throws ISBNNotValidException {
-        if (isbn == null || !isbn.matches("\\d{10}")) {
-            throw new ISBNNotValidException("ISBN non valido: deve avere 10 cifre.");
-        }
-        this.isbn = isbn;
-}
-
     /**
      * @brief Restituisce il numero di copie.
      * 

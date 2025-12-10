@@ -1,6 +1,7 @@
 package GestioneUtente;
 
 import Eccezioni.EccezioniUtenti.MatricolaNotValidException;
+import Eccezioni.EccezioniUtenti.UtenteNotFoundException;
 import Eccezioni.EccezioniUtenti.UtentePresenteException;
 import java.util.Set;
 import java.util.TreeSet;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente;
 import java.io.IOException;
+import java.io.Serializable;
 /**
  * @class ListaUtenti
  * @brief Gestisce l'insieme di tutti gli utenti registrati.
@@ -22,21 +24,30 @@ import java.io.IOException;
  * @author grossino
  * @version 1.0
  */
-public class ListaUtenti {
+public class ListaUtenti implements Serializable{
 
     /**
      * Collezione ordinata degli utenti registrati.
      */
+    private static final long serialVersionUID = 1L;
+        
     private Set<Utente> listaUtenti;
+    private String filename;
     
     /**
      * @brief Costruttore predefinito.
      *
      * @post listaUtenti != null && listaUtenti.isEmpty()
      */
-    public ListaUtenti(){
+    public ListaUtenti(boolean caricamentoFile, String filename) throws IOException, ClassNotFoundException{
         // Viene scelto come Collection il TreeSet per la sua capacità di ordinamento.
-        listaUtenti = new TreeSet<>();
+        if(caricamentoFile){
+            ListaUtenti oggettoSalvato = SalvataggioFileUtente.carica(filename);
+            this.listaUtenti = oggettoSalvato.listaUtenti;
+        }else{
+            listaUtenti = new TreeSet<>();
+        }
+        this.filename = filename;
     }
     
     /**
@@ -44,7 +55,7 @@ public class ListaUtenti {
      *
      * Esegue una scansione della lista per trovare l'utente corrispondente.
      * È essenziale per le operazioni di prestito.
-     * 
+     *  
      * @pre matricola != null (La chiave di ricerca non può essere nulla).
      * @post Lo stato della lista rimane invariato (sola lettura).
      *
@@ -124,12 +135,13 @@ public class ListaUtenti {
      * @param[in] u: L'oggetto da rimuovere (deve essere un'istanza di Utente).
      * @throws IllegalArgumentException: Se l'utente inserito come parametro è nullo.
      */
-    public void eliminazioneUtente(Object u) {
+    public void eliminazioneUtente(Object u) throws UtenteNotFoundException, IOException {
         // Controllo non necessario (lo deve fare il client)
         // Inserito per motivi di sicurezza del programma
-        if(u == null){
-            throw new IllegalArgumentException("Errore: Impossibile rimuovere un utente nullo.");
-        }
+        if(u == null)
+            throw new UtenteNotFoundException("Utente non trovato!");
+        if(!listaUtenti.contains(u))
+            throw new UtenteNotFoundException("Utente non presente nella lista");
         
         // Se l'oggetto passato non appartine alla classe Utente, allora non può essere rimosso.
         // Nota: Utilizzo "instanceof" e non "getClass()" perchè se in futuro si vorrà 
@@ -139,6 +151,7 @@ public class ListaUtenti {
         
         // Se l'utente passato come parametro fa parte della lista allora viene eliminato.
         listaUtenti.remove(u);
+        SalvataggioFileUtente.salva(this, filename);
         
     }
     
