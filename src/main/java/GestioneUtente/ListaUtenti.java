@@ -3,6 +3,7 @@ package GestioneUtente;
 import Eccezioni.EccezioniUtenti.MatricolaNotValidException;
 import Eccezioni.EccezioniUtenti.UtenteNotFoundException;
 import Eccezioni.EccezioniUtenti.UtentePresenteException;
+import Eccezioni.EccezioniUtenti.ListaUtentiPienaException;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.ArrayList;
@@ -92,16 +93,23 @@ public class ListaUtenti implements Serializable{
      *
      * @param[in] u: L'oggetto Utente da registrare.
      *  * @throws IllegalArgumentException: Se l'utente inserito come parametro è nullo.
+     *    @throws ListaUtentiPienaException: Se la listaUtenti è piena.
      *    @throws MatricolaNotValidException: Se l'utente ha un formato di matricola non valido.
      *    @throws UtentePresenteException: Se l'utente passato come parametro è già presente all'interno della lista degli utenti.
      *    @throws IOException Se si verifica un errore di input/output durante la scrittura sul file.
      */
-    public void registrazioneUtente(Utente u, String nomeFile) throws MatricolaNotValidException, UtentePresenteException, IOException {
+    public void registrazioneUtente(Utente u, String nomeFile) throws ListaUtentiPienaException, MatricolaNotValidException, UtentePresenteException, IOException {
         // Controllo non necessario (lo deve fare il client)
         // Inserito per motivi di sicurezza del programma
         if(u == null){
             throw new IllegalArgumentException("Errore: Impossibile aggiungere un utente nullo.");
         }
+        
+        // Controllo che listaUtenti==1000
+        if(listaUtenti.size() == 1000){
+            throw new ListaUtentiPienaException("La listaUtenti non può contenere più di 1000 utenti!");
+        }
+            
         
         // Controllo della matricola: la matricola deve avere 10 caratteri
         if (!u.getMatricola().matches("\\d{10}")){

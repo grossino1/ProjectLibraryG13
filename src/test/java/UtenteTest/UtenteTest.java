@@ -4,29 +4,27 @@
  * and open the template in the editor.
  */
 package UtenteTest;
+
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
+
 import GestioneUtente.Utente;
 import GestionePrestito.Prestito;
 import Eccezioni.EccezioniUtenti.MatricolaNotValidException;
 import Eccezioni.EccezioniPrestiti.PrestitiEsauritiException;
 import Eccezioni.EccezioniPrestiti.PrestitoNonTrovatoException;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit; // Necessario per l'unità di misura del tempo
+import java.util.concurrent.TimeUnit; 
 
 /**
- *
- * @author chiara
+ * Classe di test per Utente senza l'utilizzo di Mockito.
+ * Utilizza oggetti reali o stub manuali.
+ * * @author chiara
  */
-@ExtendWith(MockitoExtension.class)
 public class UtenteTest {
+    
     // FIXTURE: Variabili di Istanza
     private Utente utente;
     private final String NOME_VALIDO = "Mario";
@@ -34,23 +32,24 @@ public class UtenteTest {
     private final String MATRICOLA_VALIDA = "1234567890";
     private final String EMAIL_VALIDA = "m.rossi1@studenti.unisa.it";
             
-    // Mock della dipendenza Prestito
-    @Mock
-    private Prestito prestitoMock;
+    // Oggetto Prestito reale
+    private Prestito prestito;
     
     // FIXTURE: Setup (@BeforeEach)
-    
-    // Utilizzato prima di ogni test
-    // Inizializzo l'utente con una matricola valida
     @BeforeEach
-    void setUp() throws MatricolaNotValidException{
-        utente = new Utente(NOME_VALIDO , COGNOME_VALIDO , MATRICOLA_VALIDA , EMAIL_VALIDA);
+    void setUp() throws MatricolaNotValidException {
+        // Inizializzo l'utente
+        utente = new Utente(NOME_VALIDO, COGNOME_VALIDO, MATRICOLA_VALIDA, EMAIL_VALIDA);
+        
+        // Inizializzo un oggetto Prestito reale usando il costruttore fornito.
+        // Uso un ISBN inventato e la matricola dell'utente corrente.
+        prestito = new Prestito("978-88-000-0000-1", MATRICOLA_VALIDA);
     }
     
     @AfterEach
-    // Utilizzato dopo ogni test per pulire la  memoria
     void tearDown(){
         utente = null;
+        prestito = null;
     }
     
     // TEST COSTRUTTORE E VALIDAZIONE MATRICOLA
@@ -58,15 +57,15 @@ public class UtenteTest {
     @DisplayName("Costruttore: Creazione Valida")
     void testCostruttoreValido(){
         assertDoesNotThrow(() -> {
-            new Utente(NOME_VALIDO , COGNOME_VALIDO , MATRICOLA_VALIDA , EMAIL_VALIDA);
-        });   
+            new Utente(NOME_VALIDO, COGNOME_VALIDO, MATRICOLA_VALIDA, EMAIL_VALIDA);
+        });    
     }
     
     @Test
     @DisplayName("Costruttore: Matricola Null -> IllegalArgumentException")
     void testCostruttoreMatricolaNull(){
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Utente(NOME_VALIDO , COGNOME_VALIDO , "123" , EMAIL_VALIDA);
+            new Utente(NOME_VALIDO, COGNOME_VALIDO, null, EMAIL_VALIDA);
         });  
         assertEquals("La matricola non può essere nulla!", exception.getMessage());
     }
@@ -75,16 +74,16 @@ public class UtenteTest {
     @DisplayName("Costruttore: Matricola Corta -> MatricolaNotValidException")
     void testCostruttoreMatricolaCorta(){
         MatricolaNotValidException exception = assertThrows(MatricolaNotValidException.class, () -> {
-            new Utente(NOME_VALIDO , COGNOME_VALIDO , null , EMAIL_VALIDA);
+            new Utente(NOME_VALIDO, COGNOME_VALIDO, "123", EMAIL_VALIDA);
         });  
         assertEquals("La matricola deve essere di 10 cifre!", exception.getMessage());
     }
     
     @Test
-    @DisplayName("Costruttore: Matricola Corta -> MatricolaNotValidException")
+    @DisplayName("Costruttore: Matricola Alfanumerica -> MatricolaNotValidException")
     void testCostruttoreMatricolaAlfanumerica(){
         MatricolaNotValidException exception = assertThrows(MatricolaNotValidException.class, () -> {
-            new Utente(NOME_VALIDO , COGNOME_VALIDO , "12DFT34" , EMAIL_VALIDA);
+            new Utente(NOME_VALIDO, COGNOME_VALIDO, "12DFT34", EMAIL_VALIDA);
         });  
         assertEquals("La matricola deve essere di 10 cifre!", exception.getMessage());
     }
@@ -93,18 +92,26 @@ public class UtenteTest {
     @Test
     @DisplayName("getListaDataRestituzione: estrazione corretta")
     void testGetListaDataRestituzione() {
-        // Configuro il mock per restituire una data
-        LocalDate dataMock = LocalDate.of(2023, 12, 25);
-        when(prestitoMock.getDataRestituzione()).thenReturn(dataMock);
+        LocalDate dataAttesa = LocalDate.of(2023, 12, 25);
+        
+        // STUB MANUALE (Sostituisce il Mock):
+        // Creiamo una classe anonima che estende Prestito e sovrascrive getDataRestituzione.
+        // In questo modo forziamo il metodo a restituire 'dataAttesa' senza dipendere dalla logica interna di Prestito.
+        Prestito prestitoConData = new Prestito("ISBN-TEST-DATA", MATRICOLA_VALIDA) {
+            @Override
+            public LocalDate getDataRestituzione() {
+                return dataAttesa;
+            }
+        };
         
         // Creo una lista di input
         ArrayList<Prestito> input = new ArrayList<>();
-        input.add(prestitoMock);
+        input.add(prestitoConData);
         
         ArrayList<LocalDate> date = utente.getListaDataRestituzione(input);
         
         assertEquals(1, date.size());
-        assertEquals(dataMock, date.get(0));
+        assertEquals(dataAttesa, date.get(0));
     }
     
     @Test
@@ -117,22 +124,22 @@ public class UtenteTest {
     @DisplayName("AddPrestito: Limite Massimo Raggiunto (PrestitiEsauritiException)")
     void testAddPrestitoLimiteMassimo() throws PrestitiEsauritiException {
         // 1. Riempiamo la lista fino al limite consentito (3 prestiti)
-        utente.addPrestito(prestitoMock);
-        utente.addPrestito(prestitoMock);
-        utente.addPrestito(prestitoMock);
+        utente.addPrestito(prestito);
+        utente.addPrestito(prestito);
+        utente.addPrestito(prestito);
         
         // Verifica che ce ne siano 3
         assertEquals(3, utente.getListaPrestiti().size());
 
         // 2. Tentiamo di aggiungere il 4° prestito -> Deve lanciare l'eccezione
         PrestitiEsauritiException exception = assertThrows(PrestitiEsauritiException.class, () -> {
-            utente.addPrestito(prestitoMock);
+            utente.addPrestito(prestito);
         });
 
         // 3. Verifica il messaggio dell'eccezione
         assertEquals("L'utente non può avere più di 3 prestiti attivi!", exception.getMessage());
         
-        // 4. Verifica che la lista sia rimasta a 3 (nessun inserimento sporco)
+        // 4. Verifica che la lista sia rimasta a 3
         assertEquals(3, utente.getListaPrestiti().size());
     }
     
@@ -141,26 +148,24 @@ public class UtenteTest {
     @Timeout(value = 1, unit = TimeUnit.SECONDS)
     void testAddPrestitoSottoLimite() {
         assertDoesNotThrow(() -> {
-            utente.addPrestito(prestitoMock); // 1° prestito
-            utente.addPrestito(prestitoMock); // 2° prestito
-            utente.addPrestito(prestitoMock); // 3° prestito (ancora valido)
+            utente.addPrestito(prestito); // 1° prestito
+            utente.addPrestito(prestito); // 2° prestito
+            utente.addPrestito(prestito); // 3° prestito (ancora valido)
         });
         
         // Verifica finale: deve averne accettati 3
         assertEquals(3, utente.getListaPrestiti().size());
     }
     
-    
     @Test
     @DisplayName("RimuoviPrestito: Rimozione con successo")
     void testRimuoviPrestitoSuccesso() throws PrestitiEsauritiException, PrestitoNonTrovatoException {
         // 1. Setup: Aggiungo un prestito
-        utente.addPrestito(prestitoMock);
+        utente.addPrestito(prestito);
         assertEquals(1, utente.getListaPrestiti().size());
 
         // 2. Azione: Rimuovo il prestito
-        // Ora dobbiamo gestire l'eccezione, ma dato che il prestito c'è, non deve lanciarla.
-        assertDoesNotThrow(() -> utente.rimuoviPrestito(prestitoMock));
+        assertDoesNotThrow(() -> utente.rimuoviPrestito(prestito));
 
         // 3. Verifica: La lista deve essere vuota
         assertTrue(utente.getListaPrestiti().isEmpty());
@@ -170,10 +175,10 @@ public class UtenteTest {
     @DisplayName("RimuoviPrestito: Errore Prestito Non Trovato")
     void testRimuoviPrestitoNonTrovato() throws PrestitiEsauritiException {
         // 1. Setup: Aggiungo un prestito "A"
-        utente.addPrestito(prestitoMock);
+        utente.addPrestito(prestito);
         
-        // 2. Creo un secondo prestito "B" che NON aggiungo alla lista
-        Prestito prestitoSconosciuto = mock(Prestito.class);
+        // 2. Creo un secondo prestito "B" (oggetto diverso) che NON aggiungo alla lista
+        Prestito prestitoSconosciuto = new Prestito("ISBN-SCONOSCIUTO", MATRICOLA_VALIDA);
 
         // 3. Azione: Provo a rimuovere "B" -> Deve lanciare PrestitoNonTrovatoException
         PrestitoNonTrovatoException exception = assertThrows(PrestitoNonTrovatoException.class, () -> {
@@ -182,13 +187,12 @@ public class UtenteTest {
 
         // 4. Verifica messaggio e stato
         assertEquals("Il prestito non è presente nella lista!", exception.getMessage());
-        assertEquals(1, utente.getListaPrestiti().size()); // La lista non deve essere cambiata
+        assertEquals(1, utente.getListaPrestiti().size()); 
     }
 
     @Test
     @DisplayName("RimuoviPrestito: Errore Parametro Null")
     void testRimuoviPrestitoNull() {
-        // Questo rimane uguale: IllegalArgumentException ha la precedenza
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             utente.rimuoviPrestito(null);
         });
@@ -200,16 +204,16 @@ public class UtenteTest {
     @DisplayName("Workflow: Rimuovi sblocca l'aggiunta (Reset Limite)")
     void testRimuoviPerSbloccareAdd() throws PrestitiEsauritiException, PrestitoNonTrovatoException {
         // 1. Riempiamo fino al limite (3)
-        utente.addPrestito(prestitoMock);
-        utente.addPrestito(prestitoMock);
-        utente.addPrestito(prestitoMock);
+        utente.addPrestito(prestito);
+        utente.addPrestito(prestito);
+        utente.addPrestito(prestito);
 
         // 2. Rimuoviamo un prestito (chiamata valida)
-        utente.rimuoviPrestito(prestitoMock); 
+        utente.rimuoviPrestito(prestito); 
         assertEquals(2, utente.getListaPrestiti().size());
 
         // 3. Proviamo ad aggiungerne uno nuovo -> Deve funzionare
-        assertDoesNotThrow(() -> utente.addPrestito(prestitoMock));
+        assertDoesNotThrow(() -> utente.addPrestito(prestito));
         
         assertEquals(3, utente.getListaPrestiti().size());
     }
@@ -220,7 +224,7 @@ public class UtenteTest {
     @DisplayName("Equals: Confronto Matricole")
     void testEquals() throws MatricolaNotValidException {
         // Creiamo un altro utente con la stessa matricola
-        Utente utenteCopia = new Utente(NOME_VALIDO , COGNOME_VALIDO , MATRICOLA_VALIDA , EMAIL_VALIDA);
+        Utente utenteCopia = new Utente(NOME_VALIDO, COGNOME_VALIDO, MATRICOLA_VALIDA, EMAIL_VALIDA);
         
         // Devono risultare uguali perché equals si basa solo sulla matricola
         assertEquals(utente, utenteCopia);
@@ -235,11 +239,11 @@ public class UtenteTest {
         // utente attuale: Mario Rossi, 1234567890
         
         // Caso 1: Cognome diverso (Bianchi < Rossi)
-        Utente u1 = new Utente(NOME_VALIDO , "Bianchi" , MATRICOLA_VALIDA , EMAIL_VALIDA);
+        Utente u1 = new Utente(NOME_VALIDO, "Bianchi", MATRICOLA_VALIDA, EMAIL_VALIDA);
         assertTrue(utente.compareTo(u1) > 0); // Rossi viene dopo Bianchi
 
         // Caso 2: Stesso cognome, Nome diverso (Zoro > Mario)
-        Utente u2 = new Utente("Orlando", COGNOME_VALIDO , MATRICOLA_VALIDA , EMAIL_VALIDA);
+        Utente u2 = new Utente("Orlando", COGNOME_VALIDO, MATRICOLA_VALIDA, EMAIL_VALIDA);
         assertTrue(utente.compareTo(u2) < 0); // Mario viene prima di Zoro
 
         // Caso 3: Stesso nome/cognome, Matricola diversa
@@ -247,5 +251,4 @@ public class UtenteTest {
         Utente u3 = new Utente("Mario", "Rossi", "0000000001", EMAIL_VALIDA);
         assertTrue(utente.compareTo(u3) > 0); // 123... > 000...
     }
-    
 }
