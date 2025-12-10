@@ -1,10 +1,12 @@
 package GestioneUtente;
 import java.util.ArrayList;
 import GestionePrestito.Prestito;
+import SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.List;
 import java.time.LocalDate;
+import java.io.IOException;
 
 /**
  * @class Utente
@@ -25,7 +27,7 @@ public class Utente implements Comparable<Utente>, Serializable {
 
     private String nome;
     private String cognome;
-    private String matricola;
+    private final String matricola;
     private String emailIstituzionale;
     private ArrayList<Prestito> listaPrestiti;
     
@@ -104,16 +106,6 @@ public class Utente implements Comparable<Utente>, Serializable {
         return matricola;
     }
 
-    /**
-     * @brief Imposta la matricola dell'utente.
-     *
-     * @pre matricola != null
-     *
-     * @param[in] matricola: La nuova matricola.
-     */
-    public void setMatricola(String matricola) {
-        this.matricola = matricola;
-    }
 
     /**
      * @brief Restituisce l'email istituzionale.
@@ -159,6 +151,7 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @post listaPrestiti.contains(p) == true
      *
      * @param p Il prestito da aggiungere.
+     * @throws IllegalArgumentException: Se il prestito inserito come parametro è nullo.
      */
     public void addPrestito(Prestito p) {
         // Controllo non necessario (lo deve fare il client)
@@ -179,6 +172,7 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @post listaPrestiti.contains(p) == false
      *
      * @param p Il prestito da rimuovere.
+     * @throws IllegalArgumentException: Se il prestito inserito come parametro è nullo.
      */
     public void rimuoviPrestito(Prestito p) {
        // Controllo non necessario (lo deve fare il client)

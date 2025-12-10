@@ -50,6 +50,7 @@ public class ListaUtenti {
      *
      * @param[in] matricola: La stringa univoca identificativa dell'utente.
      * @return L'oggetto Utente corrispondente se trovato, altrimenti `null`.
+     * @throws IllegalArgumentException: Se la matricola inserita come parametro è nullo.
      */
     // METODO FONDAMENTALE PER IL PRESTITO
     public Utente getUtenteByMatricola(String matricola) {
@@ -79,8 +80,10 @@ public class ListaUtenti {
      * @post size() >= old_size().
      *
      * @param[in] u: L'oggetto Utente da registrare.
-     *  * @throws MatricolaNotValidException: Se l'utente ha un formato di matricola non valido.
+     *  * @throws IllegalArgumentException: Se l'utente inserito come parametro è nullo.
+     *    @throws MatricolaNotValidException: Se l'utente ha un formato di matricola non valido.
      *    @throws UtentePresenteException: Se l'utente passato come parametro è già presente all'interno della lista degli utenti.
+     *    @throws IOException Se si verifica un errore di input/output durante la scrittura sul file.
      */
     public void registrazioneUtente(Utente u, String nomeFile) throws MatricolaNotValidException, UtentePresenteException, IOException {
         // Controllo non necessario (lo deve fare il client)
@@ -119,6 +122,7 @@ public class ListaUtenti {
      *       essa resta invariata.
      *
      * @param[in] u: L'oggetto da rimuovere (deve essere un'istanza di Utente).
+     * @throws IllegalArgumentException: Se l'utente inserito come parametro è nullo.
      */
     public void eliminazioneUtente(Object u) {
         // Controllo non necessario (lo deve fare il client)
@@ -137,7 +141,37 @@ public class ListaUtenti {
         listaUtenti.remove(u);
         
     }
+    
+    /**
+     * Modifica i dati dell'utente specificato e salva lo stato corrente su file.
+     * 
+     * Questo metodo aggiorna i campi dell'oggetto {@code Utente} passato come parametro
+     * (reimpostando i valori correnti) e successivamente invoca il metodo statico di salvataggio
+     * per persistere le modifiche nel file specificato.
+     * 
+     * @pre (u != null) L'utente da modificare non può essere nullo.
+     *
+     * @param u L'oggetto {@code Utente} da modificare. Non deve essere null.
+     * @param nomeFile Il nome (o percorso) del file su cui effettuare il salvataggio dei dati.
+     * @throws IllegalArgumentException Se l'oggetto {@code Utente} passato è {@code null}.
+     * @throws IOException Se si verifica un errore di input/output durante la scrittura sul file.
+     * 
+     */
+    public void modificaUtente(Utente u, String nomeFile) throws IOException{
+        // Controllo non necessario (lo deve fare il client)
+        // Inserito per motivi di sicurezza del programma
+        if(u==null)
+            throw new IllegalArgumentException("L'utente da modificare non può essere nullo!");
+        u.setCognome(u.getCognome());
+        u.setNome(u.getNome());
+        u.setEmailIstituzionale(u.getEmailIstituzionale());
+        
+        // Chiamata al metodo statico salva, a cui passo l'oggetto listaUtente corrente e il nome del file
+        SalvataggioFileUtente.salva(this, nomeFile);
 
+        System.out.println("Salvataggio su file completato.");
+    }
+    
     /**
      * @brief Cerca utenti in base a una Stringa generica che rappresenta il Cognome o la Matricola.
      *
@@ -146,6 +180,7 @@ public class ListaUtenti {
      *
      * @param[in] u: La stringa di ricerca (es. "Rossi").
      * @return ArrayList<Utente> contenente gli utenti che corrispondono ai criteri.
+     * @throws IllegalArgumentException: Se l'utente inserito come parametro è nullo.
      */
     public ArrayList<Utente> cercaUtente(String u) {
         // Controllo non necessario (lo deve fare il client)
@@ -200,6 +235,7 @@ public class ListaUtenti {
      *
      * @param[in] comp: Il comparatore da utilizzare.
      * @return ArrayList<Utente> riordinato.
+     * @throws IllegalArgumentException: Se il Comparator inserito come parametro è nullo.
      *
      * @see java.util.Comparator
      */
