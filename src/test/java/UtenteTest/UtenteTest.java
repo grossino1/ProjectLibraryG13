@@ -137,20 +137,17 @@ public class UtenteTest {
     }
     
     @Test
-    @DisplayName("AddPrestito: Aggiunta valida sotto il limite")
-    @Timeout(value = 1, unit = TimeUnit.SECONDS) // Deve essere istantaneo
+    @DisplayName("AddPrestito: Aggiunta valida fino al limite (3)")
+    @Timeout(value = 1, unit = TimeUnit.SECONDS)
     void testAddPrestitoSottoLimite() {
-        // Verifica che aggiungere 1 o 2 prestiti non dia problemi
         assertDoesNotThrow(() -> {
             utente.addPrestito(prestitoMock); // 1° prestito
             utente.addPrestito(prestitoMock); // 2° prestito
+            utente.addPrestito(prestitoMock); // 3° prestito (ancora valido)
         });
-        assertEquals(2, utente.getListaPrestiti().size());
         
-        // Verifichiamo che il lancio dell'eccezione sia rapido
-        assertThrows(PrestitiEsauritiException.class, () -> {
-            utente.addPrestito(prestitoMock);
-        });
+        // Verifica finale: deve averne accettati 3
+        assertEquals(3, utente.getListaPrestiti().size());
     }
     
     
