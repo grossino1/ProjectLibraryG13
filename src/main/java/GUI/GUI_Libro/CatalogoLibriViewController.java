@@ -18,6 +18,8 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,6 +70,10 @@ public class CatalogoLibriViewController implements Initializable {
     private Button btnMenoCopie;
     @FXML
     private Button handleLogout;
+    @FXML
+    private Button handleInvio;
+    @FXML
+    private TextField handleCercaLibro;
     
     /**
      * Tabella per la visualizzazione dei libri.
@@ -87,6 +93,8 @@ public class CatalogoLibriViewController implements Initializable {
     
     //ObservableList per il funzionamento della tabella
     private ObservableList<Libro> libroList;
+    private FilteredList<Libro> filteredData;
+
     
     //Oggetto di classe catalogo libro per svolgere diverse funzioni
     private CatalogoLibri catalogoLibri;
@@ -114,7 +122,10 @@ public class CatalogoLibriViewController implements Initializable {
         }
         
         libroList = FXCollections.observableArrayList(catalogoLibri.getCatalogoLibri());
+        filteredData = new FilteredList<>(libroList, p -> true);
         tabellaLibri.setItems(libroList);
+        SortedList<Libro> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tabellaLibri.comparatorProperty());
         
         colIsbn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         colTitolo.setCellValueFactory(new PropertyValueFactory<>("titolo"));
@@ -128,6 +139,14 @@ public class CatalogoLibriViewController implements Initializable {
         colAutore.setSortable(false);
         colAnno.setSortable(false);
         colNCopie.setSortable(false);
+        colTitolo.setSortable(true);
+        colTitolo.setSortType(TableColumn.SortType.ASCENDING);
+        tabellaLibri.getSortOrder().clear();
+        tabellaLibri.getSortOrder().add(colTitolo);
+        tabellaLibri.sort();
+        colTitolo.setSortable(false);
+        tabellaLibri.setItems(sortedData);
+
     }
     
     /**
@@ -149,6 +168,12 @@ public class CatalogoLibriViewController implements Initializable {
         libroList.clear(); // 1. Cancella i dati vecchi dalla vista
         //catalogoLibri = SalvataggioFileLibro.carica(filename);
         libroList.addAll(catalogoLibri.getCatalogoLibri());
+        colTitolo.setSortable(true);
+        colTitolo.setSortType(TableColumn.SortType.ASCENDING);
+        tabellaLibri.getSortOrder().clear();
+        tabellaLibri.getSortOrder().add(colTitolo);
+        tabellaLibri.sort();
+        colTitolo.setSortable(false);
     }
     
     /**
@@ -587,6 +612,30 @@ public class CatalogoLibriViewController implements Initializable {
             tabellaLibri.sort();
         }
         colAnno.setSortable(false);
+    }
+    
+    @FXML
+    void handleCercaLibro(ActionEvent event) {
+        // Recupera il testo dal TextField (assicurati che il TextField si chiami handleCercaLibro)
+        String filtro = handleCercaLibro.getText(); 
+
+        filteredData.setPredicate(libro -> {
+            // 1. Se il campo è vuoto, mostra tutto
+            if (filtro == null || filtro.isEmpty()) {
+                return true;
+            }
+
+            String lowerCaseFilter = filtro.toLowerCase();
+
+            // 2. Recuperiamo il TITOLO in modo sicuro (gestione null)
+            // Se il titolo è null, usiamo una stringa vuota "" per evitare crash
+            String titolo = (libro.getTitolo() != null) ? libro.getTitolo().toLowerCase() : "";
+
+            // 3. Verifichiamo se il filtro è contenuto nel Titolo
+            return titolo.contains(lowerCaseFilter);
+        });
+
+        System.out.println("Ricerca libro effettuata per: " + filtro);
     }
     
     /**

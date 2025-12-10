@@ -9,12 +9,15 @@ import GestioneUtente.Utente;
 import SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -61,6 +64,8 @@ public class GestioneUtentiViewController implements Initializable {
     private Button handleSortMostRecent;
     @FXML
     private Button handleSortLatestRecent;
+    @FXML
+    private Button handleInvio;
     
     /**
      * Campo di testo per la ricerca (es. per nome o matricola).
@@ -85,8 +90,11 @@ public class GestioneUtentiViewController implements Initializable {
     private TableColumn<Utente, String> colEmail;
     @FXML
     private TableColumn<Utente, Integer> colNPrestitiAttivi; // Contatore prestiti correnti
+    @FXML
+    private TableColumn<Utente, LocalDateTime> colDataReg; // Contatore prestiti correnti
 
     private ObservableList<Utente> utenteList;
+    private FilteredList<Utente> filteredData;
     private ListaUtenti listaUtenti;
     
     private String filename = "listaUtenti.bin";
@@ -109,19 +117,25 @@ public class GestioneUtentiViewController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Errore critico!", ex.getMessage());
         }
         utenteList = FXCollections.observableArrayList(listaUtenti.getListaUtenti());
+        filteredData = new FilteredList<>(utenteList, p -> true);
         tabellaUtenti.setItems(utenteList);
-        
+        SortedList<Utente> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tabellaUtenti.comparatorProperty());
+      
         colTessera.setCellValueFactory(new PropertyValueFactory<>("matricola"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colCognome.setCellValueFactory(new PropertyValueFactory<>("cognome"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("emailIstituzionale"));
         colNPrestitiAttivi.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getListaPrestiti().size()).asObject());
+        colDataReg.setCellValueFactory(new PropertyValueFactory<>("dataReg"));
         
         colTessera.setSortable(false);
         colNome.setSortable(false);
         colCognome.setSortable(false);
         colEmail.setSortable(false);
         colNPrestitiAttivi.setSortable(false);
+        colDataReg.setSortable(false);
+        tabellaUtenti.setItems(sortedData);
     
     }
     
@@ -311,7 +325,77 @@ public class GestioneUtentiViewController implements Initializable {
    
     @FXML
     void handleModifyUtente(ActionEvent event){
+        Utente u = tabellaUtenti.getSelectionModel().getSelectedItem();
         
+        if(u != null){
+            try{
+
+                //inizio della parte di codice per il caricamento della finestra per l'aggiunta di un nuovo libro
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/GUI_GestioneUtenti/UtenteView.fxml"));
+                Parent child = loader.load();
+
+                //modifica della label di titolo e desc 
+                Label lblTitolo = (Label) child.lookup("#lblTitolo");
+                if (lblTitolo != null)
+                    lblTitolo.setText("Modifica Utente");
+
+                Label lblDesc = (Label) child.lookup("#lblDesc");
+                if (lblDesc != null)
+                    lblDesc.setText("Inserisci i dettagli dello studente da modificare.");
+
+                Stage aggiungiUtenteStage = new Stage();
+                aggiungiUtenteStage.setTitle("Modifica Utente");
+                Scene sceneLibri = new Scene(child);
+                aggiungiUtenteStage.setScene(sceneLibri);
+                aggiungiUtenteStage.show();
+                //fine 
+
+                Button btnSalva = (Button) child.lookup("#btnSalva");
+                Button btnAnnulla = (Button) child.lookup("#btnAnnulla");
+
+                TextField nome= (TextField) child.lookup("#txtNome");
+                nome.setText(u.getNome());
+                TextField cognome = (TextField) child.lookup("#txtCognome");
+                cognome.setText(u.getCognome());
+                TextField matricola = (TextField) child.lookup("#txtMatricola");
+                matricola.setText(u.getMatricola());
+                matricola.setDisable(true);
+                TextField email = (TextField) child.lookup("#txtEmail");
+                email.setText(u.getEmailIstituzionale());
+                
+                //lambda expression per la registrazione del libro
+                btnSalva.setOnAction(e -> {
+                    try {
+                        // Leggiamo i dati dai campi che abbiamo appena trovato
+
+                        System.out.println("DEBUG DATI LETTI:");
+                        System.out.println("ISBN letto: '" + nome.getText() + "'");
+                        System.out.println("Titolo letto: '" + cognome.getText() + "'");
+
+                        listaUtenti.modificaUtente(u, nome.getText(), cognome.getText() , email.getText());
+                        System.out.println(listaUtenti.toString());
+                        refreshTable();
+                        aggiungiUtenteStage.close();
+                    } catch (IOException ex) {
+                        showAlert(Alert.AlertType.ERROR, "Errore generico3", ex.getMessage());
+                    } catch (ClassNotFoundException ex) {
+                        showAlert(Alert.AlertType.ERROR, "Errore generico4", ex.getMessage());
+                    }
+                });
+
+                btnAnnulla.setOnAction(e -> { 
+                    try {
+                        aggiungiUtenteStage.close();
+                    } catch (Exception ex) {
+                        showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
+                    }
+                });
+            }catch(IOException e){
+                showAlert(Alert.AlertType.ERROR, "Errore generico", e.getMessage()); //gestione delle eccezioni
+            }
+        }else
+            showAlert(Alert.AlertType.ERROR, "Errore generico", "Utente non selezionato!");
+
     }
     
     /**
@@ -347,9 +431,32 @@ public class GestioneUtentiViewController implements Initializable {
      * 
      * @param[in] event L'evento (es. pressione tasto invio o click su lente).
      */
-    @FXML
+   @FXML
     void handleCercaUtente(ActionEvent event) {
-        // scheletro
+        String filtro = handleCercaUtente.getText(); 
+
+        filteredData.setPredicate(utente -> {
+            // 1. Se il campo è vuoto, mostra tutto
+            if (filtro == null || filtro.isEmpty()) {
+                return true;
+            }
+
+            String lowerCaseFilter = filtro.toLowerCase();
+
+            // Recuperiamo i dati in modo sicuro (gestiamo i null per evitare crash)
+            String cognome = (utente.getCognome() != null) ? utente.getCognome().toLowerCase() : "";
+            String matricola = (utente.getMatricola() != null) ? utente.getMatricola().toLowerCase() : "";
+
+            // 2. LOGICA "OR" (OPPURE)
+            // Verifica se il filtro è contenuto nel Cognome OPPURE (||) nella Matricola
+            boolean matchCognome = cognome.contains(lowerCaseFilter);
+            boolean matchMatricola = matricola.contains(lowerCaseFilter);
+
+            // Restituisce true se ALMENO UNO dei due è vero
+            return matchCognome || matchMatricola;
+        });
+
+        System.out.println("Ricerca effettuata per: " + filtro);
     }
 
     /**
@@ -402,9 +509,37 @@ public class GestioneUtentiViewController implements Initializable {
      */
     @FXML
     void handleSortMostRecent(ActionEvent event) {
-        // scheletro
-    }
+    // Ordina l'ObservableList in base alla data di registrazione decrescente
+        colDataReg.setSortable(true);
+        colCognome.setSortable(true); 
 
+        // 2. Verifichiamo lo stato attuale: 
+        // La tabella è GIÀ ordinata per Data?
+        boolean isSortedByDate = tabellaUtenti.getSortOrder().contains(colDataReg);
+
+        if (isSortedByDate) {
+            // --- CASO RESET: Era ordinato per Data, torniamo a COGNOME ---
+            colCognome.setSortType(TableColumn.SortType.ASCENDING);
+
+            tabellaUtenti.getSortOrder().clear();
+            tabellaUtenti.getSortOrder().add(colCognome);
+
+        } else {
+            // --- CASO ATTIVAZIONE: Non era ordinato per Data, ordiniamo per DATA CRESCENTE ---
+            // Nota: Crescente (ASCENDING) mette le date più vecchie in alto.
+            colDataReg.setSortType(TableColumn.SortType.ASCENDING);
+
+            tabellaUtenti.getSortOrder().clear();
+            tabellaUtenti.getSortOrder().add(colDataReg);
+        }
+
+        // 3. Applica l'ordinamento
+        tabellaUtenti.sort();
+
+        // 4. Riblocca le intestazioni per l'utente
+        colDataReg.setSortable(false);
+        colCognome.setSortable(false);
+    }
     /**
      * @brief Ordina gli utenti dal meno recente al più recente (Oldest First).
      *
@@ -414,7 +549,35 @@ public class GestioneUtentiViewController implements Initializable {
      */
     @FXML
     void handleSortLatestRecent(ActionEvent event) {
-        // scheletro
+        colDataReg.setSortable(true);
+        colCognome.setSortable(true); 
+
+        // 2. Verifichiamo lo stato attuale: 
+        // La tabella è GIÀ ordinata per Data?
+        boolean isSortedByDate = tabellaUtenti.getSortOrder().contains(colDataReg);
+
+        if (isSortedByDate) {
+            // --- CASO RESET: Era ordinato per Data, torniamo a COGNOME ---
+            colCognome.setSortType(TableColumn.SortType.ASCENDING);
+
+            tabellaUtenti.getSortOrder().clear();
+            tabellaUtenti.getSortOrder().add(colCognome);
+
+        } else {
+            // --- CASO ATTIVAZIONE: Non era ordinato per Data, ordiniamo per DATA CRESCENTE ---
+            // Nota: Crescente (ASCENDING) mette le date più vecchie in alto.
+            colDataReg.setSortType(TableColumn.SortType.DESCENDING);
+
+            tabellaUtenti.getSortOrder().clear();
+            tabellaUtenti.getSortOrder().add(colDataReg);
+        }
+
+        // 3. Applica l'ordinamento
+        tabellaUtenti.sort();
+
+        // 4. Riblocca le intestazioni per l'utente
+        colDataReg.setSortable(false);
+        colCognome.setSortable(false);
     }
     
         /**

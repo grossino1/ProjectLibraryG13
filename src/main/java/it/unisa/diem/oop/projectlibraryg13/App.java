@@ -64,8 +64,8 @@ public class App extends Application {
             // Imposta l'icona dell'applicazione (quella nella barra delle applicazioni)
             // Assicurati di avere un logo nel percorso specificato
             try {
-                Image icon = new Image(getClass().getResourceAsStream("/GUI/GUI_Login/logo_standard.png"));
-                primaryStage.getIcons().add(icon);
+                //Image icon = new Image(getClass().getResourceAsStream("/GUI/GUI_Login/logo_standard.png"));
+                //primaryStage.getIcons().add(icon);
             } catch (Exception e) {
                 System.out.println("Icona non trovata, avvio con icona di default.");
             }

@@ -8,6 +8,7 @@ import Eccezioni.EccezioniPrestiti.PrestitoNonTrovatoException;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.List;
+import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.io.IOException;
 
@@ -40,7 +41,7 @@ public class Utente implements Comparable<Utente>, Serializable {
     // Serve per ordinare gli utenti dal più recente al meno recente e viceversa
     // Ogni volta che si crea un Utente nuovo l'ID aumenta
     private static int cnt = 0;
-    private final int idUtente;
+    private final LocalDateTime dataReg;
     
     /**
      * @brief Costruttore della classe Utente.
@@ -68,7 +69,7 @@ public class Utente implements Comparable<Utente>, Serializable {
         
         this.emailIstituzionale = emailIstituzionale;
         this.listaPrestiti = new ArrayList<>();
-        this.idUtente = cnt++;
+        this.dataReg = LocalDateTime.now();
     }
     
     // Getter e Setter 
@@ -149,8 +150,8 @@ public class Utente implements Comparable<Utente>, Serializable {
         return new ArrayList<Prestito>(listaPrestiti); 
     }
 
-    public int getIdUtente() {
-        return idUtente;
+    public LocalDateTime getDataReg() {
+        return dataReg;
     }
 
     // METODI LOGICI

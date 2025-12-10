@@ -184,17 +184,17 @@ public class ListaUtenti implements Serializable{
      * @throws IOException Se si verifica un errore di input/output durante la scrittura sul file.
      * 
      */
-    public void modificaUtente(Utente u, String nomeFile) throws IOException{
+    public void modificaUtente(Utente u, String nome, String cognome, String emailIstituzionale) throws IOException{
         // Controllo non necessario (lo deve fare il client)
         // Inserito per motivi di sicurezza del programma
         if(u==null)
             throw new IllegalArgumentException("L'utente da modificare non può essere nullo!");
-        u.setCognome(u.getCognome());
-        u.setNome(u.getNome());
-        u.setEmailIstituzionale(u.getEmailIstituzionale());
+        u.setCognome(cognome);
+        u.setNome(nome);
+        u.setEmailIstituzionale(emailIstituzionale);
         
         // Chiamata al metodo statico salva, a cui passo l'oggetto listaUtente corrente e il nome del file
-        SalvataggioFileUtente.salva(this, nomeFile);
+        SalvataggioFileUtente.salva(this, filename);
 
         System.out.println("Salvataggio su file completato.");
     }

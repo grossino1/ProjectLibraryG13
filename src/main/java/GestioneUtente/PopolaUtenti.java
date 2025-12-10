@@ -1,35 +1,31 @@
-package GestioneUtente; // <--- Controlla il package corretto
+package GestioneUtente;
 
-import Eccezioni.EccezioniUtenti.*; // <--- Controlla il package delle eccezioni
-import GestioneUtente.ListaUtenti;
-import GestioneUtente.Utente;
+import Eccezioni.EccezioniUtenti.MatricolaNotValidException;
+import Eccezioni.EccezioniUtenti.UtentePresenteException; // Assumo esista, altrimenti usa Exception
 import SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente;
 import java.io.IOException;
 
 public class PopolaUtenti {
 
     public static void main(String[] args) {
-        String filename = "listaUtenti.bin"; // Il nome del file dove salvi gli utenti
-        ListaUtenti catalogo;
+        String filename = "listaUtenti.bin";
+        ListaUtenti catalogo; 
 
-        // 1. Inizializzazione Catalogo
+        // 1. Inizializzazione o Creazione Catalogo
         try {
-            System.out.println("Inizializzazione catalogo utenti...");
-            // True = prova a caricare, False = crea vuoto. Adatta in base al tuo costruttore
-            catalogo = new ListaUtenti(false, filename); 
+            System.out.println("Tentativo di caricamento catalogo utenti...");
+            catalogo = new ListaUtenti(true, filename); 
         } catch (Exception e) {
-            System.out.println("Creazione nuovo catalogo vuoto.");
+            System.out.println("Catalogo non trovato o errore lettura. Creazione nuovo catalogo vuoto.");
             try {
                 catalogo = new ListaUtenti(false, filename);
             } catch (Exception ex) {
-                System.err.println("Errore critico: " + ex.getMessage());
+                System.err.println("Errore critico creazione: " + ex.getMessage());
                 return;
             }
         }
 
-        // 2. Creazione utenti dummy
-        // ATTENZIONE: Adatta i parametri del costruttore alla tua classe Utente!
-        // Esempio ipotetico: new Utente(Nome, Cognome, CodiceFiscale, Password, Ruolo/Email)
+        // 2. Creazione dati Dummy (Matricole rigorosamente di 10 cifre)
         String[][] datiUtenti = {
             {"Mario", "Rossi", "0000111122", "mario.rossi@studenti.unina.it"},
             {"Luca", "Bianchi", "0000222233", "luca.bianchi@studenti.unina.it"},
@@ -43,6 +39,10 @@ public class PopolaUtenti {
             {"Davide", "Marino", "1111000011", "davide.marino@studenti.unina.it"}
         };
 
+        System.out.println("\nInizio inserimento utenti...");
+        int contatore = 0;
+
+        // 3. Ciclo di inserimento
         for (String[] dati : datiUtenti) {
             try {
                 // Costruttore: Utente(nome, cognome, matricola, email)
@@ -52,6 +52,7 @@ public class PopolaUtenti {
                 catalogo.registrazioneUtente(u); 
                 
                 System.out.println("Inserito: " + u.getNome() + " " + u.getCognome() + " (Matr: " + u.getMatricola() + ")");
+                contatore++;
 
             } catch (MatricolaNotValidException e) {
                 System.err.println("Errore Matricola per " + dati[1] + ": " + e.getMessage());
@@ -67,9 +68,9 @@ public class PopolaUtenti {
         // 4. Salvataggio
         try {
             SalvataggioFileUtente.salva(catalogo, filename);
-            System.out.println("\nOperazione completata! Utenti inseriti/verificati: " );
+            System.out.println("\nOperazione completata! Utenti inseriti/verificati: " + contatore);
         } catch (IOException e) {
             System.err.println("Errore grave nel salvataggio su file: " + e.getMessage());
         }
     }
-    }
+}
