@@ -82,7 +82,7 @@ public class ListaUtenti {
      *  * @throws MatricolaNotValidException: Se l'utente ha un formato di matricola non valido.
      *    @throws UtentePresenteException: Se l'utente passato come parametro è già presente all'interno della lista degli utenti.
      */
-    public void registrazioneUtente(Utente u) throws MatricolaNotValidException, UtentePresenteException, IOException {
+    public void registrazioneUtente(Utente u, String nomeFile) throws MatricolaNotValidException, UtentePresenteException, IOException {
         // Controllo non necessario (lo deve fare il client)
         // Inserito per motivi di sicurezza del programma
         if(u == null){
@@ -103,9 +103,6 @@ public class ListaUtenti {
         // Se vengono superati tutti i criteri, allora l'Utente u può essere aggiunto alla listaUtenti
         listaUtenti.add(u);
         System.out.println("Utente inserito con successo: " + u.getMatricola());
-        
-        // Salvo la listaUtenti aggiornata sul file
-        String nomeFile = "archivioUtenti.dat"; 
         
         // Chiamata al metodo statico salva, a cui passo l'oggetto listaUtente corrente e il nome del file
         SalvataggioFileUtente.salva(this, nomeFile);
