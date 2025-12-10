@@ -187,7 +187,7 @@ public class CatalogoLibri {
      * 
      * 
      */ 
-    public void modificaPrestito(Libro l, String titolo, String autori, int annoPubblicazione, int numeroCopie) throws IOException {
+    public void modificaLibro(Libro l, String titolo, String autori, int annoPubblicazione, int numeroCopie) throws IOException {
              
         l.setTitolo(titolo);
         l.setAutori(autori);
