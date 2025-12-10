@@ -6,11 +6,16 @@
 package UtenteTest;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
+import GestioneUtente.Utente;
+import GestionePrestito.Prestito;
 
 /**
  *
  * @author chiara
  */
 public class UtenteTest {
-    
+    @Test
+    public void addPrestitoTest(Prestito p){
+        
+    }
 }

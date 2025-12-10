@@ -142,7 +142,29 @@ public class Utente implements Comparable<Utente>, Serializable {
     }
 
     // METODI LOGICI
-
+    /**
+     * Genera un elenco delle date di restituzione a partire da una lista di prestiti.
+     * Il metodo itera attraverso la lista fornita ed estrae la data di restituzione
+     * da ciascun prestito.
+     *
+     * @param listaPrestiti La lista di oggetti Prestito da elaborare.
+     * @return Un ArrayList contenente le date di restituzione.
+     * Restituisce una lista vuota se il parametro listaPrestiti è null o vuoto.
+     */
+    public ArrayList<LocalDate> getListaDataRestituzione(ArrayList<Prestito> listaPrestiti){
+        // Se listaPrestiti è vuota ritorna una lista vuota
+        if(listaPrestiti == null)
+            return new ArrayList<LocalDate>();
+        // Creo un ArrayList di appoggio
+        ArrayList<LocalDate> listaDataRestituzione = new ArrayList<>();
+        // Scorro listaPrestiti e aggiungo l'attributo "dataRestituzione" di ogni prestito nell'ArrayList
+        for(Prestito p : listaPrestiti){
+            listaDataRestituzione.add(p.getDataRestituzione());
+        }
+        // Ritorna la lista contenente le date di restituzioni di tutti i prestiti attivi dell'Utente
+        return listaDataRestituzione;
+    }
+    
     /**
      * Aggiunge un prestito alla lista dei prestiti attivi dell'utente.
      *
@@ -187,28 +209,7 @@ public class Utente implements Comparable<Utente>, Serializable {
        }
     }
 
-    /**
-     * Genera un elenco delle date di restituzione a partire da una lista di prestiti.
-     * Il metodo itera attraverso la lista fornita ed estrae la data di restituzione
-     * da ciascun prestito.
-     *
-     * @param listaPrestiti La lista di oggetti Prestito da elaborare.
-     * @return Un ArrayList contenente le date di restituzione.
-     * Restituisce una lista vuota se il parametro listaPrestiti è null o vuoto.
-     */
-    public ArrayList<LocalDate> getListaDataRestituzione(ArrayList<Prestito> listaPrestiti){
-        // Se listaPrestiti è vuota ritorna una lista vuota
-        if(listaPrestiti == null)
-            return new ArrayList<LocalDate>();
-        // Creo un ArrayList di appoggio
-        ArrayList<LocalDate> listaDataRestituzione = new ArrayList<>();
-        // Scorro listaPrestiti e aggiungo l'attributo "dataRestituzione" di ogni prestito nell'ArrayList
-        for(Prestito p : listaPrestiti){
-            listaDataRestituzione.add(p.getDataRestituzione());
-        }
-        // Ritorna la lista contenente le date di restituzioni di tutti i prestiti attivi dell'Utente
-        return listaDataRestituzione;
-    }
+    
     
     /**
      * @brief Genera l'hash code basato sulla matricola.
