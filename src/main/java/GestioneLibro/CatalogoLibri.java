@@ -91,7 +91,7 @@ public class CatalogoLibri {
         }
         if (!catalogoLibri.add(l))
             throw new LibroPresenteException("Il libro scelto è già presente nel catalogo libri");
-        SalvataggioFileLibro.salva(this, "Catalogo Libri");
+        SalvataggioFileLibro.salva(this, filename);
         
     }
 
@@ -110,7 +110,7 @@ public class CatalogoLibri {
         if (!catalogoLibri.contains(l))
             throw new LibroNotFoundException("Il libro non è presente nel catalogo");
         catalogoLibri.remove(l); 
-        SalvataggioFileLibro.salva(this, "Catalogo Libri");
+        SalvataggioFileLibro.salva(this, filename);
     }
 
     /**
@@ -173,6 +173,27 @@ public class CatalogoLibri {
         ArrayList<Libro> listaordinata = new ArrayList<>(catalogoLibri);
         listaordinata.sort(comp);
         return listaordinata; 
+    }
+    
+     /**
+     * @brief Modifica le informazioni del libro.
+     * 
+     * La modifica avviene su tutti gli attrbuti del libro eccetto l'ISBN che non è modificabile
+     * 
+     * @post L'elemento Libro viene modificato.
+     * 
+     * @param[in] l il libro da modificare.
+     * @param[i]  titolo, autori, annoPubblicazione, numeroCopie
+     * 
+     * 
+     */ 
+    public void modificaPrestito(Libro l, String titolo, String autori, int annoPubblicazione, int numeroCopie) throws IOException {
+             
+        l.setTitolo(titolo);
+        l.setAutori(autori);
+        l.setAnnoPubblicazione(annoPubblicazione);
+        l.setNumeroCopie(numeroCopie);
+        SalvataggioFileLibro.salva(this, filename);
     }
 
     /**
