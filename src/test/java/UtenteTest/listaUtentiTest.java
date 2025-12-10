@@ -9,6 +9,6 @@ package UtenteTest;
  *
  * @author chiara
  */
-public class listaUtentiTest {
+public class ListaUtentiTest {
     
 }
