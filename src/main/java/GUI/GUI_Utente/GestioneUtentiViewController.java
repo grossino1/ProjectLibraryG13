@@ -1,16 +1,10 @@
 package GUI.GUI_Utente;
 
-import Eccezioni.EccezioniUtenti.MatricolaNotValidException;
-import Eccezioni.EccezioniUtenti.UtenteNotFoundException;
-import Eccezioni.EccezioniUtenti.UtentePresenteException;
 import GestioneUtente.ListaUtenti;
 import GestioneUtente.Utente;
-import SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +17,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -87,8 +80,6 @@ public class GestioneUtentiViewController implements Initializable {
 
     private ObservableList<Utente> utenteList;
     private ListaUtenti listaUtenti;
-    
-    private String filename = "listaUtenti.bin";
     /**
      * @brief Inizializza il controller.
      *
@@ -100,15 +91,9 @@ public class GestioneUtentiViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            listaUtenti = new ListaUtenti(true, filename);
-        } catch (IOException ex) {
-            showAlert(Alert.AlertType.ERROR, "Errore critico!", ex.getMessage());
-        } catch (ClassNotFoundException ex) {
-            showAlert(Alert.AlertType.ERROR, "Errore critico!", ex.getMessage());
-        }
-        utenteList = FXCollections.observableArrayList(listaUtenti.getListaUtenti());
+        utenteList = FXCollections.observableArrayList();
         tabellaUtenti.setItems(utenteList);
+        listaUtenti = new ListaUtenti();;
         
         colTessera.setCellValueFactory(new PropertyValueFactory<>("matricola"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -122,111 +107,8 @@ public class GestioneUtentiViewController implements Initializable {
         colEmail.setSortable(false);
         colNPrestitiAttivi.setSortable(false);
     
-    }
-    
-    /**
-     * @brief Aggiorna la tabella dei libri sincronizzandola con il catalogo.
-     *
-     * Questo metodo svuota la lista visualizzata nella TableView e la ripopola
-     * recuperando tutti i libri presenti nel catalogo. Serve per riflettere
-     * visivamente eventuali modifiche (come nuove aggiunte o rimozioni).
-     * Inoltre, questo metodo salva le operazioni effettuate e ricarica il catalogo e di conseguenza la tabella
-     *
-     * @post La lista visibile (libroList) contiene esattamente gli elementi attuali di catalogoLibri.
-     * 
-     * @throws IOException se il path passato è errato.
-     * @throws ClassNotFoundExcepiton se durante la deserializzazione la classe del catalogo salvato 
-     * non corrisponde alla versione della classe locale.
-     */    
-    @FXML
-    void refreshTable() throws IOException, ClassNotFoundException{
-        utenteList.clear(); // 1. Cancella i dati vecchi dalla vista
-        listaUtenti = SalvataggioFileUtente.carica(filename);
-        utenteList.addAll(listaUtenti.getListaUtenti());
-    }
-    
-    /**
-     * @brief Gestisce il cambio scena generico.
-     * 
-     * @param[in] event Evento scatenante.
-     * @param[in] fxmlPath Percorso della nuova vista.
-     */
-    @FXML 
-    void switchScene(ActionEvent event, String fxmlPath) throws IOException{
-        //permette di cambiare scena in base al pulsante cliccato e al path fornito in fxmlPath
-        //si potrebbe effettuare un salvataggio dei dati prima del passaggio
-        //scheletro
-        SalvataggioFileUtente.salva(listaUtenti, filename);
+    }     
 
-        try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-            Parent root = loader.load();
-            
-            Scene stageAttuale = ((Node) event.getSource()).getScene();       
-            stageAttuale.setRoot(root);
-        }catch(IOException e){
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR,"Errore Critico!","Errore nel caricamento della Scena: " + e.getMessage());
-        }
-    }
-
-    /**
-     * @brief Effettua il logout e torna alla schermata di Login.
-     *
-     * @post La sessione corrente viene terminata.
-     *
-     * @param[in] event L'evento di click.
-     */
-    @FXML
-    void handleLogout(ActionEvent event) throws IOException {
-        // scheletro: 
-        switchScene(event, "/GUI/GUI_Login/LoginView.fxml");
-    }
-    
-    /**
-     * @brief Passa alla schermata del Catalogo Libri.
-     * 
-     * @see #switchScene(ActionEvent, String)
-     */
-    @FXML
-    void handleCatalogoLibri(ActionEvent event) throws IOException {
-        //permette di passare alla schermata del catalogo dei libri
-        //da implemetare con switchScene
-        //scheletro
-        switchScene(event, "/GUI/GUI_CatalogoLibri/CatalogoLibriView.fxml");
-    }
-    
-    /**
-     * @brief Naviga alla sezione Gestione Prestiti.
-     *
-     * @see #switchScene(ActionEvent, String)
-     * @param[in] event L'evento di click.
-     */
-    @FXML
-    void handlePrestiti(ActionEvent event) throws IOException {
-        //permette di passare alla schermata dei prestiti
-        //da implemetare con switchScene
-        //scheletro
-        switchScene(event, "/GUI/GUI_Prestiti/ElencoPrestitiView.fxml");
-    }
-    
-    /**
-     * @brief Gestisce la selezione di un utente nella tabella.
-     *
-     * Questo metodo viene attivato quando l'utente clicca su una riga della tabella.
-     * Abilita i pulsanti contestuali (Aggiungi Copia, Rimuovi Copia, Modifica).
-     *
-     * @post I pulsanti di modifica diventano visibili/cliccabili.
-     */
-    @FXML
-    void handleSelectedLibro(){
-        
-        Utente selezionato = tabellaUtenti.getSelectionModel().getSelectedItem();
-        if (selezionato != null) {
-            System.out.println("Selezionato: " + selezionato.getNome());
-        }
-    }
-    
     /**
      * @brief Gestisce l'aggiunta di un nuovo utente al sistema.
      *
@@ -239,112 +121,6 @@ public class GestioneUtentiViewController implements Initializable {
      */
     @FXML
     void handleAggiungiUtente(ActionEvent event) {
-        // scheletro
-        try{
-            
-            //inizio della parte di codice per il caricamento della finestra per l'aggiunta di un nuovo libro
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/GUI_GestioneUtenti/UtenteView.fxml"));
-            Parent child = loader.load();
-            
-            //modifica della label di titolo e desc 
-            Label lblTitolo = (Label) child.lookup("#lblTitolo");
-            if (lblTitolo != null)
-                lblTitolo.setText("Nuovo Utente");
-            
-            Label lblDesc = (Label) child.lookup("#lblDesc");
-            if (lblDesc != null)
-                lblDesc.setText("Inserisci i dettagli dello studente da aggiungere.");
-            
-            Stage aggiungiUtenteStage = new Stage();
-            aggiungiUtenteStage.setTitle("Aggiungi Nuovo Utente");
-            Scene sceneLibri = new Scene(child);
-            aggiungiUtenteStage.setScene(sceneLibri);
-            aggiungiUtenteStage.show();
-            //fine 
-            
-            Button btnSalva = (Button) child.lookup("#btnSalva");
-            Button btnAnnulla = (Button) child.lookup("#btnAnnulla");
-            
-            //lambda expression per la registrazione del libro
-            btnSalva.setOnAction(e -> {
-                try {
-                    // Leggiamo i dati dai campi che abbiamo appena trovato
-                    TextField nome= (TextField) child.lookup("#txtNome");
-                    TextField cognome = (TextField) child.lookup("#txtCognome");
-                    TextField matricola = (TextField) child.lookup("#txtMatricola");
-                    TextField email = (TextField) child.lookup("#txtEmail");
-            
-                    System.out.println("DEBUG DATI LETTI:");
-                    System.out.println("ISBN letto: '" + nome.getText() + "'");
-                    System.out.println("Titolo letto: '" + cognome.getText() + "'");
-                    
-                    listaUtenti.registrazioneUtente(new Utente(nome.getText(), cognome.getText(), matricola.getText(), email.getText()), filename);
-                    System.out.println(listaUtenti.toString());
-                    refreshTable();
-                    aggiungiUtenteStage.close();
-                }catch (MatricolaNotValidException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico1", ex.getMessage());
-                } catch (UtentePresenteException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico2", ex.getMessage());
-                } catch (IOException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico3", ex.getMessage());
-                } catch (ClassNotFoundException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico4", ex.getMessage());
-                }
-            });
-            
-            btnAnnulla.setOnAction(e -> { 
-                try {
-                    aggiungiUtenteStage.close();
-                } catch (Exception ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
-                }
-            });
-        }catch(IOException e){
-            showAlert(Alert.AlertType.ERROR, "Errore generico", e.getMessage()); //gestione delle eccezioni
-        }
-    }
-   
-    @FXML
-    void handleModifyUtente(ActionEvent event){
-        
-    }
-    
-    /**
-     * @brief Elimina l'utente selezionato
-     * 
-     * @pre Un utente deve essere selezionato
-     * 
-     * @post L'utente viene eliminato dalla lista utenti
-     * 
-     * @see #refreshTable() 
-     *
-     * @param[in] event L'evento di click.
-     * 
-     * @throws IOException se il path passato è errato.
-     * @throws ClassNotFoundExcepiton se durante la deserializzazione la classe della lista salvato 
-     * non corrisponde alla versione della classe locale.
-     */    
-    @FXML
-    void handleDeleteUtente(ActionEvent event) throws IOException, ClassNotFoundException, UtenteNotFoundException{
-        Utente selected = tabellaUtenti.getSelectionModel().getSelectedItem();
-        
-        try{
-            listaUtenti.eliminazioneUtente(selected);
-            refreshTable();
-        }catch(UtenteNotFoundException ex){
-            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage());
-        }
-    }
-    
-    
-    /**
-     * @brief Filtra la tabella in base al testo inserito nella barra di ricerca.
-     * 
-     * @param[in] event L'evento (es. pressione tasto invio o click su lente).
-     */
-    @FXML
-    void handleCercaUtente(ActionEvent event) {
         // scheletro
     }
 
@@ -384,6 +160,79 @@ public class GestioneUtentiViewController implements Initializable {
     @FXML
     void handleSortLatestRecent(ActionEvent event) {
         // scheletro
+    }
+
+    /**
+     * @brief Filtra la tabella in base al testo inserito nella barra di ricerca.
+     * 
+     * @param[in] event L'evento (es. pressione tasto invio o click su lente).
+     */
+    @FXML
+    void handleCercaUtente(ActionEvent event) {
+        // scheletro
+    }
+
+    /**
+     * @brief Effettua il logout e torna alla schermata di Login.
+     *
+     * @post La sessione corrente viene terminata.
+     *
+     * @param[in] event L'evento di click.
+     */
+    @FXML
+    void handleLogout(ActionEvent event) {
+        // scheletro: 
+        switchScene(event, "/GUI/GUI_Login/LoginView.fxml");
+    }
+    
+    /**
+     * @brief Passa alla schermata del Catalogo Libri.
+     * 
+     * @see #switchScene(ActionEvent, String)
+     */
+    @FXML
+    void handleCatalogoLibri(ActionEvent event) {
+        //permette di passare alla schermata del catalogo dei libri
+        //da implemetare con switchScene
+        //scheletro
+        switchScene(event, "/GUI/GUI_CatalogoLibri/CatalogoLibriView.fxml");
+    }
+    
+    /**
+     * @brief Naviga alla sezione Gestione Prestiti.
+     *
+     * @see #switchScene(ActionEvent, String)
+     * @param[in] event L'evento di click.
+     */
+    @FXML
+    void handlePrestiti(ActionEvent event) {
+        //permette di passare alla schermata dei prestiti
+        //da implemetare con switchScene
+        //scheletro
+        switchScene(event, "/GUI/GUI_Prestiti/PrestitiView.fxml");
+    }
+    
+    /**
+     * @brief Gestisce il cambio scena generico.
+     * 
+     * @param[in] event Evento scatenante.
+     * @param[in] fxmlPath Percorso della nuova vista.
+     */
+    @FXML 
+    void switchScene(ActionEvent event, String fxmlPath){
+        //permette di cambiare scena in base al pulsante cliccato e al path fornito in fxmlPath
+        //si potrebbe effettuare un salvataggio dei dati prima del passaggio
+        //scheletro
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+            
+            Scene stageAttuale = ((Node) event.getSource()).getScene();       
+            stageAttuale.setRoot(root);
+        }catch(IOException e){
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR,"Errore Critico!","Errore nel caricamento della Scena: " + e.getMessage());
+        }
     }
     
         /**

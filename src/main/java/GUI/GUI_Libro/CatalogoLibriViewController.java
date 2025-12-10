@@ -7,6 +7,7 @@ import Eccezioni.EccezioniPrestiti.CopieEsauriteException;
 import GestioneLibro.CatalogoLibri;
 import GestioneLibro.Libro;
 import SalvataggioFile.SalvataggioFileLibro.SalvataggioFileLibro;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
@@ -140,7 +141,7 @@ public class CatalogoLibriViewController implements Initializable {
      * @param[in] event L'evento di click sul pulsante.
      */
     @FXML
-    private void handleAggiungiLibro(ActionEvent event){
+    void handleAggiungiLibro(ActionEvent event){
         //chiama un metodo che permette di aggiungere un libro nel catalogo dei 
         //libri e aggiorna la vista del catalogo
         //scheletro
@@ -206,7 +207,7 @@ public class CatalogoLibriViewController implements Initializable {
                 } catch (Exception ex) {
                     showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
                 }
-            }); 
+            });
         }catch(IOException e){
             showAlert(Alert.AlertType.ERROR, "Errore generico", e.getMessage()); //gestione delle eccezioni
         }   
@@ -256,6 +257,7 @@ public class CatalogoLibriViewController implements Initializable {
      */    
     @FXML
     void refreshTable() throws IOException, ClassNotFoundException{
+        SalvataggioFileLibro.salva(catalogoLibri, "catalogoLibri.bin");
         libroList.clear(); // 1. Cancella i dati vecchi dalla vista
         catalogoLibri = SalvataggioFileLibro.carica("catalogoLibri.bin");
         libroList.addAll(catalogoLibri.getCatalogoLibri());
@@ -304,7 +306,7 @@ public class CatalogoLibriViewController implements Initializable {
         //permette di passare alla schermata dei prestiti
         //da implemetare con switchScene
         //scheletro
-        switchScene(event, "/GUI/GUI_Prestiti/ElencoPrestitiView.fxml");
+        switchScene(event, "/GUI/GUI_Prestiti/PrestitiView.fxml");
     }
     
     /**
@@ -507,8 +509,6 @@ public class CatalogoLibriViewController implements Initializable {
                     showAlert(Alert.AlertType.ERROR, "Errore generico ", ex.getMessage());
                 } catch (ClassNotFoundException ex) {
                     showAlert(Alert.AlertType.ERROR, "Errore generico ", ex.getMessage());
-                }catch(IllegalArgumentException ex){
-                    showAlert(Alert.AlertType.ERROR, "Errore generico ", ex.getMessage());                    
                 }
             });
             

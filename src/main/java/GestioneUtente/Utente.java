@@ -29,7 +29,6 @@ import java.io.IOException;
  */
 public class Utente implements Comparable<Utente>, Serializable {
 
-    private static final long serialVersionUID = 1L;
     private String nome;
     private String cognome;
     private final String matricola;

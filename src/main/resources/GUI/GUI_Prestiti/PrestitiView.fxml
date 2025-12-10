@@ -108,16 +108,23 @@
                         <TextField fx:id="handleCercaPrestito" layoutX="300.0" layoutY="20.0" prefHeight="25.0" prefWidth="116.0" promptText="Cerca libro o utente..." style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" />
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="640.0" spacing="20.0">
                <children>
-                   <HBox HBox.hgrow="ALWAYS" />
-                  <Label text="Azioni Libro Selezionato:" textFill="#7f8c8d" />
-                  
-                  <Button fx:id="btnModifica" onAction="#handleModifyPrestito" style="-fx-background-color: #f39c12; -fx-text-fill: white;" text="Modifica" />
-                  <Button fx:id="btnElimina" onAction="#handleRemovePrestito" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Elimina" />
-                  <Button fx:id="filterScaduti" prefHeight="0.0" prefWidth="55.0" style="-fx-background-color: #ffcccc; -fx-text-fill: #c0392b;" text="Scaduti" />
+                  <HBox HBox.hgrow="ALWAYS" />
+                  <GridPane prefHeight="20.0" prefWidth="59.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="58.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button fx:id="filterScaduti" prefHeight="0.0" prefWidth="55.0" style="-fx-background-color: #ffcccc; -fx-text-fill: #c0392b;" text="Scaduti" />
+                     </children>
+                  </GridPane>
                </children>
             </HBox>
+
             <TableView fx:id="tabellaPrestiti" VBox.vgrow="ALWAYS">
               <columns>
                 <TableColumn fx:id="colIdPrestito" prefWidth="50.0" text="ID" />
