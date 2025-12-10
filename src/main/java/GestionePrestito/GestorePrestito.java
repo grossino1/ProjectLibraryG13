@@ -4,6 +4,7 @@ import Eccezioni.EccezioniLibri.LibroNotFoundException;
 import Eccezioni.EccezioniPrestiti.CopieEsauriteException;
 import Eccezioni.EccezioniPrestiti.EccezioniPrestito;
 import Eccezioni.EccezioniPrestiti.PrestitiEsauritiException;
+import Eccezioni.EccezioniPrestiti.PrestitoNonTrovatoException;
 import Eccezioni.EccezioniUtenti.UtenteNotFoundException;
 import GestioneLibro.CatalogoLibri;
 import GestioneLibro.Libro;
@@ -147,7 +148,7 @@ public class GestorePrestito {
      * 
      * @throws IOException Se il salvataggio sul file fallisce;
      */
-    public void rimuoviPrestitoListaUtente(String matricola, Prestito p) throws IOException {
+    public void rimuoviPrestitoListaUtente(String matricola, Prestito p) throws IOException, PrestitoNonTrovatoException {
     
         Utente utente = utenti.getUtenteByMatricola(matricola);
         utente.rimuoviPrestito(p);

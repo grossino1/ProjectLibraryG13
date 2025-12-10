@@ -1,9 +1,5 @@
 package GUI.GUI_Login;
 
-import Autenticazione.Bibliotecario;
-import Eccezioni.EccezioniAutenticazione.LoginCredentialsNotValidException;
-import Eccezioni.EccezioniAutenticazione.PasswordFieldEmptyException;
-import Eccezioni.EccezioniAutenticazione.UsernameFieldEmptyException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -82,7 +78,7 @@ public class LoginViewController implements Initializable {
      * @param[in] event L'evento generato dal click sul bottone.
      */
     @FXML
-    void handleLoginAction(ActionEvent event) throws IOException, UsernameFieldEmptyException, PasswordFieldEmptyException, LoginCredentialsNotValidException {
+    void handleLoginAction(ActionEvent event) {
         //gestore dell'evento quanto viene premuto il bottone login
         //scheletro
         /* Esempio logica:
@@ -97,25 +93,23 @@ public class LoginViewController implements Initializable {
         String username = usernameField.getText();
         String password = passwordField.getText();
         
-        Bibliotecario admin = Bibliotecario.caricaDaFile();
-        
+        if (username.isEmpty() || password.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Campi mancanti", "Per favore inserisci username e password.");
+            return;
+        }
+
         // 2. Verifica Credenziali (Simulazione connessione al Model)
         // boolean accessoConsentito = autenticazioneService.login(username, password);
         
         // --- SIMULAZIONE PER TEST (Rimuovi questo if/else quando colleghi il vero Model) ---
-        boolean accessoConsentito;
+        boolean accessoConsentito = "admin".equals(username) && "1234".equals(password);
         // ----------------------------------------------------------------------------------
-        try{
-            if (accessoConsentito = admin.login(username, password) ) {
-                System.out.println("Login effettuato con successo!");
-                switchScene(event, "/GUI/GUI_CatalogoLibri/CatalogoLibriView.fxml");
-            }
-        }catch (UsernameFieldEmptyException eu){
-            showAlert(Alert.AlertType.ERROR, "Errore Login", eu.getMessage());
-        }catch (PasswordFieldEmptyException ep){
-            showAlert(Alert.AlertType.ERROR, "Errore Login", ep.getMessage());
-        }catch (LoginCredentialsNotValidException e){
-            showAlert(Alert.AlertType.ERROR, "Errore Login", e.getMessage());
+
+        if (accessoConsentito) {
+            System.out.println("Login effettuato con successo!");
+            switchScene(event, "/GUI/GUI_CatalogoLibri/CatalogoLibriView.fxml");
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Errore Login", "Username o password non corretti.");
         }
     }
 
@@ -129,15 +123,19 @@ public class LoginViewController implements Initializable {
      *
      * @param[in] event L'evento che ha scatenato il cambio scena (necessario per recuperare lo Stage).
      */
-    private void switchScene(ActionEvent event, String fxmlPath) {
+    private void switchScene(ActionEvent event, String filePath) {
         //permette di cambiare scena
         //scheletro   
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(filePath));
             Parent root = loader.load();
             
-            Scene stageAttuale = ((Node) event.getSource()).getScene();       
-            stageAttuale.setRoot(root);
+            Stage stageAttuale = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            
+            Scene DashScene = new Scene(root);
+            stageAttuale.setScene(DashScene);
+            stageAttuale.setMaximized(true);
+            stageAttuale.show();
             
         }catch(IOException e){
             e.printStackTrace();

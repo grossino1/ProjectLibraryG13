@@ -16,12 +16,12 @@
       <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
    </padding>
    <children>
-      <Label text="Nuovo Libro" textFill="#2c3e50">
+      <Label fx:id="lblTitolo" text="" textFill="#2c3e50">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label text="Inserisci i dettagli del libro da aggiungere al catalogo." textFill="#7f8c8d" wrapText="true" />
+      <Label fx:id="lblDesc" text="" textFill="#7f8c8d" wrapText="true" />
 
       <GridPane hgap="10.0" vgap="15.0" VBox.vgrow="ALWAYS">
         <columnConstraints>
@@ -36,40 +36,33 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="ISBN:" textFill="#2c3e50" GridPane.rowIndex="0">
+            <Label text="ID:" textFill="#2c3e50" GridPane.rowIndex="0">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
             <TextField fx:id="txtIsbn" promptText="Es. 978-88-000-0000-0" style="-fx-background-radius: 5; -fx-background-color: white; -fx-border-color: #bdc3c7; -fx-border-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-            <Label text="Titolo:" textFill="#2c3e50" GridPane.rowIndex="1">
+            <Label text="Matricola Utente:" textFill="#2c3e50" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txtTitolo" promptText="Titolo del libro" style="-fx-background-radius: 5; -fx-background-color: white; -fx-border-color: #bdc3c7; -fx-border-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtMatricola" promptText="Matricola dello studente" style="-fx-background-radius: 5; -fx-background-color: white; -fx-border-color: #bdc3c7; -fx-border-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-            <Label text="Autore:" textFill="#2c3e50" GridPane.rowIndex="2">
+            <Label text="ISBN Libro:" textFill="#2c3e50" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txtAutore" promptText="Nome e Cognome" style="-fx-background-radius: 5; -fx-background-color: white; -fx-border-color: #bdc3c7; -fx-border-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtISBN" promptText="ISBN del libro" style="-fx-background-radius: 5; -fx-background-color: white; -fx-border-color: #bdc3c7; -fx-border-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-            <Label text="Anno:" textFill="#2c3e50" GridPane.rowIndex="3">
+            <Label text="Data di restituzione:" textFill="#2c3e50" GridPane.rowIndex="3">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txtAnno" promptText="Es. 2024" style="-fx-background-radius: 5; -fx-background-color: white; -fx-border-color: #bdc3c7; -fx-border-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-
-            <Label text="Copie:" textFill="#2c3e50" GridPane.rowIndex="4">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txtNCopie" promptText="Quantità disponibile" style="-fx-background-radius: 5; -fx-background-color: white; -fx-border-color: #bdc3c7; -fx-border-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="txtData" promptText="Es. 09/09/2024" style="-fx-background-radius: 5; -fx-background-color: white; -fx-border-color: #bdc3c7; -fx-border-radius: 5;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
          <VBox.margin>
             <Insets top="10.0" />
