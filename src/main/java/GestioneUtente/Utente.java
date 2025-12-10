@@ -59,9 +59,10 @@ public class Utente implements Comparable<Utente>, Serializable {
         //Controllo che la matricola sia corretta 
         if(matricola == null)
             throw new IllegalArgumentException("La matricola non può essere nulla!");
-        if(matricola.length() != 10 || matricola.matches("\\d{10}"))
+        if(matricola.length() != 10 || !matricola.matches("\\d{10}"))
             throw new MatricolaNotValidException("La matricola deve essere di 10 cifre!");
         this.matricola = matricola;
+        
         this.emailIstituzionale = emailIstituzionale;
         this.listaPrestiti = new ArrayList<>();
         this.idUtente = cnt++;
