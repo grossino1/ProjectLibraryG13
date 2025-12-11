@@ -103,6 +103,8 @@ public class CatalogoLibri implements Serializable{
         }
         if (!catalogoLibri.add(l))
             throw new LibroPresenteException("Il libro scelto è già presente nel catalogo libri");
+        
+        
         SalvataggioFileLibro.salva(this, filename);
         
     }

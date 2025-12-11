@@ -1,4 +1,4 @@
-    package GestionePrestito;
+package GestionePrestito;
 
 import Eccezioni.EccezioniLibri.LibroNotFoundException;
 import Eccezioni.EccezioniPrestiti.CopieEsauriteException;
@@ -33,6 +33,7 @@ import java.io.IOException;
 
 public class GestorePrestito {
     
+    private static final long serialVersionUID = 1L;
     private CatalogoLibri catalogo;
     private ListaUtenti utenti;
     private final String filenameLibri;
@@ -130,7 +131,7 @@ public class GestorePrestito {
         Libro libro = catalogo.getLibroByISBN(ISBN);
         // Controllo Libro Null
         if (libro != null) {
-            libro.setNumeroCopie(libro.getNumeroCopie() + 1);
+            libro.incrementaCopiaLibro();
             SalvataggioFileLibro.salva(catalogo, filenameLibri);
         }
     }
@@ -152,6 +153,45 @@ public class GestorePrestito {
     
         Utente utente = utenti.getUtenteByMatricola(matricola);
         utente.rimuoviPrestito(p);
+        SalvataggioFileUtente.salva(utenti, filenameUtenti);
+    }
+    
+    /**
+     * @brief Quando un prestito inizia (viene aggiunto all'elenco prestiti) la copia del libro relativo viene diminuita
+     *
+     * @pre ISBN != null && !ISBN.isEmpty()
+     * @post Il numero delle copie del libro è diminuito di 1.
+     * @post Il catalogo dei libri aggiornato viene salvato sul file binario.
+     * 
+     * @param[in] ISBN Il codice del libro iniziato.
+     * 
+     * @throws IOException Se il salvataggio sul file fallsice;
+     */
+    public void diminuisciCopiaPrestitoLibro(String ISBN) throws IOException, CopieEsauriteException {
+        Libro libro = catalogo.getLibroByISBN(ISBN);
+        // Controllo Libro Null
+        if (libro != null) {
+            libro.decrementaCopiaLibro();
+            SalvataggioFileLibro.salva(catalogo, filenameLibri);
+        }
+    }
+    
+    /**
+     * @brief Quando un prestito inizia (viene aggiunto all'elenco prestiti) il prestito viene aggiunto alla lista dell'utente che lo ha richiesto.
+     *
+     * @pre matricola != null && !matricola.isEmpty()
+     * @pre p != null
+     * @post Il numero dei prestiti dell'utente è aumentato di 1.
+     * @post La lista dei prestiti aggiornato viene salvata sul file binario.
+     * 
+     * @param[in] matricola La matricola dell'utente cha ha richiesto il libro.
+     * @param[in] p Il prestito che l'utente ha appena iniziato.
+     * 
+     * @throws IOException Se il salvataggio sul file fallisce;
+     */
+    public void aggiungiPrestitoListaUtente(String matricola, Prestito p) throws PrestitiEsauritiException, IOException {
+        Utente utente = utenti.getUtenteByMatricola(matricola);
+        utente.addPrestito(p);
         SalvataggioFileUtente.salva(utenti, filenameUtenti);
     }
 }

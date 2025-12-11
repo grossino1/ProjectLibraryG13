@@ -3,6 +3,7 @@ package GestionePrestito;
 import Eccezioni.EccezioniPrestiti.dataRestituzioneException;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 /**
@@ -24,11 +25,11 @@ import java.time.temporal.ChronoUnit;
 
 public class Prestito implements Comparable<Prestito>, Serializable {
 
-    private final String IDPrestito;
+    private static final long serialVersionUID = 1L;
+    private final LocalDateTime dataRegistrazionePrestito;
     private final String ISBNLibro;
     private final String matricolaUtente;
     private LocalDate dataRestituzione;
-    private static int contatoreID;
 
     /**
      * @brief Costruttore della classe Prestito.
@@ -36,7 +37,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
      * @pre ISBNLibro != null && !ISBNLibro.isEmpty()
      * @pre matricolaUtente != null && !matricolaUtente.isEmpty()
      * @post Viene creata una nuova istanza valida di Prestito.
-     * @post IDPrestito viene generato univocamente (logica interna).
+     * @post dataRegistrazionePrestito viene generato univocamente in base alla data di aggiunta.
      * @post dataRestituzione viene inizializzata (Data odierna + 30gg).
      *
      * @param[in] ISBNLibro Il codice ISBN del libro da prestare.
@@ -51,21 +52,20 @@ public class Prestito implements Comparable<Prestito>, Serializable {
         
         this.ISBNLibro = ISBNLibro;
         this.matricolaUtente = matricolaUtente;
-        this.contatoreID++;
-        this.IDPrestito = Integer.toString(contatoreID);
+        this.dataRegistrazionePrestito = LocalDateTime.now();
         this.dataRestituzione = LocalDate.now().plusDays(30); // oggi + 30 giorni
     }
        
     // Getter
-
+    
     /**
-     * @brief Restituisce l'ID univoco del prestito.
+     * @brief Restituisce la data univoca di registrazione del prestito.
      *
-     * @return La stringa identificativa del prestito.
+     * @return La data di aggiunta identificativa del prestito.
      */
-    public String getIDPrestito() {
+    public LocalDateTime getDataRegistrazionePrestito() {
      
-        return IDPrestito;
+        return dataRegistrazionePrestito;
     }
 
     /**
@@ -144,7 +144,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     public int hashCode() {
         
         int result = 17;
-        result = 31* result + this.IDPrestito.hashCode();
+        result = 31* result + (this.dataRegistrazionePrestito == null ? 0 : this.dataRegistrazionePrestito.hashCode());
         return result;
     }
 
@@ -167,7 +167,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
         if(this.getClass() != obj.getClass()) return false;
         
         Prestito other = (Prestito) obj;
-        return this.IDPrestito.equals(other.IDPrestito);               
+        return this.dataRegistrazionePrestito.equals(other.dataRegistrazionePrestito);               
     }
 
     /**
@@ -187,23 +187,23 @@ public class Prestito implements Comparable<Prestito>, Serializable {
         int result = this.dataRestituzione.compareTo(other.dataRestituzione);
         if(result != 0) return result;
         
-        return this.IDPrestito.compareTo(other.IDPrestito);
+        return this.dataRegistrazionePrestito.compareTo(other.dataRegistrazionePrestito);
     }
 
     /**
      * @brief Restituisce una rappresentazione testuale del prestito.
      *
      * Fornisce una stringa contenente i dati principali del prestito
-     * (IDPrestito, ISBN, Matricola e Data di restituzione).
+     * (Data di Registarzione, ISBN, Matricola e Data di restituzione).
      * 
      * @post Il risultato non è mai null.
      *
      * @return Una stringa contenente ID, ISBN, Matricola e Data.
-     */
+       */
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        sb.append("ID prestito: "+ getIDPrestito());
+        sb.append("Data di Registarzione: "+ getDataRegistrazionePrestito());
         sb.append("\n");
         sb.append("ISBN: "+ getISBNLibro());
         sb.append("\n");
