@@ -102,9 +102,7 @@ public class CatalogoLibri implements Serializable{
         }
         if (l==null)
             throw new LibroNotFoundException("Il libro non può essere nullo");
-        if (!l.getIsbn().matches("\\d{13}")){
-            throw new ISBNNotValidException("Il formato dell'IBSN non è valido");
-        }
+        
         if (!catalogoLibri.add(l))
             throw new LibroPresenteException("Il libro scelto è già presente nel catalogo libri");
         
