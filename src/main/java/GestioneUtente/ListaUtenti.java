@@ -210,29 +210,33 @@ public class ListaUtenti implements Serializable{
      * @throws IllegalArgumentException: Se l'utente inserito come parametro è nullo.
      */
     public ArrayList<Utente> cercaUtente(String u) {
-        // Controllo non necessario (lo deve fare il client)
-        // Inserito per motivi di sicurezza del programma
-        if(u == null){
-            throw new IllegalArgumentException("Errore: La stringa di ricerca non può essere nulla.");
-        }
-        
-        // Creo un ArrayList<Utente> per contenere la lista di utenti.
-        ArrayList<Utente> listaRicerca = new ArrayList<>(); 
-        
-        // Per rendere las ricerca Case-Insensitive trasformo la stringa passata con tutte lettere minuscole.
-        String utenteCercato = u.toLowerCase();
-        for(Utente utente : listaUtenti){
-            // Controllo se la stringa corrisponde al Cognome o alla Matricola di ogni utente appartenente a listaUtenti.
-            if (utente.getCognome().toLowerCase().contains(utenteCercato) || utente.getMatricola().toLowerCase().contains(utenteCercato)){
-                // Se un utente corrisponde ai criteri allora viene aggiunto all'interno dell'ArrayList
-                listaRicerca.add(utente);
-            }           
-        }
-        
-        // Viene ritornato l'ArrayList contenente tutti gli utenti che rispettano i requisiti.
-        return listaRicerca;
+    // Controllo non necessario (lo deve fare il client)
+    // Inserito per motivi di sicurezza del programma
+    if (u == null) {
+        throw new IllegalArgumentException("Errore: La stringa di ricerca non può essere nulla.");
     }
+    
+    // Creo un ArrayList<Utente> per contenere la lista di utenti.
+    ArrayList<Utente> listaRicerca = new ArrayList<>(); 
+    
+    // Per rendere la ricerca Case-Insensitive trasformo la stringa passata con tutte lettere minuscole.
+    String utenteCercato = u.toLowerCase();
+    
+    for (Utente utente : listaUtenti) {
+        // Recupero i valori e li converto in minuscolo per il confronto
+        String cognomeLower = utente.getCognome().toLowerCase();
+        String matricolaLower = utente.getMatricola().toLowerCase();
 
+        // Controllo se il Cognome O la Matricola INIZIANO con la stringa cercata
+        if (cognomeLower.startsWith(utenteCercato) || matricolaLower.startsWith(utenteCercato)) {
+            // Se un utente corrisponde ai criteri allora viene aggiunto all'interno dell'ArrayList
+            listaRicerca.add(utente);
+        }            
+    }
+    
+    // Viene ritornato l'ArrayList contenente tutti gli utenti che rispettano i requisiti.
+    return listaRicerca;
+}
     /**
      * @brief Restituisce l'elenco completo degli utenti.
      * 
