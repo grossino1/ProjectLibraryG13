@@ -217,7 +217,11 @@ public class ElencoPrestitiTest {
         gestoreStub.risultatoNuovoPrestito = true;
         
         for(int i = 0; i < 100; i++) {
-            elenco.registrazionePrestito(ISBN_VALIDO, MATRICOLA_VALIDA);
+            // Genera: "978-0000000000", "978-0000000001", etc.
+            // %03d significa "numero con 3 cifre, riempiendo con zeri se necessario"
+            String isbnFinto = String.format("9780000000%03d", i); 
+            String matricolaFinta = String.format("051210%04d", i);
+            elenco.registrazionePrestito(isbnFinto, matricolaFinta);
         }
         
         assertEquals(100, elenco.getElencoPrestiti().size());

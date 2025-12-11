@@ -252,6 +252,9 @@ public class GestionePrestitiViewController implements Initializable {
     void handleSortReturnDate(ActionEvent event){
         //permette di ordinare in base alla data di restituzione
         //scheletro
+        
+        // CIAO SONO GIACOMO, IL TREESET DEL PRESTITO DI BASE NON ORDINA PER DATA DI RESTITUZIONE 
+        // PERCHE SENNO MI SFANCULAVA I DUPLICATI. TE LO DEVI IMPLEMEMTARE DA TE.
     }
     
     /**

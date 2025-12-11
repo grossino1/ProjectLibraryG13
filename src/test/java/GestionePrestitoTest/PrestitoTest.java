@@ -6,12 +6,10 @@
 package GestionePrestitoTest;
 import Eccezioni.EccezioniPrestiti.dataRestituzioneException;
 import GestionePrestito.Prestito;
-import java.lang.reflect.Field;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.concurrent.TimeUnit;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class PrestitoTest {
 
@@ -124,86 +122,71 @@ public class PrestitoTest {
     
     @Test
     public void testEqualsAndHashCode() {
-        // Creiamo un secondo prestito
+        
+        // Creiamo una copia esatta usando le costanti della Fixture
         Prestito prestitoCopia = new Prestito(ISBN_VALIDO, MATRICOLA_VALIDA);
 
-        /*
-        Poiché equals si basa sulla Data di Registrazione (che include i nanosecondi),
-        Il "metodo helper" è una funzione che ho scritto solo dentro il file di Test. 
-        Serve a scavalcare le regole di Java per dire: "Ehi, prendi questo oggetto Prestito, entra di forza nella variabile 
-        privata dataRegistrazionePrestito e metti questa data precisa che dico io".
-        In questo modo, posso forzare due prestiti ad avere la stessa identica data, così il test equals può passare.
-        */ 
-        LocalDateTime dataFissa = LocalDateTime.of(2024, 1, 1, 12, 0, 0);
-        injectDataRegistrazione(prestitoValido, dataFissa);
-        injectDataRegistrazione(prestitoCopia, dataFissa);
-
-        // Verifica Uguaglianza
-        assertEquals(prestitoValido, prestitoCopia, "Due prestiti con la stessa data di registrazione devono essere uguali");
+        assertEquals(prestitoValido, prestitoCopia, 
+            "Il prestito della fixture deve essere uguale a uno nuovo con gli stessi ISBN/Matricola");
         
-        // Verifica Coerenza HashCode
-        assertEquals(prestitoValido.hashCode(), prestitoCopia.hashCode(), "Se due oggetti sono uguali, l'hashCode deve coincidere");
+        assertEquals(prestitoValido.hashCode(), prestitoCopia.hashCode(), 
+            "Se equals è true, gli hashCode devono coincidere");
 
-        // Verifica Disuguaglianza
-        injectDataRegistrazione(prestitoCopia, dataFissa.plusSeconds(1));
-        assertNotEquals(prestitoValido, prestitoCopia, "Date diverse devono rendere i prestiti diversi");
-        
-        // Casi limite
-        assertNotEquals(prestitoValido, null);
-        assertNotEquals(prestitoValido, "Una Stringa");
+        // Creiamo un prestito con stessa ISBN ma matricola diversa
+        Prestito prestitoMatricolaDiversa = new Prestito(ISBN_VALIDO, "9999999999");
+        assertNotEquals(prestitoValido, prestitoMatricolaDiversa, 
+            "Devono essere diversi se cambia la matricola");
+
+        // Creiamo un prestito con stessa Matricola ma ISBN diverso
+        Prestito prestitoIsbnDiverso = new Prestito("0000000000000", MATRICOLA_VALIDA);
+        assertNotEquals(prestitoValido, prestitoIsbnDiverso, 
+            "Devono essere diversi se cambia l'ISBN");
+
+        // Casi Limite
+        assertNotEquals(prestitoValido, null, "Non deve essere uguale a null");
+        assertNotEquals(prestitoValido, "Una Stringa", "Non deve essere uguale a oggetti di altra classe");
     }
 
     @Test
-    public void testCompareTo() throws dataRestituzioneException {
-        Prestito prestitoConfronto = new Prestito("1111111111111", "0000000000");
+    public void testCompareTo() {
         
-        LocalDate oggi = LocalDate.now();
+        // Creiamo un prestito con Matricola "maggiore" .
+        Prestito otherMatricolaMaggiore = new Prestito(ISBN_VALIDO, "9999999999");
         
-        // Caso 1: Date di restituzione diverse
-        prestitoValido.setDataRestituzione(oggi);           // Scade oggi
-        prestitoConfronto.setDataRestituzione(oggi.plusDays(1)); // Scade domani
-        
-        // prestitoValido scade PRIMA -> deve restituire valore negativo
-        assertTrue(prestitoValido.compareTo(prestitoConfronto) < 0, "Dovrebbe essere < 0 se scade prima");
+        // Risultato negativo (< 0).
+        assertTrue(prestitoValido.compareTo(otherMatricolaMaggiore) < 0, 
+            "prestitoValido deve precedere quello con matricola più alta");
 
-        // Caso 2: Stessa data di restituzione, vince la data di registrazione
-        prestitoConfronto.setDataRestituzione(oggi); // Ora scadono insieme
+        // Creiamo un prestito con Matricola "minore".
+        Prestito otherMatricolaMinore = new Prestito(ISBN_VALIDO, "0000000000");
         
-        // Forziamo le date di creazione
-        LocalDateTime prima = LocalDateTime.of(2024, 1, 1, 10, 0);
-        LocalDateTime dopo = LocalDateTime.of(2024, 1, 1, 11, 0);
+        // Risultato positivo (> 0).
+        assertTrue(prestitoValido.compareTo(otherMatricolaMinore) > 0, 
+            "prestitoValido deve seguire quello con matricola più bassa");
         
-        injectDataRegistrazione(prestitoValido, prima);
-        injectDataRegistrazione(prestitoConfronto, dopo);
+         // Creiamo un prestito con ISBN "maggiore" .
+        Prestito otherIsbnMaggiore = new Prestito("9999999999999", MATRICOLA_VALIDA);
         
-        assertTrue(prestitoValido.compareTo(prestitoConfronto) < 0, "A parità di scadenza, vince chi è stato creato prima");
+        // Risultato negativo (< 0).
+        assertTrue(prestitoValido.compareTo(otherIsbnMaggiore) < 0, 
+            "A parità di matricola, deve vincere l'ordinamento per ISBN");
+
+        // Stesso prestito risultato 0.
+        Prestito prestitoCopia = new Prestito(ISBN_VALIDO, MATRICOLA_VALIDA);
+        assertEquals(0, prestitoValido.compareTo(prestitoCopia), 
+            "Due prestiti identici devono restituire 0");
     }
 
     @Test
     public void testToString() {
+        // Usiamo l'oggetto della fixture
         String risultato = prestitoValido.toString();
         
-        assertNotNull(risultato);
-        assertTrue(risultato.contains(ISBN_VALIDO));
-        assertTrue(risultato.contains(MATRICOLA_VALIDA));
-        assertTrue(risultato.contains(String.valueOf(prestitoValido.getDataRegistrazionePrestito())));
-        assertTrue(risultato.contains(String.valueOf(prestitoValido.getDataRestituzione())));
-    }
-
-    // --- HELPER METHOD ---
-    /*
-    Questo metodo serve SOLO per i test.
-    Ci permette di impostare la dataRegistrazionePrestito (che è privata)
-    senza dover aggiungere setter pubblici nella classe originale.
-    */
-    private void injectDataRegistrazione(Prestito p, LocalDateTime data) {
-        try {
-            // "dataRegistrazionePrestito" deve essere ESATTAMENTE il nome della variabile nella classe Prestito
-            Field field = Prestito.class.getDeclaredField("dataRegistrazionePrestito");
-            field.setAccessible(true); // Sblocca l'accesso privato
-            field.set(p, data);        // Imposta il valore
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            fail("Errore nella configurazione del test: impossibile accedere al campo dataRegistrazionePrestito. " + e.getMessage());
-        }
+        assertNotNull(risultato, "Il metodo toString non deve restituire null");
+       
+        assertTrue(risultato.contains(ISBN_VALIDO), 
+            "La stringa deve contenere l'ISBN del prestito");
+        assertTrue(risultato.contains(MATRICOLA_VALIDA), 
+            "La stringa deve contenere la Matricola del prestito");
     }
 }

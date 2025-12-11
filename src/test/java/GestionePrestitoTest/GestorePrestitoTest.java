@@ -27,7 +27,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class GestorePrestitoTest {
 
