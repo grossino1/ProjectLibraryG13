@@ -117,7 +117,7 @@ public class ListaUtentiTest {
         
         // Cerco il primo utente per il cognome
         ArrayList<Utente> risultato = listaUtenti.cercaUtente("Rossi");
-        
+     
         assertEquals
     }
 }
