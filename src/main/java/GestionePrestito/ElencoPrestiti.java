@@ -15,7 +15,6 @@ import java.time.LocalDate;
 import java.util.TreeSet;
 import java.util.Set;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 /**
  * @class ElencoPrestiti
@@ -39,6 +38,7 @@ import java.util.Comparator;
 
 public class ElencoPrestiti implements Serializable{
 
+    private static final long serialVersionUID = 1L;
     private Set<Prestito> elencoPrestiti;
     private static final int MAX_PRESTITI = 100;
     private transient GestorePrestito gestore; 
@@ -89,6 +89,10 @@ public class ElencoPrestiti implements Serializable{
      * @param[in] isbn Il codice ISBN del libro da prestare.
      * @param[in] matricola La matricola dell'utente che richiede il prestito.
      * 
+     * @see GestorePrestito.nuovoPrestito()
+     * @see GestorePrestito.diminuisciCopiaPrestitoLibro()
+     * @see GestorePrestito.aggiungiPrestitoListaUtente()
+     * 
      * @throws LibroNotFoundException Se il codice ISBN non corrisponde a nessun libro nel catalogo.
      * @throws UtenteNotFoundException Se la matricola non corrisponde a nessun utente registrato.
      * @throws EccezioniPrestito Se uno dei vincoli per il prestito non sono rispettati.
@@ -104,6 +108,8 @@ public class ElencoPrestiti implements Serializable{
             if (flag) {
                 Prestito nuovoPrestito = new Prestito(isbn, matricola);
                 elencoPrestiti.add(nuovoPrestito);
+                gestore.diminuisciCopiaPrestitoLibro(isbn);
+                gestore.aggiungiPrestitoListaUtente(matricola, nuovoPrestito);
                 SalvataggioFilePrestito.salva(this, filename);
             }
 
@@ -121,6 +127,9 @@ public class ElencoPrestiti implements Serializable{
      * 
      * @param[in] p L'oggetto Prestito da rimuovere.
      * 
+     * @see GestorePrestito.aggiungiCopiaPrestitoLibro()
+     * @see GestorePrestito.rimuoviPrestitoListaUtente()
+     * 
      * @throws IOException Se il salvataggio sul file fallisce
      * @throws PrestitoNonTrovatoException
      */
@@ -130,11 +139,13 @@ public class ElencoPrestiti implements Serializable{
             throw new PrestitoNonTrovatoException("Il prestito che vuoi eliminare non è presente all'interno del catalogo.");
         }
         
+        gestore.aggiungiCopiaPrestitoLibro(p.getISBNLibro());
+        gestore.rimuoviPrestitoListaUtente(p.getMatricolaUtente(), p);
         SalvataggioFilePrestito.salva(this, filename);
     }
 
     /**
-     * @brief Cerca Prestiti in base a una stringa generica (IDPrestito, ISBN o Matricola).
+     * @brief Cerca Prestiti in base a una stringa generica (ISBN o Matricola).
      * 
      * Restituisce una lista di prestiti che corrispondono alla ricerca.
      * Nota: Restituisce un ArrayList invece di un Set per gestire potenziali
@@ -149,25 +160,23 @@ public class ElencoPrestiti implements Serializable{
      * @throws PrestitoNonTrovatoException
      */
     public ArrayList<Prestito> cercaPrestito(String chiave) throws PrestitoNonTrovatoException {
+    
+    ArrayList<Prestito> listaRicerca = new ArrayList<>();
+    
+        for(Prestito p : elencoPrestiti) {
         
-        ArrayList<Prestito> listaRicerca = new ArrayList<>();
-        
-        for(Prestito p: elencoPrestiti) {
-            
-            if(p.getIDPrestito().equals(chiave)) {
+            // Verifica se la stringa è presente all'inizio.       
+            if(p.getMatricolaUtente().startsWith(chiave) || p.getISBNLibro().startsWith(chiave)) {
                 listaRicerca.add(p);
             }
-            else if(p.getMatricolaUtente().equals(chiave)) {
-                listaRicerca.add(p);
-            }
-            else if(p.getISBNLibro().equals(chiave)) {
-                listaRicerca.add(p);
-            }         
         }
-        
-        if(listaRicerca == null) throw new PrestitoNonTrovatoException("Nessun prestito presente");
-        else return listaRicerca;
+    
+        if(listaRicerca.isEmpty()) {
+            throw new PrestitoNonTrovatoException("Nessun prestito presente");
+        } else {
+            return listaRicerca;
     }
+}
     
     /**
      * @brief Modifica le informazioni del prestito.
@@ -208,28 +217,6 @@ public class ElencoPrestiti implements Serializable{
         ArrayList<Prestito> elencoCompleto = new ArrayList<>(elencoPrestiti);
         return elencoCompleto;
     }
-
-    /**
-     * @brief Restituisce una vista ordinata dell'elenco secondo un criterio personalizzato.
-     *
-     * Permette di ottenere i libri ordinati diversamente dall'ordine naturale
-     * (scadenza, più recente o meno recente) utilizzando un Comparator.
-     *
-     * @pre comp != null (Il comparatore non deve essere nullo).
-     * @post Viene restituito una nuova ArrayList ordinata secondo 'comp'.
-     *
-     * @param[in] comp Il comparatore che definisce il nuovo criterio di ordinamento.
-     * @return Un ArrayList<Prestito> contenente gli stessi libri, ma riordinati.
-     * 
-     * @see java.util.Comparator
-     */
-    public ArrayList<Prestito> sortListaUtenti(Comparator<Prestito> comp) {
-        
-        ArrayList<Prestito> lista = this.getElencoPrestiti();
-    
-        lista.sort(comp);
-        return lista;
-    }
     
     /**
      * @brief Restituisce una rappresentazione testuale dell'oggetto ElencoPrestiti.
@@ -244,28 +231,6 @@ public class ElencoPrestiti implements Serializable{
         sb.append("Prestiti all'interno della lista:\n" );
         
         for(Prestito p: elencoPrestiti) {
-            
-            sb.append(p.toString() + "\n");
-        }
-        
-        return sb.toString();
-    }
-    
-    /**
-     * @brief Restituisce una rappresentazione testuale della lista dei prestiti ordinata 
-     * precedentemente tramite un'ordinamento scelto.
-     *
-     * @post Il risultato non è mai null (restituisce sempre una stringa, anche vuota).
-     * 
-     * @param[in] ArrayList<Prestito> listaOrdinata L'insieme dei prestiti ordinati.
-     * @return Una stringa contenente la descrizione completa dell'elenco prestiti ordinato.
-     */
-    public String toStringListaOrdinata(ArrayList<Prestito> listaOrdinata) {
-        
-        StringBuffer sb = new StringBuffer();
-        sb.append("Prestiti all'interno della lista:\n" );
-        
-        for(Prestito p: listaOrdinata) {
             
             sb.append(p.toString() + "\n");
         }

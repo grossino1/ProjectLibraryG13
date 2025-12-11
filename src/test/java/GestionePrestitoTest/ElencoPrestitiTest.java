@@ -78,6 +78,25 @@ public class ElencoPrestitiTest {
             }
             return risultatoNuovoPrestito;
         }
+        @Override
+        public void diminuisciCopiaPrestitoLibro(String isbn) {
+            // Non fare nulla: stiamo simulando che sia andato tutto bene
+        }
+
+        @Override
+        public void aggiungiPrestitoListaUtente(String matricola, Prestito p) {
+            // Non fare nulla
+        }
+
+        @Override
+        public void aggiungiCopiaPrestitoLibro(String isbn) {
+            // Non fare nulla (serve per il test di eliminazione)
+        }
+
+        @Override
+        public void rimuoviPrestitoListaUtente(String matricola, Prestito p) {
+            // Non fare nulla (serve per il test di eliminazione)
+        }
     }
    
     @BeforeEach
@@ -219,20 +238,16 @@ public class ElencoPrestitiTest {
         elenco.registrazionePrestito("1111111111111", "0612708792");
         elenco.registrazionePrestito("2222222222222", "0612709999");
 
-        // Verifica ricerca per matricola
-        ArrayList<Prestito> risultatiMatricola = elenco.cercaPrestito("0612709999");
-        assertEquals(1, risultatiMatricola.size());
-        assertEquals("2222222222222", risultatiMatricola.get(0).getISBNLibro());
+        // Verifica ricerca per matricola parziale
+        ArrayList<Prestito> risultatiMatricola = elenco.cercaPrestito("061");
+        assertEquals(2, risultatiMatricola.size());
+        assertEquals("1111111111111", risultatiMatricola.get(0).getISBNLibro());
+        assertEquals("2222222222222", risultatiMatricola.get(1).getISBNLibro());
         
-        // Verifica ricerca per ISBN
-        ArrayList<Prestito> risultatiISBN = elenco.cercaPrestito("2222222222222");
+        // Verifica ricerca per parziale
+        ArrayList<Prestito> risultatiISBN = elenco.cercaPrestito("2222");
         assertEquals(1, risultatiISBN.size());
         assertEquals("0612709999", risultatiISBN.get(0).getMatricolaUtente());
-        
-        // Verifica tramite IDPrestito
-        ArrayList<Prestito> risultatiID = elenco.cercaPrestito(risultatiISBN.get(0).getIDPrestito());
-        assertEquals(1, risultatiID.size());
-        assertEquals("0612709999", risultatiID.get(0).getMatricolaUtente());
     }
 
     @Test

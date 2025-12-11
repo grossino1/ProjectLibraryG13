@@ -90,6 +90,10 @@ public class CatalogoLibri implements Serializable{
      *
      * @param[in] l: L'oggetto Libro da aggiungere.
      * @throws ISBNNotValidException Se il libro ha un formato ISBN non valido.
+     * @throws LibroNotFoundException Se il libro non è presente nel catalogo.
+     * @throws CatalogoPienoException Se il catalogo ha raggiunto la capienza massima.
+     * @throws IOException Se il salvataggio fallisce.
+     * @throws LibroPresenteException Se il libro è già presente nel catalogo.
      */
     public void registrazioneLibro(Libro l) throws ISBNNotValidException, LibroPresenteException, LibroNotFoundException, CatalogoPienoException, IOException {
         // scheletro: qui andrebbe la logica di validazione prima dell'add
@@ -98,11 +102,11 @@ public class CatalogoLibri implements Serializable{
         }
         if (l==null)
             throw new LibroNotFoundException("Il libro non può essere nullo");
-        if (!l.getIsbn().matches("\\d{13}")){
-            throw new ISBNNotValidException("Il formato dell'IBSN non è valido");
-        }
+        
         if (!catalogoLibri.add(l))
             throw new LibroPresenteException("Il libro scelto è già presente nel catalogo libri");
+        
+        
         SalvataggioFileLibro.salva(this, filename);
         
     }
@@ -115,6 +119,8 @@ public class CatalogoLibri implements Serializable{
      * @post Se il libro non c'è, il catalogo resta invariato.
      *
      * @param[in] l: L'oggetto Libro da rimuovere.
+     * @throws LibroNotFoundException il libro non è presente nel catalogo
+     * @throws IOException se il salvataggio fallisce
      */
     public void eliminazioneLibro(Libro l) throws LibroNotFoundException, IOException{
         if (l==null)
@@ -133,21 +139,25 @@ public class CatalogoLibri implements Serializable{
      * omonimie.
      *
      * @pre l != null
-     * @post La lista restituita (può essere vuota).
+     * @post La lista restituita.
      *
      * @param[in] l La stringa di ricerca.
      * @return ArrayList<Libro> contenente i risultati della ricerca.
+     * @throws LibroNotFoundException se un libro non viene trovato
      */
     public ArrayList<Libro> cercaLibro(String l) throws LibroNotFoundException {
-        if (l==null)
-            throw new LibroNotFoundException("È stata inserita una stringa vuota");
+        
         ArrayList<Libro> trovati = new ArrayList<>();
+        String query = l.toLowerCase(); // trasforma la stringa di ricerca in minuscolo
         for (Libro lib : catalogoLibri){
-            if(lib.getIsbn().compareToIgnoreCase(l) == 0 || lib.getTitolo().compareToIgnoreCase(l) == 0 || lib.getAutori().compareToIgnoreCase(l) == 0){
+
+            if (lib.getIsbn().toLowerCase().startsWith(query) || lib.getTitolo().toLowerCase().startsWith(query) || lib.getAutori().toLowerCase().startsWith(query)) {
                 trovati.add(lib);
             }
         }
-        return trovati;
+        if (trovati.isEmpty())
+            throw new LibroNotFoundException ("Il libro ricercato non è presente nel catalogo");
+        else return trovati;
     }
 
  /**
@@ -165,27 +175,6 @@ public class CatalogoLibri implements Serializable{
         return new ArrayList<>(catalogoLibri);
     }
 
-    /**
-     * @brief Restituisce una vista ordinata del catalogo secondo un criterio personalizzato.
-     *
-     * Permette di ottenere i libri ordinati diversamente dall'ordine naturale
-     * (autore o anno) utilizzando un Comparator.
-     *
-     * @pre comp != null (Il comparatore non deve essere nullo).
-     * @post Viene restituito una nuova ArrayList ordinata secondo 'comp'.
-     *
-     * @param[in] comp Il comparatore che definisce il nuovo criterio di ordinamento.
-     * @return Un ArrayList<Libro> riordinato.
-     * 
-     * @see java.util.Comparator
-     */
-    public ArrayList<Libro> sortCatalogoLibri(Comparator<Libro> comp) throws LibroNotFoundException {
-        if (comp == null)
-            throw new LibroNotFoundException("È stato inserito un comparatore nullo");
-        ArrayList<Libro> listaordinata = new ArrayList<>(catalogoLibri);
-        listaordinata.sort(comp);
-        return listaordinata; 
-    }
     
      /**
      * @brief Modifica le informazioni del libro.
@@ -196,6 +185,8 @@ public class CatalogoLibri implements Serializable{
      * 
      * @param[in] l il libro da modificare.
      * @param[i]  titolo, autori, annoPubblicazione, numeroCopie
+     * @throws LibroNotFoundException il libro non è presente nel catalogo
+     * @throws IOException se il salvataggio fallisce
      * 
      * 
      */ 
