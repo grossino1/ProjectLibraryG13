@@ -97,6 +97,7 @@ public class ElencoPrestiti implements Serializable{
      * @throws UtenteNotFoundException Se la matricola non corrisponde a nessun utente registrato.
      * @throws EccezioniPrestito Se uno dei vincoli per il prestito non sono rispettati.
      * @throws IOException Se il salvataggio sul file fallisce.
+     * @throws ClassNotFoundException Se il casting nella carica dal file (di Gestore.nuovoPrestito()) fallisce.
      */
     public void registrazionePrestito(String isbn, String matricola) throws LibroNotFoundException, UtenteNotFoundException, EccezioniPrestito, IOException, ClassNotFoundException{
         try {
@@ -157,11 +158,11 @@ public class ElencoPrestiti implements Serializable{
      * @param[in] chaive la stringa di ricerca.
      * @return ArrayList<Prestito> contenente i prestiti che soddisfano il criterio.
      * 
-     * @throws PrestitoNonTrovatoException
+     * @throws PrestitoNonTrovatoException Se un prestito non viene trovato.
      */
     public ArrayList<Prestito> cercaPrestito(String chiave) throws PrestitoNonTrovatoException {
     
-    ArrayList<Prestito> listaRicerca = new ArrayList<>();
+        ArrayList<Prestito> listaRicerca = new ArrayList<>();
     
         for(Prestito p : elencoPrestiti) {
         
@@ -190,6 +191,7 @@ public class ElencoPrestiti implements Serializable{
      * @param[i] dataNuova La nuova data del prestito.
      * 
      * @throws dataRestituzioneException 
+     * @throws IOException Se il salvataggio sul file fallisce
      */ 
     public void modificaPrestito(Prestito p, LocalDate dataNuova) throws dataRestituzioneException, IOException {
              

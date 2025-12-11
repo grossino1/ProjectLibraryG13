@@ -134,9 +134,9 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     // Metodi Logici
 
     /**
-     * @brief Calcola l'hash code basato sull'IDPrestito.
+     * @brief Calcola l'hash code basato sulla data di creazione.
      *
-     * @return Codice hash univoco per IDPrestito.
+     * @return Codice hash univoco per data di creazione.
      *
      * @see #equals(Object) Utilizzato per la coerenza con equals.
      */
@@ -149,13 +149,12 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     }
 
     /**
-     * @brief Confronta due prestiti per per IDPrestito, evitando duplicati nell'elenco.
+     * @brief Confronta due prestiti per per data di creazione, evitando duplicati nell'elenco.
      *
-     * Due prestiti sono uguali se hanno lo stesso ID, indipendentemente
-     * dalla data o dagli attori coinvolti.
+     * Due prestiti sono uguali se hanno la stessa data di creazione.
      *
      * @param[in] obj L'oggetto da confrontare.
-     * @return true se gli IDPrestito coincidono, false altrimenti.
+     * @return true se le date di creazione dei prestiti coincidono, false altrimenti.
      *
      * @see #hashCode()
      */             
@@ -172,7 +171,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
 
     /**
      * @brief Ordina i prestiti in base alla data di restituzione (ordinamento naturale)
-     * nel caso due prestiti dovessero avere la stessa data, si considera l'ID del Prestito.
+     * nel caso due prestiti dovessero avere la stessa data, si considera la data di registrazione del prestito.
      *
      * Utile per visualizzare i prestiti in ordine di scadenza (dal più urgente al meno urgente).
      *

@@ -103,7 +103,7 @@ public class GestorePrestito {
             throw new UtenteNotFoundException("Errore: Utente non valido.");
         }
 
-        if (libro.getNumeroCopie() < 1) {
+        if (libro.getNumeroCopie() < 2) {
             throw new CopieEsauriteException("Errore: Nessuna copia disponibile per il libro '" + libro.getTitolo() + "'");
         }
 
