@@ -105,7 +105,7 @@ public class UtenteTest {
         // STUB MANUALE (Sostituisce il Mock):
         // Creiamo una classe anonima che estende Prestito e sovrascrive getDataRestituzione.
         // In questo modo forziamo il metodo a restituire 'dataAttesa' senza dipendere dalla logica interna di Prestito.
-        Prestito prestitoConData = new Prestito("ISBN-TEST-DATA", MATRICOLA_VALIDA) {
+        Prestito prestitoConData = new Prestito(ISBN_VALIDO, MATRICOLA_VALIDA) {
             @Override
             public LocalDate getDataRestituzione() {
                 return dataAttesa;
