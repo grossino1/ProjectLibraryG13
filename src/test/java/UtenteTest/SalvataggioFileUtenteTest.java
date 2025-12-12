@@ -66,7 +66,8 @@ public class SalvataggioFileUtenteTest {
         }
     }
     
-    // TEST SALVA()
+    // TEST SALVA
+    
     @Test
     @DisplayName("Salvataggio e Caricamento (Round-Trip) con Timeout")
     @Timeout(value = 2, unit = TimeUnit.SECONDS) // Fallisce se l'I/O dura troppo
@@ -110,7 +111,8 @@ public class SalvataggioFileUtenteTest {
         assertEquals("Percorso non specificato!", ex2.getMessage());
     }
 
-    // TEST CARICA()
+    // TEST CARICA
+    
     @Test
     @DisplayName("Errore: Caricamento File Inesistente")
     void testCaricaFileNonTrovato() {
