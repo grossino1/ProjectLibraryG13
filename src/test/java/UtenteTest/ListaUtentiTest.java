@@ -72,6 +72,14 @@ public class ListaUtentiTest {
         }
     }
     
+    // TEST GetUtenteByMatricola
+    @Test
+    @DisplayName("Get Utente con matricola Null")
+    void testGetUtenteByMatricolaNull() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            listaUtenti.getUtenteByMatricola(null);
+        });
+    }
     // TEST REGISTRAZIONE 
     
     @Test
