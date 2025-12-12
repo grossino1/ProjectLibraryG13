@@ -635,27 +635,9 @@ public class CatalogoLibriViewController implements Initializable {
             ArrayList<Libro> risultati = catalogoLibri.cercaLibro(filtro);
             libroList.setAll(risultati);
         }catch (LibroNotFoundException e) {
-        // 3. Se il metodo lancia l'eccezione, significa che non ha trovato nulla.
-        // Svuotiamo la tabella per mostrare che non ci sono risultati.
+
             libroList.clear();
         }
-        /*
-        filteredData.setPredicate(libro -> {
-            // 1. Se il campo è vuoto, mostra tutto
-            if (filtro == null || filtro.isEmpty()) {
-                return true;
-            }
-
-            String lowerCaseFilter = filtro.toLowerCase();
-
-            // 2. Recuperiamo il TITOLO in modo sicuro (gestione null)
-            // Se il titolo è null, usiamo una stringa vuota "" per evitare crash
-            String titolo = (libro.getTitolo() != null) ? libro.getTitolo().toLowerCase() : "";
-
-            // 3. Verifichiamo se il filtro è contenuto nel Titolo
-            return titolo.contains(lowerCaseFilter);
-        });*/
-
         System.out.println("Ricerca libro effettuata per: " + filtro);
     }
     

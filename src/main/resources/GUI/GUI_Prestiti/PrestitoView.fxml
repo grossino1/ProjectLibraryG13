@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -42,14 +43,18 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txtMatricola" promptText="Matricola dello studente" style="-fx-background-radius: 5; -fx-background-color: white; -fx-border-color: #bdc3c7; -fx-border-radius: 5;" GridPane.rowIndex="1" />
+            <ComboBox fx:id="cmbMatricola" prefHeight="27.0" prefWidth="345.0" promptText="Matricola dello studente" style="-fx-background-radius: 5; -fx-background-color: white; -fx-border-color: #bdc3c7; -fx-border-radius: 5;" GridPane.rowIndex="1" />
+            <TextField fx:id="txtMatricola" promptText="x" style="-fx-background-radius: 5; -fx-background-color: white; -fx-border-color: #bdc3c7; -fx-border-radius: 5;" GridPane.rowIndex="1" />
+            <!--<ComboBox fx:id="cmbISBN" prefWidth="200.0" promptText="Seleziona Libro" />-->
 
             <Label text="ISBN Libro:" textFill="#2c3e50" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txtISBN" promptText="ISBN del libro" style="-fx-background-radius: 5; -fx-background-color: white; -fx-border-color: #bdc3c7; -fx-border-radius: 5;" GridPane.rowIndex="3" />
+            <!--<ComboBox fx:id="cmbMatricola" prefWidth="200.0" promptText="Seleziona Utente" />-->
+            <ComboBox fx:id="cmbISBN" prefHeight="27.0" prefWidth="369.0" promptText="ISBN del libro" style="-fx-background-radius: 5; -fx-background-color: white; -fx-border-color: #bdc3c7; -fx-border-radius: 5;" GridPane.rowIndex="3" />
+            <TextField fx:id="txtISBN" promptText="x" style="-fx-background-radius: 5; -fx-background-color: white; -fx-border-color: #bdc3c7; -fx-border-radius: 5;" GridPane.rowIndex="3" />
             <Label fx:id="lblData" text="Data di restituzione:" textFill="#2c3e50" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -72,7 +77,7 @@
                   
                </cursor>
             </Button>
-            <Button fx:id="btnSalva" defaultButton="true" mnemonicParsing="false" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5;" text="Salva Libro">
+            <Button fx:id="btnSalva" defaultButton="true" mnemonicParsing="false" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5;" text="Salva Prestito">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

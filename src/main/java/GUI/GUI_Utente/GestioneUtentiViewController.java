@@ -11,6 +11,7 @@ import SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -428,7 +429,6 @@ public class GestioneUtentiViewController implements Initializable {
         }
     }
     
-    
     /**
      * @brief Filtra la tabella in base al testo inserito nella barra di ricerca.
      * 
@@ -438,28 +438,19 @@ public class GestioneUtentiViewController implements Initializable {
     void handleCercaUtente(ActionEvent event) {
         String filtro = handleCercaUtente.getText(); 
 
-        filteredData.setPredicate(utente -> {
-            // 1. Se il campo è vuoto, mostra tutto
-            if (filtro == null || filtro.isEmpty()) {
-                return true;
-            }
-
-            String lowerCaseFilter = filtro.toLowerCase();
-
-            // Recuperiamo i dati in modo sicuro (gestiamo i null per evitare crash)
-            String cognome = (utente.getCognome() != null) ? utente.getCognome().toLowerCase() : "";
-            String matricola = (utente.getMatricola() != null) ? utente.getMatricola().toLowerCase() : "";
-
-            // 2. LOGICA "OR" (OPPURE)
-            // Verifica se il filtro è contenuto nel Cognome OPPURE (||) nella Matricola
-            boolean matchCognome = cognome.contains(lowerCaseFilter);
-            boolean matchMatricola = matricola.contains(lowerCaseFilter);
-
-            // Restituisce true se ALMENO UNO dei due è vero
-            return matchCognome || matchMatricola;
-        });
-
-        System.out.println("Ricerca effettuata per: " + filtro);
+        if (filtro == null || filtro.trim().isEmpty()) {
+        // Qui devi ricaricare TUTTI i libri (es. dal tuo elenco completo)
+            utenteList.setAll(listaUtenti.getListaUtenti()); 
+        return;
+        }
+        
+        try{
+            ArrayList<Utente> risultati = listaUtenti.cercaUtente(filtro);
+            utenteList.setAll(risultati);
+        }catch (UtenteNotFoundException e) {
+            utenteList.clear();
+        }
+        System.out.println("Ricerca libro effettuata per: " + filtro);
     }
 
     /**

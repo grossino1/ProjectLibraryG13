@@ -5,14 +5,21 @@ import Eccezioni.EccezioniPrestiti.EccezioniPrestito;
 import Eccezioni.EccezioniPrestiti.PrestitoNonTrovatoException;
 import Eccezioni.EccezioniPrestiti.dataRestituzioneException;
 import Eccezioni.EccezioniUtenti.UtenteNotFoundException;
+import GestioneLibro.CatalogoLibri;
+import GestioneLibro.Libro;
 import GestionePrestito.ElencoPrestiti;
 import GestionePrestito.GestorePrestito;
 import GestionePrestito.Prestito;
+import GestioneUtente.ListaUtenti;
+import GestioneUtente.Utente;
+import SalvataggioFile.SalvataggioFileLibro.SalvataggioFileLibro;
 import SalvataggioFile.SalvataggioFilePrestito.SalvataggioFilePrestito;
+import SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -247,7 +254,7 @@ public class GestionePrestitiViewController implements Initializable {
      * @param[in] event L'evento di click sul pulsante.
      */
     @FXML
-    void handleAggiungiPrestito(ActionEvent event){
+    void handleAggiungiPrestito(ActionEvent event) throws ClassNotFoundException{
         //chiama un metodo che permette di aggiungere un prestito nella
         //lista dei prestiti e aggiorna la vista del catalogo
         //scheletro
@@ -270,11 +277,38 @@ public class GestionePrestitiViewController implements Initializable {
             TextField txtData= (TextField) child.lookup("#txtData");
             txtData.setVisible(false);
             
+            ComboBox<String> cmbMatricola = (ComboBox<String>) child.lookup("#cmbMatricola");
+            ComboBox<String> cmbISBN = (ComboBox<String>) child.lookup("#cmbISBN");
+
+            ArrayList<String> listaCodiciLibri = new ArrayList<>();
+            CatalogoLibri catalogo = SalvataggioFileLibro.carica("catalogoLibri.bin");
+            for(Libro l : catalogo.getCatalogoLibri()) { // Ipotizzo tu abbia accesso alla lista libri
+                listaCodiciLibri.add(l.getIsbn() + " - " + l.getTitolo());
+            }
+            cmbISBN.getItems().addAll(listaCodiciLibri);
+            cmbISBN.setEditable(true);
+            
+            ArrayList<String> listaMatricole = new ArrayList<>();
+            ListaUtenti lista = SalvataggioFileUtente.carica("listaUtenti.bin");
+            for(Utente u : lista.getListaUtenti()) {
+                listaMatricole.add(u.getMatricola() + " - " + u.getNome() + " " + u.getCognome());
+            }
+            cmbMatricola.getItems().addAll(listaMatricole);
+            cmbMatricola.setEditable(true);
+            
+            TextField isbn = (TextField) child.lookup("#txtISBN");
+            TextField matricola = (TextField) child.lookup("#txtMatricola");
+            isbn.setVisible(false);
+            matricola.setVisible(false);
+                        
             Stage aggiungiPrestitoStage = new Stage();
             aggiungiPrestitoStage.setTitle("Aggiungi Nuovo Prestito");
             Scene sceneLibri = new Scene(child);
             aggiungiPrestitoStage.setScene(sceneLibri);
             aggiungiPrestitoStage.show();
+            javafx.application.Platform.runLater(() -> {
+                child.requestFocus(); 
+            });
             //fine 
             
             Button btnSalva = (Button) child.lookup("#btnSalva");
@@ -284,15 +318,14 @@ public class GestionePrestitiViewController implements Initializable {
             btnSalva.setOnAction(e -> {
                 try {
                     // Leggiamo i dati dai campi che abbiamo appena trovato
-                    TextField isbn = (TextField) child.lookup("#txtISBN");
-                    TextField matricola = (TextField) child.lookup("#txtMatricola");
                     
-            
-                    System.out.println("DEBUG DATI LETTI:");
-                    System.out.println("ISBN letto: '" + isbn.getText() + "'");
-                    System.out.println("Titolo letto: '" + matricola.getText() + "'");
+                    String selezioneLibro = cmbISBN.getValue();
+                    String selezioneUtente = cmbMatricola.getValue();
                     
-                    elencoPrestiti.registrazionePrestito(isbn.getText(), matricola.getText());
+                    String isbnPuro = selezioneLibro.split(" - ")[0].trim();
+                    String matricolaPura = selezioneUtente.split(" - ")[0].trim();
+                    
+                    elencoPrestiti.registrazionePrestito(isbnPuro, matricolaPura);
                     System.out.println(elencoPrestiti.toString());
                     refreshTable();
                     aggiungiPrestitoStage.close();
@@ -355,6 +388,10 @@ public class GestionePrestitiViewController implements Initializable {
                 TextField dataRestituzione = (TextField) child.lookup("#txtData");
                 dataRestituzione.setVisible(true);
                 dataRestituzione.setText(String.valueOf(selected.getDataRestituzione()));
+                ComboBox<String> cmbMatricola = (ComboBox<String>) child.lookup("#cmbMatricola");
+                ComboBox<String> cmbISBN = (ComboBox<String>) child.lookup("#cmbISBN");
+                cmbISBN.setVisible(false);
+                cmbMatricola.setVisible(false);
 
                 Stage aggiungiPrestitoStage = new Stage();
                 aggiungiPrestitoStage.setTitle("Modifica Prestito");
@@ -370,6 +407,8 @@ public class GestionePrestitiViewController implements Initializable {
                 isbn.setText(selected.getISBNLibro());
                 TextField matricola = (TextField) child.lookup("#txtMatricola");
                 matricola.setText(selected.getMatricolaUtente());
+                isbn.setVisible(true);
+                matricola.setVisible(true);
                 isbn.setDisable(true);
                 matricola.setDisable(true);
                 Button btnSalva = (Button) child.lookup("#btnSalva");
@@ -398,12 +437,12 @@ public class GestionePrestitiViewController implements Initializable {
                 });
 
                 btnAnnulla.setOnAction(e -> { 
-                    try {
-                        aggiungiPrestitoStage.close();
-                    } catch (Exception ex) {
-                        showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
-                    }
-                }); 
+                try {
+                    aggiungiPrestitoStage.close();
+                } catch (Exception ex) {
+                    System.out.println("Errore generico: " + ex.getMessage());
+                }
+            });
             }catch(IOException e){
                 showAlert(Alert.AlertType.ERROR, "Errore generico", e.getMessage()); //gestione delle eccezioni
             }
@@ -501,6 +540,30 @@ public class GestionePrestitiViewController implements Initializable {
             tabellaPrestiti.sort();
         }
         colDataRegistrazione.setSortable(false);
+    }
+    
+    /**
+     * @brief Filtra la tabella in base al testo inserito nella barra di ricerca.
+     * 
+     * @param[in] event L'evento (es. pressione tasto invio o click su lente).
+     */
+   @FXML
+    void handleCercaPrestito(ActionEvent event) {
+        String filtro = handleCercaPrestito.getText(); 
+
+        if (filtro == null || filtro.trim().isEmpty()) {
+        // Qui devi ricaricare TUTTI i libri (es. dal tuo elenco completo)
+            prestitoList.setAll(elencoPrestiti.getElencoPrestiti()); 
+        return;
+        }
+        
+        try{
+            ArrayList<Prestito> risultati = elencoPrestiti.cercaPrestito(filtro);
+            prestitoList.setAll(risultati);
+        }catch (PrestitoNonTrovatoException e) {
+            prestitoList.clear();
+        }
+        System.out.println("Ricerca libro effettuata per: " + filtro);
     }
     
     /**
