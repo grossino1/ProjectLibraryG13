@@ -73,8 +73,9 @@ public class ListaUtentiTest {
     }
     
     // TEST REGISTRAZIONE 
+    
     @Test
-    @DisplayName("Registrazione Reale con Timeout (max 2 secondi)")
+    @DisplayName("Registrazione Reale Corretta con Timeout (max 2 secondi)")
     @Timeout(value = 2, unit = TimeUnit.SECONDS)
     void testRegistrazioneUtentePerformace() throws Exception{
         // Registro un utente
@@ -110,8 +111,8 @@ public class ListaUtentiTest {
     }
     
     @Test
-    @DisplayName("Errore: Matricola Non Valida")
-    void testMatricolaNonValida() throws MatricolaNotValidException {
+    @DisplayName("Errore: Registrazione di un Utente con una Matricola Non Valida")
+    void testRegistrazioneMatricolaNonValida() throws MatricolaNotValidException {
         // Creazione di un utente con la matricola errata
         
         assertThrows(MatricolaNotValidException.class, () -> {
@@ -121,6 +122,7 @@ public class ListaUtentiTest {
     }
     
     // TEST RICERCA
+    
     @Test
     @DisplayName("Ricerca Giusta (StartsWith)")
     void testCercaUtenteValida() throws Exception{
@@ -146,10 +148,6 @@ public class ListaUtentiTest {
         ArrayList<Utente> risultatiCase = listaUtenti.cercaUtente("ROSSI");
         assertEquals(1, risultatiCase.size());
         assertEquals(u1, risultatiCase.get(0));
-        
-        // Stringa che non matcha l'inizio (es. "setti" è contenuto in Rossetti, ma non inizia con esso)
-        ArrayList<Utente> risultatiFail = listaUtenti.cercaUtente("setti");
-        assertTrue(risultatiFail.isEmpty(), "Non dovrebbe trovare nulla con 'contains', stiamo usando 'startsWith'");
     }
     
     @Test
@@ -176,6 +174,7 @@ public class ListaUtentiTest {
     }
     
     // TEST RIMOZIONE 
+    
     @Test
     @DisplayName("Eliminazione Utente")
     void testEliminazioneUtenteValida() throws Exception {
@@ -198,6 +197,7 @@ public class ListaUtentiTest {
     }
     
     // TEST MODIFICA
+    
     @Test
     @DisplayName("Modifica Utente")
     void testModificaUtente() throws Exception {

@@ -34,17 +34,16 @@ public class SalvataggioFileUtenteTest {
     // FIXTURE: BeforEach e AfterEach
     
     /**
-     * @brief Setup: Pulisce l'ambiente e prepara i dati.
-     * Esegue la pulizia preventiva (defensive programming) e crea un oggetto ListaUtenti popolato.
+     * @brief Setup: Pulisce l'ambiente e prepara i dati, crea un oggetto ListaUtenti popolato.
      */
     @BeforeEach
     void setUp() throws Exception {
-        // 1. Pulizia preventiva: Se è rimasto sporco da un crash precedente, lo cancello
+        // Pulizia preventiva: Se è rimasto sporco da un crash precedente, lo cancello
         File f = new File(FILE_TEST);
         if (f.exists()) {
             f.delete();
         }
-        // 2. Inizializzazione dati
+        
         // Creo una lista vuota (false = non caricare da file)
         listaDaSalvare = new ListaUtenti(false, FILE_TEST);
         
@@ -72,7 +71,7 @@ public class SalvataggioFileUtenteTest {
     @DisplayName("Salvataggio e Caricamento (Round-Trip) con Timeout")
     @Timeout(value = 2, unit = TimeUnit.SECONDS) // Fallisce se l'I/O dura troppo
     void testSalvaECarica() throws IOException, ClassNotFoundException {
-        // FASE 1: SALVATAGGIO 
+        // SALVATAGGIO 
         SalvataggioFileUtente.salva(listaDaSalvare, FILE_TEST);
 
         // ASSERT (Verifica fisica del file)
@@ -80,7 +79,7 @@ public class SalvataggioFileUtenteTest {
         assertTrue(fileCreato.exists(), "Il file binario dovrebbe essere stato creato su disco.");
         assertTrue(fileCreato.length() > 0, "Il file non dovrebbe essere vuoto.");
 
-        // FASE 2: CARICAMENTO 
+        // CARICAMENTO 
         ListaUtenti listaCaricata = SalvataggioFileUtente.carica(FILE_TEST);
 
         // ASSERT (Verifica logica dei dati)

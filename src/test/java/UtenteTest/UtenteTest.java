@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit; 
 
 /**
- * Classe di test per Utente senza l'utilizzo di Mockito.
+ * Classe di test per Utente.
  * Utilizza oggetti reali o stub manuali.
  * * @author chiara
  */
@@ -38,7 +38,7 @@ public class UtenteTest {
     
     // FIXTURE: Setup (@BeforeEach)
     /**
-     * @brief 
+     * @brief Inizializza l'oggetto Utente e Prestito prima di ogni test.
      */
     @BeforeEach
     void setUp() throws Exception {
@@ -60,7 +60,7 @@ public class UtenteTest {
         prestito = null;
     }
     
-    // TEST COSTRUTTORE E VALIDAZIONE MATRICOLA
+    // TEST COSTRUTTORE E VERIFICA SULLA MATRICOLA
     @Test
     @DisplayName("Costruttore: Creazione Valida")
     void testCostruttoreValido(){
@@ -96,7 +96,7 @@ public class UtenteTest {
         assertEquals("La matricola deve essere di 10 cifre!", exception.getMessage());
     }
     
-    // TEST LOGICI
+    // TEST GetListaDataRestituzione
     @Test
     @DisplayName("getListaDataRestituzione: estrazione corretta")
     void testGetListaDataRestituzione() {
@@ -121,6 +121,8 @@ public class UtenteTest {
         assertEquals(1, date.size());
         assertEquals(dataAttesa, date.get(0));
     }
+    
+    // TEST ADD
     
     @Test
     @DisplayName("AddPrestito: Eccezione su Null")
@@ -165,6 +167,7 @@ public class UtenteTest {
         assertEquals(3, utente.getListaPrestiti().size());
     }
     
+    // TEST RIMUOVI PRESTITO
     @Test
     @DisplayName("RimuoviPrestito: Rimozione con successo")
     void testRimuoviPrestitoSuccesso() throws PrestitiEsauritiException, PrestitoNonTrovatoException {
