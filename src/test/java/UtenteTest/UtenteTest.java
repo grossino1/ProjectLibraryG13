@@ -34,19 +34,20 @@ public class UtenteTest {
             
     // Oggetto Prestito reale
     private Prestito prestito;
+    private final String ISBN_VALIDO = "1234567890123";
     
     // FIXTURE: Setup (@BeforeEach)
     /**
      * @brief 
      */
     @BeforeEach
-    void setUp() throws MatricolaNotValidException {
+    void setUp() throws Exception {
         // Inizializzo l'utente
         utente = new Utente(NOME_VALIDO, COGNOME_VALIDO, MATRICOLA_VALIDA, EMAIL_VALIDA);
         
         // Inizializzo un oggetto Prestito reale usando il costruttore fornito.
-        // Uso un ISBN inventato e la matricola dell'utente corrente.
-        prestito = new Prestito("978-88-000-0000-1", MATRICOLA_VALIDA);
+        // Uso un ISBN e la matricola dell'utente corrente.
+        prestito = new Prestito(ISBN_VALIDO, MATRICOLA_VALIDA);
     }
     
     /**
@@ -185,7 +186,7 @@ public class UtenteTest {
         utente.addPrestito(prestito);
         
         // 2. Creo un secondo prestito "B" (oggetto diverso) che NON aggiungo alla lista
-        Prestito prestitoSconosciuto = new Prestito("ISBN-SCONOSCIUTO", MATRICOLA_VALIDA);
+        Prestito prestitoSconosciuto = new Prestito("1111111111111", MATRICOLA_VALIDA);
 
         // 3. Azione: Provo a rimuovere "B" -> Deve lanciare PrestitoNonTrovatoException
         PrestitoNonTrovatoException exception = assertThrows(PrestitoNonTrovatoException.class, () -> {
