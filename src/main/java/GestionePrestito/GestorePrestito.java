@@ -116,10 +116,11 @@ public class GestorePrestito {
     }
     
     /**
-     * @brief Quando un prestito termina (viene eliminato dall'elenco prestiti) la copia del libro relativo viene aumentata
+     * @brief Quando un prestito termina (viene eliminato dall'elenco prestiti) la copia del libro relativo viene aumentata ed il numero di prestiti attivi diminuito.
      *
      * @pre ISBN != null && !ISBN.isEmpty()
      * @post Il numero delle copie del libro è aumentato di 1.
+     * @post Il numero dei prestiti attivi del libro è diminuito di 1.
      * @post Il catalogo dei libri aggiornato viene salvato sul file binario.
      * 
      * @param[in] ISBN Il codice del libro restituito.
@@ -158,10 +159,11 @@ public class GestorePrestito {
     }
     
     /**
-     * @brief Quando un prestito inizia (viene aggiunto all'elenco prestiti) la copia del libro relativo viene diminuita
+     * @brief Quando un prestito inizia (viene aggiunto all'elenco prestiti) la copia del libro relativo viene diminuita ed il numero di prestiti attivi aumentato.
      *
      * @pre ISBN != null && !ISBN.isEmpty()
      * @post Il numero delle copie del libro è diminuito di 1.
+     * @post Il numero dei prestiti attivi del libro è aumentato di 1.
      * @post Il catalogo dei libri aggiornato viene salvato sul file binario.
      * 
      * @param[in] ISBN Il codice del libro iniziato.

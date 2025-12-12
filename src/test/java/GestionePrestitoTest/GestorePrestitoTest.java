@@ -111,6 +111,7 @@ public class GestorePrestitoTest {
         
         // Inizialmente erano 5, ora dovrebbero essere 4
         assertEquals(4, l.getNumeroCopie());
+        assertEquals(1, l.getNPrestitiAttivi());
     }
 
     @Test
@@ -124,6 +125,7 @@ public class GestorePrestitoTest {
         Libro l = catAggiornato.getLibroByISBN(ISBN_ESAURITO);
         
         assertEquals(2, l.getNumeroCopie());
+        assertEquals(-1, l.getNPrestitiAttivi());
     }
 
     @Test
