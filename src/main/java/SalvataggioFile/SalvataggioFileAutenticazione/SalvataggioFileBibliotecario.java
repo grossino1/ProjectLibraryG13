@@ -61,12 +61,14 @@ public class SalvataggioFileBibliotecario {
      *
      * @param[in] dati: L'oggetto Bibliotecario da serializzare.
      */
-    public static void salva(Bibliotecario dati) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
-            oos.writeObject(dati);
-            System.out.println("Credenziali salvate correttamente in " + FILE_PATH);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static void salva(Bibliotecario dati) throws IOException {
+    if (dati == null) {
+        throw new IOException("Non puoi salvare un oggetto null!");
     }
+    try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
+        oos.writeObject(dati);
+        System.out.println("Credenziali salvate correttamente in " + FILE_PATH);
+    }
+}
+
 }
