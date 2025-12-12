@@ -73,6 +73,7 @@ public class ListaUtentiTest {
     }
     
     // TEST GetUtenteByMatricola
+    
     @Test
     @DisplayName("Get Utente con matricola Null")
     void testGetUtenteByMatricolaNull() {
@@ -80,6 +81,7 @@ public class ListaUtentiTest {
             listaUtenti.getUtenteByMatricola(null);
         });
     }
+    
     // TEST REGISTRAZIONE 
     
     @Test
