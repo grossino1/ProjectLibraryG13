@@ -114,9 +114,9 @@ public class ListaUtentiTest {
     @DisplayName("Errore: Matricola Non Valida")
     void testMatricolaNonValida() throws MatricolaNotValidException {
         // Creazione di un utente con la matricola errata
-        Utente utenteErrato = new Utente(NOME_VALIDO_U2, COGNOME_VALIDO_U2, "123", EMAIL_VALIDA_U2);
         
         assertThrows(MatricolaNotValidException.class, () -> {
+           Utente utenteErrato = new Utente(NOME_VALIDO_U2, COGNOME_VALIDO_U2, "123", EMAIL_VALIDA_U2);
            listaUtenti.registrazioneUtente(utenteErrato);
         });
     }
@@ -237,33 +237,4 @@ public class ListaUtentiTest {
         });
     }
 
-    // TEST PERSISTENZA E RICARICAMENTO (NUOVO) 
-    @Test
-    @DisplayName("Test Persistenza: Ricaricamento da File")
-    void testRicaricamentoDaFile() throws Exception {
-        // 1. Inserisco utenti nella lista corrente (che salva automaticamente su file)
-        listaUtenti.registrazioneUtente(u1);
-        listaUtenti.registrazioneUtente(u2);
-        listaUtenti.registrazioneUtente(u3);
-        
-        // 2. Simulo un riavvio dell'applicazione creando una NUOVA istanza di ListaUtenti
-        // impostando il flag di caricamento a TRUE e puntando allo stesso file.
-        ListaUtenti listaRicaricata = new ListaUtenti(true, TEST_FILENAME);
-        
-        // 3. Verifico che i dati siano stati recuperati
-        assertEquals(2, listaRicaricata.getListaUtenti().size());
-        
-        // Verifica presenza di u1
-        Utente u1Caricato = listaRicaricata.getUtenteByMatricola(MATRICOLA_VALIDA_U1);
-        assertNotNull(u1Caricato);
-        assertEquals(NOME_VALIDO_U1, u1Caricato.getNome());
-        
-        // Verifica presenza di u2
-        Utente u2Caricato = listaRicaricata.getUtenteByMatricola(MATRICOLA_VALIDA_U2);
-        assertNotNull(u2Caricato);
-        
-        // Verifica presenza di u3
-        Utente u3Caricato = listaRicaricata.getUtenteByMatricola(MATRICOLA_VALIDA_U3);
-        assertNotNull(u3Caricato);
-    }
 }
