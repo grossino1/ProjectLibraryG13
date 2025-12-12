@@ -160,10 +160,25 @@ public class ListaUtentiTest {
         });
     }
     
+    @Test
+    @DisplayName("Ricerca Fallita: Deve lanciare UtenteNotFoundException")
+    void testCercaUtenteNonTrovato() throws Exception{
+        // Aggiungo un utente per non avere la lista vuota a priori
+        listaUtenti.registrazioneUtente(u1); // Rossi
+
+        // Cerco una stringa che sicuramente non c'è (es. "Verdi")
+        UtenteNotFoundException eccezione = assertThrows(UtenteNotFoundException.class, () -> {
+            listaUtenti.cercaUtente("Verdi");
+        });
+
+        // Verifico che il messaggio dell'errore sia quello giusto
+        assertEquals("Errore: Utente non trovato all'interno della lista!", eccezione.getMessage());
+    }
+    
     // TEST RIMOZIONE 
     @Test
     @DisplayName("Eliminazione Utente")
-    void testEliminazioneUtente() throws Exception {
+    void testEliminazioneUtenteValida() throws Exception {
         // Creazione di un utente
         listaUtenti.registrazioneUtente(u1);
         assertEquals(1, listaUtenti.getListaUtenti().size());

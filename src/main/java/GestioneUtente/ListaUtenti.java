@@ -12,6 +12,11 @@ import SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente;
 import java.io.IOException;
 import java.io.Serializable;
 /**
+ *
+ * @author chiara
+ */
+
+/**
  * @class ListaUtenti
  * @brief Gestisce l'insieme di tutti gli utenti registrati.
  *
@@ -22,7 +27,7 @@ import java.io.Serializable;
  * @invariant listaUtenti != null (La struttura dati interna è sempre inizializzata).
  * @invariant listaUtenti non contiene valori null.
  *
- * @author grossino
+ * @author chiara
  * @version 1.0
  */
 public class ListaUtenti implements Serializable{
@@ -208,8 +213,9 @@ public class ListaUtenti implements Serializable{
      * @param[in] u: La stringa di ricerca (es. "Rossi").
      * @return ArrayList<Utente> contenente gli utenti che corrispondono ai criteri.
      * @throws IllegalArgumentException: Se l'utente inserito come parametro è nullo.
+     * @throws UtenteNotFoundException: Se l'utente cercato non esiste nella lista.
      */
-    public ArrayList<Utente> cercaUtente(String u) {
+    public ArrayList<Utente> cercaUtente(String u) throws UtenteNotFoundException{
     // Controllo non necessario (lo deve fare il client)
     // Inserito per motivi di sicurezza del programma
     if (u == null) {
@@ -233,10 +239,13 @@ public class ListaUtenti implements Serializable{
             listaRicerca.add(utente);
         }            
     }
-    
+    if(listaRicerca.isEmpty()){
+        throw new UtenteNotFoundException("Errore: Utente non trovato all'interno della lista!");
+    }
     // Viene ritornato l'ArrayList contenente tutti gli utenti che rispettano i requisiti.
     return listaRicerca;
-}
+    }
+    
     /**
      * @brief Restituisce l'elenco completo degli utenti.
      * 

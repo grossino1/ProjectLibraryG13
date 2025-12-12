@@ -14,6 +14,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+/**
+ *
+ * @author chiara
+ */
 
 /**
  * @class SalvataggioFileUtente
@@ -26,7 +30,7 @@ import java.io.ObjectOutputStream;
  * @see java.io.ObjectOutputStream
  * @see java.io.ObjectInputStream
  *
- * @author grossino1
+ * @author chiara
  * @version 1.0
  */
 
@@ -53,9 +57,16 @@ public class SalvataggioFileUtente {
         if(filename == null)
             throw new IOException("Percorso non specificato!");
         
+        // APERTURA STREAM (Try-with-resources):
+        // - FileOutputStream: Apre il file in scrittura.
+        // - BufferedOutputStream: Migliora le performance riducendo gli accessi al disco.
+        // - ObjectOutputStream: Traduce l'oggetto Java in byte (Serializzazione).
+        // La sintassi 'try(...)' assicura la chiusura automatica del file alla fine.
         try(ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filename)))){
+            // SCRITTURA: Scrive fisicamente l'oggetto nel file.
             out.writeObject(dati);
         }catch(IOException ex){
+            // GESTIONE ERRORI
             throw new IOException(ex.getMessage());
         }
     }
@@ -72,7 +83,8 @@ public class SalvataggioFileUtente {
      * @return L'istanza di ListaUtenti recuperata, oppure null in caso di errore.
      */
     public static ListaUtenti carica(String filename)  throws IOException, ClassNotFoundException{
-
+        // Controllo non necessario (lo deve fare il client)
+        // Inserito per motivi di sicurezza del programma
         if(filename == null)
             throw new IOException("Percorso non specificato!");
         
@@ -80,7 +92,12 @@ public class SalvataggioFileUtente {
         if (!file.exists())
             throw new IOException("File non trovato!");
         
+        // APERTURA STREAM (Try-with-resources)
+        // - FileInputStream: Apre il file in lettura.
+        // - BufferedInputStream: Ottimizza la lettura usando un buffer in memoria.
+        // - ObjectInputStream: Ricostruisce l'oggetto Java dai byte letti.
         try(ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))){
+            // DESERIALIZZAZIONE E CASTING
             ListaUtenti datiLetti = (ListaUtenti) in.readObject();
             return datiLetti;
         }catch(IOException ex){

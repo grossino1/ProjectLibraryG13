@@ -209,7 +209,7 @@ public class UtenteTest {
     }
 
     @Test
-    @DisplayName("Workflow: Rimuovi sblocca l'aggiunta (Reset Limite)")
+    @DisplayName("Rimuovo un prestito per sbloccare l'aggiunta (Reset Limite)")
     void testRimuoviPerSbloccareAdd() throws PrestitiEsauritiException, PrestitoNonTrovatoException {
         // 1. Riempiamo fino al limite (3)
         utente.addPrestito(prestito);
