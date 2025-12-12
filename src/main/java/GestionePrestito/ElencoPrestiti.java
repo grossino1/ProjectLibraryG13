@@ -194,12 +194,7 @@ public class ElencoPrestiti implements Serializable{
      * @throws IOException Se il salvataggio sul file fallisce
      */ 
     public void modificaPrestito(Prestito p, LocalDate dataNuova) throws dataRestituzioneException, IOException {
-             
-        try {
-            p.setDataRestituzione(dataNuova);
-        } catch(dataRestituzioneException e) {
-            throw e;
-        }        
+        p.setDataRestituzione(dataNuova);    
         SalvataggioFilePrestito.salva(this, filename);
     }
 

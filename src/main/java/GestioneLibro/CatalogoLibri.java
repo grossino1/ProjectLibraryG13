@@ -8,6 +8,7 @@ import Eccezioni.EccezioniLibri.ISBNNotValidException;
 import Eccezioni.EccezioniLibri.LibroPresenteException;
 import Eccezioni.EccezioniLibri.LibroNotFoundException;
 import Eccezioni.EccezioniLibri.CatalogoPienoException;
+import Eccezioni.EccezioniLibri.LibroWithPrestitoException;
 import SalvataggioFile.SalvataggioFileLibro.SalvataggioFileLibro;
 import java.io.IOException;
 import java.io.Serializable;
@@ -122,12 +123,17 @@ public class CatalogoLibri implements Serializable{
      * @throws LibroNotFoundException il libro non è presente nel catalogo
      * @throws IOException se il salvataggio fallisce
      */
-    public void eliminazioneLibro(Libro l) throws LibroNotFoundException, IOException{
+    public void eliminazioneLibro(Libro l) throws LibroNotFoundException, IOException, LibroWithPrestitoException{
         if (l==null)
             throw new LibroNotFoundException("Il libro non può essere nullo");
         if (!catalogoLibri.contains(l))
             throw new LibroNotFoundException("Il libro non è presente nel catalogo");
-        catalogoLibri.remove(l); 
+        
+        if(l.getNPrestitiAttivi() == 0)
+            catalogoLibri.remove(l);
+        else
+            throw new LibroWithPrestitoException("L'utente ha un prestito attivo!\nEliminare prima il prestito!");
+
         SalvataggioFileLibro.salva(this, filename);
     }
 

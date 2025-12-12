@@ -132,6 +132,7 @@ public class GestorePrestito {
         // Controllo Libro Null
         if (libro != null) {
             libro.incrementaCopiaLibro();
+            libro.decrementaNPrestitiAttivi();
             SalvataggioFileLibro.salva(catalogo, filenameLibri);
         }
     }
@@ -172,6 +173,7 @@ public class GestorePrestito {
         // Controllo Libro Null
         if (libro != null) {
             libro.decrementaCopiaLibro();
+            libro.incrementaNPrestitiAttivi();
             SalvataggioFileLibro.salva(catalogo, filenameLibri);
         }
     }

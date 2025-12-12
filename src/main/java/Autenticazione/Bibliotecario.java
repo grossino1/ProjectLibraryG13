@@ -27,7 +27,7 @@ import java.io.Serializable;
  */
 
 public class Bibliotecario implements Serializable {
-    
+    private static final long serialVersionUID = 1L;
     private final String username;
     private final String password;
     

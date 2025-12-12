@@ -97,7 +97,7 @@ public class LoginViewController implements Initializable {
         String username = usernameField.getText();
         String password = passwordField.getText();
         
-        Bibliotecario admin = Bibliotecario.caricaDaFile();
+        Bibliotecario admin = SalvataggioFile.SalvataggioFileAutenticazione.SalvataggioFileBibliotecario.carica();
         
         // 2. Verifica Credenziali (Simulazione connessione al Model)
         // boolean accessoConsentito = autenticazioneService.login(username, password);

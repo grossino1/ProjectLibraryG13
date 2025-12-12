@@ -26,7 +26,7 @@ import java.time.temporal.ChronoUnit;
 public class Prestito implements Comparable<Prestito>, Serializable {
 
     private static final long serialVersionUID = 1L;
-    private final LocalDateTime dataRegistrazionePrestito;
+    private final LocalDateTime dataRegistrazione;
     private final String ISBNLibro;
     private final String matricolaUtente;
     private LocalDate dataRestituzione;
@@ -52,7 +52,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
         
         this.ISBNLibro = ISBNLibro;
         this.matricolaUtente = matricolaUtente;
-        this.dataRegistrazionePrestito = LocalDateTime.now();
+        this.dataRegistrazione = LocalDateTime.now();
         this.dataRestituzione = LocalDate.now().plusDays(30); // oggi + 30 giorni
     }
        
@@ -63,9 +63,9 @@ public class Prestito implements Comparable<Prestito>, Serializable {
      *
      * @return La data di aggiunta identificativa del prestito.
      */
-    public LocalDateTime getDataRegistrazionePrestito() {
+    public LocalDateTime getDataRegistrazione() {
      
-        return dataRegistrazionePrestito;
+        return dataRegistrazione;
     }
 
     /**
@@ -205,7 +205,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        sb.append("Data di Registarzione: "+ getDataRegistrazionePrestito());
+        sb.append("Data di Registarzione: "+ getDataRegistrazione());
         sb.append("\n");
         sb.append("ISBN: "+ getISBNLibro());
         sb.append("\n");

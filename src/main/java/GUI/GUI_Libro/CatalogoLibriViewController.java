@@ -4,13 +4,16 @@ import Eccezioni.EccezioniLibri.CatalogoPienoException;
 import Eccezioni.EccezioniLibri.ISBNNotValidException;
 import Eccezioni.EccezioniLibri.LibroNotFoundException;
 import Eccezioni.EccezioniLibri.LibroPresenteException;
+import Eccezioni.EccezioniLibri.LibroWithPrestitoException;
 import Eccezioni.EccezioniPrestiti.CopieEsauriteException;
+import GUI.GUI_Prestito.GestionePrestitiViewController;
 import GestioneLibro.CatalogoLibri;
 import GestioneLibro.Libro;
 import SalvataggioFile.SalvataggioFileLibro.SalvataggioFileLibro;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.attribute.FileAttribute;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -323,8 +326,9 @@ public class CatalogoLibriViewController implements Initializable {
                     showAlert(Alert.AlertType.ERROR, "Errore generico4", ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
                 } catch (ClassNotFoundException ex) {
                     showAlert(Alert.AlertType.ERROR, "Errore generico5", ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
+                    showAlert(Alert.AlertType.ERROR, "Errore generico5", ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
                 } catch (CatalogoPienoException ex) {
-                    Logger.getLogger(CatalogoLibriViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    showAlert(Alert.AlertType.ERROR, "Errore generico5", ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
                 }
             });
             
@@ -415,7 +419,7 @@ public class CatalogoLibriViewController implements Initializable {
             try{selected.decrementaCopiaLibro();
                 catalogoLibri.modificaLibro(selected, selected.getTitolo(), selected.getAutori(),selected.getAnnoPubblicazione(), selected.getNumeroCopie());
             }catch(CopieEsauriteException ex){
-                showAlert(Alert.AlertType.ERROR, "Errore", ex.getMessage());
+                showAlert(Alert.AlertType.ERROR, "Errore generico5", ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
             }
         }   
         refreshTable();
@@ -437,7 +441,7 @@ public class CatalogoLibriViewController implements Initializable {
      * non corrisponde alla versione della classe locale.
      */
     @FXML
-    void handleDeleteLibro(ActionEvent event) throws IOException, ClassNotFoundException{
+    void handleDeleteLibro(ActionEvent event) throws IOException, ClassNotFoundException, LibroWithPrestitoException{
         Libro selected = tabellaLibri.getSelectionModel().getSelectedItem();
         
         try{
@@ -445,6 +449,8 @@ public class CatalogoLibriViewController implements Initializable {
             refreshTable();
         }catch(LibroNotFoundException ex){
             showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage());
+        }catch (LibroWithPrestitoException ex){
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
         }
     }
     
@@ -619,6 +625,21 @@ public class CatalogoLibriViewController implements Initializable {
         // Recupera il testo dal TextField (assicurati che il TextField si chiami handleCercaLibro)
         String filtro = handleCercaLibro.getText(); 
 
+        if (filtro == null || filtro.trim().isEmpty()) {
+        // Qui devi ricaricare TUTTI i libri (es. dal tuo elenco completo)
+            libroList.setAll(catalogoLibri.getCatalogoLibri()); 
+        return;
+        }
+        
+        try{
+            ArrayList<Libro> risultati = catalogoLibri.cercaLibro(filtro);
+            libroList.setAll(risultati);
+        }catch (LibroNotFoundException e) {
+        // 3. Se il metodo lancia l'eccezione, significa che non ha trovato nulla.
+        // Svuotiamo la tabella per mostrare che non ci sono risultati.
+            libroList.clear();
+        }
+        /*
         filteredData.setPredicate(libro -> {
             // 1. Se il campo è vuoto, mostra tutto
             if (filtro == null || filtro.isEmpty()) {
@@ -633,7 +654,7 @@ public class CatalogoLibriViewController implements Initializable {
 
             // 3. Verifichiamo se il filtro è contenuto nel Titolo
             return titolo.contains(lowerCaseFilter);
-        });
+        });*/
 
         System.out.println("Ricerca libro effettuata per: " + filtro);
     }

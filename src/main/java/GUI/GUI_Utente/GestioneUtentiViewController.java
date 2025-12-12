@@ -4,6 +4,7 @@ import Eccezioni.EccezioniUtenti.ListaUtentiPienaException;
 import Eccezioni.EccezioniUtenti.MatricolaNotValidException;
 import Eccezioni.EccezioniUtenti.UtenteNotFoundException;
 import Eccezioni.EccezioniUtenti.UtentePresenteException;
+import Eccezioni.EccezioniUtenti.UtenteWithPrestitoException;
 import GestioneUtente.ListaUtenti;
 import GestioneUtente.Utente;
 import SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente;
@@ -414,14 +415,16 @@ public class GestioneUtentiViewController implements Initializable {
      * non corrisponde alla versione della classe locale.
      */    
     @FXML
-    void handleDeleteUtente(ActionEvent event) throws IOException, ClassNotFoundException, UtenteNotFoundException{
+    void handleDeleteUtente(ActionEvent event) throws IOException, ClassNotFoundException, UtenteNotFoundException, UtenteWithPrestitoException{
         Utente selected = tabellaUtenti.getSelectionModel().getSelectedItem();
         
         try{
             listaUtenti.eliminazioneUtente(selected);
             refreshTable();
         }catch(UtenteNotFoundException ex){
-            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
+        }catch(UtenteWithPrestitoException ex){
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
         }
     }
     

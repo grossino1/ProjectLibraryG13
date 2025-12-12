@@ -28,6 +28,7 @@ public class Libro implements Comparable<Libro>, Serializable {
     private int annoPubblicazione;
     private final String isbn;
     private int numeroCopie;
+    private int nPrestitiAttivi;
 
     /**
      * @brief Costruttore della classe Libro.
@@ -52,6 +53,7 @@ public class Libro implements Comparable<Libro>, Serializable {
         this.annoPubblicazione = annoPubblicazione;
         this.isbn = isbn;
         this.numeroCopie = numeroCopie;
+        this.nPrestitiAttivi = 0;
     }
 
     // Getter e Setter
@@ -112,6 +114,9 @@ public class Libro implements Comparable<Libro>, Serializable {
      */
     public int getNumeroCopie() { return numeroCopie; }
     
+    public int getNPrestitiAttivi() {
+        return nPrestitiAttivi;
+    }
     /**
      * @brief Imposta manualmente il numero di copie.
      * 
@@ -146,6 +151,23 @@ public class Libro implements Comparable<Libro>, Serializable {
         if (numeroCopie<=1)
             throw new CopieEsauriteException ("Non sono ammessi decrementi per questo libro");
         numeroCopie--;
+    }
+    
+    /**
+     * @brief Incrementa di una unità il numero di copie.
+     * 
+     * @post numeroCopie == old_numeroCopie + 1
+     */
+    public void incrementaNPrestitiAttivi(){
+        nPrestitiAttivi++;
+    }
+    /**
+     * @brief Incrementa di una unità il numero di copie.
+     * 
+     * @post numeroCopie == old_numeroCopie + 1
+     */
+    public void decrementaNPrestitiAttivi(){
+        nPrestitiAttivi--;
     }
     
     /**

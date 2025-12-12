@@ -1,5 +1,10 @@
 package GUI.GUI_Prestito;
 
+import Eccezioni.EccezioniLibri.LibroNotFoundException;
+import Eccezioni.EccezioniPrestiti.EccezioniPrestito;
+import Eccezioni.EccezioniPrestiti.PrestitoNonTrovatoException;
+import Eccezioni.EccezioniPrestiti.dataRestituzioneException;
+import Eccezioni.EccezioniUtenti.UtenteNotFoundException;
 import GestionePrestito.ElencoPrestiti;
 import GestionePrestito.GestorePrestito;
 import GestionePrestito.Prestito;
@@ -7,11 +12,14 @@ import SalvataggioFile.SalvataggioFilePrestito.SalvataggioFilePrestito;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +29,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -54,8 +64,8 @@ public class GestionePrestitiViewController implements Initializable {
     private Button handleSortReturnData;
     @FXML
     private Button handleSortMostRecent;
-    @FXML
-    private Button handleSortLatestRecent;
+    //@FXML
+    //private Button handleSortLatestRecent;
     
     @FXML
     private TextField handleCercaPrestito;
@@ -70,19 +80,22 @@ public class GestionePrestitiViewController implements Initializable {
     
     // Colonne della tabella
     @FXML
-    private TableColumn<Prestito, String> colIdPrestito;
-    @FXML
     private TableColumn<Prestito, String> colLibro;
     @FXML
     private TableColumn<Prestito, String> colUtente;
     @FXML
-    private TableColumn<Prestito, LocalDate> colDataScadenza;
+    private TableColumn<Prestito, String> colDataRegistrazione;
     @FXML
-    //private TableColumn<?, ?> colStato;
+    private TableColumn<Prestito, LocalDate> colDataScadenza;
     
     private ObservableList<Prestito> prestitoList;
     private ElencoPrestiti elencoPrestiti;
     private GestorePrestito gestorePrestito;
+    private FilteredList<Prestito> filteredData;
+    
+    private String fileNamePrestiti ="elencoPrestiti.bin";
+    private String fileNameLibri = "catalogoLibri.bin";
+    private String fileNameUtenti = "listaUtenti.bin";
 
     /**
      * @brief Inizializza il controller.
@@ -95,10 +108,8 @@ public class GestionePrestitiViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        prestitoList = FXCollections.observableArrayList();
-        tabellaPrestiti.setItems(prestitoList);
         try {
-            gestorePrestito = new GestorePrestito("catalogoLibri.bin", "listaUtenti.bin");
+            gestorePrestito = new GestorePrestito(fileNameLibri, fileNameUtenti);
         } catch (IOException ex) {
             showAlert(Alert.AlertType.ERROR, "Errore Critico!", ex.getMessage());
             System.exit(0);
@@ -107,26 +118,30 @@ public class GestionePrestitiViewController implements Initializable {
             System.exit(0);
         }
         try {
-            elencoPrestiti= new ElencoPrestiti(true, "elencoPrestiti.bin", gestorePrestito);
+            elencoPrestiti= new ElencoPrestiti(true, fileNamePrestiti, gestorePrestito);
         } catch (IOException ex) {
             showAlert(Alert.AlertType.ERROR, "Errore Critico!", ex.getMessage());
-            System.exit(0);
         } catch (ClassNotFoundException ex) {
             showAlert(Alert.AlertType.ERROR, "Errore Critico!", ex.getMessage());
-            System.exit(0);
         }
         
-        colIdPrestito.setCellValueFactory(new PropertyValueFactory<>("IDPrestito"));
+        prestitoList = FXCollections.observableArrayList(elencoPrestiti.getElencoPrestiti());
+        filteredData = new FilteredList<>(prestitoList, p -> true);
+        tabellaPrestiti.setItems(prestitoList);
+        SortedList<Prestito> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tabellaPrestiti.comparatorProperty());
+        
         colLibro.setCellValueFactory(new PropertyValueFactory<>("ISBNLibro"));
         colUtente.setCellValueFactory(new PropertyValueFactory<>("matricolaUtente"));
+        colDataRegistrazione.setCellValueFactory(new PropertyValueFactory<>("dataRegistrazione"));
         colDataScadenza.setCellValueFactory(new PropertyValueFactory<>("dataRestituzione"));
         //colStato.setCellValueFactory(new PropertyValueFactory<>(""));
         
         //no sorting 
-        colIdPrestito.setSortable(false);
         colLibro.setSortable(false);
         colUtente.setSortable(false);
         colDataScadenza.setSortable(false);
+        colDataRegistrazione.setSortable(false);
     
     }
     
@@ -144,7 +159,7 @@ public class GestionePrestitiViewController implements Initializable {
         //permette di cambiare scena in base al pulsante cliccato e al path fornito in fxmlPath
         //si potrebbe effettuare un salvataggio dei dati prima del passaggio
         //scheletro
-        SalvataggioFilePrestito.salva(elencoPrestiti, "elencoPrestiti.bin");
+        SalvataggioFilePrestito.salva(elencoPrestiti, fileNamePrestiti);
 
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -153,9 +168,35 @@ public class GestionePrestitiViewController implements Initializable {
             Scene stageAttuale = ((Node) event.getSource()).getScene();       
             stageAttuale.setRoot(root);
         }catch(IOException e){
-            e.printStackTrace();
             showAlert(Alert.AlertType.ERROR,"Errore Critico!","Errore nel caricamento della Scena: " + e.getMessage());
         }
+    }
+    
+    /**
+     * @brief Aggiorna la tabella dei prestiti sincronizzandola con l'elenco.
+     *
+     * Questo metodo svuota la lista visualizzata nella TableView e la ripopola
+     * recuperando tutti i prestiti presenti nell'elenco. Serve per riflettere
+     * visivamente eventuali modifiche (come nuove aggiunte o rimozioni).
+     * Inoltre, questo metodo salva le operazioni effettuate e ricarica l'elenco e di conseguenza la tabella
+     *
+     * @post La lista visibile (prestitiList) contiene esattamente gli elementi attuali di elencoPrestiti.
+     * 
+     * @throws IOException se il path passato è errato.
+     * @throws ClassNotFoundExcepiton se durante la deserializzazione la classe dell'elenco salvato 
+     * non corrisponde alla versione della classe locale.
+     */    
+    @FXML
+    void refreshTable() throws IOException, ClassNotFoundException{
+        prestitoList.clear(); // 1. Cancella i dati vecchi dalla vista
+        //catalogoLibri = SalvataggioFileLibro.carica(filename);
+        prestitoList.addAll(elencoPrestiti.getElencoPrestiti());
+        colDataScadenza.setSortable(true);
+        colDataScadenza.setSortType(TableColumn.SortType.ASCENDING);
+        tabellaPrestiti.getSortOrder().clear();
+        tabellaPrestiti.getSortOrder().add(colDataScadenza);
+        tabellaPrestiti.sort();
+        colDataScadenza.setSortable(false);
     }
     
     /**
@@ -210,6 +251,74 @@ public class GestionePrestitiViewController implements Initializable {
         //chiama un metodo che permette di aggiungere un prestito nella
         //lista dei prestiti e aggiorna la vista del catalogo
         //scheletro
+        try{
+            
+            //inizio della parte di codice per il caricamento della finestra per l'aggiunta di un nuovo libro
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/GUI_Prestiti/PrestitoView.fxml"));
+            Parent child = loader.load();
+            
+            //modifica della label di titolo e desc 
+            Label lblTitolo = (Label) child.lookup("#lblTitolo");
+            if (lblTitolo.getText() != null)
+                lblTitolo.setText("Nuovo Prestito");
+            
+            Label lblDesc = (Label) child.lookup("#lblDesc");
+            if (lblDesc.getText() != null)
+                lblDesc.setText("Inserisci i dettagli del prestito da aggiungere all'elenco.");
+            Label lblData= (Label) child.lookup("#lblData");
+            lblData.setVisible(false);
+            TextField txtData= (TextField) child.lookup("#txtData");
+            txtData.setVisible(false);
+            
+            Stage aggiungiPrestitoStage = new Stage();
+            aggiungiPrestitoStage.setTitle("Aggiungi Nuovo Prestito");
+            Scene sceneLibri = new Scene(child);
+            aggiungiPrestitoStage.setScene(sceneLibri);
+            aggiungiPrestitoStage.show();
+            //fine 
+            
+            Button btnSalva = (Button) child.lookup("#btnSalva");
+            Button btnAnnulla = (Button) child.lookup("#btnAnnulla");
+            
+            //lambda expression per la registrazione del libro
+            btnSalva.setOnAction(e -> {
+                try {
+                    // Leggiamo i dati dai campi che abbiamo appena trovato
+                    TextField isbn = (TextField) child.lookup("#txtISBN");
+                    TextField matricola = (TextField) child.lookup("#txtMatricola");
+                    
+            
+                    System.out.println("DEBUG DATI LETTI:");
+                    System.out.println("ISBN letto: '" + isbn.getText() + "'");
+                    System.out.println("Titolo letto: '" + matricola.getText() + "'");
+                    
+                    elencoPrestiti.registrazionePrestito(isbn.getText(), matricola.getText());
+                    System.out.println(elencoPrestiti.toString());
+                    refreshTable();
+                    aggiungiPrestitoStage.close();
+                } catch (LibroNotFoundException ex) {
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+                } catch (UtenteNotFoundException ex) {
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+                } catch (EccezioniPrestito ex) {
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+                } catch (IOException ex) {
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+                } catch (ClassNotFoundException ex) {
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+                }
+            });
+            
+            btnAnnulla.setOnAction(e -> { 
+                try {
+                    aggiungiPrestitoStage.close();
+                } catch (Exception ex) {
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
+                }
+            }); 
+        }catch(IOException e){
+            showAlert(Alert.AlertType.ERROR, "Errore generico", e.getMessage()); //gestione delle eccezioni
+        }   
     }
     
     /**
@@ -224,6 +333,84 @@ public class GestionePrestitiViewController implements Initializable {
     void handleModifyPrestito(ActionEvent event){
         //permette di modificare il prestito selezionato tramite handleSelectedLibro
         //scheletro
+        Prestito selected = tabellaPrestiti.getSelectionModel().getSelectedItem();
+        
+        if(selected != null){
+            try{
+                //inizio della parte di codice per il caricamento della finestra per l'aggiunta di un nuovo libro
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/GUI_Prestiti/PrestitoView.fxml"));
+                Parent child = loader.load();
+
+                //modifica della label di titolo e desc 
+                Label lblTitolo = (Label) child.lookup("#lblTitolo");
+                if (lblTitolo.getText() != null)
+                    lblTitolo.setText("Modifica Prestito");
+
+                Label lblDesc = (Label) child.lookup("#lblDesc");
+                if (lblDesc.getText() != null)
+                    lblDesc.setText("Inserisci i dettagli del prestito da modificare all'elenco.");
+                
+                Label lblData= (Label) child.lookup("#lblData");
+                lblData.setVisible(true);
+                TextField dataRestituzione = (TextField) child.lookup("#txtData");
+                dataRestituzione.setVisible(true);
+                dataRestituzione.setText(String.valueOf(selected.getDataRestituzione()));
+
+                Stage aggiungiPrestitoStage = new Stage();
+                aggiungiPrestitoStage.setTitle("Modifica Prestito");
+                Scene sceneLibri = new Scene(child);
+                aggiungiPrestitoStage.setScene(sceneLibri);
+                aggiungiPrestitoStage.show();
+                javafx.application.Platform.runLater(() -> {
+                child.requestFocus(); 
+            });
+                //fine 
+                
+                TextField isbn = (TextField) child.lookup("#txtISBN");
+                isbn.setText(selected.getISBNLibro());
+                TextField matricola = (TextField) child.lookup("#txtMatricola");
+                matricola.setText(selected.getMatricolaUtente());
+                isbn.setDisable(true);
+                matricola.setDisable(true);
+                Button btnSalva = (Button) child.lookup("#btnSalva");
+                Button btnAnnulla = (Button) child.lookup("#btnAnnulla");
+
+                //lambda expression per la registrazione del libro
+                btnSalva.setOnAction(e -> {
+                    try {
+                        // Leggiamo i dati dai campi che abbiamo appena trovato
+                        System.out.println("DEBUG DATI LETTI:");
+                        System.out.println("ISBN letto: '" + isbn.getText() + "'");
+                        System.out.println("Titolo letto: '" + matricola.getText() + "'");
+                        System.out.println("Data letto: '" + dataRestituzione.getText() + "'");
+
+                        elencoPrestiti.modificaPrestito(selected, LocalDate.parse(dataRestituzione.getText()));
+                        System.out.println(elencoPrestiti.toString());
+                        refreshTable();
+                        aggiungiPrestitoStage.close();
+                    } catch (EccezioniPrestito ex) {
+                        showAlert(Alert.AlertType.ERROR, "Errore generico1", ex.getClass().getName() + " " + ex.getMessage());
+                    } catch (IOException ex) {
+                        showAlert(Alert.AlertType.ERROR, "Errore generico2", ex.getClass().getName() + " " + ex.getMessage());
+                    } catch (ClassNotFoundException ex) {
+                        showAlert(Alert.AlertType.ERROR, "Errore generico3", ex.getClass().getName() + " " + ex.getMessage());
+                    }
+                });
+
+                btnAnnulla.setOnAction(e -> { 
+                    try {
+                        aggiungiPrestitoStage.close();
+                    } catch (Exception ex) {
+                        showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
+                    }
+                }); 
+            }catch(IOException e){
+                showAlert(Alert.AlertType.ERROR, "Errore generico", e.getMessage()); //gestione delle eccezioni
+            }
+        }else{
+            showAlert(Alert.AlertType.ERROR, "Errore generico", "Prestito non selezionato!");
+        }
+           
     }
     
     /**
@@ -236,9 +423,16 @@ public class GestionePrestitiViewController implements Initializable {
      * @param[in] event L'evento di click.
      */
     @FXML
-    void handleRemovePrestito(ActionEvent event){
+    void handleRemovePrestito(ActionEvent event) throws IOException, ClassNotFoundException{
         //permette di rimuovere il prestito selezionato tramite handleSelectedLibro
         //scheletro
+        Prestito selected = tabellaPrestiti.getSelectionModel().getSelectedItem();  
+        try{   
+        elencoPrestiti.eliminazionePrestito(selected);
+        refreshTable();
+        }catch(PrestitoNonTrovatoException ex){
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+        }
     }
     
     /**
@@ -255,6 +449,21 @@ public class GestionePrestitiViewController implements Initializable {
         
         // CIAO SONO GIACOMO, IL TREESET DEL PRESTITO DI BASE NON ORDINA PER DATA DI RESTITUZIONE 
         // PERCHE SENNO MI SFANCULAVA I DUPLICATI. TE LO DEVI IMPLEMEMTARE DA TE.
+        colDataScadenza.setSortable(true);
+        // 1. Controlla se stiamo già ordinando per questa colonna
+            // Se sì, inverti l'ordine (da ASC a DESC o viceversa)
+            if (colDataScadenza.getSortType() == TableColumn.SortType.ASCENDING) {
+                colDataScadenza.setSortType(TableColumn.SortType.DESCENDING);
+                tabellaPrestiti.getSortOrder().clear();
+                tabellaPrestiti.getSortOrder().add(colDataScadenza);
+                tabellaPrestiti.sort();
+            }else if (colDataScadenza.getSortType() == TableColumn.SortType.DESCENDING){
+                colDataScadenza.setSortType(TableColumn.SortType.ASCENDING);
+                tabellaPrestiti.getSortOrder().clear();
+                tabellaPrestiti.getSortOrder().add(colDataScadenza);
+                tabellaPrestiti.sort();
+            }
+        colDataScadenza.setSortable(false);
     }
     
     /**
@@ -268,6 +477,30 @@ public class GestionePrestitiViewController implements Initializable {
     void handleSortMostRecent(ActionEvent event){
         //permette di ordinare la lista dei prestiti dal più recente
         //scheletro
+        colDataRegistrazione.setSortable(true);
+        // 1. Controlla se stiamo già ordinando per questa colonna
+        if (tabellaPrestiti.getSortOrder().contains(colDataRegistrazione)) {
+            // Se sì, inverti l'ordine (da ASC a DESC o viceversa)
+            if (colDataRegistrazione.getSortType() == TableColumn.SortType.ASCENDING) {
+                colDataRegistrazione.setSortType(TableColumn.SortType.DESCENDING);
+                tabellaPrestiti.getSortOrder().clear();
+                tabellaPrestiti.getSortOrder().add(colDataRegistrazione);
+                tabellaPrestiti.sort();
+            }else if (colDataRegistrazione.getSortType() == TableColumn.SortType.DESCENDING){
+                colDataScadenza.setSortable(true);
+                colDataScadenza.setSortType(TableColumn.SortType.ASCENDING);
+                tabellaPrestiti.getSortOrder().clear();
+                tabellaPrestiti.getSortOrder().add(colDataScadenza);
+                tabellaPrestiti.sort();
+                colDataScadenza.setSortable(false);
+            }
+        } else {
+            colDataRegistrazione.setSortType(TableColumn.SortType.ASCENDING);
+            tabellaPrestiti.getSortOrder().clear();
+            tabellaPrestiti.getSortOrder().add(colDataRegistrazione);
+            tabellaPrestiti.sort();
+        }
+        colDataRegistrazione.setSortable(false);
     }
     
     /**
@@ -276,12 +509,14 @@ public class GestionePrestitiViewController implements Initializable {
      * Basato sulla data di inizio prestito.
      *
      * @post I prestiti più vecchi appaiono in cima alla lista.
-     */
+     
     @FXML
     void handleSortLatestRecent(ActionEvent event){
         //permette di ordinare la lista dei prestiti dal meno recente
         //scheletro
     }
+    * */
+    
     /**
      * @brief Mostra una finestra di dialogo (Pop-up) all'utente.
      *

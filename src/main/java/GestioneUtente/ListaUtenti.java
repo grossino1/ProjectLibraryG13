@@ -4,6 +4,7 @@ import Eccezioni.EccezioniUtenti.MatricolaNotValidException;
 import Eccezioni.EccezioniUtenti.UtenteNotFoundException;
 import Eccezioni.EccezioniUtenti.UtentePresenteException;
 import Eccezioni.EccezioniUtenti.ListaUtentiPienaException;
+import Eccezioni.EccezioniUtenti.UtenteWithPrestitoException;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.ArrayList;
@@ -154,7 +155,7 @@ public class ListaUtenti implements Serializable{
      * @param[in] u: L'oggetto da rimuovere (deve essere un'istanza di Utente).
      * @throws IllegalArgumentException: Se l'utente inserito come parametro è nullo.
      */
-    public void eliminazioneUtente(Object u) throws UtenteNotFoundException, IOException {
+    public void eliminazioneUtente(Utente u) throws UtenteNotFoundException, IOException, UtenteWithPrestitoException {
         // Controllo non necessario (lo deve fare il client)
         // Inserito per motivi di sicurezza del programma
         if(u == null)
@@ -169,7 +170,10 @@ public class ListaUtenti implements Serializable{
             return;
         
         // Se l'utente passato come parametro fa parte della lista allora viene eliminato.
-        listaUtenti.remove(u);
+        if(u.getListaPrestiti().size() == 0)
+            listaUtenti.remove(u);
+        else
+            throw new UtenteWithPrestitoException("L'utente ha un prestito attivo!\nEliminare prima il prestito!");
         SalvataggioFileUtente.salva(this, filename);
         
     }
