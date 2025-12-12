@@ -90,7 +90,6 @@ public class PrestitoTest {
     }
 
     @Test
-    // Verifica che il setter sia veloce
     @Timeout(value = 100, unit = TimeUnit.MILLISECONDS) 
     public void testSetDataRestituzione() throws dataRestituzioneException {
         LocalDate nuovaData = LocalDate.now().plusDays(15);
@@ -105,10 +104,89 @@ public class PrestitoTest {
     @Test
     public void testSetDataRestituzioneError() {
         // Testiamo il caso di errore (data > 30 giorni)
-        LocalDate dataLontana = LocalDate.now().plusDays(40);
-        
+        LocalDate dataLontana = LocalDate.now().plusDays(40);        
         assertThrows(dataRestituzioneException.class, () -> {
             prestitoValido.setDataRestituzione(dataLontana);
         });
+        
+        LocalDate dataPassata = LocalDate.now().minusDays(20);
+        assertThrows(dataRestituzioneException.class, () -> {
+            prestitoValido.setDataRestituzione(dataLontana);
+        });
+        
+        LocalDate dataNulla = null;
+        assertThrows(dataRestituzioneException.class, () -> {
+            prestitoValido.setDataRestituzione(dataLontana);
+        });
+    }
+    
+    @Test
+    public void testEqualsAndHashCode() {
+        
+        // Creiamo una copia esatta usando le costanti della Fixture
+        Prestito prestitoCopia = new Prestito(ISBN_VALIDO, MATRICOLA_VALIDA);
+
+        assertEquals(prestitoValido, prestitoCopia, 
+            "Il prestito della fixture deve essere uguale a uno nuovo con gli stessi ISBN/Matricola");
+        
+        assertEquals(prestitoValido.hashCode(), prestitoCopia.hashCode(), 
+            "Se equals è true, gli hashCode devono coincidere");
+
+        // Creiamo un prestito con stessa ISBN ma matricola diversa
+        Prestito prestitoMatricolaDiversa = new Prestito(ISBN_VALIDO, "9999999999");
+        assertNotEquals(prestitoValido, prestitoMatricolaDiversa, 
+            "Devono essere diversi se cambia la matricola");
+
+        // Creiamo un prestito con stessa Matricola ma ISBN diverso
+        Prestito prestitoIsbnDiverso = new Prestito("0000000000000", MATRICOLA_VALIDA);
+        assertNotEquals(prestitoValido, prestitoIsbnDiverso, 
+            "Devono essere diversi se cambia l'ISBN");
+
+        // Casi Limite
+        assertNotEquals(prestitoValido, null, "Non deve essere uguale a null");
+        assertNotEquals(prestitoValido, "Una Stringa", "Non deve essere uguale a oggetti di altra classe");
+    }
+
+    @Test
+    public void testCompareTo() {
+        
+        // Creiamo un prestito con Matricola "maggiore" .
+        Prestito otherMatricolaMaggiore = new Prestito(ISBN_VALIDO, "9999999999");
+        
+        // Risultato negativo (< 0).
+        assertTrue(prestitoValido.compareTo(otherMatricolaMaggiore) < 0, 
+            "prestitoValido deve precedere quello con matricola più alta");
+
+        // Creiamo un prestito con Matricola "minore".
+        Prestito otherMatricolaMinore = new Prestito(ISBN_VALIDO, "0000000000");
+        
+        // Risultato positivo (> 0).
+        assertTrue(prestitoValido.compareTo(otherMatricolaMinore) > 0, 
+            "prestitoValido deve seguire quello con matricola più bassa");
+        
+         // Creiamo un prestito con ISBN "maggiore" .
+        Prestito otherIsbnMaggiore = new Prestito("9999999999999", MATRICOLA_VALIDA);
+        
+        // Risultato negativo (< 0).
+        assertTrue(prestitoValido.compareTo(otherIsbnMaggiore) < 0, 
+            "A parità di matricola, deve vincere l'ordinamento per ISBN");
+
+        // Stesso prestito risultato 0.
+        Prestito prestitoCopia = new Prestito(ISBN_VALIDO, MATRICOLA_VALIDA);
+        assertEquals(0, prestitoValido.compareTo(prestitoCopia), 
+            "Due prestiti identici devono restituire 0");
+    }
+
+    @Test
+    public void testToString() {
+        // Usiamo l'oggetto della fixture
+        String risultato = prestitoValido.toString();
+        
+        assertNotNull(risultato, "Il metodo toString non deve restituire null");
+       
+        assertTrue(risultato.contains(ISBN_VALIDO), 
+            "La stringa deve contenere l'ISBN del prestito");
+        assertTrue(risultato.contains(MATRICOLA_VALIDA), 
+            "La stringa deve contenere la Matricola del prestito");
     }
 }

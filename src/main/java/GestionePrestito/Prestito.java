@@ -134,60 +134,62 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     // Metodi Logici
 
     /**
-     * @brief Calcola l'hash code basato sull'IDPrestito.
+     * @brief Calcola l'hash code basato sulla coppia univoca Matricola + ISBN.
      *
-     * @return Codice hash univoco per IDPrestito.
-     *
-     * @see #equals(Object) Utilizzato per la coerenza con equals.
+     * @return Codice hash univoco per la combinazione Studente-Libro.
      */
     @Override
     public int hashCode() {
-        
         int result = 17;
-        result = 31* result + (this.dataRegistrazionePrestito == null ? 0 : this.dataRegistrazionePrestito.hashCode());
+        result = 31 * result + (this.matricolaUtente == null ? 0 : this.matricolaUtente.hashCode());
+        result = 31 * result + (this.ISBNLibro == null ? 0 : this.ISBNLibro.hashCode());
         return result;
     }
 
     /**
-     * @brief Confronta due prestiti per per IDPrestito, evitando duplicati nell'elenco.
+     * @brief Confronta due prestiti basandosi esclusivamente su Matricola e ISBN.
      *
-     * Due prestiti sono uguali se hanno lo stesso ID, indipendentemente
-     * dalla data o dagli attori coinvolti.
+     * Due prestiti sono considerati "lo stesso prestito" se riguardano
+     * lo stesso studente e lo stesso libro.
      *
      * @param[in] obj L'oggetto da confrontare.
-     * @return true se gli IDPrestito coincidono, false altrimenti.
-     *
-     * @see #hashCode()
-     */             
+     * @return true se Matricola e ISBN coincidono.
+     */
     @Override
     public boolean equals(Object obj) {
-        
-        if(obj == null) return false;
-        if(this == obj) return true;
-        if(this.getClass() != obj.getClass()) return false;
-        
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+
         Prestito other = (Prestito) obj;
-        return this.dataRegistrazionePrestito.equals(other.dataRegistrazionePrestito);               
+
+        // 1. Confronto Matricola
+        if (!this.matricolaUtente.equals(other.matricolaUtente)) return false;
+
+        // 2. Confronto ISBN
+        if (!this.ISBNLibro.equals(other.ISBNLibro)) return false;
+
+        return true;
     }
 
     /**
-     * @brief Ordina i prestiti in base alla data di restituzione (ordinamento naturale)
-     * nel caso due prestiti dovessero avere la stessa data, si considera l'ID del Prestito.
+     * @brief Confronta i prestiti per matricola prima e per ISBN poi, evitando duplicati in un TreeSet.
      *
-     * Utile per visualizzare i prestiti in ordine di scadenza (dal più urgente al meno urgente).
-     *
-     * @pre other != null
-     *
-     * @param[in] other Il prestito con cui confrontare la data.
-     * @return < 0 se this scade prima, 0 se stesso giorno, > 0 se scade dopo.
-     */
+     * Questa logica non permette un ordinamento del TreeSet per dataRestituzione, che quindi dovrà essere implementato implicitamente dal controller.
+     * 
+     * @param[in] other Il prestito con cui confrontare.
+     *@return 
+     * Un valore < 0 se questo prestito precede alfabeticamente per matricola/ISBN l'altro,
+     * 0 se i prestiti hanno la stessa matricola e lo stesso ISBN (sono lo stesso prestito logico), 
+     * un valore > 0 se questo prestito segue alfabeticamente per matricola/ISBN l'altro.
+     * 
+    */
     @Override
-    public int compareTo(Prestito other) { 
-        
-        int result = this.dataRestituzione.compareTo(other.dataRestituzione);
-        if(result != 0) return result;
-        
-        return this.dataRegistrazionePrestito.compareTo(other.dataRegistrazionePrestito);
+    public int compareTo(Prestito other) {
+    
+        int res = this.matricolaUtente.compareTo(other.matricolaUtente);
+        if (res != 0) return res;
+        return this.ISBNLibro.compareTo(other.ISBNLibro);
     }
 
     /**

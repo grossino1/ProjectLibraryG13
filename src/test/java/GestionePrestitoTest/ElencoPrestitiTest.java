@@ -217,7 +217,11 @@ public class ElencoPrestitiTest {
         gestoreStub.risultatoNuovoPrestito = true;
         
         for(int i = 0; i < 100; i++) {
-            elenco.registrazionePrestito(ISBN_VALIDO, MATRICOLA_VALIDA);
+            // Genera: "978-0000000000", "978-0000000001", etc.
+            // %03d significa "numero con 3 cifre, riempiendo con zeri se necessario"
+            String isbnFinto = String.format("9780000000%03d", i); 
+            String matricolaFinta = String.format("051210%04d", i);
+            elenco.registrazionePrestito(isbnFinto, matricolaFinta);
         }
         
         assertEquals(100, elenco.getElencoPrestiti().size());
@@ -248,6 +252,20 @@ public class ElencoPrestitiTest {
         ArrayList<Prestito> risultatiISBN = elenco.cercaPrestito("2222");
         assertEquals(1, risultatiISBN.size());
         assertEquals("0612709999", risultatiISBN.get(0).getMatricolaUtente());
+    }
+    
+    @Test
+    public void testCercaPrestitoEccezione() throws Exception {
+        
+        // Aggiungiamo i libri
+        gestoreStub.risultatoNuovoPrestito = true;
+        elenco.registrazionePrestito("1111111111111", "0612708792");
+        elenco.registrazionePrestito("2222222222222", "0612709999");
+
+        // Verifica ricerca per matricola parziale
+        assertThrows(PrestitoNonTrovatoException.class, () -> {
+            ArrayList<Prestito> risultatiMatricola = elenco.cercaPrestito("777");
+        });
     }
 
     @Test
@@ -301,5 +319,44 @@ public class ElencoPrestitiTest {
         assertThrows(dataRestituzioneException.class, () -> {
             elenco.modificaPrestito(p, nuovaData);
         });     
+    }
+    
+    @Test
+    public void testGetElencoPrestiti() throws Exception {
+        
+        elenco.registrazionePrestito(ISBN_VALIDO, MATRICOLA_VALIDA);
+
+        ArrayList<Prestito> listaEsterna = elenco.getElencoPrestiti();
+
+        // La lista non deve essere null e deve contenere l'elemento
+        assertNotNull(listaEsterna);
+        assertEquals(1, listaEsterna.size());
+
+        // Se modifico la lista restituita, l'elenco originale non deve cambiare.
+        listaEsterna.clear();
+        assertTrue(listaEsterna.isEmpty());
+        // La lista interna deve avere ancora il prestito
+        assertFalse(elenco.getElencoPrestiti().isEmpty(), 
+            "Il metodo getElencoPrestiti deve restituire una copia, non il riferimento diretto.");
+    }
+
+    @Test
+    public void testToString() throws Exception {
+      
+        String outputVuoto = elenco.toString();
+        
+        assertNotNull(outputVuoto);
+        assertTrue(outputVuoto.contains("Prestiti all'interno della lista"), 
+            "Il toString deve contenere l'intestazione corretta anche se vuoto");
+
+        // Aggiungo un libro
+        gestoreStub.risultatoNuovoPrestito = true;
+        elenco.registrazionePrestito(ISBN_VALIDO, MATRICOLA_VALIDA);
+
+        String outputPieno = elenco.toString();
+
+        // Verifichiamo che la stringa contenga i dati del prestito inserito
+        assertTrue(outputPieno.contains(ISBN_VALIDO), "Il toString deve stampare l'ISBN");
+        assertTrue(outputPieno.contains(MATRICOLA_VALIDA), "Il toString deve stampare la Matricola");
     }
 }
