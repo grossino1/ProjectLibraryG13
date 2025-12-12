@@ -31,8 +31,6 @@ public class Bibliotecario implements Serializable {
     private final String username;
     private final String password;
     
-    private static final String FILE_PATH = "us.bin";
-    
     /**
      * @brief Costruttore della classe Bibliotecario.
      *
@@ -67,26 +65,6 @@ public class Bibliotecario implements Serializable {
      */
     public String getPassword() {
         return password;
-    }
-    
-    public static Bibliotecario caricaDaFile() throws IOException {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_PATH))) {
-            return (Bibliotecario) ois.readObject();
-        } catch (FileNotFoundException e) {
-            System.err.println("Errore: File credenziali 'us.bin' non trovato.");
-        } catch (ClassNotFoundException e) {
-            System.err.println("Errore durante la lettura del file credenziali: " + e.getMessage());
-        }
-        return null;
-    }
-    
-    public void salvaSuFile() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
-            oos.writeObject(this);
-            System.out.println("Credenziali salvate correttamente in " + FILE_PATH);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
     
     /**
