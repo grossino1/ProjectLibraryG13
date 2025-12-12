@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author chiara
  */
-@DisplayName("Test Suite Completa ListaUtenti")
 public class ListaUtentiTest {
     
     // FIXTURE: variabili di istanza
@@ -42,6 +41,11 @@ public class ListaUtentiTest {
     private final String TEST_FILENAME = "test_listaUteni.txt";
     
     // FIXTURE: BeforeEach
+    
+    /**
+     * @brief Inizializza l'ambiente prima di ogni test.
+     * Prima di ogni Test inizializza la listaUtenti e crea i nuovi utenti.
+     */
     @BeforeEach
     void setUp() throws Exception {
         // Inizializzo una lista vuota, che non carico sul file (false)
@@ -54,6 +58,11 @@ public class ListaUtentiTest {
     }
     
     // FIXTURE: AfterEach
+    
+    /**
+     * @brief Pulisce l'ambiente dopo ogni test.
+     * Rimuove il file creato dal test per non lasciare sporcizia nel progetto.
+     */
     // @AfterEach serve a garantire la pulizia anche se il test fallisce
     @AfterEach 
     void tearDown(){

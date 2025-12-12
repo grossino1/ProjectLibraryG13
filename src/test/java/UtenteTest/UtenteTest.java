@@ -36,6 +36,9 @@ public class UtenteTest {
     private Prestito prestito;
     
     // FIXTURE: Setup (@BeforeEach)
+    /**
+     * @brief 
+     */
     @BeforeEach
     void setUp() throws MatricolaNotValidException {
         // Inizializzo l'utente
@@ -46,6 +49,10 @@ public class UtenteTest {
         prestito = new Prestito("978-88-000-0000-1", MATRICOLA_VALIDA);
     }
     
+    /**
+     * @brief Pulisce l'ambiente dopo ogni test.
+     * Rimuove il file creato dal test per non lasciare sporcizia nel progetto.
+     */
     @AfterEach
     void tearDown(){
         utente = null;
