@@ -11,7 +11,10 @@ import java.util.List;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.io.IOException;
-
+/**
+ *
+ * @author chiara
+ */
 
 /**
  * @class Utente
@@ -25,7 +28,7 @@ import java.io.IOException;
  * @see GestionePrestito.Prestito
  * @see java.io.Serializable
  *
- * @author jackross
+ * @author chiara
  * @version 1.0
  */
 public class Utente implements Comparable<Utente>, Serializable {
@@ -54,7 +57,6 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @param[in] cognome: Il cognome dell'utente.
      * @param[in] matricola: Il codice identificativo univoco (es. numero di matricola universitaria).
      * @param[in] emailIstituzionale: L'indirizzo email dell'utente.
-     * @param[in] listaPrestiti: La lista dei Prestiti Attivi dell'Utente.
      */
     public Utente(String nome, String cognome, String matricola, String emailIstituzionale) throws IllegalArgumentException, MatricolaNotValidException {
         this.nome = nome;
