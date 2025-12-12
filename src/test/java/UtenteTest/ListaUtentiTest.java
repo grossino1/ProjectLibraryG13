@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import GestioneUtente.ListaUtenti;
 import GestioneUtente.Utente;
 import Eccezioni.EccezioniUtenti.*;
-import Sorting.SortingUtenti.OrdinamentoUtenti; 
 
 import java.io.File;
 import java.util.ArrayList;
@@ -206,35 +205,4 @@ public class ListaUtentiTest {
             () -> assertEquals(nuovaEmail, utenteAggiornato.getEmailIstituzionale())
         );
     }
-    
-    // TEST ORDINAMENTO (NUOVO) 
-    @Test
-    @DisplayName("Ordinamento Alfabetico della Lista")
-    void testSortListaUtenti() throws Exception {
-        // Inserisco gli utenti in ordine sparso
-        listaUtenti.registrazioneUtente(u1); // Rossi
-        listaUtenti.registrazioneUtente(u2); // Bianchi
-        listaUtenti.registrazioneUtente(u3); // Rossetti
-        
-        // Eseguo il sort usando il Comparator fornito 
-        ArrayList<Utente> listaOrdinata = listaUtenti.sortListaUtenti(OrdinamentoUtenti.ALFABETICO);
-        
-        // VERIFICA DELL'ORDINE:
-        // 1. Bianchi (B)
-        // 2. Rossetti (R...e) -> Viene prima di Rossi perchè 'e' < 'i'
-        // 3. Rossi (R...i)
-        
-        assertEquals(u2, listaOrdinata.get(0), "Bianchi dovrebbe essere il primo");
-        assertEquals(u3, listaOrdinata.get(1), "Rossetti dovrebbe essere il secondo");
-        assertEquals(u1, listaOrdinata.get(2), "Rossi dovrebbe essere il terzo");
-    }
-    
-    @Test
-    @DisplayName("Errore: Ordinamento con Comparator Null")
-    void testSortComparatorNull() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            listaUtenti.sortListaUtenti(null);
-        });
-    }
-
 }

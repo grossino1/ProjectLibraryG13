@@ -256,36 +256,6 @@ public class ListaUtenti implements Serializable{
     }
 
     /**
-     * @brief Restituisce una vista ordinata della lista secondo un criterio personalizzato.
-     *
-     * Permette di ottenere una copia della lista ordinata secondo un criterio diverso dall'ordine naturale 
-     * (es. per Cognome invece che per Matricola).
-     *
-     * @pre comp != null (Il comparatore non deve essere nullo).
-     * @post La lista restituita è ordinata secondo le regole di 'comp'.
-     *
-     * @param[in] comp: Il comparatore da utilizzare.
-     * @return ArrayList<Utente> riordinato.
-     * @throws IllegalArgumentException: Se il Comparator inserito come parametro è nullo.
-     *
-     * @see java.util.Comparator
-     */
-    public ArrayList<Utente> sortListaUtenti(Comparator<Utente> comp) {
-        // Controllo non necessario (lo deve fare il client)
-        // Inserito per motivi di sicurezza del programma
-        if(comp == null){
-            throw new IllegalArgumentException("Errore: Il comparatore non può essere nullo.");
-        }
-        
-        // Creo una lista di appoggio in cui inserisco tutti gli elementi del TreeSet.
-        ArrayList<Utente> listaOrdinata = new ArrayList<>(listaUtenti);
-        // Ordino la lista secondo al Comparator passato come parametro, invocando il metodo sort() sulla lista e passando il comparatore.
-        listaOrdinata.sort(comp);
-        // Ritorno la lista ordinata.
-        return listaOrdinata;
-    }
-
-   /**
      * @brief Restituisce una rappresentazione testuale dell'oggetto ListaUtenti.
      *
      * @post Il risultato non è mai null (restituisce sempre una stringa, anche vuota).
