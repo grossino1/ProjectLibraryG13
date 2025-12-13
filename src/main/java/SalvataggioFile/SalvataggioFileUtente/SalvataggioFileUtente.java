@@ -89,8 +89,8 @@ public class SalvataggioFileUtente {
             throw new IOException("Percorso non specificato!");
         
         File file = new File(filename);
-        if (!file.exists() || filename.isEmpty())
-            throw new IOException("Percorso non specificato o file vuoto!");
+        if (!file.exists())
+            throw new IOException("Percorso non specificato!");
         
         // APERTURA STREAM (Try-with-resources)
         // - FileInputStream: Apre il file in lettura.
