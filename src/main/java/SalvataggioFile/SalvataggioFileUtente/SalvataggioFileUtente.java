@@ -43,7 +43,7 @@ public class SalvataggioFileUtente {
      * Se il file esiste già, viene sovrascritto.
      *
      * @pre dati != null (L'oggetto da salvare non può essere nullo).
-     * @pre filename != null && !filename.isEmpty() (Il nome del file deve essere valido).
+     * @pre filename != null (Il nome del file deve essere valido).
      * @post Viene creato o aggiornato un file contenente i dati degli utenti.
      *
      * @param[in] dati: L'oggetto ListaUtenti da serializzare.
@@ -60,8 +60,8 @@ public class SalvataggioFileUtente {
         // APERTURA STREAM (Try-with-resources):
         // - FileOutputStream: Apre il file in scrittura.
         // - BufferedOutputStream: Migliora le performance riducendo gli accessi al disco.
-        // - ObjectOutputStream: Traduce l'oggetto Java in byte (Serializzazione).
-        // La sintassi 'try(...)' assicura la chiusura automatica del file alla fine.
+        // - ObjectOutputStream: Traduce l'oggetto in byte (Serializzazione).
+        // Viene assicurata la chiusura automatica del file alla fine.
         try(ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filename)))){
             // SCRITTURA: Scrive fisicamente l'oggetto nel file.
             out.writeObject(dati);
@@ -75,7 +75,7 @@ public class SalvataggioFileUtente {
      *
      * Tenta di leggere e deserializzare un oggetto Utente dal percorso specificato.
      *
-     * @pre filename != null && !filename.isEmpty()
+     * @pre filename != null
      * @post Restituisce un oggetto Utente valido se la lettura ha successo.
      * @post Restituisce null se il file non esiste o la deserializzazione fallisce.
      *
@@ -90,12 +90,12 @@ public class SalvataggioFileUtente {
         
         File file = new File(filename);
         if (!file.exists())
-            throw new IOException("File non trovato!");
+            throw new IOException("Percorso non esistente!");
         
         // APERTURA STREAM (Try-with-resources)
         // - FileInputStream: Apre il file in lettura.
         // - BufferedInputStream: Ottimizza la lettura usando un buffer in memoria.
-        // - ObjectInputStream: Ricostruisce l'oggetto Java dai byte letti.
+        // - ObjectInputStream: Ricostruisce l'oggetto dai byte letti.
         try(ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))){
             // DESERIALIZZAZIONE E CASTING
             ListaUtenti datiLetti = (ListaUtenti) in.readObject();

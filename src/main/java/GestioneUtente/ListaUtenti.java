@@ -53,10 +53,16 @@ public class ListaUtenti implements Serializable{
      * @post listaUtenti != null && listaUtenti.isEmpty()
      */
     public ListaUtenti(boolean caricamentoFile, String filename) throws IOException, ClassNotFoundException{
+        // boolean caricamentoFile:
+        // - True: il programma cercherà di leggere i dati dal disco.
+        // - False: il programma crea una lista nuova vuota.
         if(caricamentoFile){
+            // Prendo i dati dal file esistente, li deserializzo e li inserisco 
+            // nella mia istanza listaUtenti.
             ListaUtenti oggettoSalvato = SalvataggioFileUtente.carica(filename);
             this.listaUtenti = oggettoSalvato.listaUtenti;
         }else{
+            // Creo una listaUtenti vuota.
             // Viene scelto come Collection il TreeSet per la sua capacità di ordinamento.
             listaUtenti = new TreeSet<>();
         }
@@ -84,6 +90,7 @@ public class ListaUtenti implements Serializable{
             throw new IllegalArgumentException("Errore: La chiave di ricerca non può essere nulla.");
         }
         
+        // Cerco nella lista l'Utente che abbia la matricola passata.
         for (Utente u : listaUtenti) {
             if (u.getMatricola().equals(matricola)) {
                 return u;
@@ -110,14 +117,14 @@ public class ListaUtenti implements Serializable{
      *    @throws UtentePresenteException: Se l'utente passato come parametro è già presente all'interno della lista degli utenti.
      *    @throws IOException Se si verifica un errore di input/output durante la scrittura sul file.
      */
-    public void registrazioneUtente(Utente u)throws ListaUtentiPienaException, MatricolaNotValidException, UtentePresenteException, IOException {
+    public void registrazioneUtente(Utente u) throws ListaUtentiPienaException, MatricolaNotValidException, UtentePresenteException, IOException {
         // Controllo non necessario (lo deve fare il client)
         // Inserito per motivi di sicurezza del programma
         if(u == null){
             throw new IllegalArgumentException("Errore: Impossibile aggiungere un utente nullo.");
         }
         
-        // Controllo che listaUtenti==1000
+        // Controllo che listaUtenti==1000: se la lista è piena non posso inserire l'utente.
         if(listaUtenti.size() == 1000){
             throw new ListaUtentiPienaException("La listaUtenti non può contenere più di 1000 utenti!");
         }
@@ -165,15 +172,18 @@ public class ListaUtenti implements Serializable{
         
         // Se l'oggetto passato non appartine alla classe Utente, allora non può essere rimosso.
         // Nota: Utilizzo "instanceof" e non "getClass()" perchè se in futuro si vorrà 
-        // aggiungere una sottoclasse di Utente il metodo resta sempre valido anche per essa!
+        // aggiungere una sottoclasse di Utente il metodo resta sempre valido anche per essa.
         if (!(u instanceof Utente))
             return;
         
-        // Se l'utente passato come parametro fa parte della lista allora viene eliminato.
+        // Se l'utente passato come parametro non ha nessun prestito attivo allora viene eliminato.
         if(u.getListaPrestiti().size() == 0)
             listaUtenti.remove(u);
         else
+            // Altrimenti, se la listaPrestiti non è vuota, viene lanciata l'eccezione.
             throw new UtenteWithPrestitoException("L'utente ha un prestito attivo!\nEliminare prima il prestito!");
+        
+        // Salvo il file modificato
         SalvataggioFileUtente.salva(this, filename);
     }
     
@@ -197,6 +207,8 @@ public class ListaUtenti implements Serializable{
         // Inserito per motivi di sicurezza del programma
         if(u==null)
             throw new IllegalArgumentException("L'utente da modificare non può essere nullo!");
+        
+        // Modifico i campi dell'utente 
         u.setCognome(cognome);
         u.setNome(nome);
         u.setEmailIstituzionale(emailIstituzionale);
@@ -242,9 +254,12 @@ public class ListaUtenti implements Serializable{
             listaRicerca.add(utente);
         }            
     }
+    
+    // Se la lista è vuota allora non è stato trovato nessun utente.
     if(listaRicerca.isEmpty()){
         throw new UtenteNotFoundException("Errore: Utente non trovato all'interno della lista!");
     }
+    
     // Viene ritornato l'ArrayList contenente tutti gli utenti che rispettano i requisiti.
     return listaRicerca;
     }
