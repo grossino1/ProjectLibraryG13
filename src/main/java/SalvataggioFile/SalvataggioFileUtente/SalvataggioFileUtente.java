@@ -90,7 +90,7 @@ public class SalvataggioFileUtente {
         
         File file = new File(filename);
         if (!file.exists())
-            throw new IOException("Percorso non specificato!");
+            throw new IOException("Percorso non esistente!");
         
         // APERTURA STREAM (Try-with-resources)
         // - FileInputStream: Apre il file in lettura.
