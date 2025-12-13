@@ -259,7 +259,7 @@ public class GestioneUtentiViewController implements Initializable {
         // scheletro
         try{
             
-            //inizio della parte di codice per il caricamento della finestra per l'aggiunta di un nuovo libro
+            //inizio della parte di codice per il caricamento della finestra per l'aggiunta di un nuovo utente
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/GUI_GestioneUtenti/UtenteView.fxml"));
             Parent child = loader.load();
             
