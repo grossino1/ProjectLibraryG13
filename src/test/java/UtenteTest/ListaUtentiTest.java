@@ -69,8 +69,8 @@ public class ListaUtentiTest {
     /**
      * @brief Pulisce l'ambiente dopo ogni test.
      * Rimuove il file creato dal test per non lasciare sporcizia nel progetto.
+     * @AfterEach serve a garantire la pulizia anche se il test fallisce
      */
-    // @AfterEach serve a garantire la pulizia anche se il test fallisce
     @AfterEach 
     void tearDown(){
         // Pulizia del file
@@ -86,7 +86,7 @@ public class ListaUtentiTest {
     @DisplayName("Costruttore: Caricamento Disattivato (Nuova Lista)")
     void testCostruttoreCaricamentoFalse() throws Exception {
         // Quando caricamentoFile è false
-        ListaUtenti nuovaLista = new ListaUtenti(false, "nuovo_file.dat");
+        ListaUtenti nuovaLista = new ListaUtenti(false, TEST_FILENAME);
 
         // La lista interna deve essere inizializzata ma vuota
         assertNotNull(nuovaLista.getListaUtenti(), "La lista non dovrebbe essere null");
@@ -97,11 +97,11 @@ public class ListaUtentiTest {
     @DisplayName("Costruttore: Caricamento Attivato - File Esistente (Successo)")
     void testCostruttoreCaricamentoTrueSuccesso() throws Exception {
         // Preparo una lista e la salvo su file
-        // Creo una lista temporanea usando u1
+        // Creo una lista temporanea in cui insersco l'utente u1
         ListaUtenti listaDaSalvare = new ListaUtenti(false, TEST_FILENAME);
         listaDaSalvare.registrazioneUtente(u1);
         
-        // Scrivo fisicamente questa lista sul file "test_listaUtenti.txt"
+        // Scrivo fisicamente questa lista sul file 
         // Questo simula un file salvato precedentemente dal programma
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(TEST_FILENAME))) {
             out.writeObject(listaDaSalvare);
@@ -113,7 +113,7 @@ public class ListaUtentiTest {
         // Verifico che abbia letto i dati correttamente
         assertNotNull(listaCaricata, "L'oggetto caricato non deve essere null");
         
-        // La lista deve contenere 1 elemento (u1)
+        // La lista deve contenere un solo elemento (u1)
         assertEquals(1, listaCaricata.getListaUtenti().size(), "La lista caricata dovrebbe avere 1 utente");
         
         // Verifico che ci sia proprio l'utente u1
@@ -125,7 +125,7 @@ public class ListaUtentiTest {
     void testCostruttoreCaricamentoTrueFileMancante() {
         String fileInesistente = "fileInesistente.dat";
 
-        // Mi aspetto che venga lanciata una IOException (o FileNotFoundException che ne è sottoclasse)
+        // Mi aspetto che venga lanciata una IOException (oppure FileNotFoundException che ne è sottoclasse)
         // perché stiamo chiedendo di caricare un file che non c'è.
         assertThrows(IOException.class, () -> {
             new ListaUtenti(true, fileInesistente);
@@ -135,11 +135,41 @@ public class ListaUtentiTest {
     // TEST GetUtenteByMatricola
     
     @Test
-    @DisplayName("Get Utente con matricola Null")
+    @DisplayName("Get Utente: Utente Esistente")
+    void testGetUtenteByMatricolaEsistente() throws Exception {
+        // Aggiungo un utente alla lista
+        listaUtenti.registrazioneUtente(u1); 
+
+        // Cerco l'utente usando la sua matricola corretta
+        Utente risultato = listaUtenti.getUtenteByMatricola(MATRICOLA_VALIDA_U1);
+
+        // Verifico che l'oggetto restituito sia quello aspettato
+        assertNotNull(risultato, "L'utente dovrebbe essere trovato.");
+        assertEquals(u1, risultato, "L'utente restituito deve coincidere con quello inserito.");
+        assertEquals("Mario", risultato.getNome()); // Controllo ulteriore sui dati
+    }
+
+    @Test
+    @DisplayName("Get Utente: Utente Non Trovato")
+    void testGetUtenteByMatricolaNonTrovato() throws Exception {
+        // Aggiungo u1 alla lista, ma NON aggiungo u2
+        listaUtenti.registrazioneUtente(u1);
+
+        // Cerco la matricola di u2 (che non è nella lista)
+        Utente risultato = listaUtenti.getUtenteByMatricola(MATRICOLA_VALIDA_U2);
+
+        // ASSERT: Il metodo deve restituire null
+        assertNull(risultato, "Se la matricola non è presente, il metodo deve restituire null.");
+    }
+
+    @Test
+    @DisplayName("Get Utente: Errore Matricola Null")
     void testGetUtenteByMatricolaNull() {
-        assertThrows(IllegalArgumentException.class, () -> {
+        // Verifico che lanci IllegalArgumentException con il messaggio specifico
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
             listaUtenti.getUtenteByMatricola(null);
         });
+        assertEquals("Errore: La chiave di ricerca non può essere nulla.", e.getMessage());
     }
     
     // TEST REGISTRAZIONE 
@@ -184,7 +214,6 @@ public class ListaUtentiTest {
     @DisplayName("Errore: Registrazione di un Utente con una Matricola Non Valida")
     void testRegistrazioneMatricolaNonValida() throws MatricolaNotValidException {
         // Creazione di un utente con la matricola errata
-        
         assertThrows(MatricolaNotValidException.class, () -> {
            Utente utenteErrato = new Utente(NOME_VALIDO_U2, COGNOME_VALIDO_U2, "123", EMAIL_VALIDA_U2);
            listaUtenti.registrazioneUtente(utenteErrato);
@@ -271,7 +300,8 @@ public class ListaUtentiTest {
     void testEliminazioneUtenteSenzaPrestiti() throws Exception {
         // Inserisco un utente u1 nella lista
         listaUtenti.registrazioneUtente(u1);
-        assertTrue(new File(TEST_FILENAME).exists()); // Verifica salvataggio post-registrazione
+        // Verifica salvataggio post-registrazione
+        assertTrue(new File(TEST_FILENAME).exists()); 
 
         // Elimino l'utente inserito u1
         listaUtenti.eliminazioneUtente(u1);

@@ -18,7 +18,7 @@ package Eccezioni.EccezioniUtenti;
  * @see EccezioniUtente
  * @see GestioneUtente.ListaUtenti#eliminazioneUtente(GestioneUtente.Utente) 
  *
- * @author mello
+ * @author chiara
  * @version 1.0
  */
 public class UtenteWithPrestitoException extends EccezioniUtente{

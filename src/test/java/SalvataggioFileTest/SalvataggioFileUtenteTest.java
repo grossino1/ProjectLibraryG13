@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UtenteTest;
+package SalvataggioFileTest;
 
 import SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente;
 import GestioneUtente.ListaUtenti;
@@ -29,7 +29,7 @@ public class SalvataggioFileUtenteTest {
     private final String EMAIL_VALIDA = "m.rossi1@studenti.unisa.it";
     
     // Nome del file temporaneo che viene usato per il test
-    private static final String FILE_TEST = "test_persistenza_temp.bin";
+    private static final String FILE_TEST = "fileTest.bin";
     
     // FIXTURE: BeforEach e AfterEach
     
@@ -47,7 +47,7 @@ public class SalvataggioFileUtenteTest {
         // Creo una lista vuota (false = non caricare da file)
         listaDaSalvare = new ListaUtenti(false, FILE_TEST);
         
-        // Creo un utente e lo aggiungo, così salviamo qualcosa di concreto e non una lista vuota
+        // Creo un utente e lo aggiungo nella lista
         utenteTest = new Utente(NOME_VALIDO, COGNOME_VALIDO, MATRICOLA_VALIDA, EMAIL_VALIDA);
         
         // Registro l'utente creato nella lista
@@ -116,6 +116,7 @@ public class SalvataggioFileUtenteTest {
     @Test
     @DisplayName("Errore: Caricamento File Inesistente")
     void testCaricaFileNonTrovato() {
+        // Creo un file inesistente
         String fileFantasma = "fileNonEsistente.bin";
         
         // Mi assicuro che il file non esista davvero

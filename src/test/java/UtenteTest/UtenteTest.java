@@ -19,9 +19,7 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit; 
 
 /**
- * Classe di test per Utente.
- * Utilizza oggetti reali o stub manuali.
- * * @author chiara
+ * @author chiara
  */
 public class UtenteTest {
     
@@ -61,6 +59,7 @@ public class UtenteTest {
     }
     
     // TEST COSTRUTTORE E VERIFICA SULLA MATRICOLA
+    
     @Test
     @DisplayName("Costruttore: Creazione Valida")
     void testCostruttoreValido(){
@@ -97,14 +96,14 @@ public class UtenteTest {
     }
     
     // TEST GetListaDataRestituzione
+    
     @Test
     @DisplayName("getListaDataRestituzione: estrazione corretta")
     void testGetListaDataRestituzione() {
         LocalDate dataAttesa = LocalDate.of(2023, 12, 25);
         
-        // STUB MANUALE (Sostituisce il Mock):
-        // Creiamo una classe anonima che estende Prestito e sovrascrive getDataRestituzione.
-        // In questo modo forziamo il metodo a restituire 'dataAttesa' senza dipendere dalla logica interna di Prestito.
+        // Creo una classe anonima che estende Prestito e sovrascrive getDataRestituzione.
+        // In questo modo forzo il metodo a restituire 'dataAttesa' senza dipendere dalla logica interna di Prestito.
         Prestito prestitoConData = new Prestito(ISBN_VALIDO, MATRICOLA_VALIDA) {
             @Override
             public LocalDate getDataRestituzione() {
@@ -118,11 +117,12 @@ public class UtenteTest {
         
         ArrayList<LocalDate> date = utente.getListaDataRestituzione(input);
         
+        // La lista deve contenere la data dataAttesa
         assertEquals(1, date.size());
         assertEquals(dataAttesa, date.get(0));
     }
     
-    // TEST ADD
+    // TEST AGGIUNTA PRESTITO
     
     @Test
     @DisplayName("AddPrestito: Eccezione su Null")
@@ -131,25 +131,25 @@ public class UtenteTest {
     }
     
     @Test
-    @DisplayName("AddPrestito: Limite Massimo Raggiunto (PrestitiEsauritiException)")
+    @DisplayName("AddPrestito: Limite Massimo Raggiunto -> PrestitiEsauritiException")
     void testAddPrestitoLimiteMassimo() throws PrestitiEsauritiException {
-        // 1. Riempiamo la lista fino al limite consentito (3 prestiti)
+        // Riempiamo la lista fino al limite consentito (3 prestiti)
         utente.addPrestito(prestito);
         utente.addPrestito(prestito);
         utente.addPrestito(prestito);
         
-        // Verifica che ce ne siano 3
+        // Verifico che cisiano 3 prestiti nella lista
         assertEquals(3, utente.getListaPrestiti().size());
 
-        // 2. Tentiamo di aggiungere il 4° prestito -> Deve lanciare l'eccezione
+        // Tento di aggiungere il 4° prestito -> Deve lanciare l'eccezione
         PrestitiEsauritiException exception = assertThrows(PrestitiEsauritiException.class, () -> {
             utente.addPrestito(prestito);
         });
 
-        // 3. Verifica il messaggio dell'eccezione
+        // Verifico il messaggio dell'eccezione
         assertEquals("L'utente non può avere più di 3 prestiti attivi!", exception.getMessage());
         
-        // 4. Verifica che la lista sia rimasta a 3
+        // Verifico che la lista sia rimasta a 3
         assertEquals(3, utente.getListaPrestiti().size());
     }
     
@@ -167,36 +167,37 @@ public class UtenteTest {
         assertEquals(3, utente.getListaPrestiti().size());
     }
     
-    // TEST RIMUOVI PRESTITO
+    // TEST RIMOZIONE PRESTITO
+    
     @Test
     @DisplayName("RimuoviPrestito: Rimozione con successo")
     void testRimuoviPrestitoSuccesso() throws PrestitiEsauritiException, PrestitoNonTrovatoException {
-        // 1. Setup: Aggiungo un prestito
+        // Aggiungo un prestito
         utente.addPrestito(prestito);
         assertEquals(1, utente.getListaPrestiti().size());
 
-        // 2. Azione: Rimuovo il prestito
+        // Rimuovo il prestito
         assertDoesNotThrow(() -> utente.rimuoviPrestito(prestito));
 
-        // 3. Verifica: La lista deve essere vuota
+        // La lista deve essere vuota
         assertTrue(utente.getListaPrestiti().isEmpty());
     }
 
     @Test
-    @DisplayName("RimuoviPrestito: Errore Prestito Non Trovato")
+    @DisplayName("RimuoviPrestito: Errore Prestito Non Trovato -> PrestitiEsauritiException")
     void testRimuoviPrestitoNonTrovato() throws PrestitiEsauritiException {
-        // 1. Setup: Aggiungo un prestito "A"
+        // Aggiungo un prestito 
         utente.addPrestito(prestito);
         
-        // 2. Creo un secondo prestito "B" (oggetto diverso) che NON aggiungo alla lista
+        // Creo un secondo prestito (oggetto diverso) che NON aggiungo alla lista
         Prestito prestitoSconosciuto = new Prestito("1111111111111", MATRICOLA_VALIDA);
 
-        // 3. Azione: Provo a rimuovere "B" -> Deve lanciare PrestitoNonTrovatoException
+        // Provo a rimuovere prestitoSconosciuto -> Deve lanciare PrestitoNonTrovatoException
         PrestitoNonTrovatoException exception = assertThrows(PrestitoNonTrovatoException.class, () -> {
             utente.rimuoviPrestito(prestitoSconosciuto);
         });
 
-        // 4. Verifica messaggio e stato
+        // Verifica messaggio e stato
         assertEquals("Il prestito non è presente nella lista!", exception.getMessage());
         assertEquals(1, utente.getListaPrestiti().size()); 
     }
@@ -214,27 +215,27 @@ public class UtenteTest {
     @Test
     @DisplayName("Rimuovo un prestito per sbloccare l'aggiunta (Reset Limite)")
     void testRimuoviPerSbloccareAdd() throws PrestitiEsauritiException, PrestitoNonTrovatoException {
-        // 1. Riempiamo fino al limite (3)
+        // Riempiamo fino al limite (3)
         utente.addPrestito(prestito);
         utente.addPrestito(prestito);
         utente.addPrestito(prestito);
 
-        // 2. Rimuoviamo un prestito (chiamata valida)
+        // Rimuovo un prestito (chiamata valida)
         utente.rimuoviPrestito(prestito); 
         assertEquals(2, utente.getListaPrestiti().size());
 
-        // 3. Proviamo ad aggiungerne uno nuovo -> Deve funzionare
+        // Provo ad aggiungerne uno nuovo -> Deve funzionare
         assertDoesNotThrow(() -> utente.addPrestito(prestito));
         
         assertEquals(3, utente.getListaPrestiti().size());
     }
        
-    // TEST equals E CompareTo
+    // TEST EQUALS E COMPARE TO
 
     @Test
     @DisplayName("Equals: Confronto Matricole")
     void testEquals() throws MatricolaNotValidException {
-        // Creiamo un altro utente con la stessa matricola
+        // Creo un altro utente con la stessa matricola di utente
         Utente utenteCopia = new Utente(NOME_VALIDO, COGNOME_VALIDO, MATRICOLA_VALIDA, EMAIL_VALIDA);
         
         // Devono risultare uguali perché equals si basa solo sulla matricola
@@ -253,9 +254,9 @@ public class UtenteTest {
         Utente u1 = new Utente(NOME_VALIDO, "Bianchi", MATRICOLA_VALIDA, EMAIL_VALIDA);
         assertTrue(utente.compareTo(u1) > 0); // Rossi viene dopo Bianchi
 
-        // Caso 2: Stesso cognome, Nome diverso (Zoro > Mario)
+        // Caso 2: Stesso cognome, Nome diverso (Orlando > Mario)
         Utente u2 = new Utente("Orlando", COGNOME_VALIDO, MATRICOLA_VALIDA, EMAIL_VALIDA);
-        assertTrue(utente.compareTo(u2) < 0); // Mario viene prima di Zoro
+        assertTrue(utente.compareTo(u2) < 0); // Mario viene prima di Orlando
 
         // Caso 3: Stesso nome/cognome, Matricola diversa
         // Utente ha "1234567890". Creiamo uno con "0000000001"
