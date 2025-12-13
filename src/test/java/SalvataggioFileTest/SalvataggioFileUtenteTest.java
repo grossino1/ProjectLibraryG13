@@ -108,7 +108,7 @@ public class SalvataggioFileUtenteTest {
         IOException ex2 = assertThrows(IOException.class, () -> {
             SalvataggioFileUtente.salva(listaDaSalvare, null);
         });
-        assertEquals("Percorso non specificato!", ex2.getMessage());
+        assertEquals("Percorso non specificato o file vuoto!", ex2.getMessage());
     }
 
     // TEST CARICA
@@ -137,6 +137,15 @@ public class SalvataggioFileUtenteTest {
         IOException ex = assertThrows(IOException.class, () -> {
             SalvataggioFileUtente.carica(null);
         });
-        assertEquals("Percorso non specificato!", ex.getMessage());
+        assertEquals("Percorso non specificato o file vuoto!", ex.getMessage());
+    }
+    
+    @Test
+    @DisplayName("Caricamento: Errore Filename Vuoto (Stringa vuota)")
+    void testCaricaFilenameVuoto() {
+        IOException e = assertThrows(IOException.class, () -> {
+            SalvataggioFileUtente.carica("");
+        });
+        assertEquals("Percorso non specificato o file vuoto!", e.getMessage());
     }
 }

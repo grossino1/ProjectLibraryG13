@@ -60,8 +60,8 @@ public class SalvataggioFileUtente {
         // APERTURA STREAM (Try-with-resources):
         // - FileOutputStream: Apre il file in scrittura.
         // - BufferedOutputStream: Migliora le performance riducendo gli accessi al disco.
-        // - ObjectOutputStream: Traduce l'oggetto Java in byte (Serializzazione).
-        // La sintassi 'try(...)' assicura la chiusura automatica del file alla fine.
+        // - ObjectOutputStream: Traduce l'oggetto in byte (Serializzazione).
+        // Viene assicurata la chiusura automatica del file alla fine.
         try(ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(filename)))){
             // SCRITTURA: Scrive fisicamente l'oggetto nel file.
             out.writeObject(dati);
@@ -89,13 +89,13 @@ public class SalvataggioFileUtente {
             throw new IOException("Percorso non specificato!");
         
         File file = new File(filename);
-        if (!file.exists())
-            throw new IOException("File non trovato!");
+        if (!file.exists() || filename.isEmpty())
+            throw new IOException("Percorso non specificato o file vuoto!");
         
         // APERTURA STREAM (Try-with-resources)
         // - FileInputStream: Apre il file in lettura.
         // - BufferedInputStream: Ottimizza la lettura usando un buffer in memoria.
-        // - ObjectInputStream: Ricostruisce l'oggetto Java dai byte letti.
+        // - ObjectInputStream: Ricostruisce l'oggetto dai byte letti.
         try(ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))){
             // DESERIALIZZAZIONE E CASTING
             ListaUtenti datiLetti = (ListaUtenti) in.readObject();
