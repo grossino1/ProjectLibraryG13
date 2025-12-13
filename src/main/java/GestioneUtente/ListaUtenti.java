@@ -53,11 +53,11 @@ public class ListaUtenti implements Serializable{
      * @post listaUtenti != null && listaUtenti.isEmpty()
      */
     public ListaUtenti(boolean caricamentoFile, String filename) throws IOException, ClassNotFoundException{
-        // Viene scelto come Collection il TreeSet per la sua capacità di ordinamento.
         if(caricamentoFile){
             ListaUtenti oggettoSalvato = SalvataggioFileUtente.carica(filename);
             this.listaUtenti = oggettoSalvato.listaUtenti;
         }else{
+            // Viene scelto come Collection il TreeSet per la sua capacità di ordinamento.
             listaUtenti = new TreeSet<>();
         }
         this.filename = filename;
@@ -159,7 +159,7 @@ public class ListaUtenti implements Serializable{
         // Controllo non necessario (lo deve fare il client)
         // Inserito per motivi di sicurezza del programma
         if(u == null)
-            throw new UtenteNotFoundException("Utente non trovato!");
+            throw new IllegalArgumentException("L'Utente non può essere Null!");
         if(!listaUtenti.contains(u))
             throw new UtenteNotFoundException("Utente non presente nella lista");
         
@@ -175,7 +175,6 @@ public class ListaUtenti implements Serializable{
         else
             throw new UtenteWithPrestitoException("L'utente ha un prestito attivo!\nEliminare prima il prestito!");
         SalvataggioFileUtente.salva(this, filename);
-        
     }
     
     /**

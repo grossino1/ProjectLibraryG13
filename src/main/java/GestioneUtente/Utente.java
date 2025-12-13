@@ -44,6 +44,7 @@ public class Utente implements Comparable<Utente>, Serializable {
     // Serve per ordinare gli utenti dal più recente al meno recente e viceversa
     // Ogni volta che si crea un Utente nuovo l'ID aumenta
     private static int cnt = 0;
+    // Attributo per indicare la data in cui l'utente è stato registrato
     private final LocalDateTime dataReg;
     
     /**
@@ -70,7 +71,9 @@ public class Utente implements Comparable<Utente>, Serializable {
         this.matricola = matricola;
         
         this.emailIstituzionale = emailIstituzionale;
+        // Creo una nuova lista in cui inserire i prestiti
         this.listaPrestiti = new ArrayList<>();
+        // Imposto la data di registrazione all'ora corrente
         this.dataReg = LocalDateTime.now();
     }
     
@@ -170,12 +173,15 @@ public class Utente implements Comparable<Utente>, Serializable {
         // Se listaPrestiti è vuota ritorna una lista vuota
         if(listaPrestiti == null)
             return new ArrayList<LocalDate>();
+        
         // Creo un ArrayList di appoggio
         ArrayList<LocalDate> listaDataRestituzione = new ArrayList<>();
+        
         // Scorro listaPrestiti e aggiungo l'attributo "dataRestituzione" di ogni prestito nell'ArrayList
         for(Prestito p : listaPrestiti){
             listaDataRestituzione.add(p.getDataRestituzione());
         }
+        
         // Ritorna la lista contenente le date di restituzioni di tutti i prestiti attivi dell'Utente
         return listaDataRestituzione;
     }
@@ -201,8 +207,8 @@ public class Utente implements Comparable<Utente>, Serializable {
         if(listaPrestiti.size() == 3)
             throw new PrestitiEsauritiException("L'utente non può avere più di 3 prestiti attivi!");
         
-       // La precondizione garantisce che p non sia null; quindi è sufficiente aggiungerlo alla lista.
-       listaPrestiti.add(p);
+        // La precondizione garantisce che p non sia null; quindi è sufficiente aggiungerlo alla lista.
+        listaPrestiti.add(p);
     }
 
     /**
@@ -216,7 +222,7 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @throws IllegalArgumentException: Se il prestito inserito come parametro è nullo.
      */
     public void rimuoviPrestito(Prestito p) throws PrestitoNonTrovatoException{
-       // Controllo non necessario (lo deve fare il client)
+        // Controllo non necessario (lo deve fare il client)
         // Inserito per motivi di sicurezza del programma
         if(p == null){
             throw new IllegalArgumentException("Errore: Impossibile rimuovere un prestito nullo.");
@@ -224,6 +230,7 @@ public class Utente implements Comparable<Utente>, Serializable {
         if(!listaPrestiti.contains(p)){
             throw new PrestitoNonTrovatoException("Il prestito non è presente nella lista!");
         }
+        
         // Se p è presente nella lista, viene rimosso (p != null è garantito dalla precondizione.)
         listaPrestiti.remove(p);
     }
@@ -254,12 +261,16 @@ public class Utente implements Comparable<Utente>, Serializable {
     public boolean equals(Object other) {
         // Se l'oggetto dato come parametro è nullo, allora di sicuro sono diversi.
         if(other == null) return false;
+        
         // Se i due oggetti hanno la stessa reference, allora sono uguali.
         if(this == other) return true;
+        
         // Se i due oggetti appartengono a classi diverse allora sono diversi.
         if(getClass() != other.getClass()) return false;
+        
         // L'oggetto other di sicuro appartiene alla classe Utente, quindi posso fare un cast con sicurezza.
         Utente u = (Utente) other;
+        
         // Due utenti sono uguali se hanno la stessa matricola (confronto Case-Insensitive).
         return this.matricola.equalsIgnoreCase(u.getMatricola());
     }
@@ -282,6 +293,7 @@ public class Utente implements Comparable<Utente>, Serializable {
         if (cmp != 0) {
             return cmp;
         }
+        
         // Se i due utenti hanno lo stesso cognome l'ordinamento è sul nome.
         int compare = this.nome.compareToIgnoreCase(other.nome);
         if (compare != 0){

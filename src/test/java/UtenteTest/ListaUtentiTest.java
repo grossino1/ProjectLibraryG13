@@ -5,8 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import GestioneUtente.ListaUtenti;
 import GestioneUtente.Utente;
+import GestionePrestito.Prestito;
 import Eccezioni.EccezioniUtenti.*;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -37,7 +42,7 @@ public class ListaUtentiTest {
     private final String MATRICOLA_VALIDA_U3 = "1234509876";
     private final String EMAIL_VALIDA_U3 = "a.rossetti@studenti.unisa.it";
     
-    private final String TEST_FILENAME = "test_listaUteni.txt";
+    private final String TEST_FILENAME = "test_listaUtenti.txt";
     
     // FIXTURE: BeforeEach
     
@@ -47,6 +52,9 @@ public class ListaUtentiTest {
      */
     @BeforeEach
     void setUp() throws Exception {
+        // Pulizia preventiva
+        new File(TEST_FILENAME).delete();
+        
         // Inizializzo una lista vuota, che non carico sul file (false)
         listaUtenti = new ListaUtenti(false, TEST_FILENAME);
         
@@ -70,6 +78,58 @@ public class ListaUtentiTest {
         if(f.exists()){
             f.delete();
         }
+    }
+    
+    // TEST COSTRUTTORE 
+    
+    @Test
+    @DisplayName("Costruttore: Caricamento Disattivato (Nuova Lista)")
+    void testCostruttoreCaricamentoFalse() throws Exception {
+        // Quando caricamentoFile è false
+        ListaUtenti nuovaLista = new ListaUtenti(false, "nuovo_file.dat");
+
+        // La lista interna deve essere inizializzata ma vuota
+        assertNotNull(nuovaLista.getListaUtenti(), "La lista non dovrebbe essere null");
+        assertTrue(nuovaLista.getListaUtenti().isEmpty(), "La lista dovrebbe essere vuota");
+    }
+
+    @Test
+    @DisplayName("Costruttore: Caricamento Attivato - File Esistente (Successo)")
+    void testCostruttoreCaricamentoTrueSuccesso() throws Exception {
+        // Preparo una lista e la salvo su file
+        // Creo una lista temporanea usando u1
+        ListaUtenti listaDaSalvare = new ListaUtenti(false, TEST_FILENAME);
+        listaDaSalvare.registrazioneUtente(u1);
+        
+        // Scrivo fisicamente questa lista sul file "test_listaUtenti.txt"
+        // Questo simula un file salvato precedentemente dal programma
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(TEST_FILENAME))) {
+            out.writeObject(listaDaSalvare);
+        }
+
+        //Chiamo il costruttore dicendogli di caricare (true) da quel file
+        ListaUtenti listaCaricata = new ListaUtenti(true, TEST_FILENAME);
+
+        // Verifico che abbia letto i dati correttamente
+        assertNotNull(listaCaricata, "L'oggetto caricato non deve essere null");
+        
+        // La lista deve contenere 1 elemento (u1)
+        assertEquals(1, listaCaricata.getListaUtenti().size(), "La lista caricata dovrebbe avere 1 utente");
+        
+        // Verifico che ci sia proprio l'utente u1
+        assertNotNull(listaCaricata.getUtenteByMatricola(MATRICOLA_VALIDA_U1), "L'utente u1 dovrebbe essere stato caricato");
+    }
+
+    @Test
+    @DisplayName("Costruttore: Caricamento Attivato - File Non Trovato")
+    void testCostruttoreCaricamentoTrueFileMancante() {
+        String fileInesistente = "fileInesistente.dat";
+
+        // Mi aspetto che venga lanciata una IOException (o FileNotFoundException che ne è sottoclasse)
+        // perché stiamo chiedendo di caricare un file che non c'è.
+        assertThrows(IOException.class, () -> {
+            new ListaUtenti(true, fileInesistente);
+        });
     }
     
     // TEST GetUtenteByMatricola
@@ -186,24 +246,63 @@ public class ListaUtentiTest {
     // TEST RIMOZIONE 
     
     @Test
-    @DisplayName("Eliminazione Utente")
-    void testEliminazioneUtenteValida() throws Exception {
-        // Creazione di un utente
-        listaUtenti.registrazioneUtente(u1);
-        assertEquals(1, listaUtenti.getListaUtenti().size());
-
-        // Eliminazione dell'utente eliminato
-        listaUtenti.eliminazioneUtente(u1);
-        assertEquals(0, listaUtenti.getListaUtenti().size());
-        assertNull(listaUtenti.getUtenteByMatricola(u1.getMatricola()));
+    @DisplayName("Eliminazione: Errore Utente Null (MODIFICATO)")
+    void testEliminazioneUtenteNull() {
+        // Deve lanciare l'eccezione
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+            listaUtenti.eliminazioneUtente(null);
+        });
+        
+        // Verifico il  messaggio
+        assertEquals("L'Utente non può essere Null!", e.getMessage());
     }
 
     @Test
-    @DisplayName("Eccezione Eliminazione Utente Non Presente")
+    @DisplayName("Eliminazione: Eccezione Utente Non Presente")
     void testEliminazioneUtenteNonTrovato() {
+        // Deve lanciare l'eccezione
         assertThrows(UtenteNotFoundException.class, () -> {
             listaUtenti.eliminazioneUtente(u1); // u1 non è mai stato aggiunto
         });
+    }
+    
+    @Test
+    @DisplayName("Eliminazione: Utente senza prestiti (Successo)")
+    void testEliminazioneUtenteSenzaPrestiti() throws Exception {
+        // Inserisco un utente u1 nella lista
+        listaUtenti.registrazioneUtente(u1);
+        assertTrue(new File(TEST_FILENAME).exists()); // Verifica salvataggio post-registrazione
+
+        // Elimino l'utente inserito u1
+        listaUtenti.eliminazioneUtente(u1);
+
+        // ASSERT
+        assertEquals(0, listaUtenti.getListaUtenti().size());
+        assertNull(listaUtenti.getUtenteByMatricola(MATRICOLA_VALIDA_U1));
+        
+        // Verifica persistenza (il file deve esistere ed essere stato aggiornato)
+        assertTrue(new File(TEST_FILENAME).exists());
+    }
+
+    @Test
+    @DisplayName("Eliminazione: Errore Utente con Prestito Attivo")
+    void testEliminazioneUtenteConPrestito() throws Exception {
+        // Aggiungo un nuovo utente u1 alla lista
+        listaUtenti.registrazioneUtente(u1);
+        
+        // Aggiungo un prestito all'utente (u1)
+        Prestito p = new Prestito("9788808123456", MATRICOLA_VALIDA_U1);
+        u1.addPrestito(p); 
+
+        // Deve lanciare l'eccezione
+        UtenteWithPrestitoException e = assertThrows(UtenteWithPrestitoException.class, () -> {
+            listaUtenti.eliminazioneUtente(u1);
+        });
+
+        assertEquals("L'utente ha un prestito attivo!\nEliminare prima il prestito!", e.getMessage());
+        
+        // Verifico che l'utente sia ancora lì
+        assertEquals(1, listaUtenti.getListaUtenti().size());
     }
     
     // TEST MODIFICA
