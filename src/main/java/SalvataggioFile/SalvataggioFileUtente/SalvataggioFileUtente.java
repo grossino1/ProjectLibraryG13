@@ -43,7 +43,7 @@ public class SalvataggioFileUtente {
      * Se il file esiste già, viene sovrascritto.
      *
      * @pre dati != null (L'oggetto da salvare non può essere nullo).
-     * @pre filename != null && !filename.isEmpty() (Il nome del file deve essere valido).
+     * @pre filename != null (Il nome del file deve essere valido).
      * @post Viene creato o aggiornato un file contenente i dati degli utenti.
      *
      * @param[in] dati: L'oggetto ListaUtenti da serializzare.
@@ -75,7 +75,7 @@ public class SalvataggioFileUtente {
      *
      * Tenta di leggere e deserializzare un oggetto Utente dal percorso specificato.
      *
-     * @pre filename != null && !filename.isEmpty()
+     * @pre filename != null
      * @post Restituisce un oggetto Utente valido se la lettura ha successo.
      * @post Restituisce null se il file non esiste o la deserializzazione fallisce.
      *
