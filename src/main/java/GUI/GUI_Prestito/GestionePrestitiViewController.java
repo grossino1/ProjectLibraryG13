@@ -20,6 +20,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,6 +37,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -466,11 +468,23 @@ public class GestionePrestitiViewController implements Initializable {
         //permette di rimuovere il prestito selezionato tramite handleSelectedLibro
         //scheletro
         Prestito selected = tabellaPrestiti.getSelectionModel().getSelectedItem();  
-        try{   
-        elencoPrestiti.eliminazionePrestito(selected);
-        refreshTable();
-        }catch(PrestitoNonTrovatoException ex){
-            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+        if (selected == null) {
+            showAlert(Alert.AlertType.WARNING, "Nessuna Selezione", "Per favore, seleziona un prestito dalla tabella per eliminarlo.");
+            return; // Esce dal metodo subito
+        }
+        Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
+        conferma.setTitle("Conferma eliminazione");
+        conferma.setHeaderText("Sei sicuro di voler rimuovere il prestito selezionato?");
+        
+        Optional<ButtonType> risultato = conferma.showAndWait();
+        
+        if (risultato.isPresent() && risultato.get() == ButtonType.OK) {
+            try{   
+                elencoPrestiti.eliminazionePrestito(selected);
+                refreshTable();
+            }catch(PrestitoNonTrovatoException ex){
+                showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+            }
         }
     }
     

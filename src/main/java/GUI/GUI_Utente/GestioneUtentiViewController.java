@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,6 +30,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -418,14 +420,26 @@ public class GestioneUtentiViewController implements Initializable {
     @FXML
     void handleDeleteUtente(ActionEvent event) throws IOException, ClassNotFoundException, UtenteNotFoundException, UtenteWithPrestitoException{
         Utente selected = tabellaUtenti.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showAlert(Alert.AlertType.WARNING, "Nessuna Selezione", "Per favore, seleziona un utente dalla tabella per eliminarlo.");
+            return; // Esce dal metodo subito
+        }
         
-        try{
-            listaUtenti.eliminazioneUtente(selected);
-            refreshTable();
-        }catch(UtenteNotFoundException ex){
-            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
-        }catch(UtenteWithPrestitoException ex){
-            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
+        Alert conferma = new Alert(Alert.AlertType.CONFIRMATION);
+        conferma.setTitle("Conferma eliminazione");
+        conferma.setHeaderText("Sei sicuro di voler rimuovere il prestito selezionato?");
+        
+        Optional<ButtonType> risultato = conferma.showAndWait();
+        
+        if (risultato.isPresent() && risultato.get() == ButtonType.OK) {
+            try{
+                listaUtenti.eliminazioneUtente(selected);
+                refreshTable();
+            }catch(UtenteNotFoundException ex){
+                showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
+            }catch(UtenteWithPrestitoException ex){
+                showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
+            }
         }
     }
     
