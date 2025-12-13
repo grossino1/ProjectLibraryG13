@@ -106,6 +106,19 @@ public class CatalogoLibriTest {
             catalogo.eliminazioneLibro(libroValido);
         });
     }
+    
+    @Test
+    public void testEliminazioneLibroConPrestitoAttivo() throws Exception {
+        // Simula un prestito attivo
+        libroValido.setnPrestitiAttivi(1);
+        // Aggiungi il libro al catalogo
+        catalogo.registrazioneLibro(libroValido);
+        
+        // Verifica che l'eliminazione lanci l'eccezione LibroWithPrestitoException
+        assertThrows(LibroWithPrestitoException.class, () -> {
+            catalogo.eliminazioneLibro(libroValido);
+        });
+    }
 
     @Test
     public void testEliminazioneLibroNull() {
