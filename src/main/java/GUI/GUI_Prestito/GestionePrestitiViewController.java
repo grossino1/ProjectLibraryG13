@@ -81,6 +81,8 @@ public class GestionePrestitiViewController implements Initializable {
     private TextField handleCercaPrestito;
     @FXML
     private Button filterScaduti;
+    @FXML
+    private Label prestitiPresentiLabel;
     
     /**
      * Tabella per la visualizzazione dei prestiti.
@@ -345,6 +347,8 @@ public class GestionePrestitiViewController implements Initializable {
      */    
     @FXML
     void refreshTable() throws IOException, ClassNotFoundException{
+        String nPrestitiPresenti = String.valueOf(elencoPrestiti.getElencoPrestiti().size());
+        prestitiPresentiLabel.setText("Prestiti Presenti: " + nPrestitiPresenti);
         prestitoList.clear(); // 1. Cancella i dati vecchi dalla vista
         //catalogoLibri = SalvataggioFileLibro.carica(filename);
         prestitoList.addAll(elencoPrestiti.getElencoPrestiti());
