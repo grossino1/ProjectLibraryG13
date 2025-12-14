@@ -227,7 +227,7 @@ public class ElencoPrestitiTest {
     @Test
     public void testRegistrazione_ElencoPieno() throws Exception {
          
-        // Riempiamo l'elenco fino a 100 elementi (limite massimo consentito)
+        // Riempiamo l'elenco fino a 500 elementi (limite massimo consentito)
         // Assicuriamo che il gestore dica sempre TRUE
         gestoreStub.risultatoNuovoPrestito = true;
         
@@ -239,7 +239,7 @@ public class ElencoPrestitiTest {
             elenco.registrazionePrestito(isbnFinto, matricolaFinta);
         }
         
-        assertEquals(100, elenco.getElencoPrestiti().size());
+        assertEquals(500, elenco.getElencoPrestiti().size());
 
         // Proviamo ad inserire il 101esimo elemento
         // Deve scattare l'eccezione ElencoPienoException
