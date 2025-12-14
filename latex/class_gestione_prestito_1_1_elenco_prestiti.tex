@@ -1,0 +1,321 @@
+\doxysection{Gestione\+Prestito.\+Elenco\+Prestiti Class Reference}
+\hypertarget{class_gestione_prestito_1_1_elenco_prestiti}{}\label{class_gestione_prestito_1_1_elenco_prestiti}\index{GestionePrestito.ElencoPrestiti@{GestionePrestito.ElencoPrestiti}}
+
+
+Gestisce l\textquotesingle{}insieme di tutti i prestiti attivi.  
+
+
+
+
+Inheritance diagram for Gestione\+Prestito.\+Elenco\+Prestiti\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{class_gestione_prestito_1_1_elenco_prestiti__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Gestione\+Prestito.\+Elenco\+Prestiti\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{class_gestione_prestito_1_1_elenco_prestiti__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_gestione_prestito_1_1_elenco_prestiti_a4d96fdd8a5558ccfefd9f4166ff7a466}{Elenco\+Prestiti}} (boolean caricamento\+File, String filename, \mbox{\hyperlink{class_gestione_prestito_1_1_gestore_prestito}{Gestore\+Prestito}} gestore)  throws IOException, Class\+Not\+Found\+Exception 
+\begin{DoxyCompactList}\small\item\em Costruttore della classe \doxylink{class_gestione_prestito_1_1_elenco_prestiti}{Elenco\+Prestiti}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestione_prestito_1_1_elenco_prestiti_a158c72a4282455a3690fa0182e11ab47}{registrazione\+Prestito}} (String isbn, String matricola)  throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception}{Libro\+Not\+Found\+Exception}}, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_utente_not_found_exception}{Utente\+Not\+Found\+Exception}}, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_eccezioni_prestito}{Eccezioni\+Prestito}}, IOException, Class\+Not\+Found\+Exception
+\begin{DoxyCompactList}\small\item\em Tenta di registrare un nuovo prestito nel sistema. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestione_prestito_1_1_elenco_prestiti_ac10c869e9c9f9245e5fd9bdde3a92ad1}{eliminazione\+Prestito}} (\mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}} p)  throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestito_non_trovato_exception}{Prestito\+Non\+Trovato\+Exception}}, IOException
+\begin{DoxyCompactList}\small\item\em Rimuove un prestito dall\textquotesingle{}elenco. \end{DoxyCompactList}\item 
+Array\+List$<$ \mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}} $>$ \mbox{\hyperlink{class_gestione_prestito_1_1_elenco_prestiti_adc5a4e1c617808d94bcc850a61c058c3}{cerca\+Prestito}} (String chiave)  throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestito_non_trovato_exception}{Prestito\+Non\+Trovato\+Exception}} 
+\begin{DoxyCompactList}\small\item\em Cerca Prestiti in base a una stringa generica (ISBN o Matricola). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestione_prestito_1_1_elenco_prestiti_a07f51328063a73ccb3c8fa3b3000fe69}{modifica\+Prestito}} (\mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}} p, Local\+Date data\+Nuova)  throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1data_restituzione_exception}{data\+Restituzione\+Exception}}, IOException 
+\begin{DoxyCompactList}\small\item\em Modifica le informazioni del prestito. \end{DoxyCompactList}\item 
+Array\+List$<$ \mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}} $>$ \mbox{\hyperlink{class_gestione_prestito_1_1_elenco_prestiti_a2a734b1aed91d6fe34bbb40c871d54bb}{get\+Elenco\+Prestiti}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce l\textquotesingle{}elenco completo dei prestiti attivi. \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{class_gestione_prestito_1_1_elenco_prestiti_ace431291aa83de1df8eb44feed4b9ce7}{to\+String}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce una rappresentazione testuale dell\textquotesingle{}oggetto \doxylink{class_gestione_prestito_1_1_elenco_prestiti}{Elenco\+Prestiti}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Gestisce l\textquotesingle{}insieme di tutti i prestiti attivi. 
+
+Questa classe agisce come contenitore principale per gli oggetti \doxylink{class_gestione_prestito_1_1_prestito}{Prestito}. Utilizza un {\ttfamily Tree\+Set} per garantire che non ci siano duplicati. Delega le regole di validazione (numero minimo di copie e numero massimo di prestiti per utente) alla classe \doxylink{class_gestione_prestito_1_1_gestore_prestito}{Gestore\+Prestito}.
+
+\begin{DoxyInvariant}{Invariant}
+elenco\+Prestiti != null (La struttura dati è sempre inizializzata). 
+
+gestore != null (La classe deve sempre avere un riferimento valido al gestore delle regole).
+\end{DoxyInvariant}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_gestione_prestito_1_1_gestore_prestito}{Gestore\+Prestito} 
+
+\doxylink{class_gestione_prestito_1_1_prestito}{Prestito}
+\end{DoxySeeAlso}
+\begin{DoxyAuthor}{Author}
+grossino1 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+
+
+\label{doc-constructors}
+\Hypertarget{class_gestione_prestito_1_1_elenco_prestiti_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_gestione_prestito_1_1_elenco_prestiti_a4d96fdd8a5558ccfefd9f4166ff7a466}\index{GestionePrestito.ElencoPrestiti@{GestionePrestito.ElencoPrestiti}!ElencoPrestiti@{ElencoPrestiti}}
+\index{ElencoPrestiti@{ElencoPrestiti}!GestionePrestito.ElencoPrestiti@{GestionePrestito.ElencoPrestiti}}
+\doxysubsubsection{\texorpdfstring{ElencoPrestiti()}{ElencoPrestiti()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_elenco_prestiti_a4d96fdd8a5558ccfefd9f4166ff7a466} 
+Gestione\+Prestito.\+Elenco\+Prestiti.\+Elenco\+Prestiti (\begin{DoxyParamCaption}\item[{boolean}]{caricamento\+File}{, }\item[{String}]{filename}{, }\item[{\mbox{\hyperlink{class_gestione_prestito_1_1_gestore_prestito}{Gestore\+Prestito}}}]{gestore}{}\end{DoxyParamCaption}) throws IOException, Class\+Not\+Found\+Exception\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Costruttore della classe \doxylink{class_gestione_prestito_1_1_elenco_prestiti}{Elenco\+Prestiti}. 
+
+Controlla una flag che indica se deve caricare i dati da un file. Se la flag è true li carica. Se la flag è false inizializza la struttura senza dati (senza prestiti).
+
+\begin{DoxyPrecond}{Precondition}
+gestore != null (Non è possibile creare un elenco prestiti senza un gestore logico). 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Se caricamento\+File è false allora elenco\+Prestiti.\+is\+Empty() == true. 
+
+Se caricamento\+File è true allora elenco\+Prestiti.\+is\+Empty() == false. 
+
+this.\+gestore == gestore. 
+
+this.\+filename = filename.
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em caricamento\+File} & Flag indica se prendere i dati da un file. \\
+\hline
+\mbox{\texttt{in}}  & {\em filename} & Nome del file da cui caricare o su cui salvare.\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_salvataggio_file_1_1_salvataggio_file_prestito_1_1_salvataggio_file_prestito_af5c11c32a605a494a10634b403f2b963}{Salvataggio\+File.\+Salvataggio\+File\+Prestito.\+Salvataggio\+File\+Prestito.\+carica}(java.\+lang.\+String)
+\end{DoxySeeAlso}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em IOException} & Se il caricamento dal file fallisce. \\
+\hline
+{\em Class\+Not\+Found\+Exception} & Se il casting dell\textquotesingle{}oggetto dal file fallisce. \\
+\hline
+\end{DoxyExceptions}
+
+
+\label{doc-func-members}
+\Hypertarget{class_gestione_prestito_1_1_elenco_prestiti_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_gestione_prestito_1_1_elenco_prestiti_adc5a4e1c617808d94bcc850a61c058c3}\index{GestionePrestito.ElencoPrestiti@{GestionePrestito.ElencoPrestiti}!cercaPrestito@{cercaPrestito}}
+\index{cercaPrestito@{cercaPrestito}!GestionePrestito.ElencoPrestiti@{GestionePrestito.ElencoPrestiti}}
+\doxysubsubsection{\texorpdfstring{cercaPrestito()}{cercaPrestito()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_elenco_prestiti_adc5a4e1c617808d94bcc850a61c058c3} 
+Array\+List$<$ \mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}} $>$ Gestione\+Prestito.\+Elenco\+Prestiti.\+cerca\+Prestito (\begin{DoxyParamCaption}\item[{String}]{chiave}{}\end{DoxyParamCaption}) throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestito_non_trovato_exception}{Prestito\+Non\+Trovato\+Exception}}\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Cerca Prestiti in base a una stringa generica (ISBN o Matricola). 
+
+Restituisce una lista di prestiti che corrispondono alla ricerca. Nota\+: Restituisce un Array\+List invece di un Set per gestire potenziali omonimie.
+
+\begin{DoxyPrecond}{Precondition}
+chiave != null. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+La lista restituita.
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em chaive} & La stringa di ricerca. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Array\+List$<$\+Prestito$>$ contenente i prestiti che soddisfano il criterio.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestito_non_trovato_exception}{Prestito\+Non\+Trovato\+Exception}} & Se un prestito non viene trovato. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_gestione_prestito_1_1_elenco_prestiti_ac10c869e9c9f9245e5fd9bdde3a92ad1}\index{GestionePrestito.ElencoPrestiti@{GestionePrestito.ElencoPrestiti}!eliminazionePrestito@{eliminazionePrestito}}
+\index{eliminazionePrestito@{eliminazionePrestito}!GestionePrestito.ElencoPrestiti@{GestionePrestito.ElencoPrestiti}}
+\doxysubsubsection{\texorpdfstring{eliminazionePrestito()}{eliminazionePrestito()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_elenco_prestiti_ac10c869e9c9f9245e5fd9bdde3a92ad1} 
+void Gestione\+Prestito.\+Elenco\+Prestiti.\+eliminazione\+Prestito (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}}}]{p}{}\end{DoxyParamCaption}) throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestito_non_trovato_exception}{Prestito\+Non\+Trovato\+Exception}}, IOException\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Rimuove un prestito dall\textquotesingle{}elenco. 
+
+\begin{DoxyPrecond}{Precondition}
+p != null 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Se il p è presente, p non è più presente nell\textquotesingle{}elenco prestiti. 
+
+I dati sul libro e l\textquotesingle{}utente vengono aggiornati. 
+
+L\textquotesingle{}elenco prestiti aggiornato viene salvato sul file binario.
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em p} & L\textquotesingle{}oggetto \doxylink{class_gestione_prestito_1_1_prestito}{Prestito} da rimuovere.\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_gestione_prestito_1_1_gestore_prestito_a2cdac82f0e87a9a5980084e0cbd21812}{Gestore\+Prestito.\+aggiungi\+Copia\+Prestito\+Libro}(java.\+lang.\+String) 
+
+\doxylink{class_gestione_prestito_1_1_gestore_prestito_a8aaaeaa9a0e768a909d983ef1b4f422c}{Gestore\+Prestito.\+rimuovi\+Prestito\+Lista\+Utente}(java.\+lang.\+String, \doxylink{class_gestione_prestito_1_1_prestito}{Gestione\+Prestito.\+Prestito}) 
+
+\doxylink{class_salvataggio_file_1_1_salvataggio_file_prestito_1_1_salvataggio_file_prestito_aadca38c76f12860054292d9439b83925}{Salvataggio\+File.\+Salvataggio\+File\+Prestito.\+Salvataggio\+File\+Prestito.\+salva}(\doxylink{class_gestione_prestito_1_1_elenco_prestiti}{Gestione\+Prestito.\+Elenco\+Prestiti}, java.\+lang.\+String)
+\end{DoxySeeAlso}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em IOException} & Se il salvataggio sul file fallisce. \\
+\hline
+{\em \doxylink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestito_non_trovato_exception}{Prestito\+Non\+Trovato\+Exception}} & Se il prestito indicato non viene trovato nell\textquotesingle{}elenco. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_gestione_prestito_1_1_elenco_prestiti_a2a734b1aed91d6fe34bbb40c871d54bb}\index{GestionePrestito.ElencoPrestiti@{GestionePrestito.ElencoPrestiti}!getElencoPrestiti@{getElencoPrestiti}}
+\index{getElencoPrestiti@{getElencoPrestiti}!GestionePrestito.ElencoPrestiti@{GestionePrestito.ElencoPrestiti}}
+\doxysubsubsection{\texorpdfstring{getElencoPrestiti()}{getElencoPrestiti()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_elenco_prestiti_a2a734b1aed91d6fe34bbb40c871d54bb} 
+Array\+List$<$ \mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}} $>$ Gestione\+Prestito.\+Elenco\+Prestiti.\+get\+Elenco\+Prestiti (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce l\textquotesingle{}elenco completo dei prestiti attivi. 
+
+Crea un nuovo Array\+List contenente tutti gli elementi presenti nel Tree\+Set.
+
+\begin{DoxyPostcond}{Postcondition}
+La lista restituita è una copia indipendente. 
+
+La lista mantiene lo stesso ordinamento del Tree\+Set. 
+
+La lista non è mai null (può essere vuota).
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+Un Array\+List$<$\+Prestito$>$ contenente tutti i libri presenti. 
+\end{DoxyReturn}
+\Hypertarget{class_gestione_prestito_1_1_elenco_prestiti_a07f51328063a73ccb3c8fa3b3000fe69}\index{GestionePrestito.ElencoPrestiti@{GestionePrestito.ElencoPrestiti}!modificaPrestito@{modificaPrestito}}
+\index{modificaPrestito@{modificaPrestito}!GestionePrestito.ElencoPrestiti@{GestionePrestito.ElencoPrestiti}}
+\doxysubsubsection{\texorpdfstring{modificaPrestito()}{modificaPrestito()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_elenco_prestiti_a07f51328063a73ccb3c8fa3b3000fe69} 
+void Gestione\+Prestito.\+Elenco\+Prestiti.\+modifica\+Prestito (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}}}]{p}{, }\item[{Local\+Date}]{data\+Nuova}{}\end{DoxyParamCaption}) throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1data_restituzione_exception}{data\+Restituzione\+Exception}}, IOException\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Modifica le informazioni del prestito. 
+
+Nello specifico modifica solo la data di restituzione, visto che gli altri attributi non sono modificabili.
+
+\begin{DoxyPostcond}{Postcondition}
+La data di restituzione del prestito viene modificata.
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em p} & Il \doxylink{class_gestione_prestito_1_1_prestito}{Prestito} da modificare. \\
+\hline
+ & {\em \mbox{[}i\mbox{]}} & data\+Nuova La nuova data del prestito.\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_gestione_prestito_1_1_prestito_ac92d6b49c8f3897c43582907641fac3e}{Prestito.\+set\+Data\+Restituzione}(java.\+time.\+Local\+Date) 
+
+\doxylink{class_salvataggio_file_1_1_salvataggio_file_prestito_1_1_salvataggio_file_prestito_aadca38c76f12860054292d9439b83925}{Salvataggio\+File.\+Salvataggio\+File\+Prestito.\+Salvataggio\+File\+Prestito.\+salva}(\doxylink{class_gestione_prestito_1_1_elenco_prestiti}{Gestione\+Prestito.\+Elenco\+Prestiti}, java.\+lang.\+String)
+\end{DoxySeeAlso}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{class_eccezioni_1_1_eccezioni_prestiti_1_1data_restituzione_exception}{data\+Restituzione\+Exception}} & Se uno dei vincoli sulla data di restituzione non viene rispetatto. \\
+\hline
+{\em IOException} & Se il salvataggio sul file fallisce. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_gestione_prestito_1_1_elenco_prestiti_a158c72a4282455a3690fa0182e11ab47}\index{GestionePrestito.ElencoPrestiti@{GestionePrestito.ElencoPrestiti}!registrazionePrestito@{registrazionePrestito}}
+\index{registrazionePrestito@{registrazionePrestito}!GestionePrestito.ElencoPrestiti@{GestionePrestito.ElencoPrestiti}}
+\doxysubsubsection{\texorpdfstring{registrazionePrestito()}{registrazionePrestito()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_elenco_prestiti_a158c72a4282455a3690fa0182e11ab47} 
+void Gestione\+Prestito.\+Elenco\+Prestiti.\+registrazione\+Prestito (\begin{DoxyParamCaption}\item[{String}]{isbn}{, }\item[{String}]{matricola}{}\end{DoxyParamCaption}) throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception}{Libro\+Not\+Found\+Exception}}, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_utente_not_found_exception}{Utente\+Not\+Found\+Exception}}, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_eccezioni_prestito}{Eccezioni\+Prestito}}, IOException, Class\+Not\+Found\+Exception\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Tenta di registrare un nuovo prestito nel sistema. 
+
+Il metodo divide l\textquotesingle{}operazione in quattro fasi\+:
+\begin{DoxyEnumerate}
+\item Delega al \doxylink{class_gestione_prestito_1_1_gestore_prestito}{Gestore\+Prestito} la validazione dei dati.
+\item Se la validazione passa, crea l\textquotesingle{}oggetto \doxylink{class_gestione_prestito_1_1_prestito}{Prestito} e lo aggiunge al Tree\+Set. ~\newline
+
+\item Delega al \doxylink{class_gestione_prestito_1_1_gestore_prestito}{Gestore\+Prestito} l\textquotesingle{}aggiornamento dei dati.
+\item Salva l\textquotesingle{}elenco aggiornato sul file.
+\end{DoxyEnumerate}
+
+\begin{DoxyPrecond}{Precondition}
+isbn != null \&\& !isbn.is\+Empty() 
+
+matricola != null \&\& !matricola.is\+Empty() 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Se successo\+: elenco\+Prestiti.\+size() == old\+\_\+size + 1 e l\textquotesingle{}elenco prestiti aggiornato viene salvato sul file binario. 
+
+Se fallimento/errore\+: elenco\+Prestiti.\+size() == old\+\_\+size
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em isbn} & Il codice ISBN del libro da prestare. \\
+\hline
+\mbox{\texttt{in}}  & {\em matricola} & La matricola dell\textquotesingle{}utente che richiede il prestito.\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_gestione_prestito_1_1_gestore_prestito_aad59c6ea65469334ce6f8f4a5ac92e5f}{Gestore\+Prestito.\+nuovo\+Prestito}(java.\+lang.\+String, java.\+lang.\+String) 
+
+\doxylink{class_gestione_prestito_1_1_gestore_prestito_a2f6d4024a008679e23d444f645b6a2ea}{Gestore\+Prestito.\+diminuisci\+Copia\+Prestito\+Libro}(java.\+lang.\+String) 
+
+\doxylink{class_gestione_prestito_1_1_gestore_prestito_a28417e96e2c54bf76c795ef815dcd614}{Gestore\+Prestito.\+aggiungi\+Prestito\+Lista\+Utente}(java.\+lang.\+String, \doxylink{class_gestione_prestito_1_1_prestito}{Gestione\+Prestito.\+Prestito}) 
+
+\doxylink{class_salvataggio_file_1_1_salvataggio_file_prestito_1_1_salvataggio_file_prestito_aadca38c76f12860054292d9439b83925}{Salvataggio\+File.\+Salvataggio\+File\+Prestito.\+Salvataggio\+File\+Prestito.\+salva}(\doxylink{class_gestione_prestito_1_1_elenco_prestiti}{Gestione\+Prestito.\+Elenco\+Prestiti}, java.\+lang.\+String)
+\end{DoxySeeAlso}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception}{Libro\+Not\+Found\+Exception}} & Se il codice ISBN non corrisponde a nessun libro nel catalogo. \\
+\hline
+{\em \doxylink{class_eccezioni_1_1_eccezioni_utenti_1_1_utente_not_found_exception}{Utente\+Not\+Found\+Exception}} & Se la matricola non corrisponde a nessun utente registrato. \\
+\hline
+{\em \doxylink{class_eccezioni_1_1_eccezioni_prestiti_1_1_eccezioni_prestito}{Eccezioni\+Prestito}} & Se uno dei vincoli per il prestito non è rispettato. \\
+\hline
+{\em IOException} & Se il salvataggio sul file fallisce. \\
+\hline
+{\em Class\+Not\+Found\+Exception} & Se il casting nella carica dal file (di Gestore.\+nuovo\+Prestito()) fallisce. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_gestione_prestito_1_1_elenco_prestiti_ace431291aa83de1df8eb44feed4b9ce7}\index{GestionePrestito.ElencoPrestiti@{GestionePrestito.ElencoPrestiti}!toString@{toString}}
+\index{toString@{toString}!GestionePrestito.ElencoPrestiti@{GestionePrestito.ElencoPrestiti}}
+\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_elenco_prestiti_ace431291aa83de1df8eb44feed4b9ce7} 
+String Gestione\+Prestito.\+Elenco\+Prestiti.\+to\+String (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce una rappresentazione testuale dell\textquotesingle{}oggetto \doxylink{class_gestione_prestito_1_1_elenco_prestiti}{Elenco\+Prestiti}. 
+
+\begin{DoxyPostcond}{Postcondition}
+Il risultato non è mai null (restituisce sempre una stringa, anche vuota).
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+Una stringa contenente la descrizione completa dell\textquotesingle{}elenco prestiti. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/\+Gestione\+Prestito/\mbox{\hyperlink{_elenco_prestiti_8java}{Elenco\+Prestiti.\+java}}\end{DoxyCompactItemize}

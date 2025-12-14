@@ -14,7 +14,7 @@ package Eccezioni.EccezioniUtenti;
  * @see EccezioniUtente
  * @see GestioneUtente.ListaUtenti#getUtenteByMatricola
  *
- * @author mello
+ * @author chiara
  * @version 1.0
  */
 

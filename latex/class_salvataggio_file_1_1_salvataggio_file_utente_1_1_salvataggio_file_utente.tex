@@ -1,0 +1,113 @@
+\doxysection{Salvataggio\+File.\+Salvataggio\+File\+Utente.\+Salvataggio\+File\+Utente Class Reference}
+\hypertarget{class_salvataggio_file_1_1_salvataggio_file_utente_1_1_salvataggio_file_utente}{}\label{class_salvataggio_file_1_1_salvataggio_file_utente_1_1_salvataggio_file_utente}\index{SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente@{SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente}}
+
+
+Gestisce la persistenza su file degli oggetti di tipo Utente.  
+
+
+
+
+Collaboration diagram for Salvataggio\+File.\+Salvataggio\+File\+Utente.\+Salvataggio\+File\+Utente\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{class_salvataggio_file_1_1_salvataggio_file_utente_1_1_salvataggio_file_utente__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_salvataggio_file_1_1_salvataggio_file_utente_1_1_salvataggio_file_utente_afebb4297b94ab468eb519267718960ce}{salva}} (\mbox{\hyperlink{class_gestione_utente_1_1_lista_utenti}{Lista\+Utenti}} dati, String filename)  throws IOException
+\begin{DoxyCompactList}\small\item\em Salva lo stato di un oggetto Utente su un file binario. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{class_gestione_utente_1_1_lista_utenti}{Lista\+Utenti}} \mbox{\hyperlink{class_salvataggio_file_1_1_salvataggio_file_utente_1_1_salvataggio_file_utente_a3ae617e8fc50aa4ae58683a4f66c6831}{carica}} (String filename)  throws IOException, Class\+Not\+Found\+Exception
+\begin{DoxyCompactList}\small\item\em Carica un oggetto Utente da un file binario. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Gestisce la persistenza su file degli oggetti di tipo Utente. 
+
+\begin{DoxyAuthor}{Author}
+chiara
+\end{DoxyAuthor}
+
+
+Questa classe di utilità si occupa di serializzare (salvare) e deserializzare (caricare) le istanze della classe Utente su file binari.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_gestione_utente_1_1_utente}{Gestione\+Utente.\+Utente} 
+
+java.\+io.\+Object\+Output\+Stream 
+
+java.\+io.\+Object\+Input\+Stream
+\end{DoxySeeAlso}
+\begin{DoxyAuthor}{Author}
+chiara 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+
+
+\label{doc-func-members}
+\Hypertarget{class_salvataggio_file_1_1_salvataggio_file_utente_1_1_salvataggio_file_utente_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_salvataggio_file_1_1_salvataggio_file_utente_1_1_salvataggio_file_utente_a3ae617e8fc50aa4ae58683a4f66c6831}\index{SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente@{SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente}!carica@{carica}}
+\index{carica@{carica}!SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente@{SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente}}
+\doxysubsubsection{\texorpdfstring{carica()}{carica()}}
+{\footnotesize\ttfamily \label{class_salvataggio_file_1_1_salvataggio_file_utente_1_1_salvataggio_file_utente_a3ae617e8fc50aa4ae58683a4f66c6831} 
+\mbox{\hyperlink{class_gestione_utente_1_1_lista_utenti}{Lista\+Utenti}} Salvataggio\+File.\+Salvataggio\+File\+Utente.\+Salvataggio\+File\+Utente.\+carica (\begin{DoxyParamCaption}\item[{String}]{filename}{}\end{DoxyParamCaption}) throws IOException, Class\+Not\+Found\+Exception\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Carica un oggetto Utente da un file binario. 
+
+Tenta di leggere e deserializzare un oggetto Utente dal percorso specificato.
+
+\begin{DoxyPrecond}{Precondition}
+filename != null 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Restituisce un oggetto Utente valido se la lettura ha successo. 
+
+Restituisce null se il file non esiste o la deserializzazione fallisce.
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em filename} & Il percorso del file da leggere. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+L\textquotesingle{}istanza di \doxylink{class_gestione_utente_1_1_lista_utenti}{Lista\+Utenti} recuperata, oppure null in caso di errore. 
+\end{DoxyReturn}
+\Hypertarget{class_salvataggio_file_1_1_salvataggio_file_utente_1_1_salvataggio_file_utente_afebb4297b94ab468eb519267718960ce}\index{SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente@{SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente}!salva@{salva}}
+\index{salva@{salva}!SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente@{SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente}}
+\doxysubsubsection{\texorpdfstring{salva()}{salva()}}
+{\footnotesize\ttfamily \label{class_salvataggio_file_1_1_salvataggio_file_utente_1_1_salvataggio_file_utente_afebb4297b94ab468eb519267718960ce} 
+void Salvataggio\+File.\+Salvataggio\+File\+Utente.\+Salvataggio\+File\+Utente.\+salva (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_gestione_utente_1_1_lista_utenti}{Lista\+Utenti}}}]{dati}{, }\item[{String}]{filename}{}\end{DoxyParamCaption}) throws IOException\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Salva lo stato di un oggetto Utente su un file binario. 
+
+Serializza l\textquotesingle{}oggetto passato come parametro e lo scrive nel percorso specificato. Se il file esiste già, viene sovrascritto.
+
+\begin{DoxyPrecond}{Precondition}
+dati != null (L\textquotesingle{}oggetto da salvare non può essere nullo). 
+
+filename != null (Il nome del file deve essere valido). 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Viene creato o aggiornato un file contenente i dati degli utenti.
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em dati} & L\textquotesingle{}oggetto \doxylink{class_gestione_utente_1_1_lista_utenti}{Lista\+Utenti} da serializzare. \\
+\hline
+\mbox{\texttt{in}}  & {\em filename} & Il percorso o nome del file di destinazione. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/\+Salvataggio\+File/\+Salvataggio\+File\+Utente/\mbox{\hyperlink{_salvataggio_file_utente_8java}{Salvataggio\+File\+Utente.\+java}}\end{DoxyCompactItemize}

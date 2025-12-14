@@ -7,8 +7,9 @@ package Eccezioni.EccezioniAutenticazione;
  * Questa classe estende `Exception` e raggruppa tutti gli errori che possono verificarsi
  * durante le fasi di login o verifica delle credenziali.
  * Essendo astratta, non può essere istanziata direttamente, ma permette di catturare
- * tutti gli errori relativi ai libri in un unico blocco catch.
+ * tutti gli errori relativi all'autenticazione in un unico blocco catch.
  *
+ * @see Autenticazione
  * @see java.lang.Exception
  *
  * @author mello

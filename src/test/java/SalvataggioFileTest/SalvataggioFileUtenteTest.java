@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author chiara
  */
 public class SalvataggioFileUtenteTest {
-    // FIXTURE: Variabili di Ambiente
+    // FIXTURE: Variabili di Istanza
     private ListaUtenti listaDaSalvare;
     private Utente utenteTest;
     private final String NOME_VALIDO = "Mario";
@@ -69,7 +69,7 @@ public class SalvataggioFileUtenteTest {
     // TEST SALVA
     
     @Test
-    @DisplayName("Salvataggio e Caricamento (Round-Trip) con Timeout")
+    @DisplayName("Salvataggio e Caricamento con Timeout")
     @Timeout(value = 2, unit = TimeUnit.SECONDS) // Fallisce se l'I/O dura troppo
     void testSalvaECarica() throws IOException, ClassNotFoundException {
         // SALVATAGGIO 
@@ -116,6 +116,7 @@ public class SalvataggioFileUtenteTest {
     @Test
     @DisplayName("Errore: Caricamento con Filename Null")
     void testCaricaFilenameNull() {
+        // Deve lanciare l'eccezione IOException.
         IOException ex = assertThrows(IOException.class, () -> {
             SalvataggioFileUtente.carica(null);
         });

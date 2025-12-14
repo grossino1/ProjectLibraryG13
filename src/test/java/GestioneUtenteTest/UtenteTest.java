@@ -34,7 +34,8 @@ public class UtenteTest {
     private Prestito prestito;
     private final String ISBN_VALIDO = "1234567890123";
     
-    // FIXTURE: Setup (@BeforeEach)
+    // FIXTURE: Setup (@BeforeEach) e tearDown (@AfterEach)
+    
     /**
      * @brief Inizializza l'oggetto Utente e Prestito prima di ogni test.
      */
@@ -63,6 +64,7 @@ public class UtenteTest {
     @Test
     @DisplayName("Costruttore: Creazione Valida")
     void testCostruttoreValido(){
+        // Non deve lanciare eccezioni.
         assertDoesNotThrow(() -> {
             new Utente(NOME_VALIDO, COGNOME_VALIDO, MATRICOLA_VALIDA, EMAIL_VALIDA);
         });    
@@ -71,6 +73,7 @@ public class UtenteTest {
     @Test
     @DisplayName("Costruttore: Matricola Null -> IllegalArgumentException")
     void testCostruttoreMatricolaNull(){
+        // Deve lanciare l'eccezione IllegalArgumentException.
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             new Utente(NOME_VALIDO, COGNOME_VALIDO, null, EMAIL_VALIDA);
         });  
@@ -80,6 +83,7 @@ public class UtenteTest {
     @Test
     @DisplayName("Costruttore: Matricola Corta -> MatricolaNotValidException")
     void testCostruttoreMatricolaCorta(){
+        // Deve lanciare l'eccezione MatricolaNotValidExceptio.
         MatricolaNotValidException exception = assertThrows(MatricolaNotValidException.class, () -> {
             new Utente(NOME_VALIDO, COGNOME_VALIDO, "123", EMAIL_VALIDA);
         });  
@@ -89,6 +93,7 @@ public class UtenteTest {
     @Test
     @DisplayName("Costruttore: Matricola Alfanumerica -> MatricolaNotValidException")
     void testCostruttoreMatricolaAlfanumerica(){
+        // Deve lanciare l'eccezione MatricolaNotValidExceptio.
         MatricolaNotValidException exception = assertThrows(MatricolaNotValidException.class, () -> {
             new Utente(NOME_VALIDO, COGNOME_VALIDO, "12DFT34", EMAIL_VALIDA);
         });  
@@ -111,10 +116,11 @@ public class UtenteTest {
             }
         };
         
-        // Creo una lista di input
+        // Creo una lista di input e aggiungo il prestito
         ArrayList<Prestito> input = new ArrayList<>();
         input.add(prestitoConData);
         
+        // Prelevo la data di restituzione dal prestito
         ArrayList<LocalDate> date = utente.getListaDataRestituzione(input);
         
         // La lista deve contenere la data dataAttesa
@@ -127,18 +133,19 @@ public class UtenteTest {
     @Test
     @DisplayName("AddPrestito: Eccezione su Null")
     void testAddPrestitoNull() {
+        // Deve lanciare l'eccezione IllegalArgumentException.
         assertThrows(IllegalArgumentException.class, () -> utente.addPrestito(null));
     }
     
     @Test
     @DisplayName("AddPrestito: Limite Massimo Raggiunto -> PrestitiEsauritiException")
     void testAddPrestitoLimiteMassimo() throws PrestitiEsauritiException {
-        // Riempiamo la lista fino al limite consentito (3 prestiti)
+        // Riempio la lista fino al limite consentito (3 prestiti)
         utente.addPrestito(prestito);
         utente.addPrestito(prestito);
         utente.addPrestito(prestito);
         
-        // Verifico che cisiano 3 prestiti nella lista
+        // Verifico che ci siano 3 prestiti nella lista
         assertEquals(3, utente.getListaPrestiti().size());
 
         // Tento di aggiungere il 4° prestito -> Deve lanciare l'eccezione
@@ -205,6 +212,7 @@ public class UtenteTest {
     @Test
     @DisplayName("RimuoviPrestito: Errore Parametro Null")
     void testRimuoviPrestitoNull() {
+        // Deve lanciare l'eccezione IllegalArgumentException.
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             utente.rimuoviPrestito(null);
         });
@@ -248,7 +256,7 @@ public class UtenteTest {
     @Test
     @DisplayName("CompareTo: Ordinamento")
     void testCompareTo() throws MatricolaNotValidException {
-        // utente attuale: Mario Rossi, 1234567890
+        // Utente attuale: Mario Rossi, 1234567890
         
         // Caso 1: Cognome diverso (Bianchi < Rossi)
         Utente u1 = new Utente(NOME_VALIDO, "Bianchi", MATRICOLA_VALIDA, EMAIL_VALIDA);
@@ -259,7 +267,7 @@ public class UtenteTest {
         assertTrue(utente.compareTo(u2) < 0); // Mario viene prima di Orlando
 
         // Caso 3: Stesso nome/cognome, Matricola diversa
-        // Utente ha "1234567890". Creiamo uno con "0000000001"
+        // Utente ha "1234567890". Ne creo uno con "0000000001"
         Utente u3 = new Utente("Mario", "Rossi", "0000000001", EMAIL_VALIDA);
         assertTrue(utente.compareTo(u3) > 0); // 123... > 000...
     }
@@ -277,6 +285,7 @@ public class UtenteTest {
         sbAttesa.append("Cognome: ").append(COGNOME_VALIDO);
         sbAttesa.append("Matricola: ").append(MATRICOLA_VALIDA);
         sbAttesa.append("E-Mail Istituzionale: ").append(EMAIL_VALIDA);
+        
         // Poiché nel setUp la lista prestiti è vuota, l'ArrayList restituisce "[]"
         sbAttesa.append("Elenco dei Prestiti Attivi: []");
 

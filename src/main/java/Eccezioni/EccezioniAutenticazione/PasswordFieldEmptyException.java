@@ -1,10 +1,8 @@
 package Eccezioni.EccezioniAutenticazione;
 
 /**
- * @class PasswordNotValidException
- * @brief Eccezione lanciata quando una password non rispetta i criteri di validità.
- *
- * Questa eccezione segnala che la stringa fornita come password non è accettabile.
+ * @class PasswordFieldEmptyException
+ * @brief Eccezione lanciata quando il campo della passward è vuoto.
  *
  * @see EccezioneAutenticazione
  *

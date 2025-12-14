@@ -15,7 +15,7 @@ package Eccezioni.EccezioniUtenti;
  *
  * @see java.lang.Exception
  *
- * @author jackross
+ * @author chiara
  * @version 1.0
  */
 

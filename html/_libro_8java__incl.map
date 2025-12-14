@@ -1,0 +1,11 @@
+<map id="src/main/java/GestioneLibro/Libro.java" name="src/main/java/GestioneLibro/Libro.java">
+<area shape="rect" id="Node000001" title=" " alt="" coords="248,5,432,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,102,136,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="279,49,124,99,122,94,278,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="160,94,328,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="321,45,278,86,276,81,316,48"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="352,94,520,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="363,44,405,84,400,83,361,49"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="544,94,728,135"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="408,44,557,89,551,89,407,49"/>
+</map>

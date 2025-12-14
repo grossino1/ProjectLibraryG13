@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['gestoreprestito_0',['GestorePrestito',['../class_gestione_prestito_1_1_gestore_prestito.html#a10acecfee6945a4ca115c32f6c65f3d0',1,'GestionePrestito::GestorePrestito']]],
+  ['getannopubblicazione_1',['getAnnoPubblicazione',['../class_gestione_libro_1_1_libro.html#a3e67bf9d1ad159186e280f9f8e9872f6',1,'GestioneLibro::Libro']]],
+  ['getautori_2',['getAutori',['../class_gestione_libro_1_1_libro.html#a2daea71e63434f0c1546cb240ed66146',1,'GestioneLibro::Libro']]],
+  ['getcatalogolibri_3',['getCatalogoLibri',['../class_gestione_libro_1_1_catalogo_libri.html#a31f353e71160defd4cb149f855497710',1,'GestioneLibro::CatalogoLibri']]],
+  ['getcognome_4',['getCognome',['../class_gestione_utente_1_1_utente.html#a54c1a51c1294cc77997281c9d490fa01',1,'GestioneUtente::Utente']]],
+  ['getdatareg_5',['getDataReg',['../class_gestione_utente_1_1_utente.html#af5e1512bfc8ffe909dbb63ae3b3d56d3',1,'GestioneUtente::Utente']]],
+  ['getdataregistrazione_6',['getDataRegistrazione',['../class_gestione_prestito_1_1_prestito.html#a11399c1040a9ca4742bee9e368d4904f',1,'GestionePrestito::Prestito']]],
+  ['getdatarestituzione_7',['getDataRestituzione',['../class_gestione_prestito_1_1_prestito.html#ae080004fbb215ce64a0b281af7e0b6e3',1,'GestionePrestito::Prestito']]],
+  ['getelencoprestiti_8',['getElencoPrestiti',['../class_gestione_prestito_1_1_elenco_prestiti.html#a2a734b1aed91d6fe34bbb40c871d54bb',1,'GestionePrestito::ElencoPrestiti']]],
+  ['getemailistituzionale_9',['getEmailIstituzionale',['../class_gestione_utente_1_1_utente.html#abadf0c4a0daa71c8754a87ac95f0829b',1,'GestioneUtente::Utente']]],
+  ['getisbn_10',['getIsbn',['../class_gestione_libro_1_1_libro.html#ab7655d13eb92a7458027555efc3a62f0',1,'GestioneLibro::Libro']]],
+  ['getisbnlibro_11',['getISBNLibro',['../class_gestione_prestito_1_1_prestito.html#a47b368a5e6ed90b8256284ea5860ba1a',1,'GestionePrestito::Prestito']]],
+  ['getlibrobyisbn_12',['getLibroByISBN',['../class_gestione_libro_1_1_catalogo_libri.html#aeccc9952f3a0dc82523ebd98805846b4',1,'GestioneLibro::CatalogoLibri']]],
+  ['getlistadatarestituzione_13',['getListaDataRestituzione',['../class_gestione_utente_1_1_utente.html#a34689b9c4e298726877641d433f0b497',1,'GestioneUtente::Utente']]],
+  ['getlistaprestiti_14',['getListaPrestiti',['../class_gestione_utente_1_1_utente.html#a0d2c11ee925496bee59c2c20467ae8da',1,'GestioneUtente::Utente']]],
+  ['getlistautenti_15',['getListaUtenti',['../class_gestione_utente_1_1_lista_utenti.html#a3b63c9e228fdb77e7450fd5519814d3f',1,'GestioneUtente::ListaUtenti']]],
+  ['getmatricola_16',['getMatricola',['../class_gestione_utente_1_1_utente.html#ab8bf1c753796e44195d4d47989eb2f02',1,'GestioneUtente::Utente']]],
+  ['getmatricolautente_17',['getMatricolaUtente',['../class_gestione_prestito_1_1_prestito.html#a252a16a168acd075fe1b9034946ad2c3',1,'GestionePrestito::Prestito']]],
+  ['getnome_18',['getNome',['../class_gestione_utente_1_1_utente.html#aa9cea3304f07b0eee7be36bedfaf0559',1,'GestioneUtente::Utente']]],
+  ['getnprestitiattivi_19',['getNPrestitiAttivi',['../class_gestione_libro_1_1_libro.html#ab5585163fcf3e3efc358630178b4e4ae',1,'GestioneLibro::Libro']]],
+  ['getnumerocopie_20',['getNumeroCopie',['../class_gestione_libro_1_1_libro.html#a2e8b3b327b0b968c8bf684876352c9dc',1,'GestioneLibro::Libro']]],
+  ['getpassword_21',['getPassword',['../class_autenticazione_1_1_bibliotecario.html#a6d66b94d85148991ad054d19dd97029b',1,'Autenticazione::Bibliotecario']]],
+  ['gettitolo_22',['getTitolo',['../class_gestione_libro_1_1_libro.html#abbd05dc67b152213b0192faf0080c1f2',1,'GestioneLibro::Libro']]],
+  ['getusername_23',['getUsername',['../class_autenticazione_1_1_bibliotecario.html#a1134f7d4cc2742b566f824dc425e6537',1,'Autenticazione::Bibliotecario']]],
+  ['getutentebymatricola_24',['getUtenteByMatricola',['../class_gestione_utente_1_1_lista_utenti.html#ae84b4c7d9a2b375a8ef51921e6242585',1,'GestioneUtente::ListaUtenti']]]
+];

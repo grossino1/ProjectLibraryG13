@@ -1,0 +1,7 @@
+<map id="Eccezioni.EccezioniUtenti.ListaUtentiPienaException" name="Eccezioni.EccezioniUtenti.ListaUtentiPienaException">
+<area shape="rect" id="Node000001" title="Eccezione lanciata quando la listaUtenti ha raggiunto il limite di utenti (1000 utenti)." alt="" coords="5,269,191,371"/>
+<area shape="rect" id="Node000002" href="$class_eccezioni_1_1_eccezioni_utenti_1_1_eccezioni_utente.html" title="Classe base astratta per tutte le eccezioni legate alla gestione degli utenti." alt="" coords="14,120,182,221"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,234,101,270,96,269,97,239"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="64,5,133,72"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="99,84,101,120,96,120,98,89"/>
+</map>

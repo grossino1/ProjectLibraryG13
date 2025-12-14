@@ -1,0 +1,27 @@
+<map id="src/main/java/GestioneLibro/CatalogoLibri.java" name="src/main/java/GestioneLibro/CatalogoLibri.java">
+<area shape="rect" id="Node000001" title=" " alt="" coords="851,5,1034,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,102,96,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="848,27,707,34,521,44,315,64,210,78,108,97,97,99,96,94,107,91,209,73,314,58,521,38,707,28,853,27"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="120,102,237,127"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="848,31,580,53,415,71,250,97,234,100,233,95,249,91,414,66,579,48,853,31"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="261,102,384,127"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="848,35,642,59,519,76,396,97,381,100,380,95,395,91,518,71,641,54,853,34"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="408,102,546,127"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="853,41,559,97,542,100,541,95,558,91,848,42"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="571,94,738,135"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="879,46,735,92,734,87,874,47"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="763,94,930,135"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="923,46,881,86,878,81,918,47"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="955,94,1122,135"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="965,44,1008,84,1003,83,963,49"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="1147,94,1314,135"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="1009,44,1154,89,1148,89,1008,49"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="1338,94,1518,135"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="1035,40,1325,93,1320,93,1034,45"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="1542,94,1733,135"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="1035,33,1255,56,1529,94,1524,94,1254,62,1035,38"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="1758,102,1893,127"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="1035,28,1350,46,1548,65,1746,91,1767,98,1762,97,1745,97,1547,70,1350,52,1034,33"/>
+<area shape="rect" id="Node000013" title=" " alt="" coords="1917,102,2048,127"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="1035,26,1199,30,1416,41,1660,61,1906,91,1927,98,1922,97,1905,97,1659,66,1415,46,1199,36,1035,31"/>
+</map>
