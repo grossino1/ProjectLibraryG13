@@ -126,7 +126,7 @@ public class ListaUtentiTest {
         String fileInesistente = "fileInesistente.dat";
 
         // Mi aspetto che venga lanciata una IOException (oppure FileNotFoundException che ne è sottoclasse)
-        // perché stiamo chiedendo di caricare un file che non c'è.
+        // perché stiamo chiedendo di caricare un file che non esiste.
         assertThrows(IOException.class, () -> {
             new ListaUtenti(true, fileInesistente);
         });
@@ -193,6 +193,7 @@ public class ListaUtentiTest {
     @Test
     @DisplayName("Errore: Registrazione di un Utente Null")
     void testRegistrazioneUtenteNull(){
+        // Verifico che lanci IllegalArgumentException con il messaggio specifico
         assertThrows(IllegalArgumentException.class, () -> {
             listaUtenti.registrazioneUtente(null);
         });
@@ -238,7 +239,7 @@ public class ListaUtentiTest {
         assertTrue(risultatiCognome.contains(u3));
         assertFalse(risultatiCognome.contains(u2));
         
-        // Ricerca per Nome "Mario" (Parziale o completa) -> Deve restituire u2
+        // Ricerca per Nome "Chiara" (Parziale o completa) -> Deve restituire u2
         ArrayList<Utente> risultatiNome = listaUtenti.cercaUtente("Chiara");
 
         assertEquals(1, risultatiNome.size(), "Dovrebbe trovare un utente con nome Chiara");
@@ -258,6 +259,7 @@ public class ListaUtentiTest {
     @Test
     @DisplayName("Ricerca Utente con parametro Null")
     void testCercaUtenteNull() {
+        // Verifico che lanci IllegalArgumentException 
         assertThrows(IllegalArgumentException.class, () -> {
             listaUtenti.cercaUtente(null);
         });
@@ -283,7 +285,7 @@ public class ListaUtentiTest {
     @Test
     @DisplayName("Eliminazione: Errore Utente Null (MODIFICATO)")
     void testEliminazioneUtenteNull() {
-        // Deve lanciare l'eccezione
+        // Deve lanciare l'eccezione IllegalArgumentException
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
             listaUtenti.eliminazioneUtente(null);
         });
@@ -295,7 +297,7 @@ public class ListaUtentiTest {
     @Test
     @DisplayName("Eliminazione: Eccezione Utente Non Presente")
     void testEliminazioneUtenteNonTrovato() {
-        // Deve lanciare l'eccezione
+        // Deve lanciare l'eccezione UtenteNotFoundException
         assertThrows(UtenteNotFoundException.class, () -> {
             listaUtenti.eliminazioneUtente(u1); // u1 non è mai stato aggiunto
         });
@@ -366,7 +368,7 @@ public class ListaUtentiTest {
         );
     }
     
-    // TEST TOSTRING
+    // TEST TO STRING
 
     @Test
     @DisplayName("toString: Lista Vuota")

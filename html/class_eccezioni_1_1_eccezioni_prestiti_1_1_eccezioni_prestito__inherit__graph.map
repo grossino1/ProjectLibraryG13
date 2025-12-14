@@ -1,0 +1,17 @@
+<map id="Eccezioni.EccezioniPrestiti.EccezioniPrestito" name="Eccezioni.EccezioniPrestiti.EccezioniPrestito">
+<area shape="rect" id="Node000001" title="Classe base astratta per tutte le eccezioni legate alla gestione dei prestiti." alt="" coords="508,120,682,221"/>
+<area shape="rect" id="Node000003" href="$class_eccezioni_1_1_eccezioni_prestiti_1_1_copie_esaurite_exception.html" title="Eccezione lanciata quando le copie disponibili di un libro sono esaurite, ovvero un libro presenta un..." alt="" coords="5,269,179,371"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="491,191,349,224,269,246,192,272,180,276,178,272,190,267,268,241,348,219,495,189"/>
+<area shape="rect" id="Node000004" href="$class_eccezioni_1_1_eccezioni_prestiti_1_1_elenco_pieno_exception.html" title="Eccezione lanciata quando all&#39;interno dell&#39;elenco dei prestiti sono già presenti 500 prestiti e si ce..." alt="" coords="203,269,376,371"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="497,218,389,272,377,278,375,273,387,267,492,219"/>
+<area shape="rect" id="Node000005" href="$class_eccezioni_1_1_eccezioni_prestiti_1_1_prestiti_esauriti_exception.html" title="Eccezione lanciata quando un utente raggiunge il limite massimo di prestiti consentiti ovvero 3 e pro..." alt="" coords="401,269,576,371"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="552,232,526,272,523,267,548,235"/>
+<area shape="rect" id="Node000006" href="$class_eccezioni_1_1_eccezioni_prestiti_1_1_prestito_gia_presente_exception.html" title="Eccezione lanciata quando un utente ha già un libro in prestito e prova a registrare un nuovo prestit..." alt="" coords="599,269,806,371"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="641,231,669,270,664,268,639,236"/>
+<area shape="rect" id="Node000007" href="$class_eccezioni_1_1_eccezioni_prestiti_1_1_prestito_non_trovato_exception.html" title="Eccezione lanciata quando un prestito non viene trovato nell&#39;elenco." alt="" coords="831,269,1034,371"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="696,213,820,267,833,275,828,274,818,272,695,218"/>
+<area shape="rect" id="Node000008" href="$class_eccezioni_1_1_eccezioni_prestiti_1_1data_restituzione_exception.html" title="Eccezione lanciata quando la data di restituzione di un libro è &gt; di 30 giorni." alt="" coords="1058,269,1257,371"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="696,185,862,218,955,240,1046,267,1061,274,1056,273,1045,272,954,245,861,223,696,190"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="560,5,629,72"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="596,84,597,121,593,119,593,89"/>
+</map>

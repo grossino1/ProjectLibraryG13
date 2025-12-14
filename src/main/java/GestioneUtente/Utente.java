@@ -59,6 +59,9 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @param[in] cognome: Il cognome dell'utente.
      * @param[in] matricola: Il codice identificativo univoco (es. numero di matricola universitaria).
      * @param[in] emailIstituzionale: L'indirizzo email dell'utente.
+     * 
+     * @throws IllegalArgumentException: Se la matricola passata come parametro è null.
+     * @throws MatricolaNotValidException: Se la matricola passata come parametro non è valida.
      */
     public Utente(String nome, String cognome, String matricola, String emailIstituzionale) throws IllegalArgumentException, MatricolaNotValidException {
         this.nome = nome;
@@ -72,8 +75,10 @@ public class Utente implements Comparable<Utente>, Serializable {
         this.matricola = matricola;
         
         this.emailIstituzionale = emailIstituzionale;
+        
         // Creo una nuova lista in cui inserire i prestiti
         this.listaPrestiti = new ArrayList<>();
+        
         // Imposto la data di registrazione all'ora corrente
         this.dataReg = LocalDateTime.now();
     }
@@ -156,16 +161,22 @@ public class Utente implements Comparable<Utente>, Serializable {
         return new ArrayList<Prestito>(listaPrestiti); 
     }
 
+    /**
+     * @brief Restituisce la data di registrazione dell'Utente.
+     * 
+     * @return La data di registrazione, ma in formato String.
+     */
     public String getDataReg() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return dataReg.format(formatter);
     }
 
     // METODI LOGICI
+    
     /**
-     * Genera un elenco delle date di restituzione a partire da una lista di prestiti.
-     * Il metodo itera attraverso la lista fornita ed estrae la data di restituzione
-     * da ciascun prestito.
+     * @brief Genera un elenco delle date di restituzione a partire da una lista di prestiti.
+     *        Il metodo itera attraverso la lista fornita ed estrae la data di restituzione
+     *        da ciascun prestito.
      *
      * @param listaPrestiti La lista di oggetti Prestito da elaborare.
      * @return Un ArrayList contenente le date di restituzione.
@@ -173,7 +184,7 @@ public class Utente implements Comparable<Utente>, Serializable {
      */
     public ArrayList<LocalDate> getListaDataRestituzione(ArrayList<Prestito> listaPrestiti){
         // Se listaPrestiti è vuota ritorna una lista vuota
-        if(listaPrestiti == null)
+        if(listaPrestiti == null || listaPrestiti.isEmpty())
             return new ArrayList<LocalDate>();
         
         // Creo un ArrayList di appoggio
@@ -189,14 +200,16 @@ public class Utente implements Comparable<Utente>, Serializable {
     }
     
     /**
-     * Aggiunge un prestito alla lista dei prestiti attivi dell'utente.
+     * @brief Aggiunge un prestito alla lista dei prestiti attivi dell'utente.
      *
      * @pre  p != null
      * @post listaPrestiti.size() == old_size + 1
      * @post listaPrestiti.contains(p) == true
      *
      * @param p Il prestito da aggiungere.
+     * 
      * @throws IllegalArgumentException: Se il prestito inserito come parametro è nullo.
+     * @throws PrestitiEsauritiException: Se l'utente ha già 3 prestiti attivi.
      */
     public void addPrestito(Prestito p) throws PrestitiEsauritiException{
         // Controllo non necessario (lo deve fare il client)
@@ -214,7 +227,7 @@ public class Utente implements Comparable<Utente>, Serializable {
     }
 
     /**
-     * Rimuove un prestito dalla lista dei prestiti attivi dell'utente
+     * @brief Rimuove un prestito dalla lista dei prestiti attivi dell'utente
      * (ad esempio in caso di restituzione del materiale).
      *
      * @pre  p != null
@@ -222,6 +235,7 @@ public class Utente implements Comparable<Utente>, Serializable {
      *
      * @param p Il prestito da rimuovere.
      * @throws IllegalArgumentException: Se il prestito inserito come parametro è nullo.
+     * @throws PrestitoNonTrovatoException: Se il prestito non è presente nella lista.
      */
     public void rimuoviPrestito(Prestito p) throws PrestitoNonTrovatoException{
         // Controllo non necessario (lo deve fare il client)
@@ -229,6 +243,8 @@ public class Utente implements Comparable<Utente>, Serializable {
         if(p == null){
             throw new IllegalArgumentException("Errore: Impossibile rimuovere un prestito nullo.");
         }
+        
+        // Controllo che il prestito p esista all'interno di listaPrestiti.
         if(!listaPrestiti.contains(p)){
             throw new PrestitoNonTrovatoException("Il prestito non è presente nella lista!");
         }
@@ -278,14 +294,14 @@ public class Utente implements Comparable<Utente>, Serializable {
     }
 
     /**
-     * Confronta questo utente con un altro in base all'ordinamento alfabetico.
+     * @brief Confronta questo utente con un altro in base all'ordinamento alfabetico.
      * L'ordinamento avviene prima per cognome e, in caso di parità, per nome.
      * Nel caso in cui due utenti hanno lo stesso cognome e nome, allora si ordina per matricola.
      * 
      * @param other: L'utente da confrontare con quello corrente.
-     * @return un numero negativo se questo utente precede other {@code other},
+     * @return Un numero negativo se questo utente precede other,
      *         zero se sono equivalenti per ordinamento,
-     *         un numero positivo se questo utente segue other {@code other}.
+     *         un numero positivo se questo utente segue other.
      */
     @Override
     public int compareTo(Utente other) {

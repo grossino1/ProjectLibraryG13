@@ -1,0 +1,327 @@
+\doxysection{Gestione\+Prestito.\+Gestore\+Prestito Class Reference}
+\hypertarget{class_gestione_prestito_1_1_gestore_prestito}{}\label{class_gestione_prestito_1_1_gestore_prestito}\index{GestionePrestito.GestorePrestito@{GestionePrestito.GestorePrestito}}
+
+
+Classe che tratta l\textquotesingle{}aggiornamento dei dati di un \doxylink{class_gestione_utente_1_1_utente}{Utente} e un \doxylink{class_gestione_libro_1_1_libro}{Libro}.  
+
+
+
+
+Inheritance diagram for Gestione\+Prestito.\+Gestore\+Prestito\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_gestione_prestito_1_1_gestore_prestito__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Gestione\+Prestito.\+Gestore\+Prestito\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{class_gestione_prestito_1_1_gestore_prestito__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_gestione_prestito_1_1_gestore_prestito_a10acecfee6945a4ca115c32f6c65f3d0}{Gestore\+Prestito}} (String filename\+Libri, String filename\+Utenti)  throws IOException, Class\+Not\+Found\+Exception 
+\begin{DoxyCompactList}\small\item\em Costruttore del \doxylink{class_gestione_prestito_1_1_gestore_prestito}{Gestore\+Prestito}. \end{DoxyCompactList}\item 
+boolean \mbox{\hyperlink{class_gestione_prestito_1_1_gestore_prestito_aad59c6ea65469334ce6f8f4a5ac92e5f}{nuovo\+Prestito}} (String ISBN, String matricola)  throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception}{Libro\+Not\+Found\+Exception}}, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_utente_not_found_exception}{Utente\+Not\+Found\+Exception}}, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_eccezioni_prestito}{Eccezioni\+Prestito}}, IOException, Class\+Not\+Found\+Exception 
+\begin{DoxyCompactList}\small\item\em Valida e autorizza la creazione di un nuovo prestito. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestione_prestito_1_1_gestore_prestito_a2cdac82f0e87a9a5980084e0cbd21812}{aggiungi\+Copia\+Prestito\+Libro}} (String ISBN)  throws IOException
+\begin{DoxyCompactList}\small\item\em Quando un prestito termina (viene eliminato dall\textquotesingle{}elenco prestiti) la copia del libro relativo viene aumentata ed il numero di prestiti attivi diminuito. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestione_prestito_1_1_gestore_prestito_a8aaaeaa9a0e768a909d983ef1b4f422c}{rimuovi\+Prestito\+Lista\+Utente}} (String matricola, \mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}} p)  throws IOException, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestito_non_trovato_exception}{Prestito\+Non\+Trovato\+Exception}} 
+\begin{DoxyCompactList}\small\item\em Quando un prestito termina (viene eliminato dall\textquotesingle{}elenco prestiti) il prestito viene eliminato dalla lista dell\textquotesingle{}utente che lo ha terminato. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestione_prestito_1_1_gestore_prestito_a2f6d4024a008679e23d444f645b6a2ea}{diminuisci\+Copia\+Prestito\+Libro}} (String ISBN)  throws IOException, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_copie_esaurite_exception}{Copie\+Esaurite\+Exception}} 
+\begin{DoxyCompactList}\small\item\em Quando un prestito inizia (viene aggiunto all\textquotesingle{}elenco prestiti) la copia del libro relativo viene diminuita ed il numero di prestiti attivi aumentato. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestione_prestito_1_1_gestore_prestito_a28417e96e2c54bf76c795ef815dcd614}{aggiungi\+Prestito\+Lista\+Utente}} (String matricola, \mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}} p)  throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestiti_esauriti_exception}{Prestiti\+Esauriti\+Exception}}, IOException 
+\begin{DoxyCompactList}\small\item\em Quando un prestito inizia (viene aggiunto all\textquotesingle{}elenco prestiti) il prestito viene aggiunto alla lista dell\textquotesingle{}utente che lo ha richiesto. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe che tratta l\textquotesingle{}aggiornamento dei dati di un \doxylink{class_gestione_utente_1_1_utente}{Utente} e un \doxylink{class_gestione_libro_1_1_libro}{Libro}. 
+
+Questa classe funge da intermediario tra i dati (Libri, Utenti) e l\textquotesingle{}operazione di prestito. Si occupa di validare se un prestito è ammissibile secondo le politiche della biblioteca e di aggironare i dati di ogni libro o utente, sia ne coso di un aggiunta di un prestito che di una eliminazione.
+
+\begin{DoxyInvariant}{Invariant}
+catalogo != null (Deve esserci un riferimento valido al catalogo libri). 
+
+utenti != null (Deve esserci un riferimento valido all\textquotesingle{}elenco utenti).
+\end{DoxyInvariant}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_gestione_libro_1_1_catalogo_libri}{Gestione\+Libro.\+Catalogo\+Libri} 
+
+Gestione\+Utente.\+Lista\+Utentiù 
+
+\doxylink{class_gestione_libro_1_1_libro}{Gestione\+Libro.\+Libro} 
+
+\doxylink{class_gestione_utente_1_1_utente}{Gestione\+Utente.\+Utente}
+\end{DoxySeeAlso}
+\begin{DoxyAuthor}{Author}
+grossino1 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+
+
+\label{doc-constructors}
+\Hypertarget{class_gestione_prestito_1_1_gestore_prestito_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_gestione_prestito_1_1_gestore_prestito_a10acecfee6945a4ca115c32f6c65f3d0}\index{GestionePrestito.GestorePrestito@{GestionePrestito.GestorePrestito}!GestorePrestito@{GestorePrestito}}
+\index{GestorePrestito@{GestorePrestito}!GestionePrestito.GestorePrestito@{GestionePrestito.GestorePrestito}}
+\doxysubsubsection{\texorpdfstring{GestorePrestito()}{GestorePrestito()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_gestore_prestito_a10acecfee6945a4ca115c32f6c65f3d0} 
+Gestione\+Prestito.\+Gestore\+Prestito.\+Gestore\+Prestito (\begin{DoxyParamCaption}\item[{String}]{filename\+Libri}{, }\item[{String}]{filename\+Utenti}{}\end{DoxyParamCaption}) throws IOException, Class\+Not\+Found\+Exception\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Costruttore del \doxylink{class_gestione_prestito_1_1_gestore_prestito}{Gestore\+Prestito}. 
+
+Associa le dipendenze necessarie per effettuare i controlli incrociati. I cataloghi dei libri e degli utenti vengono caricati da file.
+
+\begin{DoxyPrecond}{Precondition}
+catalogo != null 
+
+utenti != null 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+L\textquotesingle{}oggetto è inizializzato e pronto per validare i prestiti.
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em filename\+Libri} & il nome del file da dove caricare il catalogo dei libri. \\
+\hline
+\mbox{\texttt{in}}  & {\em filename\+Utenti} & il nome del file da dove caricare la lista degli utenti.\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_salvataggio_file_1_1_salvataggio_file_libro_1_1_salvataggio_file_libro_a8c0dad4b4b5b04e95bc19e0a5caa1c88}{Salvataggio\+File.\+Salvataggio\+File\+Libro.\+Salvataggio\+File\+Libro.\+carica}(java.\+lang.\+String) 
+
+\doxylink{class_salvataggio_file_1_1_salvataggio_file_utente_1_1_salvataggio_file_utente_a3ae617e8fc50aa4ae58683a4f66c6831}{Salvataggio\+File.\+Salvataggio\+File\+Utente.\+Salvataggio\+File\+Utente.\+carica}(java.\+lang.\+String) 
+\end{DoxySeeAlso}
+
+
+\label{doc-func-members}
+\Hypertarget{class_gestione_prestito_1_1_gestore_prestito_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_gestione_prestito_1_1_gestore_prestito_a2cdac82f0e87a9a5980084e0cbd21812}\index{GestionePrestito.GestorePrestito@{GestionePrestito.GestorePrestito}!aggiungiCopiaPrestitoLibro@{aggiungiCopiaPrestitoLibro}}
+\index{aggiungiCopiaPrestitoLibro@{aggiungiCopiaPrestitoLibro}!GestionePrestito.GestorePrestito@{GestionePrestito.GestorePrestito}}
+\doxysubsubsection{\texorpdfstring{aggiungiCopiaPrestitoLibro()}{aggiungiCopiaPrestitoLibro()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_gestore_prestito_a2cdac82f0e87a9a5980084e0cbd21812} 
+void Gestione\+Prestito.\+Gestore\+Prestito.\+aggiungi\+Copia\+Prestito\+Libro (\begin{DoxyParamCaption}\item[{String}]{ISBN}{}\end{DoxyParamCaption}) throws IOException\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Quando un prestito termina (viene eliminato dall\textquotesingle{}elenco prestiti) la copia del libro relativo viene aumentata ed il numero di prestiti attivi diminuito. 
+
+Nota\+: non ci sono controll sulle eccezioni, perché quelle sono già controllate prima della chiamata del metodo
+
+\begin{DoxyPrecond}{Precondition}
+ISBN != null \&\& !\+ISBN.is\+Empty() 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Il numero delle copie del libro è aumentato di 1. 
+
+Il numero dei prestiti attivi del libro è diminuito di 1. 
+
+Il catalogo dei libri aggiornato viene salvato sul file binario.
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em ISBN} & Il codice del libro restituito.\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_salvataggio_file_1_1_salvataggio_file_libro_1_1_salvataggio_file_libro_a8f69e87a5042e62159e9d42c0e193a02}{Salvataggio\+File.\+Salvataggio\+File\+Libro.\+Salvataggio\+File\+Libro.\+salva}(\doxylink{class_gestione_libro_1_1_catalogo_libri}{Gestione\+Libro.\+Catalogo\+Libri}, java.\+lang.\+String) 
+
+\doxylink{class_gestione_libro_1_1_libro_ae4804bd62fc1cf84526c920db770f5dd}{Gestione\+Libro.\+Libro.\+incrementa\+Copia\+Libro()} 
+
+\doxylink{class_gestione_libro_1_1_libro_a9c5a628f061154577d9e7b2c42c6da84}{Gestione\+Libro.\+Libro.\+decrementa\+NPrestiti\+Attivi()}
+\end{DoxySeeAlso}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em IOException} & Se il salvataggio sul file fallsice; \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_gestione_prestito_1_1_gestore_prestito_a28417e96e2c54bf76c795ef815dcd614}\index{GestionePrestito.GestorePrestito@{GestionePrestito.GestorePrestito}!aggiungiPrestitoListaUtente@{aggiungiPrestitoListaUtente}}
+\index{aggiungiPrestitoListaUtente@{aggiungiPrestitoListaUtente}!GestionePrestito.GestorePrestito@{GestionePrestito.GestorePrestito}}
+\doxysubsubsection{\texorpdfstring{aggiungiPrestitoListaUtente()}{aggiungiPrestitoListaUtente()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_gestore_prestito_a28417e96e2c54bf76c795ef815dcd614} 
+void Gestione\+Prestito.\+Gestore\+Prestito.\+aggiungi\+Prestito\+Lista\+Utente (\begin{DoxyParamCaption}\item[{String}]{matricola}{, }\item[{\mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}}}]{p}{}\end{DoxyParamCaption}) throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestiti_esauriti_exception}{Prestiti\+Esauriti\+Exception}}, IOException\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Quando un prestito inizia (viene aggiunto all\textquotesingle{}elenco prestiti) il prestito viene aggiunto alla lista dell\textquotesingle{}utente che lo ha richiesto. 
+
+Nota\+: non ci sono controll sulle eccezioni, perché quelle sono già controllate prima della chiamata del metodo
+
+\begin{DoxyPrecond}{Precondition}
+matricola != null \&\& !matricola.is\+Empty() 
+
+p != null 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Il numero dei prestiti dell\textquotesingle{}utente è aumentato di 1. 
+
+La lista dei prestiti aggiornato viene salvata sul file binario.
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em matricola} & La matricola dell\textquotesingle{}utente cha ha richiesto il libro. \\
+\hline
+\mbox{\texttt{in}}  & {\em p} & Il prestito che l\textquotesingle{}utente ha appena iniziato.\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_salvataggio_file_1_1_salvataggio_file_utente_1_1_salvataggio_file_utente_afebb4297b94ab468eb519267718960ce}{Salvataggio\+File.\+Salvataggio\+File\+Utente.\+Salvataggio\+File\+Utente.\+salva}(\doxylink{class_gestione_utente_1_1_lista_utenti}{Gestione\+Utente.\+Lista\+Utenti}, java.\+lang.\+String) 
+
+\doxylink{class_gestione_utente_1_1_utente_ad8c58a3a07c808753237f4306d2a505f}{Gestione\+Utente.\+Utente.\+add\+Prestito}(\doxylink{class_gestione_prestito_1_1_prestito}{Gestione\+Prestito.\+Prestito})
+\end{DoxySeeAlso}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em IOException} & Se il salvataggio sul file fallisce; \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_gestione_prestito_1_1_gestore_prestito_a2f6d4024a008679e23d444f645b6a2ea}\index{GestionePrestito.GestorePrestito@{GestionePrestito.GestorePrestito}!diminuisciCopiaPrestitoLibro@{diminuisciCopiaPrestitoLibro}}
+\index{diminuisciCopiaPrestitoLibro@{diminuisciCopiaPrestitoLibro}!GestionePrestito.GestorePrestito@{GestionePrestito.GestorePrestito}}
+\doxysubsubsection{\texorpdfstring{diminuisciCopiaPrestitoLibro()}{diminuisciCopiaPrestitoLibro()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_gestore_prestito_a2f6d4024a008679e23d444f645b6a2ea} 
+void Gestione\+Prestito.\+Gestore\+Prestito.\+diminuisci\+Copia\+Prestito\+Libro (\begin{DoxyParamCaption}\item[{String}]{ISBN}{}\end{DoxyParamCaption}) throws IOException, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_copie_esaurite_exception}{Copie\+Esaurite\+Exception}}\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Quando un prestito inizia (viene aggiunto all\textquotesingle{}elenco prestiti) la copia del libro relativo viene diminuita ed il numero di prestiti attivi aumentato. 
+
+Nota\+: non ci sono controll sulle eccezioni, perché quelle sono già controllate prima della chiamata del metodo.
+
+\begin{DoxyPrecond}{Precondition}
+ISBN != null \&\& !\+ISBN.is\+Empty() 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Il numero delle copie del libro è diminuito di 1. 
+
+Il numero dei prestiti attivi del libro è aumentato di 1. 
+
+Il catalogo dei libri aggiornato viene salvato sul file binario.
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em ISBN} & Il codice del libro iniziato.\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_salvataggio_file_1_1_salvataggio_file_libro_1_1_salvataggio_file_libro_a8f69e87a5042e62159e9d42c0e193a02}{Salvataggio\+File.\+Salvataggio\+File\+Libro.\+Salvataggio\+File\+Libro.\+salva}(\doxylink{class_gestione_libro_1_1_catalogo_libri}{Gestione\+Libro.\+Catalogo\+Libri}, java.\+lang.\+String) 
+
+\doxylink{class_gestione_libro_1_1_libro_ae800338308ece7d1942ccdf23c7ccf99}{Gestione\+Libro.\+Libro.\+decrementa\+Copia\+Libro()} 
+
+\doxylink{class_gestione_libro_1_1_libro_acafeadf54af11126c7e7ce3e4b981350}{Gestione\+Libro.\+Libro.\+incrementa\+NPrestiti\+Attivi()}
+\end{DoxySeeAlso}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em IOException} & Se il salvataggio sul file fallsice; \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_gestione_prestito_1_1_gestore_prestito_aad59c6ea65469334ce6f8f4a5ac92e5f}\index{GestionePrestito.GestorePrestito@{GestionePrestito.GestorePrestito}!nuovoPrestito@{nuovoPrestito}}
+\index{nuovoPrestito@{nuovoPrestito}!GestionePrestito.GestorePrestito@{GestionePrestito.GestorePrestito}}
+\doxysubsubsection{\texorpdfstring{nuovoPrestito()}{nuovoPrestito()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_gestore_prestito_aad59c6ea65469334ce6f8f4a5ac92e5f} 
+boolean Gestione\+Prestito.\+Gestore\+Prestito.\+nuovo\+Prestito (\begin{DoxyParamCaption}\item[{String}]{ISBN}{, }\item[{String}]{matricola}{}\end{DoxyParamCaption}) throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception}{Libro\+Not\+Found\+Exception}}, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_utente_not_found_exception}{Utente\+Not\+Found\+Exception}}, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_eccezioni_prestito}{Eccezioni\+Prestito}}, IOException, Class\+Not\+Found\+Exception\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Valida e autorizza la creazione di un nuovo prestito. 
+
+Questo metodo applica le seguenti regole\+:
+\begin{DoxyEnumerate}
+\item {\bfseries{Esistenza}}\+: Il libro e l\textquotesingle{}utente devono esistere nei rispettivi archivi.
+\item {\bfseries{Disponibilità}}\+: Il libro deve avere almeno una copia disponibile (copie \texorpdfstring{$>$}{>} 0).
+\item {\bfseries{Limitazione}}\+: L\textquotesingle{}utente non deve aver superato il limite massimo di prestiti (Max 3).
+\item {\bfseries{Copia}}\+: Il prestito non deve esser già presente.
+\end{DoxyEnumerate}
+
+Se tutti i controlli passano, il metodo autorizza l\textquotesingle{}operazione restituendo true. In caso di errore, lancia l\textquotesingle{}eccezione che indica il motivo per cui un prestito non può avvenire.
+
+\begin{DoxyPrecond}{Precondition}
+ISBN != null \&\& !\+ISBN.is\+Empty() 
+
+matricola != null \&\& !matricola.is\+Empty() 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Se restituisce true\+: Tutte le condizioni sono soddisfatte, old\+\_\+libro.\+get\+Numero\+Copie()+1 \&\& utente.\+get\+Lista\+Prestiti().size+1. 
+
+Se restituisce false\+: Almeno una condizione ha fallito (nessuna modifica ai dati).
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em ISBN} & Il codice del libro richiesto. \\
+\hline
+\mbox{\texttt{in}}  & {\em matricola} & La matricola dell\textquotesingle{}utente richiedente. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true se il prestito è approvato, false altrimenti.
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception}{Libro\+Not\+Found\+Exception}} & Se il codice ISBN non corrisponde a nessun libro nel catalogo. \\
+\hline
+{\em \doxylink{class_eccezioni_1_1_eccezioni_utenti_1_1_utente_not_found_exception}{Utente\+Not\+Found\+Exception}} & Se la matricola non corrisponde a nessun utente registrato. \\
+\hline
+{\em \doxylink{class_eccezioni_1_1_eccezioni_prestiti_1_1_copie_esaurite_exception}{Copie\+Esaurite\+Exception}} & Se il libro esiste ma il numero di copie disponibili è \texorpdfstring{$<$}{<} 1. \\
+\hline
+{\em \doxylink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestiti_esauriti_exception}{Prestiti\+Esauriti\+Exception}} & Se l\textquotesingle{}utente ha già raggiunto il limite massimo di prestiti attivi (\texorpdfstring{$>$}{>}= 3). \\
+\hline
+{\em \doxylink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestito_gia_presente_exception}{Prestito\+Gia\+Presente\+Exception}} & Se è già presente unn prestito tra quell\textquotesingle{}utente e quel libro \\
+\hline
+{\em IOException} & Se il salvataggio sul file fallisce. \\
+\hline
+{\em Class\+Not\+Found\+Exception} & Se il casting nella carica dal file (di Gestore.\+nuovo\+Prestito()) fallisce. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_gestione_prestito_1_1_gestore_prestito_a8aaaeaa9a0e768a909d983ef1b4f422c}\index{GestionePrestito.GestorePrestito@{GestionePrestito.GestorePrestito}!rimuoviPrestitoListaUtente@{rimuoviPrestitoListaUtente}}
+\index{rimuoviPrestitoListaUtente@{rimuoviPrestitoListaUtente}!GestionePrestito.GestorePrestito@{GestionePrestito.GestorePrestito}}
+\doxysubsubsection{\texorpdfstring{rimuoviPrestitoListaUtente()}{rimuoviPrestitoListaUtente()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_gestore_prestito_a8aaaeaa9a0e768a909d983ef1b4f422c} 
+void Gestione\+Prestito.\+Gestore\+Prestito.\+rimuovi\+Prestito\+Lista\+Utente (\begin{DoxyParamCaption}\item[{String}]{matricola}{, }\item[{\mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}}}]{p}{}\end{DoxyParamCaption}) throws IOException, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestito_non_trovato_exception}{Prestito\+Non\+Trovato\+Exception}}\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Quando un prestito termina (viene eliminato dall\textquotesingle{}elenco prestiti) il prestito viene eliminato dalla lista dell\textquotesingle{}utente che lo ha terminato. 
+
+Nota\+: non ci sono controll sulle eccezioni, perché quelle sono già controllate prima della chiamata del metodo
+
+\begin{DoxyPrecond}{Precondition}
+matricola != null \&\& !matricola.is\+Empty() 
+
+p != null 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Il numero dei prestiti dell\textquotesingle{}utente è diminuito di 1. 
+
+La lista dei prestiti aggiornato viene salvata sul file binario.
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em matricola} & La matricola dell\textquotesingle{}utente cha ha restituito il libro. \\
+\hline
+\mbox{\texttt{in}}  & {\em p} & Il prestito che l\textquotesingle{}utente ha appena terminato.\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_salvataggio_file_1_1_salvataggio_file_utente_1_1_salvataggio_file_utente_afebb4297b94ab468eb519267718960ce}{Salvataggio\+File.\+Salvataggio\+File\+Utente.\+Salvataggio\+File\+Utente.\+salva}(\doxylink{class_gestione_utente_1_1_lista_utenti}{Gestione\+Utente.\+Lista\+Utenti}, java.\+lang.\+String) 
+
+\doxylink{class_gestione_utente_1_1_utente_a699aae2b7da2ab1afadc434302d50154}{Gestione\+Utente.\+Utente.\+rimuovi\+Prestito}(\doxylink{class_gestione_prestito_1_1_prestito}{Gestione\+Prestito.\+Prestito})
+\end{DoxySeeAlso}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em IOException} & Se il salvataggio sul file fallisce; \\
+\hline
+\end{DoxyExceptions}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/\+Gestione\+Prestito/\mbox{\hyperlink{_gestore_prestito_8java}{Gestore\+Prestito.\+java}}\end{DoxyCompactItemize}

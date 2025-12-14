@@ -1,0 +1,15 @@
+<map id="src/test/java/AutenticazioneTest/BibliotecarioTest.java" name="src/test/java/AutenticazioneTest/BibliotecarioTest.java">
+<area shape="rect" id="Node000001" title=" " alt="" coords="614,5,798,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,102,188,127"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="611,38,423,65,200,97,174,101,173,96,199,91,422,59,616,37"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="211,94,440,135"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="622,46,428,93,427,87,616,47"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="464,94,694,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="680,46,621,88,619,83,675,47"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="718,94,947,135"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="735,44,794,86,789,85,734,49"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="972,102,1107,127"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="782,44,980,97,975,97,782,49"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="1130,102,1332,127"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="798,39,1120,91,1148,99,1143,98,1119,97,798,44"/>
+</map>

@@ -51,11 +51,14 @@ public class ListaUtenti implements Serializable{
      * @brief Costruttore predefinito.
      *
      * @post listaUtenti != null && listaUtenti.isEmpty()
+     * 
+     * @param[in] caricamentoFile: 
+     *            - True: il programma cercherà di leggere i dati dal disco.
+     *             - False: il programma crea una lista nuova vuota.
+     * @param[in] filename: nome del file in cui salvare la listaUtenti serializzare.       
      */
     public ListaUtenti(boolean caricamentoFile, String filename) throws IOException, ClassNotFoundException{
-        // boolean caricamentoFile:
-        // - True: il programma cercherà di leggere i dati dal disco.
-        // - False: il programma crea una lista nuova vuota.
+        // Controllo su caricamentoFile
         if(caricamentoFile){
             // Prendo i dati dal file esistente, li deserializzo e li inserisco 
             // nella mia istanza listaUtenti.
@@ -80,9 +83,9 @@ public class ListaUtenti implements Serializable{
      *
      * @param[in] matricola: La stringa univoca identificativa dell'utente.
      * @return L'oggetto Utente corrispondente se trovato, altrimenti `null`.
-     * @throws IllegalArgumentException: Se la matricola inserita come parametro è nullo.
+     * 
+     * * @throws IllegalArgumentException: Se la matricola inserita come parametro è nullo.
      */
-    // METODO FONDAMENTALE PER IL PRESTITO
     public Utente getUtenteByMatricola(String matricola) {
         // Controllo non necessario (lo deve fare il client)
         // Inserito per motivi di sicurezza del programma
@@ -111,11 +114,12 @@ public class ListaUtenti implements Serializable{
      * @post size() >= old_size().
      *
      * @param[in] u: L'oggetto Utente da registrare.
-     *  * @throws IllegalArgumentException: Se l'utente inserito come parametro è nullo.
-     *    @throws ListaUtentiPienaException: Se la listaUtenti è piena.
-     *    @throws MatricolaNotValidException: Se l'utente ha un formato di matricola non valido.
-     *    @throws UtentePresenteException: Se l'utente passato come parametro è già presente all'interno della lista degli utenti.
-     *    @throws IOException Se si verifica un errore di input/output durante la scrittura sul file.
+     * 
+     * @throws IllegalArgumentException: Se l'utente inserito come parametro è nullo.
+     * @throws ListaUtentiPienaException: Se la listaUtenti è piena.
+     * @throws MatricolaNotValidException: Se l'utente ha un formato di matricola non valido.
+     * @throws UtentePresenteException: Se l'utente passato come parametro è già presente all'interno della lista degli utenti.
+     * @throws IOException: Se si verifica un errore di input/output durante la scrittura sul file.
      */
     public void registrazioneUtente(Utente u) throws ListaUtentiPienaException, MatricolaNotValidException, UtentePresenteException, IOException {
         // Controllo non necessario (lo deve fare il client)
@@ -160,21 +164,20 @@ public class ListaUtenti implements Serializable{
      *       essa resta invariata.
      *
      * @param[in] u: L'oggetto da rimuovere (deve essere un'istanza di Utente).
+     * 
      * @throws IllegalArgumentException: Se l'utente inserito come parametro è nullo.
+     * @throws UtenteWithPrestitoException: Se l'utente ha dei prestiti attivi non può essere eliminato.
+     * @throws IOException: Se si verifica un errore di input/output durante la scrittura sul file.
      */
     public void eliminazioneUtente(Utente u) throws UtenteNotFoundException, IOException, UtenteWithPrestitoException {
         // Controllo non necessario (lo deve fare il client)
         // Inserito per motivi di sicurezza del programma
         if(u == null)
             throw new IllegalArgumentException("L'Utente non può essere Null!");
+        
+        // Controllo sulla presenza dell'Utente u all'interno della lista.
         if(!listaUtenti.contains(u))
             throw new UtenteNotFoundException("Utente non presente nella lista");
-        
-        // Se l'oggetto passato non appartine alla classe Utente, allora non può essere rimosso.
-        // Nota: Utilizzo "instanceof" e non "getClass()" perchè se in futuro si vorrà 
-        // aggiungere una sottoclasse di Utente il metodo resta sempre valido anche per essa.
-        if (!(u instanceof Utente))
-            return;
         
         // Se l'utente passato come parametro non ha nessun prestito attivo allora viene eliminato.
         if(u.getListaPrestiti().size() == 0)
@@ -188,18 +191,18 @@ public class ListaUtenti implements Serializable{
     }
     
     /**
-     * Modifica i dati dell'utente specificato e salva lo stato corrente su file.
+     * @brief Modifica i dati dell'utente specificato e salva lo stato corrente su file.
      * 
-     * Questo metodo aggiorna i campi dell'oggetto {@code Utente} passato come parametro
+     * Questo metodo aggiorna i campi dell'oggetto Utente passato come parametro
      * (reimpostando i valori correnti) e successivamente invoca il metodo statico di salvataggio
      * per persistere le modifiche nel file specificato.
      * 
      * @pre (u != null) L'utente da modificare non può essere nullo.
      *
-     * @param u L'oggetto {@code Utente} da modificare. Non deve essere null.
-     * @param nomeFile Il nome (o percorso) del file su cui effettuare il salvataggio dei dati.
-     * @throws IllegalArgumentException Se l'oggetto {@code Utente} passato è {@code null}.
-     * @throws IOException Se si verifica un errore di input/output durante la scrittura sul file.
+     * @param[in] u L'oggetto Utente da modificare. Non deve essere null.
+     * @param[in] nomeFile Il nome (o percorso) del file su cui effettuare il salvataggio dei dati.
+     * @throws IllegalArgumentException: Se l'oggetto Utente passato è null.
+     * @throws IOException: Se si verifica un errore di input/output durante la scrittura sul file.
      * 
      */
     public void modificaUtente(Utente u, String nome, String cognome, String emailIstituzionale) throws IOException{
@@ -249,7 +252,7 @@ public class ListaUtenti implements Serializable{
         String nomeLower = utente.getNome().toLowerCase();
         String matricolaLower = utente.getMatricola().toLowerCase();
 
-        // Controllo se il Cognome O la Matricola INIZIANO con la stringa cercata
+        // Controllo se il Cognome, il Nome O la Matricola INIZIANO con la stringa cercata
         if (cognomeLower.startsWith(utenteCercato) || nomeLower.startsWith(utenteCercato) || matricolaLower.startsWith(utenteCercato)) {
             // Se un utente corrisponde ai criteri allora viene aggiunto all'interno dell'ArrayList
             listaRicerca.add(utente);

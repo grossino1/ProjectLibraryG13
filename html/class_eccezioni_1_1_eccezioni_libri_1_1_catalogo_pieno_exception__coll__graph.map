@@ -1,0 +1,7 @@
+<map id="Eccezioni.EccezioniLibri.CatalogoPienoException" name="Eccezioni.EccezioniLibri.CatalogoPienoException">
+<area shape="rect" id="Node000001" title="Eccezione lanciata quando viene superato il limite di 1000 libri nel catalogo." alt="" coords="5,269,180,371"/>
+<area shape="rect" id="Node000002" href="$class_eccezioni_1_1_eccezioni_libri_1_1_eccezioni_libro.html" title="Classe base astratta per tutte le eccezioni legate alla gestione dei libri." alt="" coords="14,120,171,221"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,234,95,270,90,269,92,239"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="58,5,127,72"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="93,84,95,120,90,120,92,89"/>
+</map>

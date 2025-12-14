@@ -1,0 +1,15 @@
+var searchData=
+[
+  ['salva_0',['salva',['../class_salvataggio_file_1_1_salvataggio_file_autenticazione_1_1_salvataggio_file_bibliotecario.html#a65ae2b6c4a6f2853f6b8d7fcdfa6cc8d',1,'SalvataggioFile.SalvataggioFileAutenticazione.SalvataggioFileBibliotecario.salva()'],['../class_salvataggio_file_1_1_salvataggio_file_libro_1_1_salvataggio_file_libro.html#a8f69e87a5042e62159e9d42c0e193a02',1,'SalvataggioFile.SalvataggioFileLibro.SalvataggioFileLibro.salva()'],['../class_salvataggio_file_1_1_salvataggio_file_prestito_1_1_salvataggio_file_prestito.html#aadca38c76f12860054292d9439b83925',1,'SalvataggioFile.SalvataggioFilePrestito.SalvataggioFilePrestito.salva()'],['../class_salvataggio_file_1_1_salvataggio_file_utente_1_1_salvataggio_file_utente.html#afebb4297b94ab468eb519267718960ce',1,'SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente.salva()']]],
+  ['setannopubblicazione_1',['setAnnoPubblicazione',['../class_gestione_libro_1_1_libro.html#a66d59b5726287d548a7e3b54b1e68265',1,'GestioneLibro::Libro']]],
+  ['setautori_2',['setAutori',['../class_gestione_libro_1_1_libro.html#a5f73b6bb06268e4028e79d5a117165d0',1,'GestioneLibro::Libro']]],
+  ['setcognome_3',['setCognome',['../class_gestione_utente_1_1_utente.html#a11c9f5b7b6e73c08010e2a5e3cfc904c',1,'GestioneUtente::Utente']]],
+  ['setdatarestituzione_4',['setDataRestituzione',['../class_gestione_prestito_1_1_prestito.html#ac92d6b49c8f3897c43582907641fac3e',1,'GestionePrestito::Prestito']]],
+  ['setemailistituzionale_5',['setEmailIstituzionale',['../class_gestione_utente_1_1_utente.html#a44d692b8053e2ab50cb6467eb8cbfc6a',1,'GestioneUtente::Utente']]],
+  ['setnome_6',['setNome',['../class_gestione_utente_1_1_utente.html#ac8a37bd2e0b978bdc1c128fa0153c581',1,'GestioneUtente::Utente']]],
+  ['setnprestitiattivi_7',['setnPrestitiAttivi',['../class_gestione_libro_1_1_libro.html#a59373aae02f5cfa2d0f9f9df3defc978',1,'GestioneLibro::Libro']]],
+  ['setnumerocopie_8',['setNumeroCopie',['../class_gestione_libro_1_1_libro.html#a6d8fbfbf5621beaae3b9ad6a1695357f',1,'GestioneLibro::Libro']]],
+  ['settitolo_9',['setTitolo',['../class_gestione_libro_1_1_libro.html#a9f0343a45775f12fd921826a206e29f4',1,'GestioneLibro::Libro']]],
+  ['setup_10',['setUp',['../class_gestione_libro_test_1_1_catalogo_libri_test.html#ae0b961f9ca38bab81932a06ef6066a56',1,'GestioneLibroTest.CatalogoLibriTest.setUp()'],['../class_gestione_libro_test_1_1_libro_test.html#ae7b0840412ba8d953e72fad063da25ce',1,'GestioneLibroTest.LibroTest.setUp()'],['../class_gestione_prestito_test_1_1_elenco_prestiti_test.html#a5db82b785c4153bd68aaa158ef1c0506',1,'GestionePrestitoTest.ElencoPrestitiTest.setUp()'],['../class_gestione_prestito_test_1_1_gestore_prestito_test.html#abddc8b257b6ab5eb9f16c5134017aefa',1,'GestionePrestitoTest.GestorePrestitoTest.setUp()'],['../class_gestione_prestito_test_1_1_prestito_test.html#aaac4a1b63f3860ae5f6f7391dbdf048a',1,'GestionePrestitoTest.PrestitoTest.setUp()']]],
+  ['start_11',['start',['../classit_1_1unisa_1_1diem_1_1oop_1_1projectlibraryg13_1_1_app.html#ad7e84093eee781fd4743bb5f82f4c168',1,'it::unisa::diem::oop::projectlibraryg13::App']]]
+];

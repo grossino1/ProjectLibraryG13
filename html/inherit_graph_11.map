@@ -1,0 +1,11 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,100,92,125"/>
+<area shape="rect" id="Node000001" href="$class_g_u_i_1_1_g_u_i___libro_1_1_catalogo_libri_view_controller.html" title="Controller per la gestione dell&#39;interfaccia del Catalogo Libri." alt="" coords="161,5,350,46"/>
+<area shape="poly" id="edge36_Node000000_Node000001" title=" " alt="" coords="79,89,139,55,171,45,167,48,141,60,82,93"/>
+<area shape="rect" id="Node000002" href="$class_g_u_i_1_1_g_u_i___login_1_1_login_view_controller.html" title="Controller della vista FXML per il Login." alt="" coords="140,70,371,96"/>
+<area shape="poly" id="edge37_Node000000_Node000002" title=" " alt="" coords="106,102,163,95,158,98,108,107"/>
+<area shape="rect" id="Node000003" href="$class_g_u_i_1_1_g_u_i___prestito_1_1_gestione_prestiti_view_controller.html" title="Controller per la gestione dell&#39;interfaccia relativa ai Prestiti." alt="" coords="165,120,346,161"/>
+<area shape="poly" id="edge38_Node000000_Node000003" title=" " alt="" coords="107,118,166,127,162,129,107,123"/>
+<area shape="rect" id="Node000004" href="$class_g_u_i_1_1_g_u_i___utente_1_1_gestione_utenti_view_controller.html" title="Controller per la gestione dell&#39;anagrafica degli Utenti." alt="" coords="150,185,360,226"/>
+<area shape="poly" id="edge39_Node000000_Node000004" title=" " alt="" coords="78,132,108,152,141,170,174,185,168,185,139,175,106,157,78,137"/>
+</map>

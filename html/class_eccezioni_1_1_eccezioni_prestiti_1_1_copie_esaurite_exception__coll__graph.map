@@ -1,0 +1,7 @@
+<map id="Eccezioni.EccezioniPrestiti.CopieEsauriteException" name="Eccezioni.EccezioniPrestiti.CopieEsauriteException">
+<area shape="rect" id="Node000001" title="Eccezione lanciata quando le copie disponibili di un libro sono esaurite, ovvero un libro presenta un..." alt="" coords="5,269,179,371"/>
+<area shape="rect" id="Node000002" href="$class_eccezioni_1_1_eccezioni_prestiti_1_1_eccezioni_prestito.html" title="Classe base astratta per tutte le eccezioni legate alla gestione dei prestiti." alt="" coords="5,120,179,221"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,234,95,270,90,269,91,239"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="58,5,126,72"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="93,84,95,120,90,120,92,89"/>
+</map>

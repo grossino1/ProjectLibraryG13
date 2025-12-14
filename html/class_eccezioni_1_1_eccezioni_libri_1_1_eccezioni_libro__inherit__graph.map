@@ -1,0 +1,13 @@
+<map id="Eccezioni.EccezioniLibri.EccezioniLibro" name="Eccezioni.EccezioniLibri.EccezioniLibro">
+<area shape="rect" id="Node000001" title="Classe base astratta per tutte le eccezioni legate alla gestione dei libri." alt="" coords="310,120,467,221"/>
+<area shape="rect" id="Node000003" href="$class_eccezioni_1_1_eccezioni_libri_1_1_catalogo_pieno_exception.html" title="Eccezione lanciata quando viene superato il limite di 1000 libri nel catalogo." alt="" coords="5,269,180,371"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="295,219,182,278,179,273,300,216"/>
+<area shape="rect" id="Node000004" href="$class_eccezioni_1_1_eccezioni_libri_1_1_i_s_b_n_not_valid_exception.html" title="Eccezione lanciata quando un codice ISBN non rispetta il formato valido." alt="" coords="205,269,376,371"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="349,232,325,271,322,267,345,235"/>
+<area shape="rect" id="Node000005" href="$class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception.html" title="Eccezione lanciata quando un libro richiesto non viene trovato nel catalogo." alt="" coords="400,269,575,371"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="432,231,457,270,452,269,429,236"/>
+<area shape="rect" id="Node000006" href="$class_eccezioni_1_1_eccezioni_libri_1_1_libro_presente_exception.html" title="Eccezione lanciata quando si tenta di inserire un libro già esistente." alt="" coords="598,269,768,371"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="481,214,589,267,601,275,596,275,586,272,480,219"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="354,5,423,72"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="390,84,391,121,386,119,387,89"/>
+</map>

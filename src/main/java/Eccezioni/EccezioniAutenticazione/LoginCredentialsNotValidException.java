@@ -1,10 +1,8 @@
 package Eccezioni.EccezioniAutenticazione;
 
 /**
- * @class PasswordNotValidException
- * @brief Eccezione lanciata quando una password non rispetta i criteri di validità.
- *
- * Questa eccezione segnala che la stringa fornita come password non è accettabile.
+ * @class LoginCredentialsNotValidException
+ * @brief Eccezione lanciata quando l'usarname o la passward sono errati.
  *
  * @see EccezioneAutenticazione
  *
@@ -25,7 +23,7 @@ public class LoginCredentialsNotValidException extends EccezioneAutenticazione {
     /**
      * @brief Costruttore con messaggio di errore.
      *
-     * @param[in] msg La descrizione del motivo per cui la password non è valida (es. "Lunghezza insufficiente").
+     * @param[in] msg La descrizione del motivo per cui la password non è valida.
      */
     public LoginCredentialsNotValidException(String msg) {
         super(msg);

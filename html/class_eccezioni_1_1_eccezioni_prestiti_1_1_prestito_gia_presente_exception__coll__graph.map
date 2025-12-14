@@ -1,0 +1,7 @@
+<map id="Eccezioni.EccezioniPrestiti.PrestitoGiaPresenteException" name="Eccezioni.EccezioniPrestiti.PrestitoGiaPresenteException">
+<area shape="rect" id="Node000001" title="Eccezione lanciata quando un utente ha già un libro in prestito e prova a registrare un nuovo prestit..." alt="" coords="5,269,212,371"/>
+<area shape="rect" id="Node000002" href="$class_eccezioni_1_1_eccezioni_prestiti_1_1_eccezioni_prestito.html" title="Classe base astratta per tutte le eccezioni legate alla gestione dei prestiti." alt="" coords="22,120,196,221"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,234,111,270,106,269,108,239"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="74,5,143,72"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="109,84,111,120,106,120,108,89"/>
+</map>
