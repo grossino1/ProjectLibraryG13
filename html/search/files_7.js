@@ -4,7 +4,7 @@ var searchData=
   ['libro_2ejava_1',['Libro.java',['../_libro_8java.html',1,'']]],
   ['libronotfoundexception_2ejava_2',['LibroNotFoundException.java',['../_libro_not_found_exception_8java.html',1,'']]],
   ['libropresenteexception_2ejava_3',['LibroPresenteException.java',['../_libro_presente_exception_8java.html',1,'']]],
-  ['librotest_2ejava_4',['LibroTest.java',['../_gestione_libro_test_2_libro_test_8java.html',1,'(Global Namespace)'],['../_libro_test_2_libro_test_8java.html',1,'(Global Namespace)']]],
+  ['librotest_2ejava_4',['LibroTest.java',['../_libro_test_8java.html',1,'']]],
   ['librowithprestitoexception_2ejava_5',['LibroWithPrestitoException.java',['../_libro_with_prestito_exception_8java.html',1,'']]],
   ['listautenti_2ejava_6',['ListaUtenti.java',['../_lista_utenti_8java.html',1,'']]],
   ['listautentipienaexception_2ejava_7',['ListaUtentiPienaException.java',['../_lista_utenti_piena_exception_8java.html',1,'']]],

@@ -49,7 +49,6 @@ var hierarchy =
     ] ],
     [ "it.unisa.diem.oop.projectlibraryg13.Launcher", "classit_1_1unisa_1_1diem_1_1oop_1_1projectlibraryg13_1_1_launcher.html", null ],
     [ "GestioneLibroTest.LibroTest", "class_gestione_libro_test_1_1_libro_test.html", null ],
-    [ "LibroTest.LibroTest", "class_libro_test_1_1_libro_test.html", null ],
     [ "GestioneUtenteTest.ListaUtentiTest", "class_gestione_utente_test_1_1_lista_utenti_test.html", null ],
     [ "GestionePrestitoTest.PrestitoTest", "class_gestione_prestito_test_1_1_prestito_test.html", null ],
     [ "SalvataggioFile.SalvataggioFileAutenticazione.SalvataggioFileBibliotecario", "class_salvataggio_file_1_1_salvataggio_file_autenticazione_1_1_salvataggio_file_bibliotecario.html", null ],

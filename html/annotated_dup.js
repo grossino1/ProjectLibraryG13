@@ -88,9 +88,6 @@ var annotated_dup =
         ] ]
       ] ]
     ] ],
-    [ "LibroTest", "namespace_libro_test.html", [
-      [ "LibroTest", "class_libro_test_1_1_libro_test.html", null ]
-    ] ],
     [ "SalvataggioFile", null, [
       [ "SalvataggioFileAutenticazione", "namespace_salvataggio_file_1_1_salvataggio_file_autenticazione.html", [
         [ "SalvataggioFileBibliotecario", "class_salvataggio_file_1_1_salvataggio_file_autenticazione_1_1_salvataggio_file_bibliotecario.html", null ]

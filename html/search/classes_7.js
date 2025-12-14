@@ -4,7 +4,7 @@ var searchData=
   ['libro_1',['Libro',['../class_gestione_libro_1_1_libro.html',1,'GestioneLibro']]],
   ['libronotfoundexception_2',['LibroNotFoundException',['../class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception.html',1,'Eccezioni::EccezioniLibri']]],
   ['libropresenteexception_3',['LibroPresenteException',['../class_eccezioni_1_1_eccezioni_libri_1_1_libro_presente_exception.html',1,'Eccezioni::EccezioniLibri']]],
-  ['librotest_4',['LibroTest',['../class_gestione_libro_test_1_1_libro_test.html',1,'GestioneLibroTest.LibroTest'],['../class_libro_test_1_1_libro_test.html',1,'LibroTest.LibroTest']]],
+  ['librotest_4',['LibroTest',['../class_gestione_libro_test_1_1_libro_test.html',1,'GestioneLibroTest']]],
   ['librowithprestitoexception_5',['LibroWithPrestitoException',['../class_eccezioni_1_1_eccezioni_libri_1_1_libro_with_prestito_exception.html',1,'Eccezioni::EccezioniLibri']]],
   ['listautenti_6',['ListaUtenti',['../class_gestione_utente_1_1_lista_utenti.html',1,'GestioneUtente']]],
   ['listautentipienaexception_7',['ListaUtentiPienaException',['../class_eccezioni_1_1_eccezioni_utenti_1_1_lista_utenti_piena_exception.html',1,'Eccezioni::EccezioniUtenti']]],

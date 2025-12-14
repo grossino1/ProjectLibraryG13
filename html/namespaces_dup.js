@@ -29,7 +29,6 @@ var namespaces_dup =
         ] ]
       ] ]
     ] ],
-    [ "LibroTest", "namespace_libro_test.html", "namespace_libro_test" ],
     [ "SalvataggioFile", null, [
       [ "SalvataggioFileAutenticazione", "namespace_salvataggio_file_1_1_salvataggio_file_autenticazione.html", "namespace_salvataggio_file_1_1_salvataggio_file_autenticazione" ],
       [ "SalvataggioFileLibro", "namespace_salvataggio_file_1_1_salvataggio_file_libro.html", "namespace_salvataggio_file_1_1_salvataggio_file_libro" ],
