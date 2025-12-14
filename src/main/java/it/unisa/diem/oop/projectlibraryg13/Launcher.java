@@ -1,18 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unisa.diem.oop.projectlibraryg13;
 
 /**
+ * @file Launcher.java
+ * @brief Entry point principale dell'applicazione.
  *
- * @author jackross
+ * Questa classe funge da punto di ingresso (Launcher) per il programma.
+ * Il suo unico scopo è delegare l'esecuzione alla classe principale {@link App}.
+ * Questa struttura è utilizzata per garantire la compatibilità durante 
+ * la creazione di file JAR eseguibili.
+ *
+ * @author mello
  */
+
 public class Launcher {
     
+    /**
+     * @brief Metodo main standard.
+     * 
+     * * Avvia l'applicazione chiamando il main della classe App.
+     * 
+     * * @param[in] args Argomenti da riga di comando passati al programma.
+     */
     public static void main(String[] args) {
-        // Sostituisci 'Main' con il nome della tua classe principale che estende Application
+        
         App.main(args);
     }
 }
