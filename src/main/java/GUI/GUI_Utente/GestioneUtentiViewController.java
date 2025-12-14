@@ -72,7 +72,9 @@ public class GestioneUtentiViewController implements Initializable {
     private Button handleSortLatestRecent;
     @FXML
     private Button handleInvio;
-    
+    @FXML
+    private Label utentiPresentiLabel;
+
     /**
      * Campo di testo per la ricerca (es. per nome o matricola).
      */
@@ -106,11 +108,12 @@ public class GestioneUtentiViewController implements Initializable {
     private ListaUtenti listaUtenti;
     
     private String filename = "listaUtenti.bin";
+    
     /**
      * @brief Inizializza il controller.
      *
      * Configura le colonne della tabella (binding con le proprietà dell'oggetto Utente)
-     * e carica la lista iniziale degli utenti dal database/file.
+     * e carica la lista iniziale degli utenti dal file.
      *
      * @param[in] url Location per risolvere i percorsi relativi.
      * @param[in] rb Risorse per la localizzazione.
@@ -136,27 +139,24 @@ public class GestioneUtentiViewController implements Initializable {
         colEmail.setCellValueFactory(new PropertyValueFactory<>("emailIstituzionale"));
         colPrestiti.setCellValueFactory(cellData -> {
             Utente utente = cellData.getValue();
-            // 1. Controllo di sicurezza: se l'utente è null o non ha prestiti
+            // controllo di sicurezza: se l'utente è null o non ha prestiti
             if (utente == null || utente.getListaPrestiti().isEmpty()) {
                 return new SimpleStringProperty("Nessun prestito");
             }
 
-            // 2. Stream per formattare i dati
+            //stream per formattare i dati
             String testoFormattato = utente.getListaPrestiti().stream()
             .map(prestito -> {
                 // A. Recuperiamo l'ISBN
                 String isbn = prestito.getISBNLibro(); 
             
-                // B. Recuperiamo e formattiamo la data (per renderla leggibile)
-                // Se la tua data è una stringa usa direttamente quella.
-                // Se è un oggetto (Calendar/Date), qui la rendiamo carina:
+                //recuperiamo e formattiamo la data (per renderla leggibile)
                 String dataScadenza = String.valueOf(prestito.getDataRestituzione()); 
             
-                // C. Costruiamo la stringa per il SINGOLO prestito
-                // Esempio output: "ISBN: 97888... | Restituzione: 13/01/2026"
+                //costruiamo la stringa per il singolo prestito
                 return "ISBN: " + isbn + "  (Scadenza: " + dataScadenza + ")";
             })
-            .collect(Collectors.joining("\n")); // <--- Questo va a capo per ogni prestito!
+            .collect(Collectors.joining("\n")); 
 
             // 3. Restituisce la stringa completa
             return new SimpleStringProperty(testoFormattato);
@@ -172,7 +172,8 @@ public class GestioneUtentiViewController implements Initializable {
         colNPrestitiAttivi.setSortable(false);
         colDataReg.setSortable(false);
         tabellaUtenti.setItems(sortedData);
-    
+        String nUtentiPresenti = String.valueOf(listaUtenti.getListaUtenti().size());
+        utentiPresentiLabel.setText("Libri Presenti: " + nUtentiPresenti);
     }
     
     /**
@@ -181,7 +182,6 @@ public class GestioneUtentiViewController implements Initializable {
      * Questo metodo svuota la lista visualizzata nella TableView e la ripopola
      * recuperando tutti i libri presenti nel catalogo. Serve per riflettere
      * visivamente eventuali modifiche (come nuove aggiunte o rimozioni).
-     * Inoltre, questo metodo salva le operazioni effettuate e ricarica il catalogo e di conseguenza la tabella
      *
      * @post La lista visibile (libroList) contiene esattamente gli elementi attuali di catalogoLibri.
      * 
@@ -262,29 +262,14 @@ public class GestioneUtentiViewController implements Initializable {
     }
     
     /**
-     * @brief Gestisce la selezione di un utente nella tabella.
-     *
-     * Questo metodo viene attivato quando l'utente clicca su una riga della tabella.
-     * Abilita i pulsanti contestuali (Aggiungi Copia, Rimuovi Copia, Modifica).
-     *
-     * @post I pulsanti di modifica diventano visibili/cliccabili.
-     */
-    @FXML
-    void handleSelectedLibro(){
-        
-        Utente selezionato = tabellaUtenti.getSelectionModel().getSelectedItem();
-        if (selezionato != null) {
-            System.out.println("Selezionato: " + selezionato.getNome());
-        }
-    }
-    
-    /**
      * @brief Gestisce l'aggiunta di un nuovo utente al sistema.
      *
      * Apre il form di registrazione utente.
      *
      * @post Se confermato, un nuovo utente viene aggiunto alla ListaUtenti.
      * @post La tabella viene aggiornata includendo il nuovo iscritto.
+     * 
+     * @see #refreshTable() 
      *
      * @param[in] event L'evento di click sul pulsante.
      */
@@ -359,6 +344,16 @@ public class GestioneUtentiViewController implements Initializable {
         }
     }
    
+    /**
+     * @brief Modifica i dati di un utente esistente 
+     *
+     * @pre Un utente deve essere selezionato nella tabella.
+     * @post I dati dell'utente vengono aggiornati e la vista refreshata.
+     * 
+     * @see #refreshTable() 
+     *
+     * @param[in] event L'evento di click.
+     */
     @FXML
     void handleModifyUtente(ActionEvent event){
         Utente u = tabellaUtenti.getSelectionModel().getSelectedItem();
@@ -438,7 +433,6 @@ public class GestioneUtentiViewController implements Initializable {
      * @brief Elimina l'utente selezionato
      * 
      * @pre Un utente deve essere selezionato
-     * 
      * @post L'utente viene eliminato dalla lista utenti
      * 
      * @see #refreshTable() 
@@ -448,6 +442,9 @@ public class GestioneUtentiViewController implements Initializable {
      * @throws IOException se il path passato è errato.
      * @throws ClassNotFoundExcepiton se durante la deserializzazione la classe della lista salvato 
      * non corrisponde alla versione della classe locale.
+     * @throws CUtenteNotFoundEsxsception se l'utente non è presente.
+     * @throws UtenteWithPrestito se l'utente che si vuole eliminare ha un prestito attivo
+     * 
      */    
     @FXML
     void handleDeleteUtente(ActionEvent event) throws IOException, ClassNotFoundException, UtenteNotFoundException, UtenteWithPrestitoException{

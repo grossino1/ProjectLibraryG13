@@ -22,7 +22,7 @@ import java.io.Serializable;
  * @invariant username != null && !username.isEmpty() (Le credenziali devono essere valide).
  * @invariant password != null && !password.isEmpty().
  *
- * @author chiara
+ * @author mello
  * @version 1.0
  */
 

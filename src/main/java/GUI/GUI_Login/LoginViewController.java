@@ -55,13 +55,13 @@ public class LoginViewController implements Initializable {
     @FXML
     private Button handleLogin;
 
+    //percorso del file con le credenziali
     private String FILENAME = "us.bin";
     /**
      * @brief Inizializza il controller.
      *
      * Metodo chiamato automaticamente dal framework JavaFX dopo che il file FXML
-     * è stato caricato. Può essere usato per configurare lo stato iniziale della vista
-     * (es. focus sul campo username).
+     * è stato caricato.
      *
      * @param[in] url La location utilizzata per risolvere i percorsi relativi all'oggetto root, o null se non nota.
      * @param[in] rb Le risorse utilizzate per localizzare l'oggetto root, o null se non localizzate.
@@ -86,50 +86,35 @@ public class LoginViewController implements Initializable {
     void handleLoginAction(ActionEvent event) throws IOException, UsernameFieldEmptyException, PasswordFieldEmptyException, LoginCredentialsNotValidException {
         //gestore dell'evento quanto viene premuto il bottone login
         //scheletro
-        /* Esempio logica:
-         String user = usernameField.getText();
-         String pass = passwordField.getText();
-         if(autenticazione.login(user, pass)) {
-             switchScene(event);
-         } else {
-             mostraAlert(Alert.AlertType.ERROR, "Errore", "Credenziali non valide");
-         }
-        */
+        
+        //prendiamo il contenuto dei textfield
         String username = usernameField.getText();
         String password = passwordField.getText();
         
+        //carichiamo le credenziali di accesso corrette presenti nel file FILENAME
         Bibliotecario admin = SalvataggioFile.SalvataggioFileAutenticazione.SalvataggioFileBibliotecario.carica(FILENAME);
         
-        // 2. Verifica Credenziali (Simulazione connessione al Model)
-        // boolean accessoConsentito = autenticazioneService.login(username, password);
-        
-        // --- SIMULAZIONE PER TEST (Rimuovi questo if/else quando colleghi il vero Model) ---
         boolean accessoConsentito;
         // ----------------------------------------------------------------------------------
         try{
             if (accessoConsentito = admin.login(username, password) ) {
                 System.out.println("Login effettuato con successo!");
                 switchScene(event, "/GUI/GUI_CatalogoLibri/CatalogoLibriView.fxml");
-                //switchScene(event, "/GUI/GUI_GestioneUtenti/GestioneUtentiView.fxml");
             }
-        }catch (UsernameFieldEmptyException eu){
-            showAlert(Alert.AlertType.ERROR, "Errore Login", eu.getMessage());
-        }catch (PasswordFieldEmptyException ep){
-            showAlert(Alert.AlertType.ERROR, "Errore Login", ep.getMessage());
-        }catch (LoginCredentialsNotValidException e){
-            showAlert(Alert.AlertType.ERROR, "Errore Login", e.getMessage());
+        }catch (UsernameFieldEmptyException ex){
+            showAlert(Alert.AlertType.ERROR, "Errore Login", ex.getMessage());  //gestione delle eccezioni
+        }catch (PasswordFieldEmptyException ex){
+            showAlert(Alert.AlertType.ERROR, "Errore Login", ex.getMessage());  //gestione delle eccezioni
+        }catch (LoginCredentialsNotValidException ex){
+            showAlert(Alert.AlertType.ERROR, "Errore Login", ex.getMessage());  //gestione delle eccezioni
         }
     }
 
     /**
-     * @brief Effettua il cambio scena verso la Dashboard del Catalogo.
-     *
-     * Carica il file FXML della schermata principale e sostituisce la scena corrente.
-     *
-     * @pre Il file FXML di destinazione deve esistere e essere corretto.
-     * @post La finestra di Login viene chiusa e si apre la Dashboard.
-     *
-     * @param[in] event L'evento che ha scatenato il cambio scena (necessario per recuperare lo Stage).
+     * @brief Gestisce il cambio scena generico.
+     * 
+     * @param[in] event Evento scatenante.
+     * @param[in] fxmlPath Percorso della nuova vista.
      */
     private void switchScene(ActionEvent event, String fxmlPath) {
         //permette di cambiare scena
@@ -144,9 +129,7 @@ public class LoginViewController implements Initializable {
         }catch(IOException e){
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR,"Errore Critico!","Errore nel caricamento della Scena: " + e.getMessage());
-        }
-        
-        //scheletro        
+        }     
     }
 
     /**

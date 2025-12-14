@@ -11,7 +11,7 @@ package Eccezioni.EccezioniAutenticazione;
  *
  * @see java.lang.Exception
  *
- * @author jackross
+ * @author mello
  * @version 1.0
  */
 
