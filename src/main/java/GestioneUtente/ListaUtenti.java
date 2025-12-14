@@ -37,7 +37,7 @@ public class ListaUtenti implements Serializable{
      * Collezione ordinata degli utenti registrati.
      */
     private static final long serialVersionUID = 1L;
-        
+    private static final int MAX_UTENTI = 1000;
     private Set<Utente> listaUtenti;
     private String filename;
     
@@ -125,7 +125,7 @@ public class ListaUtenti implements Serializable{
         }
         
         // Controllo che listaUtenti==1000: se la lista è piena non posso inserire l'utente.
-        if(listaUtenti.size() == 1000){
+        if(listaUtenti.size() >= MAX_UTENTI){
             throw new ListaUtentiPienaException("La listaUtenti non può contenere più di 1000 utenti!");
         }
             
