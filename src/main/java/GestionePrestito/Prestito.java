@@ -4,6 +4,7 @@ import Eccezioni.EccezioniPrestiti.dataRestituzioneException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 /**
@@ -63,9 +64,9 @@ public class Prestito implements Comparable<Prestito>, Serializable {
      *
      * @return La data di aggiunta identificativa del prestito.
      */
-    public LocalDateTime getDataRegistrazione() {
-     
-        return dataRegistrazione;
+    public String getDataRegistrazione() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return dataRegistrazione.format(formatter);
     }
 
     /**
@@ -205,11 +206,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        sb.append("Data di Registarzione: "+ getDataRegistrazione());
-        sb.append("\n");
         sb.append("ISBN: "+ getISBNLibro());
-        sb.append("\n");
-        sb.append(" Matricola: " + getMatricolaUtente());
         sb.append("\n");
         sb.append("Data di Restituzione: " + getDataRestituzione());
         return sb.toString();

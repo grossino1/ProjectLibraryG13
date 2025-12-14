@@ -228,7 +228,6 @@ public class ElencoPrestiti implements Serializable{
         sb.append("Prestiti all'interno della lista:\n" );
         
         for(Prestito p: elencoPrestiti) {
-            
             sb.append(p.toString() + "\n");
         }
         

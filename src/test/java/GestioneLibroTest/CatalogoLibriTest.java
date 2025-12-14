@@ -110,7 +110,7 @@ public class CatalogoLibriTest {
     @Test
     public void testEliminazioneLibroConPrestitoAttivo() throws Exception {
         // Simula un prestito attivo
-        libroValido.setnPrestitiAttivi(1);
+        libroValido.setPrestitiAttivi(1);
         // Aggiungi il libro al catalogo
         catalogo.registrazioneLibro(libroValido);
         
