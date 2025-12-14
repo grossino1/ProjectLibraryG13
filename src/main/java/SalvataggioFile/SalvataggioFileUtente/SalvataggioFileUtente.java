@@ -24,7 +24,7 @@ import java.io.ObjectOutputStream;
  * @brief Gestisce la persistenza su file degli oggetti di tipo Utente.
  *
  * Questa classe di utilità si occupa di serializzare (salvare) e deserializzare (caricare)
- * le istanze della classe @ref Utente su file binari.
+ * le istanze della classe ListaUtenti su file binari.
  *
  * @see GestioneUtente.Utente
  * @see java.io.ObjectOutputStream
@@ -37,7 +37,7 @@ import java.io.ObjectOutputStream;
 public class SalvataggioFileUtente {
     
     /**
-     * @brief Salva lo stato di un oggetto Utente su un file binario.
+     * @brief Salva lo stato di un oggetto ListaUtenti su un file binario.
      *
      * Serializza l'oggetto passato come parametro e lo scrive nel percorso specificato.
      * Se il file esiste già, viene sovrascritto.
@@ -48,6 +48,8 @@ public class SalvataggioFileUtente {
      *
      * @param[in] dati: L'oggetto ListaUtenti da serializzare.
      * @param[in] filename: Il percorso o nome del file di destinazione.
+     * 
+     * @throws  IOException: se le precondizioni non sono verificate.
      */
     public static void salva(ListaUtenti dati, String filename) throws IOException{
         // Controllo non necessario (lo deve fare il client)
@@ -71,16 +73,18 @@ public class SalvataggioFileUtente {
         }
     }
     /**
-     * @brief Carica un oggetto Utente da un file binario.
+     * @brief Carica un oggetto ListaUtenti da un file binario.
      *
-     * Tenta di leggere e deserializzare un oggetto Utente dal percorso specificato.
+     * Tenta di leggere e deserializzare un oggetto ListaUtenti dal percorso specificato.
      *
      * @pre filename != null
-     * @post Restituisce un oggetto Utente valido se la lettura ha successo.
+     * @post Restituisce un oggetto ListaUtenti valido se la lettura ha successo.
      * @post Restituisce null se il file non esiste o la deserializzazione fallisce.
      *
      * @param[in] filename: Il percorso del file da leggere.
      * @return L'istanza di ListaUtenti recuperata, oppure null in caso di errore.
+     * 
+     * @throws  IOException: se le precondizioni non sono verificate.
      */
     public static ListaUtenti carica(String filename)  throws IOException, ClassNotFoundException{
         // Controllo non necessario (lo deve fare il client)
