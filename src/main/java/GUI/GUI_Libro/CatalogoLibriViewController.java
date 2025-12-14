@@ -79,8 +79,6 @@ public class CatalogoLibriViewController implements Initializable {
     private Button handleInvio;
     @FXML
     private TextField handleCercaLibro;
-    @FXML
-    private Label libriPresentiLabel;
     
     /**
      * Tabella per la visualizzazione dei libri.
@@ -153,9 +151,6 @@ public class CatalogoLibriViewController implements Initializable {
         tabellaLibri.sort();
         colTitolo.setSortable(false);
         tabellaLibri.setItems(sortedData);
-        
-        String nLibriPresenti = String.valueOf(catalogoLibri.getCatalogoLibri().size());
-        libriPresentiLabel.setText("Libri Presenti: " + nLibriPresenti);
 
     }
     
@@ -175,8 +170,6 @@ public class CatalogoLibriViewController implements Initializable {
      */    
     @FXML
     void refreshTable() throws IOException, ClassNotFoundException{
-        String nLibriPresenti = String.valueOf(catalogoLibri.getCatalogoLibri().size());
-        libriPresentiLabel.setText("Libri Presenti: " + nLibriPresenti);
         libroList.clear(); // 1. Cancella i dati vecchi dalla vista
         //catalogoLibri = SalvataggioFileLibro.carica(filename);
         libroList.addAll(catalogoLibri.getCatalogoLibri());
@@ -397,8 +390,6 @@ public class CatalogoLibriViewController implements Initializable {
             catalogoLibri.modificaLibro(selected, selected.getTitolo(), selected.getAutori(),selected.getAnnoPubblicazione(), selected.getNumeroCopie());
             // Feedback visivo (opzionale)
             System.out.println("Copia aggiunta. Totale: " + selected.getNumeroCopie());
-        }else{
-            showAlert(Alert.AlertType.ERROR, "Errore generico", "Libro non selezionato!");
         }
         refreshTable();
     }
@@ -432,9 +423,7 @@ public class CatalogoLibriViewController implements Initializable {
             }catch(CopieEsauriteException ex){
                 showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
             }
-        }else{
-            showAlert(Alert.AlertType.ERROR, "Errore generico", "Libro non selezionato!");
-        }
+        }   
         refreshTable();
     }
     

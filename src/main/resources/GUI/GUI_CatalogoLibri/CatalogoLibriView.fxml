@@ -97,14 +97,13 @@
                     <Label text="Ordina per:" textFill="#7f8c8d" />
                     <Button fx:id="handleSortTitolo" onAction="#handleSortLibro" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" text="Autore" />
                     <Button fx:id="handleSortAnno" onAction="#handleSortAnno" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" text="Anno" />
-                    <TextField fx:id="handleCercaLibro" onAction="#handleCercaLibro" promptText="Cerca per titolo..." style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" />
-                    <Button fx:id="handleInvio" layoutX="20.0" layoutY="20.0" onAction="#handleCercaLibro" style="-fx-background-color: #27ae60; -fx-text-fill: white;" text="Invio" />
+                    <TextField fx:id="handleCercaLibro" promptText="Cerca per titolo..." onAction="#handleCercaLibro" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" />
+                    <Button fx:id="handleInvio" onAction="#handleCercaLibro" layoutX="20.0" layoutY="20.0" style="-fx-background-color: #27ae60; -fx-text-fill: white;" text="Invio" />
                 </children>
             </HBox>
 
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
-                  <Label fx:id="libriPresentiLabel" text="Libri Presenti: " textFill="#7f8c8d"/>
                    <HBox HBox.hgrow="ALWAYS" />
                   <Label text="Azioni Libro Selezionato:" textFill="#7f8c8d" />
                   

@@ -111,9 +111,8 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
-                   <Label fx:id="prestitiPresentiLabel" text="Prestiti Presenti: " textFill="#7f8c8d"/>
                    <HBox HBox.hgrow="ALWAYS" />
-                  <Label text="Azioni Prestito Selezionato:" textFill="#7f8c8d" />
+                  <Label text="Azioni Libro Selezionato:" textFill="#7f8c8d" />
                   
                   <Button fx:id="btnModifica" onAction="#handleModifyPrestito" style="-fx-background-color: #f39c12; -fx-text-fill: white;" text="Modifica" />
                   <Button fx:id="btnElimina" onAction="#handleRemovePrestito" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Elimina" />

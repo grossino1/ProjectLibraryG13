@@ -72,8 +72,6 @@ public class GestioneUtentiViewController implements Initializable {
     private Button handleSortLatestRecent;
     @FXML
     private Button handleInvio;
-    @FXML
-    private Label utentiPresentiLabel;
     
     /**
      * Campo di testo per la ricerca (es. per nome o matricola).
@@ -174,9 +172,6 @@ public class GestioneUtentiViewController implements Initializable {
         colNPrestitiAttivi.setSortable(false);
         colDataReg.setSortable(false);
         tabellaUtenti.setItems(sortedData);
-        
-        String nUtentiPresenti = String.valueOf(listaUtenti.getListaUtenti().size());
-        utentiPresentiLabel.setText("Libri Presenti: " + nUtentiPresenti);
     
     }
     
@@ -196,8 +191,6 @@ public class GestioneUtentiViewController implements Initializable {
      */    
     @FXML
     void refreshTable() throws IOException, ClassNotFoundException{
-        String nUtentiPresenti = String.valueOf(listaUtenti.getListaUtenti().size());
-        utentiPresentiLabel.setText("Libri Presenti: " + nUtentiPresenti);
         utenteList.clear(); // 1. Cancella i dati vecchi dalla vista
         listaUtenti = SalvataggioFileUtente.carica(filename);
         utenteList.addAll(listaUtenti.getListaUtenti());
