@@ -319,15 +319,15 @@ public class GestioneUtentiViewController implements Initializable {
                     refreshTable();
                     aggiungiUtenteStage.close();
                 }catch (MatricolaNotValidException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico1", ex.getMessage());
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage());
                 } catch (UtentePresenteException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico2", ex.getMessage());
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage());
                 } catch (IOException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico3", ex.getMessage());
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage());
                 } catch (ClassNotFoundException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico4", ex.getMessage());
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage());
                 } catch (ListaUtentiPienaException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico4", ex.getMessage());
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage());
 
                 }
             });
@@ -339,8 +339,8 @@ public class GestioneUtentiViewController implements Initializable {
                     showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
                 }
             });
-        }catch(IOException e){
-            showAlert(Alert.AlertType.ERROR, "Errore generico", e.getMessage()); //gestione delle eccezioni
+        }catch(IOException ex){
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
         }
     }
    
@@ -397,20 +397,14 @@ public class GestioneUtentiViewController implements Initializable {
                 //lambda expression per la registrazione del libro
                 btnSalva.setOnAction(e -> {
                     try {
-                        // Leggiamo i dati dai campi che abbiamo appena trovato
-
-                        System.out.println("DEBUG DATI LETTI:");
-                        System.out.println("ISBN letto: '" + nome.getText() + "'");
-                        System.out.println("Titolo letto: '" + cognome.getText() + "'");
-
                         listaUtenti.modificaUtente(u, nome.getText(), cognome.getText() , email.getText());
                         System.out.println(listaUtenti.toString());
                         refreshTable();
                         aggiungiUtenteStage.close();
                     } catch (IOException ex) {
-                        showAlert(Alert.AlertType.ERROR, "Errore generico3", ex.getMessage());
+                        showAlert(Alert.AlertType.ERROR, "Errore generico",ex.getClass().getName() + "\n" +  ex.getMessage());
                     } catch (ClassNotFoundException ex) {
-                        showAlert(Alert.AlertType.ERROR, "Errore generico4", ex.getMessage());
+                        showAlert(Alert.AlertType.ERROR, "Errore generico",ex.getClass().getName() + "\n" +  ex.getMessage());
                     }
                 });
 
