@@ -105,7 +105,7 @@
                   <Button fx:id="handleSortMostRecent" onAction="#handleSortMostRecent"  layoutX="20.0" layoutY="20.0" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" text="Per Data di Registrazione" />
                   <!--<Button fx:id="handleSortLatestRecent" layoutX="20.0" layoutY="20.0" prefHeight="25.0" prefWidth="93.0" style="-fx-background-color: #ecf0f1; -fx-text-fill: #black;" text="Meno Recente" />
                   -->
-                  <TextField fx:id="handleCercaPrestito" promptText="Cerca per titolo..." onAction="#handleCercaPrestito" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" />
+                  <TextField fx:id="handleCercaPrestito" promptText="Cerca per ISBN o matricola..." onAction="#handleCercaPrestito" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" />
                   <Button fx:id="handleInvio" onAction="#handleCercaPrestito" layoutX="20.0" layoutY="20.0" style="-fx-background-color: #27ae60; -fx-text-fill: white;" text="Invio" />
                </children>
             </HBox>
