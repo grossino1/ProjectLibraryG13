@@ -16,7 +16,6 @@ import java.time.temporal.ChronoUnit;
  * @see Libro
  * @see Utente
  * 
- * @invariant IDPrestito != null (Il prestito deve avere un identificativo univoco).
  * @invariant ISBNLibro != null (Un prestito deve riferirsi a un libro esistente).
  * @invariant matricolaUtente != null (Un prestito deve essere associato a un utente).
  *
@@ -35,8 +34,8 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     /**
      * @brief Costruttore della classe Prestito.
      *
-     * @pre ISBNLibro != null && !ISBNLibro.isEmpty()
-     * @pre matricolaUtente != null && !matricolaUtente.isEmpty()
+     * @pre ISBNLibro != null && !ISBNLibro.isEmpty() && !Libro.matches("\\d{13}")
+     * @pre matricolaUtente != null && !matricolaUtente.isEmpty() && !matricolaUtente.matches("\\d{10}")
      * @post Viene creata una nuova istanza valida di Prestito.
      * @post dataRegistrazionePrestito viene generato univocamente in base alla data di aggiunta.
      * @post dataRestituzione viene inizializzata (Data odierna + 30gg).
@@ -47,9 +46,9 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     public Prestito(String ISBNLibro, String matricolaUtente) throws IllegalArgumentException{
     
         if (ISBNLibro == null || ISBNLibro.isEmpty() || !ISBNLibro.matches("\\d{13}"))
-            throw new IllegalArgumentException("Formato ISBN non valido");
+            throw new IllegalArgumentException("ERRORE: Formato ISBN non valido");
         if (matricolaUtente == null || matricolaUtente.isEmpty() || !matricolaUtente.matches("\\d{10}"))
-            throw new IllegalArgumentException("Formato matricola non valido");
+            throw new IllegalArgumentException("ERRORE: Formato matricola non valido");
         
         this.ISBNLibro = ISBNLibro;
         this.matricolaUtente = matricolaUtente;
@@ -60,11 +59,12 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     // Getter
     
     /**
-     * @brief Restituisce la data univoca di registrazione del prestito.
+     * @brief Restituisce la data di registrazione del prestito.
      *
-     * @return La data di aggiunta identificativa del prestito.
+     * @return La data di registrazione del nel formato yyyy-MM-dd HH:mm.
      */
     public String getDataRegistrazione() {
+        
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return dataRegistrazione.format(formatter);
     }
@@ -75,7 +75,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
      * @return Il codice ISBN.
      */
     public String getISBNLibro() {
-        //Controllo sull'ISBN
+        
         return ISBNLibro;
     }
 
@@ -85,7 +85,8 @@ public class Prestito implements Comparable<Prestito>, Serializable {
      * @return La matricola dell'utente.
      */
     public String getMatricolaUtente() {
-        //Controllo sulla matricola
+        
+        
         return matricolaUtente;
     }
 
@@ -105,28 +106,25 @@ public class Prestito implements Comparable<Prestito>, Serializable {
      * @brief Imposta la data di restituzione, che non può essere maggiore di 30 giorni dal giorno corrente 
      * e non può essere un valore negatio o nullo.
      *
-     * @pre dataRestituzione < 30 giorni dal giorno corrente.
+     * @pre dataRestituzione < 30 giorni dal giorno corrente && dataRestituzione > 0 giorni dal giorno corrente && dataRestituzione != null.
      * 
      * @param[in] dataRestituzione La nuova data di restituzione.
      * @throws dataRestituzioneException
      */
     public void setDataRestituzione(LocalDate dataRestituzione) throws dataRestituzioneException{
         
-        // Controllo 1: La data non deve essere null
         if (dataRestituzione == null) {
-            throw new dataRestituzioneException("La data di restituzione non può essere nulla.");
+            throw new dataRestituzioneException("ERRORE: La data di restituzione non può essere nulla.");
         }
 
-        // Controllo 2: La data non deve superare i 30 giorni da oggi
         long giorniDiDifferenza = ChronoUnit.DAYS.between(LocalDate.now(), dataRestituzione);
 
         if (giorniDiDifferenza > 30) {
-            throw new dataRestituzioneException("La data di restituzione non può superare i 30 giorni da oggi.");
+            throw new dataRestituzioneException("ERRORE: La data di restituzione non può superare i 30 giorni da oggi.");
         } 
         
-        // Controllo opzionale consigliato: La data non deve essere nel passato!
         if (giorniDiDifferenza < 0) {
-             throw new dataRestituzioneException("La data di restituzione non può essere nel passato.");
+             throw new dataRestituzioneException("ERRORE: La data di restituzione non può essere nel passato.");
         }
         
         this.dataRestituzione = dataRestituzione;
@@ -176,14 +174,12 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     /**
      * @brief Confronta i prestiti per matricola prima e per ISBN poi, evitando duplicati in un TreeSet.
      *
-     * Questa logica non permette un ordinamento del TreeSet per dataRestituzione, che quindi dovrà essere implementato implicitamente dal controller.
+     * Questa logica non permette un ordinamento del TreeSet per dataRestituzione.
      * 
      * @param[in] other Il prestito con cui confrontare.
-     *@return 
-     * Un valore < 0 se questo prestito precede alfabeticamente per matricola/ISBN l'altro,
+     * @return Un valore < 0 se questo prestito precede alfabeticamente per matricola/ISBN l'altro,
      * 0 se i prestiti hanno la stessa matricola e lo stesso ISBN (sono lo stesso prestito logico), 
      * un valore > 0 se questo prestito segue alfabeticamente per matricola/ISBN l'altro.
-     * 
     */
     @Override
     public int compareTo(Prestito other) {
@@ -196,13 +192,13 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     /**
      * @brief Restituisce una rappresentazione testuale del prestito.
      *
-     * Fornisce una stringa contenente i dati principali del prestito
-     * (Data di Registarzione, ISBN, Matricola e Data di restituzione).
+     * Fornisce una stringa contenente i dati: ISBN Data di restituzione.
+     * Utile per mostrare i prestiti associati ad ogni utente.
      * 
      * @post Il risultato non è mai null.
      *
-     * @return Una stringa contenente ID, ISBN, Matricola e Data.
-       */
+     * @return Una stringa contenente ISBN e Data di restituzione.
+    */
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();

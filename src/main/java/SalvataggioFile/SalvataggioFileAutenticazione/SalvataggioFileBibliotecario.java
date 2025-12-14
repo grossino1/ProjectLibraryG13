@@ -12,7 +12,7 @@ import java.io.ObjectOutputStream;
  * @class SalvataggioFileBibliotecario
  * @brief Gestisce la persistenza su file degli oggetti di tipo Bibliotecario.
  *
- * Questa classe di utilità si occupa di serializzare (salvare) e deserializzare (caricare)
+ * Questa classe si occupa di serializzare (salvare) e deserializzare (caricare)
  * le istanze della classe @ref Bibliotecario su file binari.
  *
  * @see Autenticazione.Bibliotecario

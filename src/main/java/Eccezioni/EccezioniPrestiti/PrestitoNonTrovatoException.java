@@ -6,7 +6,7 @@ package Eccezioni.EccezioniPrestiti;
  *
  * @see EccezioniPrestito
  *
- * @author mello
+ * @author grossino1
  * @version 1.0
  */
 public class PrestitoNonTrovatoException extends EccezioniPrestito {

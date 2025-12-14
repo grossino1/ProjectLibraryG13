@@ -231,7 +231,7 @@ public class ElencoPrestitiTest {
         // Assicuriamo che il gestore dica sempre TRUE
         gestoreStub.risultatoNuovoPrestito = true;
         
-        for(int i = 0; i < 100; i++) {
+        for(int i = 0; i < 500; i++) {
             // Genera: "978-0000000000", "978-0000000001", etc.
             // %03d significa "numero con 3 cifre, riempiendo con zeri se necessario"
             String isbnFinto = String.format("9780000000%03d", i); 

@@ -12,12 +12,12 @@ import java.io.ObjectOutputStream;
 
 /**
  * @class SalvataggioFilePrestito
- * @brief Gestisce la persistenza su file degli oggetti di tipo Prestito.
+ * @brief Gestisce la persistenza su file degli oggetti di tipo ElencoPrestiti.
  *
- * Questa classe di utilità si occupa di serializzare (salvare) e deserializzare (caricare)
- * le istanze della classe @ref Prestito su file binari.
+ * Questa classe si occupa di serializzare (salvare) e deserializzare (caricare)
+ * le istanze della classe @ref ElencoPrestiti su file binari.
  *
- * @see GestionePrestito.Prestito
+ * @see GestionePrestito.ElencoPrestiti
  * @see java.io.ObjectOutputStream
  * @see java.io.ObjectInputStream
  *
@@ -28,7 +28,7 @@ import java.io.ObjectOutputStream;
 public class SalvataggioFilePrestito {
     
     /**
-     * @brief Salva lo stato di un oggetto Prestito su un file binario.
+     * @brief Salva lo stato di un oggetto ElencoPrestiti su un file binario.
      *
      * Serializza l'oggetto passato come parametro e lo scrive nel percorso specificato.
      * Se il file esiste già, viene sovrascritto.
@@ -37,8 +37,8 @@ public class SalvataggioFilePrestito {
      * @pre filename != null && !filename.isEmpty() (Il nome del file deve essere valido).
      * @post Viene creato o aggiornato un file contenente i dati dei prestiti.
      *
-     * @param[in] dati: L'oggetto ElencoPrestiti da serializzare.
-     * @param[in] filename: Il percorso o nome del file di destinazione.
+     * @param[in] dati L'oggetto ElencoPrestiti da serializzare.
+     * @param[in] filename Il percorso o nome del file di destinazione.
      */
     public static void salva(ElencoPrestiti dati, String filename) throws IOException{
 
@@ -54,15 +54,15 @@ public class SalvataggioFilePrestito {
         }
     }
     /**
-     * @brief Carica un oggetto Prestito da un file binario.
+     * @brief Carica un oggetto ElencoPrestiti da un file binario.
      *
-     * Tenta di leggere e deserializzare un oggetto Prestito dal percorso specificato.
+     * Tenta di leggere e deserializzare un oggetto ElencoPrestiti dal percorso specificato.
      *
      * @pre filename != null && !filename.isEmpty()
-     * @post Restituisce un oggetto Prestito valido se la lettura ha successo.
+     * @post Restituisce un oggetto ElencoPrestiti valido se la lettura ha successo.
      * @post Restituisce null se il file non esiste o la deserializzazione fallisce.
      *
-     * @param[in] filename: Il percorso del file da leggere.
+     * @param[in] filename Il percorso del file da leggere.
      * @return L'istanza di ElencoPrestiti recuperata, oppure null in caso di errore.
      */
     public static ElencoPrestiti carica(String filename) throws IOException, ClassNotFoundException{

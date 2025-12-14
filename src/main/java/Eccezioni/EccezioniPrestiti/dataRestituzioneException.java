@@ -23,7 +23,7 @@ public class dataRestituzioneException extends EccezioniPrestito{
     /**
      * @brief Costruttore con messaggio di errore.
      *
-     * @param[in] msg La descrizione dell'errore (es. "Copie non disponibili per il libro richiesto").
+     * @param[in] msg La descrizione dell'errore.
      */
     public dataRestituzioneException(String msg){
         super(msg);

@@ -17,16 +17,19 @@ import java.io.IOException;
 
 /**
  * @class GestorePrestito
- * @brief Classe che controlla se i vincoli per l'aggiunta di un prestito sono verificati.
+ * @brief Classe che tratta l'aggiornamento dei dati di un @ref Utente e un @ref Libro.
  *
  * Questa classe funge da intermediario tra i dati (Libri, Utenti) e l'operazione di prestito.
- * Si occupa di validare se un prestito è ammissibile secondo le politiche della biblioteca.
+ * Si occupa di validare se un prestito è ammissibile secondo le politiche della biblioteca 
+ * e di aggironare i dati di ogni libro o utente, sia ne coso di un aggiunta di un prestito che di una eliminazione.
  *
  * @invariant catalogo != null (Deve esserci un riferimento valido al catalogo libri).
  * @invariant utenti != null (Deve esserci un riferimento valido all'elenco utenti).
  *
  * @see GestioneLibro.CatalogoLibri
- * @see GestioneUtente.ListaUtenti
+ * @see GestioneUtente.ListaUtentiù
+ * @see GestioneLibro.Libro
+ * @see GestioneUtente.Utente
  *
  * @author grossino1
  * @version 1.0
@@ -43,15 +46,18 @@ public class GestorePrestito {
     /**
      * @brief Costruttore del GestorePrestito.
      *
-     * Associa le dipendenze necessarie per effettuare i controlli incrociati e aggiorna.
+     * Associa le dipendenze necessarie per effettuare i controlli incrociati.
      * I cataloghi dei libri e degli utenti vengono caricati da file.
      *
      * @pre catalogo != null
      * @pre utenti != null
      * @post L'oggetto è inizializzato e pronto per validare i prestiti.
      *
-     * @param[in] filenameLibri il nome del file dove salvare il catalogo dei libri.
-     * @param[in] filenameUtenti il nome del file dove salvare la lista degli utenti.
+     * @param[in] filenameLibri il nome del file da dove caricare il catalogo dei libri.
+     * @param[in] filenameUtenti il nome del file da dove caricare la lista degli utenti.
+     * 
+     * @see SalvataggioFile.SalvataggioFileLibro.SalvataggioFileLibro#carica(java.lang.String) 
+     * @see SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente#carica(java.lang.String) 
      */
     public GestorePrestito(String filenameLibri, String filenameUtenti) throws IOException, ClassNotFoundException {
         this.filenameLibri = filenameLibri;
@@ -66,10 +72,11 @@ public class GestorePrestito {
      * Questo metodo applica le seguenti regole:
      * 1. **Esistenza**: Il libro e l'utente devono esistere nei rispettivi archivi.
      * 2. **Disponibilità**: Il libro deve avere almeno una copia disponibile (copie > 0).
-     * 3. **Affidabilità**: L'utente non deve aver superato il limite massimo di prestiti (Max 3).
+     * 3. **Limitazione**: L'utente non deve aver superato il limite massimo di prestiti (Max 3).
+     * 4. **Copia**: Il prestito non deve esser già presente.
      *
      * Se tutti i controlli passano, il metodo autorizza l'operazione restituendo true.
-     * In caso di errore, stampa un messaggio di diagnostica sulla console e blocca l'operazione.
+     * In caso di errore, lancia l'eccezione che indica il motivo per cui un prestito non può avvenire.
      *
      * @pre ISBN != null && !ISBN.isEmpty()
      * @pre matricola != null && !matricola.isEmpty()
@@ -84,6 +91,9 @@ public class GestorePrestito {
      * @throws UtenteNotFoundException Se la matricola non corrisponde a nessun utente registrato.
      * @throws CopieEsauriteException Se il libro esiste ma il numero di copie disponibili è < 1.
      * @throws PrestitiEsauritiException Se l'utente ha già raggiunto il limite massimo di prestiti attivi (>= 3).
+     * @throws PrestitoGiaPresenteException Se è già presente unn prestito tra quell'utente e quel libro
+     * @throws IOException Se il salvataggio sul file fallisce.
+     * @throws ClassNotFoundException Se il casting nella carica dal file (di Gestore.nuovoPrestito()) fallisce.
      */
     public boolean nuovoPrestito(String ISBN, String matricola) throws LibroNotFoundException, UtenteNotFoundException, EccezioniPrestito, IOException, ClassNotFoundException {
         
@@ -109,21 +119,23 @@ public class GestorePrestito {
         }
 
         if (utente.getListaPrestiti().size() >= 3) {
-            throw new PrestitiEsauritiException("Errore: L'utente " + utente.getNome() + " ha raggiunto il limite di 3 prestiti.");
+            throw new PrestitiEsauritiException("Errore: L'utente: " + utente.getNome() + " ha raggiunto il limite di 3 prestiti.");
         }
         
         for(Prestito p: utente.getListaPrestiti()) {
             if(p.getISBNLibro().equalsIgnoreCase(ISBN)) {
-                throw new PrestitoGiaPresenteException("Errore: L'utente " + utente.getNome() + " ha già questo libro: " + libro.getTitolo() + "in prestito");
+                throw new PrestitoGiaPresenteException("Errore: L'utente: " + utente.getNome() + " ha già questo libro: '" + libro.getTitolo() + "' in prestito");
             } 
         }
 
-        // 4. Se tutti i controlli passano, torno true e aggiungo il numero di copie ed il libro alla lista della matricola....
         return true;
     }
     
     /**
-     * @brief Quando un prestito termina (viene eliminato dall'elenco prestiti) la copia del libro relativo viene aumentata ed il numero di prestiti attivi diminuito.
+     * @brief Quando un prestito termina (viene eliminato dall'elenco prestiti) la copia del libro relativo viene aumentata 
+     * ed il numero di prestiti attivi diminuito.
+     * 
+     * Nota: non ci sono controll sulle eccezioni, perché quelle sono già controllate prima della chiamata del metodo
      *
      * @pre ISBN != null && !ISBN.isEmpty()
      * @post Il numero delle copie del libro è aumentato di 1.
@@ -131,6 +143,10 @@ public class GestorePrestito {
      * @post Il catalogo dei libri aggiornato viene salvato sul file binario.
      * 
      * @param[in] ISBN Il codice del libro restituito.
+     * 
+     * @see SalvataggioFile.SalvataggioFileLibro.SalvataggioFileLibro#salva(GestioneLibro.CatalogoLibri, java.lang.String) 
+     * @see GestioneLibro.Libro#incrementaCopiaLibro() 
+     * @see GestioneLibro.Libro#decrementaNPrestitiAttivi() 
      * 
      * @throws IOException Se il salvataggio sul file fallsice;
      */
@@ -146,7 +162,10 @@ public class GestorePrestito {
     }
     
     /**
-     * @brief Quando un prestito termina (viene eliminato dall'elenco prestiti) il prestito viene eliminato dalla lista dell'utente che lo ha terminato.
+     * @brief Quando un prestito termina (viene eliminato dall'elenco prestiti) il prestito viene 
+     * eliminato dalla lista dell'utente che lo ha terminato.
+     * 
+     * Nota: non ci sono controll sulle eccezioni, perché quelle sono già controllate prima della chiamata del metodo
      *
      * @pre matricola != null && !matricola.isEmpty()
      * @pre p != null
@@ -155,6 +174,9 @@ public class GestorePrestito {
      * 
      * @param[in] matricola La matricola dell'utente cha ha restituito il libro.
      * @param[in] p Il prestito che l'utente ha appena terminato.
+     * 
+     * @see SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente#salva(GestioneUtente.ListaUtenti, java.lang.String) 
+     * @see GestioneUtente.Utente#rimuoviPrestito(GestionePrestito.Prestito) 
      * 
      * @throws IOException Se il salvataggio sul file fallisce;
      */
@@ -166,14 +188,21 @@ public class GestorePrestito {
     }
     
     /**
-     * @brief Quando un prestito inizia (viene aggiunto all'elenco prestiti) la copia del libro relativo viene diminuita ed il numero di prestiti attivi aumentato.
+     * @brief Quando un prestito inizia (viene aggiunto all'elenco prestiti) la copia del libro relativo viene diminuita 
+     * ed il numero di prestiti attivi aumentato.
      *
+     * Nota: non ci sono controll sulle eccezioni, perché quelle sono già controllate prima della chiamata del metodo.
+     * 
      * @pre ISBN != null && !ISBN.isEmpty()
      * @post Il numero delle copie del libro è diminuito di 1.
      * @post Il numero dei prestiti attivi del libro è aumentato di 1.
      * @post Il catalogo dei libri aggiornato viene salvato sul file binario.
      * 
      * @param[in] ISBN Il codice del libro iniziato.
+     * 
+     * @see SalvataggioFile.SalvataggioFileLibro.SalvataggioFileLibro#salva(GestioneLibro.CatalogoLibri, java.lang.String) 
+     * @see GestioneLibro.Libro#decrementaCopiaLibro() 
+     * @see GestioneLibro.Libro#incrementaNPrestitiAttivi() 
      * 
      * @throws IOException Se il salvataggio sul file fallsice;
      */
@@ -188,7 +217,10 @@ public class GestorePrestito {
     }
     
     /**
-     * @brief Quando un prestito inizia (viene aggiunto all'elenco prestiti) il prestito viene aggiunto alla lista dell'utente che lo ha richiesto.
+     * @brief Quando un prestito inizia (viene aggiunto all'elenco prestiti) il prestito viene 
+     * aggiunto alla lista dell'utente che lo ha richiesto.
+     * 
+     * Nota: non ci sono controll sulle eccezioni, perché quelle sono già controllate prima della chiamata del metodo
      *
      * @pre matricola != null && !matricola.isEmpty()
      * @pre p != null
@@ -197,6 +229,9 @@ public class GestorePrestito {
      * 
      * @param[in] matricola La matricola dell'utente cha ha richiesto il libro.
      * @param[in] p Il prestito che l'utente ha appena iniziato.
+     * 
+     * @see SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente#salva(GestioneUtente.ListaUtenti, java.lang.String) 
+     * @see GestioneUtente.Utente#addPrestito(GestionePrestito.Prestito) 
      * 
      * @throws IOException Se il salvataggio sul file fallisce;
      */

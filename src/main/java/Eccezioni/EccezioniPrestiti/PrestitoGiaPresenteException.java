@@ -2,7 +2,8 @@ package Eccezioni.EccezioniPrestiti;
 
 /**
  * @class PrestitoGiaPresenteException
- * @brief Eccezione lanciata quando un utente ha già quel libro in prestito.
+ * @brief Eccezione lanciata quando un utente ha già un libro in prestito e prova a 
+ * registrare un nuovo prestito con lo stesso libro.
  *
  * @see EccezioniPrestito
  *
@@ -23,7 +24,7 @@ public class PrestitoGiaPresenteException extends EccezioniPrestito {
     /**
      * @brief Costruttore con messaggio di errore.
      *
-     * @param[in] msg La descrizione dell'errore (es. "Copie non disponibili per il libro richiesto").
+     * @param[in] msg La descrizione dell'errore.
      */
     public PrestitoGiaPresenteException(String msg){
         super(msg);

@@ -2,16 +2,12 @@ package Eccezioni.EccezioniPrestiti;
 
 /**
  * @class CopieEsauriteException
- * @brief Eccezione lanciata quando le copie disponibili di un libro sono esaurite.
- *
- * Questa eccezione viene sollevata dal gestore dei prestiti quando un utente
- * richiede un libro, ma il contatore delle copie disponibili è inferiore a 1.
- * Segnala che il libro esiste nel catalogo ma non è fisicamente disponibile per il prestito.
+ * @brief Eccezione lanciata quando le copie disponibili di un libro sono esaurite, 
+ * ovvero un libro presenta un numero di copie <=1 e si prova a registarre un nuovo prestito con quel libro.
  *
  * @see EccezioniPrestito
- * @see GestioneLibro.Libro#getNumeroCopie()
  *
- * @author mello
+ * @author grossino1
  * @version 1.0
  */
 
@@ -28,7 +24,7 @@ public class CopieEsauriteException extends EccezioniPrestito {
     /**
      * @brief Costruttore con messaggio di errore.
      *
-     * @param[in] msg La descrizione dell'errore (es. "Copie non disponibili per il libro richiesto").
+     * @param[in] msg La descrizione dell'errore.
      */
     public CopieEsauriteException(String msg){
         super(msg);
