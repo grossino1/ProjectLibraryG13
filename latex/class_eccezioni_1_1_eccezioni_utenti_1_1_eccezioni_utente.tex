@@ -1,0 +1,90 @@
+\doxysection{Eccezioni.\+Eccezioni\+Utenti.\+Eccezioni\+Utente Class Reference}
+\hypertarget{class_eccezioni_1_1_eccezioni_utenti_1_1_eccezioni_utente}{}\label{class_eccezioni_1_1_eccezioni_utenti_1_1_eccezioni_utente}\index{Eccezioni.EccezioniUtenti.EccezioniUtente@{Eccezioni.EccezioniUtenti.EccezioniUtente}}
+
+
+Classe base astratta per tutte le eccezioni legate alla gestione degli utenti.  
+
+
+
+
+Inheritance diagram for Eccezioni.\+Eccezioni\+Utenti.\+Eccezioni\+Utente\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_eccezioni_1_1_eccezioni_utenti_1_1_eccezioni_utente__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Eccezioni.\+Eccezioni\+Utenti.\+Eccezioni\+Utente\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=206pt]{class_eccezioni_1_1_eccezioni_utenti_1_1_eccezioni_utente__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_eccezioni_utente_a1532c651e369485da3dc8369718f70a2}{Eccezioni\+Utente}} ()
+\begin{DoxyCompactList}\small\item\em Costruttore di default. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_eccezioni_utente_a6f8391de535d88c33aaa26d90d07b9de}{Eccezioni\+Utente}} (String msg)
+\begin{DoxyCompactList}\small\item\em Costruttore con messaggio di errore. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe base astratta per tutte le eccezioni legate alla gestione degli utenti. 
+
+\begin{DoxyAuthor}{Author}
+chiara
+\end{DoxyAuthor}
+
+
+Questa classe estende {\ttfamily Exception} e funge da superclasse per tutti gli errori specifici del dominio Utenti. Essendo astratta, non può essere istanziata direttamente, ma permette di catturare tutti gli errori relativi ai libri in un unico blocco catch.
+
+\begin{DoxySeeAlso}{See also}
+java.\+lang.\+Exception
+\end{DoxySeeAlso}
+\begin{DoxyAuthor}{Author}
+jackross 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+
+
+\label{doc-constructors}
+\Hypertarget{class_eccezioni_1_1_eccezioni_utenti_1_1_eccezioni_utente_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_eccezioni_1_1_eccezioni_utenti_1_1_eccezioni_utente_a1532c651e369485da3dc8369718f70a2}\index{Eccezioni.EccezioniUtenti.EccezioniUtente@{Eccezioni.EccezioniUtenti.EccezioniUtente}!EccezioniUtente@{EccezioniUtente}}
+\index{EccezioniUtente@{EccezioniUtente}!Eccezioni.EccezioniUtenti.EccezioniUtente@{Eccezioni.EccezioniUtenti.EccezioniUtente}}
+\doxysubsubsection{\texorpdfstring{EccezioniUtente()}{EccezioniUtente()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_eccezioni_1_1_eccezioni_utenti_1_1_eccezioni_utente_a1532c651e369485da3dc8369718f70a2} 
+Eccezioni.\+Eccezioni\+Utenti.\+Eccezioni\+Utente.\+Eccezioni\+Utente (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Costruttore di default. 
+
+Inizializza l\textquotesingle{}eccezione senza un messaggio di dettaglio specifico. \Hypertarget{class_eccezioni_1_1_eccezioni_utenti_1_1_eccezioni_utente_a6f8391de535d88c33aaa26d90d07b9de}\index{Eccezioni.EccezioniUtenti.EccezioniUtente@{Eccezioni.EccezioniUtenti.EccezioniUtente}!EccezioniUtente@{EccezioniUtente}}
+\index{EccezioniUtente@{EccezioniUtente}!Eccezioni.EccezioniUtenti.EccezioniUtente@{Eccezioni.EccezioniUtenti.EccezioniUtente}}
+\doxysubsubsection{\texorpdfstring{EccezioniUtente()}{EccezioniUtente()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_eccezioni_1_1_eccezioni_utenti_1_1_eccezioni_utente_a6f8391de535d88c33aaa26d90d07b9de} 
+Eccezioni.\+Eccezioni\+Utenti.\+Eccezioni\+Utente.\+Eccezioni\+Utente (\begin{DoxyParamCaption}\item[{String}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Costruttore con messaggio di errore. 
+
+Permette di specificare il motivo dell\textquotesingle{}errore tramite una stringa descrittiva, recuperabile successivamente tramite {\ttfamily get\+Message()}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em msg} & La stringa che descrive il dettaglio dell\textquotesingle{}eccezione. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/\+Eccezioni/\+Eccezioni\+Utenti/\mbox{\hyperlink{_eccezioni_utente_8java}{Eccezioni\+Utente.\+java}}\end{DoxyCompactItemize}

@@ -1,0 +1,303 @@
+\doxysection{Gestione\+Utente.\+Lista\+Utenti Class Reference}
+\hypertarget{class_gestione_utente_1_1_lista_utenti}{}\label{class_gestione_utente_1_1_lista_utenti}\index{GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}}
+
+
+Gestisce l\textquotesingle{}insieme di tutti gli utenti registrati.  
+
+
+
+
+Inheritance diagram for Gestione\+Utente.\+Lista\+Utenti\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=207pt]{class_gestione_utente_1_1_lista_utenti__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Gestione\+Utente.\+Lista\+Utenti\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=207pt]{class_gestione_utente_1_1_lista_utenti__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_gestione_utente_1_1_lista_utenti_a827f645b78d2953c7e9a318c6ad76189}{Lista\+Utenti}} ()
+\begin{DoxyCompactList}\small\item\em Costruttore di default. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_gestione_utente_1_1_lista_utenti_af3df2c83c73a7ec839c250bb82531a40}{Lista\+Utenti}} (boolean caricamento\+File, String filename)  throws IOException, Class\+Not\+Found\+Exception
+\begin{DoxyCompactList}\small\item\em Costruttore predefinito. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}} \mbox{\hyperlink{class_gestione_utente_1_1_lista_utenti_ae84b4c7d9a2b375a8ef51921e6242585}{get\+Utente\+By\+Matricola}} (String matricola)
+\begin{DoxyCompactList}\small\item\em Recupera un utente specifico tramite la matricola. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestione_utente_1_1_lista_utenti_ab706851463549bc6c6ee996d8094e04b}{registrazione\+Utente}} (\mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}} u)  throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_lista_utenti_piena_exception}{Lista\+Utenti\+Piena\+Exception}}, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_matricola_not_valid_exception}{Matricola\+Not\+Valid\+Exception}}, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_utente_presente_exception}{Utente\+Presente\+Exception}}, IOException 
+\begin{DoxyCompactList}\small\item\em Registra un nuovo utente nel sistema. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestione_utente_1_1_lista_utenti_a274c6d5a7aba5c19e550bf48c55cbe8e}{eliminazione\+Utente}} (\mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}} u)  throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_utente_not_found_exception}{Utente\+Not\+Found\+Exception}}, IOException, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_utente_with_prestito_exception}{Utente\+With\+Prestito\+Exception}} 
+\begin{DoxyCompactList}\small\item\em Rimuove un utente dal sistema. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestione_utente_1_1_lista_utenti_a7212cf9e62aa766bdb59a7598ee6eed5}{modifica\+Utente}} (\mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}} u, String nome, String cognome, String email\+Istituzionale)  throws IOException
+\item 
+Array\+List$<$ \mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}} $>$ \mbox{\hyperlink{class_gestione_utente_1_1_lista_utenti_a25409b622ff621d6c65d973797456678}{cerca\+Utente}} (String u)  throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_utente_not_found_exception}{Utente\+Not\+Found\+Exception}}
+\begin{DoxyCompactList}\small\item\em Cerca utenti in base a una Stringa generica che rappresenta il Cognome, il Nome o la Matricola. \end{DoxyCompactList}\item 
+Array\+List$<$ \mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}} $>$ \mbox{\hyperlink{class_gestione_utente_1_1_lista_utenti_a3b63c9e228fdb77e7450fd5519814d3f}{get\+Lista\+Utenti}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce l\textquotesingle{}elenco completo degli utenti. \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{class_gestione_utente_1_1_lista_utenti_ae5cec2c795a360ac808b3afaecf7f5bd}{to\+String}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce una rappresentazione testuale dell\textquotesingle{}oggetto \doxylink{class_gestione_utente_1_1_lista_utenti}{Lista\+Utenti}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Gestisce l\textquotesingle{}insieme di tutti gli utenti registrati. 
+
+\begin{DoxyAuthor}{Author}
+chiara
+\end{DoxyAuthor}
+
+
+Questa classe agisce come contenitore principale per gli oggetti \doxylink{class_gestione_utente_1_1_utente}{Utente}. Utilizza un {\ttfamily Tree\+Set} per garantire che gli utenti siano sempre ordinati (per cognome e nome, come definito in \doxylink{class_gestione_utente_1_1_utente_aa720d668dc8afc6e4f49bb9c459ffa3f}{Utente.\+compare\+To}) e che non ci siano duplicati.
+
+\begin{DoxyInvariant}{Invariant}
+lista\+Utenti != null (La struttura dati interna è sempre inizializzata). 
+
+lista\+Utenti non contiene valori null.
+\end{DoxyInvariant}
+\begin{DoxyAuthor}{Author}
+chiara 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+
+
+\label{doc-constructors}
+\Hypertarget{class_gestione_utente_1_1_lista_utenti_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_gestione_utente_1_1_lista_utenti_a827f645b78d2953c7e9a318c6ad76189}\index{GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}!ListaUtenti@{ListaUtenti}}
+\index{ListaUtenti@{ListaUtenti}!GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}}
+\doxysubsubsection{\texorpdfstring{ListaUtenti()}{ListaUtenti()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_lista_utenti_a827f645b78d2953c7e9a318c6ad76189} 
+Gestione\+Utente.\+Lista\+Utenti.\+Lista\+Utenti (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Costruttore di default. 
+
+\Hypertarget{class_gestione_utente_1_1_lista_utenti_af3df2c83c73a7ec839c250bb82531a40}\index{GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}!ListaUtenti@{ListaUtenti}}
+\index{ListaUtenti@{ListaUtenti}!GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}}
+\doxysubsubsection{\texorpdfstring{ListaUtenti()}{ListaUtenti()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_lista_utenti_af3df2c83c73a7ec839c250bb82531a40} 
+Gestione\+Utente.\+Lista\+Utenti.\+Lista\+Utenti (\begin{DoxyParamCaption}\item[{boolean}]{caricamento\+File}{, }\item[{String}]{filename}{}\end{DoxyParamCaption}) throws IOException, Class\+Not\+Found\+Exception\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Costruttore predefinito. 
+
+\begin{DoxyPostcond}{Postcondition}
+lista\+Utenti != null \&\& lista\+Utenti.\+is\+Empty() 
+\end{DoxyPostcond}
+
+
+\label{doc-func-members}
+\Hypertarget{class_gestione_utente_1_1_lista_utenti_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_gestione_utente_1_1_lista_utenti_a25409b622ff621d6c65d973797456678}\index{GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}!cercaUtente@{cercaUtente}}
+\index{cercaUtente@{cercaUtente}!GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}}
+\doxysubsubsection{\texorpdfstring{cercaUtente()}{cercaUtente()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_lista_utenti_a25409b622ff621d6c65d973797456678} 
+Array\+List$<$ \mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}} $>$ Gestione\+Utente.\+Lista\+Utenti.\+cerca\+Utente (\begin{DoxyParamCaption}\item[{String}]{u}{}\end{DoxyParamCaption}) throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_utente_not_found_exception}{Utente\+Not\+Found\+Exception}}\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Cerca utenti in base a una Stringa generica che rappresenta il Cognome, il Nome o la Matricola. 
+
+\begin{DoxyPrecond}{Precondition}
+u != null (La stringa di ricerca non deve essere nulla). 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+La lista restituita non è mai null (può essere vuota).
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em u} & La stringa di ricerca (es. "{}\+Rossi"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Array\+List$<$\+Utente$>$ contenente gli utenti che corrispondono ai criteri. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Illegal\+Argument\+Exception} & Se l\textquotesingle{}utente inserito come parametro è nullo. \\
+\hline
+{\em \doxylink{class_eccezioni_1_1_eccezioni_utenti_1_1_utente_not_found_exception}{Utente\+Not\+Found\+Exception}} & Se l\textquotesingle{}utente cercato non esiste nella lista. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_gestione_utente_1_1_lista_utenti_a274c6d5a7aba5c19e550bf48c55cbe8e}\index{GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}!eliminazioneUtente@{eliminazioneUtente}}
+\index{eliminazioneUtente@{eliminazioneUtente}!GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}}
+\doxysubsubsection{\texorpdfstring{eliminazioneUtente()}{eliminazioneUtente()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_lista_utenti_a274c6d5a7aba5c19e550bf48c55cbe8e} 
+void Gestione\+Utente.\+Lista\+Utenti.\+eliminazione\+Utente (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}}}]{u}{}\end{DoxyParamCaption}) throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_utente_not_found_exception}{Utente\+Not\+Found\+Exception}}, IOException, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_utente_with_prestito_exception}{Utente\+With\+Prestito\+Exception}}\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Rimuove un utente dal sistema. 
+
+\begin{DoxyPrecond}{Precondition}
+u != null 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+L\textquotesingle{}utente specificato non è più presente nella lista. 
+
+Se l\textquotesingle{}utente passato come parametro non è presente all\textquotesingle{}interno della lista, essa resta invariata.
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em u} & L\textquotesingle{}oggetto da rimuovere (deve essere un\textquotesingle{}istanza di \doxylink{class_gestione_utente_1_1_utente}{Utente}). \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Illegal\+Argument\+Exception} & Se l\textquotesingle{}utente inserito come parametro è nullo. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_gestione_utente_1_1_lista_utenti_a3b63c9e228fdb77e7450fd5519814d3f}\index{GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}!getListaUtenti@{getListaUtenti}}
+\index{getListaUtenti@{getListaUtenti}!GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}}
+\doxysubsubsection{\texorpdfstring{getListaUtenti()}{getListaUtenti()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_lista_utenti_a3b63c9e228fdb77e7450fd5519814d3f} 
+Array\+List$<$ \mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}} $>$ Gestione\+Utente.\+Lista\+Utenti.\+get\+Lista\+Utenti (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce l\textquotesingle{}elenco completo degli utenti. 
+
+Crea un nuovo Array\+List contenente tutti gli elementi presenti nel Tree\+Set.
+
+\begin{DoxyPostcond}{Postcondition}
+La lista è una "{}\+Shallow Copy"{}\+: la collezione è nuova, ma gli oggetti contenuti sono riferimenti agli stessi del Tree\+Set. 
+
+La lista mantiene l\textquotesingle{}ordinamento del Tree\+Set. 
+
+La lista non è mai null (può essere vuota).
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+Un Array\+List contenente tutti gli utenti iscritti. 
+\end{DoxyReturn}
+\Hypertarget{class_gestione_utente_1_1_lista_utenti_ae84b4c7d9a2b375a8ef51921e6242585}\index{GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}!getUtenteByMatricola@{getUtenteByMatricola}}
+\index{getUtenteByMatricola@{getUtenteByMatricola}!GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}}
+\doxysubsubsection{\texorpdfstring{getUtenteByMatricola()}{getUtenteByMatricola()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_lista_utenti_ae84b4c7d9a2b375a8ef51921e6242585} 
+\mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}} Gestione\+Utente.\+Lista\+Utenti.\+get\+Utente\+By\+Matricola (\begin{DoxyParamCaption}\item[{String}]{matricola}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Recupera un utente specifico tramite la matricola. 
+
+Esegue una scansione della lista per trovare l\textquotesingle{}utente corrispondente. È essenziale per le operazioni di prestito.
+
+\begin{DoxyPrecond}{Precondition}
+matricola != null (La chiave di ricerca non può essere nulla). 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Lo stato della lista rimane invariato (sola lettura).
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em matricola} & La stringa univoca identificativa dell\textquotesingle{}utente. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+L\textquotesingle{}oggetto \doxylink{class_gestione_utente_1_1_utente}{Utente} corrispondente se trovato, altrimenti {\ttfamily null}. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Illegal\+Argument\+Exception} & Se la matricola inserita come parametro è nullo. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_gestione_utente_1_1_lista_utenti_a7212cf9e62aa766bdb59a7598ee6eed5}\index{GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}!modificaUtente@{modificaUtente}}
+\index{modificaUtente@{modificaUtente}!GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}}
+\doxysubsubsection{\texorpdfstring{modificaUtente()}{modificaUtente()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_lista_utenti_a7212cf9e62aa766bdb59a7598ee6eed5} 
+void Gestione\+Utente.\+Lista\+Utenti.\+modifica\+Utente (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}}}]{u}{, }\item[{String}]{nome}{, }\item[{String}]{cognome}{, }\item[{String}]{email\+Istituzionale}{}\end{DoxyParamCaption}) throws IOException\hspace{0.3cm}{\ttfamily [inline]}}
+
+Modifica i dati dell\textquotesingle{}utente specificato e salva lo stato corrente su file.
+
+Questo metodo aggiorna i campi dell\textquotesingle{}oggetto {\ttfamily Utente} passato come parametro (reimpostando i valori correnti) e successivamente invoca il metodo statico di salvataggio per persistere le modifiche nel file specificato.
+
+\begin{DoxyPrecond}{Precondition}
+(u != null) L\textquotesingle{}utente da modificare non può essere nullo.
+\end{DoxyPrecond}
+
+\begin{DoxyParams}{Parameters}
+{\em u} & L\textquotesingle{}oggetto {\ttfamily Utente} da modificare. Non deve essere null. \\
+\hline
+{\em nome\+File} & Il nome (o percorso) del file su cui effettuare il salvataggio dei dati. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Illegal\+Argument\+Exception} & Se l\textquotesingle{}oggetto {\ttfamily Utente} passato è {\ttfamily null}. \\
+\hline
+{\em IOException} & Se si verifica un errore di input/output durante la scrittura sul file. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_gestione_utente_1_1_lista_utenti_ab706851463549bc6c6ee996d8094e04b}\index{GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}!registrazioneUtente@{registrazioneUtente}}
+\index{registrazioneUtente@{registrazioneUtente}!GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}}
+\doxysubsubsection{\texorpdfstring{registrazioneUtente()}{registrazioneUtente()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_lista_utenti_ab706851463549bc6c6ee996d8094e04b} 
+void Gestione\+Utente.\+Lista\+Utenti.\+registrazione\+Utente (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}}}]{u}{}\end{DoxyParamCaption}) throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_lista_utenti_piena_exception}{Lista\+Utenti\+Piena\+Exception}}, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_matricola_not_valid_exception}{Matricola\+Not\+Valid\+Exception}}, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_utente_presente_exception}{Utente\+Presente\+Exception}}, IOException\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Registra un nuovo utente nel sistema. 
+
+Aggiunge un utente alla collezione. Se l\textquotesingle{}utente è già presente (stesso Cognome, Nome e Matricola), il Set non lo duplicherà (rispettando l\textquotesingle{}implementazione del compare\+To() definito in \doxylink{class_gestione_utente_1_1_utente}{Utente}) e sarà lanciato un errore. Inoltre se la matricola non è valida strutturalmente verrà lanciato un altro tipo di errore.
+
+\begin{DoxyPrecond}{Precondition}
+u != null (Non è possibile registrare utenti nulli). 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+lista\+Utenti.\+contains(u) == true. 
+
+size() \texorpdfstring{$>$}{>}= old\+\_\+size().
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em u} & L\textquotesingle{}oggetto \doxylink{class_gestione_utente_1_1_utente}{Utente} da registrare.
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Illegal\+Argument\+Exception} & Se l\textquotesingle{}utente inserito come parametro è nullo. \\
+\hline
+{\em \doxylink{class_eccezioni_1_1_eccezioni_utenti_1_1_lista_utenti_piena_exception}{Lista\+Utenti\+Piena\+Exception}} & Se la lista\+Utenti è piena. \\
+\hline
+{\em \doxylink{class_eccezioni_1_1_eccezioni_utenti_1_1_matricola_not_valid_exception}{Matricola\+Not\+Valid\+Exception}} & Se l\textquotesingle{}utente ha un formato di matricola non valido. \\
+\hline
+{\em \doxylink{class_eccezioni_1_1_eccezioni_utenti_1_1_utente_presente_exception}{Utente\+Presente\+Exception}} & Se l\textquotesingle{}utente passato come parametro è già presente all\textquotesingle{}interno della lista degli utenti. \\
+\hline
+{\em IOException} & Se si verifica un errore di input/output durante la scrittura sul file. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_gestione_utente_1_1_lista_utenti_ae5cec2c795a360ac808b3afaecf7f5bd}\index{GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}!toString@{toString}}
+\index{toString@{toString}!GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}}
+\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_lista_utenti_ae5cec2c795a360ac808b3afaecf7f5bd} 
+String Gestione\+Utente.\+Lista\+Utenti.\+to\+String (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce una rappresentazione testuale dell\textquotesingle{}oggetto \doxylink{class_gestione_utente_1_1_lista_utenti}{Lista\+Utenti}. 
+
+\begin{DoxyPostcond}{Postcondition}
+Il risultato non è mai null (restituisce sempre una stringa, anche vuota).
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+Una stringa contenente la descrizione completa della lista utenti. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/\+Gestione\+Utente/\mbox{\hyperlink{_lista_utenti_8java}{Lista\+Utenti.\+java}}\end{DoxyCompactItemize}

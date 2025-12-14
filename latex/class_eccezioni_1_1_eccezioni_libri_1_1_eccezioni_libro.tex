@@ -1,0 +1,85 @@
+\doxysection{Eccezioni.\+Eccezioni\+Libri.\+Eccezioni\+Libro Class Reference}
+\hypertarget{class_eccezioni_1_1_eccezioni_libri_1_1_eccezioni_libro}{}\label{class_eccezioni_1_1_eccezioni_libri_1_1_eccezioni_libro}\index{Eccezioni.EccezioniLibri.EccezioniLibro@{Eccezioni.EccezioniLibri.EccezioniLibro}}
+
+
+Classe base astratta per tutte le eccezioni legate alla gestione dei libri.  
+
+
+
+
+Inheritance diagram for Eccezioni.\+Eccezioni\+Libri.\+Eccezioni\+Libro\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_eccezioni_1_1_eccezioni_libri_1_1_eccezioni_libro__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Eccezioni.\+Eccezioni\+Libri.\+Eccezioni\+Libro\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=198pt]{class_eccezioni_1_1_eccezioni_libri_1_1_eccezioni_libro__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_eccezioni_libro_ab7e6e137c24eedc84cb1c7620bae4c34}{Eccezioni\+Libro}} ()
+\begin{DoxyCompactList}\small\item\em Costruttore di default. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_eccezioni_libro_a024fc212e1435d67e5a806b8d4b65624}{Eccezioni\+Libro}} (String msg)
+\begin{DoxyCompactList}\small\item\em Costruttore con messaggio di errore. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe base astratta per tutte le eccezioni legate alla gestione dei libri. 
+
+Questa classe estende {\ttfamily Exception} e funge da superclasse per tutti gli errori specifici del dominio Libro. Essendo astratta, non può essere istanziata direttamente, ma permette di catturare tutti gli errori relativi ai libri in un unico blocco catch.
+
+\begin{DoxySeeAlso}{See also}
+java.\+lang.\+Exception
+\end{DoxySeeAlso}
+\begin{DoxyAuthor}{Author}
+grossino1 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+
+
+\label{doc-constructors}
+\Hypertarget{class_eccezioni_1_1_eccezioni_libri_1_1_eccezioni_libro_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_eccezioni_1_1_eccezioni_libri_1_1_eccezioni_libro_ab7e6e137c24eedc84cb1c7620bae4c34}\index{Eccezioni.EccezioniLibri.EccezioniLibro@{Eccezioni.EccezioniLibri.EccezioniLibro}!EccezioniLibro@{EccezioniLibro}}
+\index{EccezioniLibro@{EccezioniLibro}!Eccezioni.EccezioniLibri.EccezioniLibro@{Eccezioni.EccezioniLibri.EccezioniLibro}}
+\doxysubsubsection{\texorpdfstring{EccezioniLibro()}{EccezioniLibro()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_eccezioni_1_1_eccezioni_libri_1_1_eccezioni_libro_ab7e6e137c24eedc84cb1c7620bae4c34} 
+Eccezioni.\+Eccezioni\+Libri.\+Eccezioni\+Libro.\+Eccezioni\+Libro (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Costruttore di default. 
+
+Inizializza l\textquotesingle{}eccezione senza un messaggio di dettaglio specifico. \Hypertarget{class_eccezioni_1_1_eccezioni_libri_1_1_eccezioni_libro_a024fc212e1435d67e5a806b8d4b65624}\index{Eccezioni.EccezioniLibri.EccezioniLibro@{Eccezioni.EccezioniLibri.EccezioniLibro}!EccezioniLibro@{EccezioniLibro}}
+\index{EccezioniLibro@{EccezioniLibro}!Eccezioni.EccezioniLibri.EccezioniLibro@{Eccezioni.EccezioniLibri.EccezioniLibro}}
+\doxysubsubsection{\texorpdfstring{EccezioniLibro()}{EccezioniLibro()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_eccezioni_1_1_eccezioni_libri_1_1_eccezioni_libro_a024fc212e1435d67e5a806b8d4b65624} 
+Eccezioni.\+Eccezioni\+Libri.\+Eccezioni\+Libro.\+Eccezioni\+Libro (\begin{DoxyParamCaption}\item[{String}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Costruttore con messaggio di errore. 
+
+Permette di passare una stringa descrittiva che spiega la causa dell\textquotesingle{}errore. Il messaggio può essere recuperato successivamente tramite {\ttfamily get\+Message()}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em msg} & La stringa che descrive il dettaglio dell\textquotesingle{}eccezione. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/\+Eccezioni/\+Eccezioni\+Libri/\mbox{\hyperlink{_eccezioni_libro_8java}{Eccezioni\+Libro.\+java}}\end{DoxyCompactItemize}

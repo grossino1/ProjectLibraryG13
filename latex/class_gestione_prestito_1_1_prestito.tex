@@ -1,0 +1,261 @@
+\doxysection{Gestione\+Prestito.\+Prestito Class Reference}
+\hypertarget{class_gestione_prestito_1_1_prestito}{}\label{class_gestione_prestito_1_1_prestito}\index{GestionePrestito.Prestito@{GestionePrestito.Prestito}}
+
+
+Rappresenta l\textquotesingle{}entità prestito all\textquotesingle{}interno del sistema di gestione bibliotecaria.  
+
+
+
+
+Inheritance diagram for Gestione\+Prestito.\+Prestito\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{class_gestione_prestito_1_1_prestito__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Gestione\+Prestito.\+Prestito\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{class_gestione_prestito_1_1_prestito__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_gestione_prestito_1_1_prestito_a6754da5e6874df5dace36c9d5e93ef1f}{Prestito}} (String ISBNLibro, String matricola\+Utente)  throws Illegal\+Argument\+Exception
+\begin{DoxyCompactList}\small\item\em Costruttore della classe \doxylink{class_gestione_prestito_1_1_prestito}{Prestito}. \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{class_gestione_prestito_1_1_prestito_a11399c1040a9ca4742bee9e368d4904f}{get\+Data\+Registrazione}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce la data di registrazione del prestito. \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{class_gestione_prestito_1_1_prestito_a47b368a5e6ed90b8256284ea5860ba1a}{get\+ISBNLibro}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce l\textquotesingle{}ISBN del libro prestato. \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{class_gestione_prestito_1_1_prestito_a252a16a168acd075fe1b9034946ad2c3}{get\+Matricola\+Utente}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce la matricola dell\textquotesingle{}utente. \end{DoxyCompactList}\item 
+Local\+Date \mbox{\hyperlink{class_gestione_prestito_1_1_prestito_ae080004fbb215ce64a0b281af7e0b6e3}{get\+Data\+Restituzione}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce la data prevista per la restituzione. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestione_prestito_1_1_prestito_ac92d6b49c8f3897c43582907641fac3e}{set\+Data\+Restituzione}} (Local\+Date data\+Restituzione)  throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1data_restituzione_exception}{data\+Restituzione\+Exception}}
+\begin{DoxyCompactList}\small\item\em Imposta la data di restituzione, che non può essere maggiore di 30 giorni dal giorno corrente e non può essere un valore negatio o nullo. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_gestione_prestito_1_1_prestito_acb4a2ebf2e8190320363f8026516eed7}{hash\+Code}} ()
+\begin{DoxyCompactList}\small\item\em Calcola l\textquotesingle{}hash code basato sulla coppia univoca Matricola + ISBN. \end{DoxyCompactList}\item 
+boolean \mbox{\hyperlink{class_gestione_prestito_1_1_prestito_af7597519f192f6b4ff3408564ef8d51e}{equals}} (Object obj)
+\begin{DoxyCompactList}\small\item\em Confronta due prestiti basandosi esclusivamente su Matricola e ISBN. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_gestione_prestito_1_1_prestito_ac9a55b4137d60e8b75a065ace0110b7b}{compare\+To}} (\mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}} other)
+\begin{DoxyCompactList}\small\item\em Confronta i prestiti per matricola prima e per ISBN poi, evitando duplicati in un Tree\+Set. \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{class_gestione_prestito_1_1_prestito_a37464f226bbb6734a55440c27dc0e846}{to\+String}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce una rappresentazione testuale del prestito. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Rappresenta l\textquotesingle{}entità prestito all\textquotesingle{}interno del sistema di gestione bibliotecaria. 
+
+Il prestito nasce dall\textquotesingle{}associazione di un libro ed un utente per un periodo di tempo limitato.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_gestione_libro_1_1_libro}{Libro} 
+
+\doxylink{class_gestione_utente_1_1_utente}{Utente}
+\end{DoxySeeAlso}
+\begin{DoxyInvariant}{Invariant}
+ISBNLibro != null (Un prestito deve riferirsi a un libro esistente). 
+
+matricola\+Utente != null (Un prestito deve essere associato a un utente).
+\end{DoxyInvariant}
+\begin{DoxyAuthor}{Author}
+grossino1 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+
+
+\label{doc-constructors}
+\Hypertarget{class_gestione_prestito_1_1_prestito_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_gestione_prestito_1_1_prestito_a6754da5e6874df5dace36c9d5e93ef1f}\index{GestionePrestito.Prestito@{GestionePrestito.Prestito}!Prestito@{Prestito}}
+\index{Prestito@{Prestito}!GestionePrestito.Prestito@{GestionePrestito.Prestito}}
+\doxysubsubsection{\texorpdfstring{Prestito()}{Prestito()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_prestito_a6754da5e6874df5dace36c9d5e93ef1f} 
+Gestione\+Prestito.\+Prestito.\+Prestito (\begin{DoxyParamCaption}\item[{String}]{ISBNLibro}{, }\item[{String}]{matricola\+Utente}{}\end{DoxyParamCaption}) throws Illegal\+Argument\+Exception\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Costruttore della classe \doxylink{class_gestione_prestito_1_1_prestito}{Prestito}. 
+
+\begin{DoxyPrecond}{Precondition}
+ISBNLibro != null \&\& !\+ISBNLibro.is\+Empty() \&\& !\+Libro.matches("{}\textbackslash{}\textbackslash{}d\{13\}"{}) 
+
+matricola\+Utente != null \&\& !matricola\+Utente.is\+Empty() \&\& !matricola\+Utente.matches("{}\textbackslash{}\textbackslash{}d\{10\}"{}) 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Viene creata una nuova istanza valida di \doxylink{class_gestione_prestito_1_1_prestito}{Prestito}. 
+
+data\+Registrazione\+Prestito viene generato univocamente in base alla data di aggiunta. 
+
+data\+Restituzione viene inizializzata (Data odierna + 30gg).
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em ISBNLibro} & Il codice ISBN del libro da prestare. \\
+\hline
+\mbox{\texttt{in}}  & {\em matricola\+Utente} & La matricola dell\textquotesingle{}utente richiedente. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_gestione_prestito_1_1_prestito_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_gestione_prestito_1_1_prestito_ac9a55b4137d60e8b75a065ace0110b7b}\index{GestionePrestito.Prestito@{GestionePrestito.Prestito}!compareTo@{compareTo}}
+\index{compareTo@{compareTo}!GestionePrestito.Prestito@{GestionePrestito.Prestito}}
+\doxysubsubsection{\texorpdfstring{compareTo()}{compareTo()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_prestito_ac9a55b4137d60e8b75a065ace0110b7b} 
+int Gestione\+Prestito.\+Prestito.\+compare\+To (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}}}]{other}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Confronta i prestiti per matricola prima e per ISBN poi, evitando duplicati in un Tree\+Set. 
+
+Questa logica non permette un ordinamento del Tree\+Set per data\+Restituzione.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em other} & Il prestito con cui confrontare. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Un valore \texorpdfstring{$<$}{<} 0 se questo prestito precede alfabeticamente per matricola/\+ISBN l\textquotesingle{}altro, 0 se i prestiti hanno la stessa matricola e lo stesso ISBN (sono lo stesso prestito logico), un valore \texorpdfstring{$>$}{>} 0 se questo prestito segue alfabeticamente per matricola/\+ISBN l\textquotesingle{}altro. 
+\end{DoxyReturn}
+\Hypertarget{class_gestione_prestito_1_1_prestito_af7597519f192f6b4ff3408564ef8d51e}\index{GestionePrestito.Prestito@{GestionePrestito.Prestito}!equals@{equals}}
+\index{equals@{equals}!GestionePrestito.Prestito@{GestionePrestito.Prestito}}
+\doxysubsubsection{\texorpdfstring{equals()}{equals()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_prestito_af7597519f192f6b4ff3408564ef8d51e} 
+boolean Gestione\+Prestito.\+Prestito.\+equals (\begin{DoxyParamCaption}\item[{Object}]{obj}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Confronta due prestiti basandosi esclusivamente su Matricola e ISBN. 
+
+Due prestiti sono considerati "{}lo stesso prestito"{} se riguardano lo stesso studente e lo stesso libro.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em obj} & L\textquotesingle{}oggetto da confrontare. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true se Matricola e ISBN coincidono. 
+\end{DoxyReturn}
+\Hypertarget{class_gestione_prestito_1_1_prestito_a11399c1040a9ca4742bee9e368d4904f}\index{GestionePrestito.Prestito@{GestionePrestito.Prestito}!getDataRegistrazione@{getDataRegistrazione}}
+\index{getDataRegistrazione@{getDataRegistrazione}!GestionePrestito.Prestito@{GestionePrestito.Prestito}}
+\doxysubsubsection{\texorpdfstring{getDataRegistrazione()}{getDataRegistrazione()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_prestito_a11399c1040a9ca4742bee9e368d4904f} 
+String Gestione\+Prestito.\+Prestito.\+get\+Data\+Registrazione (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce la data di registrazione del prestito. 
+
+\begin{DoxyReturn}{Returns}
+La data di registrazione del nel formato yyyy-\/\+MM-\/dd HH\+:mm. 
+\end{DoxyReturn}
+\Hypertarget{class_gestione_prestito_1_1_prestito_ae080004fbb215ce64a0b281af7e0b6e3}\index{GestionePrestito.Prestito@{GestionePrestito.Prestito}!getDataRestituzione@{getDataRestituzione}}
+\index{getDataRestituzione@{getDataRestituzione}!GestionePrestito.Prestito@{GestionePrestito.Prestito}}
+\doxysubsubsection{\texorpdfstring{getDataRestituzione()}{getDataRestituzione()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_prestito_ae080004fbb215ce64a0b281af7e0b6e3} 
+Local\+Date Gestione\+Prestito.\+Prestito.\+get\+Data\+Restituzione (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce la data prevista per la restituzione. 
+
+\begin{DoxyReturn}{Returns}
+La data di scadenza del prestito. 
+\end{DoxyReturn}
+\Hypertarget{class_gestione_prestito_1_1_prestito_a47b368a5e6ed90b8256284ea5860ba1a}\index{GestionePrestito.Prestito@{GestionePrestito.Prestito}!getISBNLibro@{getISBNLibro}}
+\index{getISBNLibro@{getISBNLibro}!GestionePrestito.Prestito@{GestionePrestito.Prestito}}
+\doxysubsubsection{\texorpdfstring{getISBNLibro()}{getISBNLibro()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_prestito_a47b368a5e6ed90b8256284ea5860ba1a} 
+String Gestione\+Prestito.\+Prestito.\+get\+ISBNLibro (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce l\textquotesingle{}ISBN del libro prestato. 
+
+\begin{DoxyReturn}{Returns}
+Il codice ISBN. 
+\end{DoxyReturn}
+\Hypertarget{class_gestione_prestito_1_1_prestito_a252a16a168acd075fe1b9034946ad2c3}\index{GestionePrestito.Prestito@{GestionePrestito.Prestito}!getMatricolaUtente@{getMatricolaUtente}}
+\index{getMatricolaUtente@{getMatricolaUtente}!GestionePrestito.Prestito@{GestionePrestito.Prestito}}
+\doxysubsubsection{\texorpdfstring{getMatricolaUtente()}{getMatricolaUtente()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_prestito_a252a16a168acd075fe1b9034946ad2c3} 
+String Gestione\+Prestito.\+Prestito.\+get\+Matricola\+Utente (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce la matricola dell\textquotesingle{}utente. 
+
+\begin{DoxyReturn}{Returns}
+La matricola dell\textquotesingle{}utente. 
+\end{DoxyReturn}
+\Hypertarget{class_gestione_prestito_1_1_prestito_acb4a2ebf2e8190320363f8026516eed7}\index{GestionePrestito.Prestito@{GestionePrestito.Prestito}!hashCode@{hashCode}}
+\index{hashCode@{hashCode}!GestionePrestito.Prestito@{GestionePrestito.Prestito}}
+\doxysubsubsection{\texorpdfstring{hashCode()}{hashCode()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_prestito_acb4a2ebf2e8190320363f8026516eed7} 
+int Gestione\+Prestito.\+Prestito.\+hash\+Code (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Calcola l\textquotesingle{}hash code basato sulla coppia univoca Matricola + ISBN. 
+
+\begin{DoxyReturn}{Returns}
+Codice hash univoco per la combinazione Studente-\/\+Libro. 
+\end{DoxyReturn}
+\Hypertarget{class_gestione_prestito_1_1_prestito_ac92d6b49c8f3897c43582907641fac3e}\index{GestionePrestito.Prestito@{GestionePrestito.Prestito}!setDataRestituzione@{setDataRestituzione}}
+\index{setDataRestituzione@{setDataRestituzione}!GestionePrestito.Prestito@{GestionePrestito.Prestito}}
+\doxysubsubsection{\texorpdfstring{setDataRestituzione()}{setDataRestituzione()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_prestito_ac92d6b49c8f3897c43582907641fac3e} 
+void Gestione\+Prestito.\+Prestito.\+set\+Data\+Restituzione (\begin{DoxyParamCaption}\item[{Local\+Date}]{data\+Restituzione}{}\end{DoxyParamCaption}) throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1data_restituzione_exception}{data\+Restituzione\+Exception}}\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Imposta la data di restituzione, che non può essere maggiore di 30 giorni dal giorno corrente e non può essere un valore negatio o nullo. 
+
+\begin{DoxyPrecond}{Precondition}
+data\+Restituzione \texorpdfstring{$<$}{<} 30 giorni dal giorno corrente \&\& data\+Restituzione \texorpdfstring{$>$}{>} 0 giorni dal giorno corrente \&\& data\+Restituzione != null.
+\end{DoxyPrecond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em data\+Restituzione} & La nuova data di restituzione. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{class_eccezioni_1_1_eccezioni_prestiti_1_1data_restituzione_exception}{data\+Restituzione\+Exception}} & \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_gestione_prestito_1_1_prestito_a37464f226bbb6734a55440c27dc0e846}\index{GestionePrestito.Prestito@{GestionePrestito.Prestito}!toString@{toString}}
+\index{toString@{toString}!GestionePrestito.Prestito@{GestionePrestito.Prestito}}
+\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
+{\footnotesize\ttfamily \label{class_gestione_prestito_1_1_prestito_a37464f226bbb6734a55440c27dc0e846} 
+String Gestione\+Prestito.\+Prestito.\+to\+String (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce una rappresentazione testuale del prestito. 
+
+Fornisce una stringa contenente i dati\+: ISBN Data di restituzione. Utile per mostrare i prestiti associati ad ogni utente.
+
+\begin{DoxyPostcond}{Postcondition}
+Il risultato non è mai null.
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+Una stringa contenente ISBN e Data di restituzione. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/\+Gestione\+Prestito/\mbox{\hyperlink{_prestito_8java}{Prestito.\+java}}\end{DoxyCompactItemize}

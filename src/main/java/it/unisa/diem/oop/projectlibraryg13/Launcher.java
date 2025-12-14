@@ -1,7 +1,7 @@
 package it.unisa.diem.oop.projectlibraryg13;
 
 /**
- * @file Launcher.java
+ * @class Launcher
  * @brief Entry point principale dell'applicazione.
  *
  * Questa classe funge da punto di ingresso (Launcher) per il programma.

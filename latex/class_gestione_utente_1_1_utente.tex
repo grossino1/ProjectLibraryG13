@@ -1,0 +1,390 @@
+\doxysection{Gestione\+Utente.\+Utente Class Reference}
+\hypertarget{class_gestione_utente_1_1_utente}{}\label{class_gestione_utente_1_1_utente}\index{GestioneUtente.Utente@{GestioneUtente.Utente}}
+
+
+Rappresenta un utente registrato nel sistema bibliotecario.  
+
+
+
+
+Inheritance diagram for Gestione\+Utente.\+Utente\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{class_gestione_utente_1_1_utente__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Gestione\+Utente.\+Utente\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{class_gestione_utente_1_1_utente__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_gestione_utente_1_1_utente_af2b801a1459fa228e0da5fc87a167e32}{Utente}} (String nome, String cognome, String matricola, String email\+Istituzionale)  throws Illegal\+Argument\+Exception, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_matricola_not_valid_exception}{Matricola\+Not\+Valid\+Exception}} 
+\begin{DoxyCompactList}\small\item\em Costruttore della classe \doxylink{class_gestione_utente_1_1_utente}{Utente}. \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{class_gestione_utente_1_1_utente_aa9cea3304f07b0eee7be36bedfaf0559}{get\+Nome}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce il nome dell\textquotesingle{}utente. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestione_utente_1_1_utente_ac8a37bd2e0b978bdc1c128fa0153c581}{set\+Nome}} (String nome)
+\begin{DoxyCompactList}\small\item\em Imposta il nome dell\textquotesingle{}utente. \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{class_gestione_utente_1_1_utente_a54c1a51c1294cc77997281c9d490fa01}{get\+Cognome}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce il cognome dell\textquotesingle{}utente. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestione_utente_1_1_utente_a11c9f5b7b6e73c08010e2a5e3cfc904c}{set\+Cognome}} (String cognome)
+\begin{DoxyCompactList}\small\item\em Imposta il cognome dell\textquotesingle{}utente. \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{class_gestione_utente_1_1_utente_ab8bf1c753796e44195d4d47989eb2f02}{get\+Matricola}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce la matricola. \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{class_gestione_utente_1_1_utente_abadf0c4a0daa71c8754a87ac95f0829b}{get\+Email\+Istituzionale}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce l\textquotesingle{}email istituzionale. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestione_utente_1_1_utente_a44d692b8053e2ab50cb6467eb8cbfc6a}{set\+Email\+Istituzionale}} (String email\+Istituzionale)
+\begin{DoxyCompactList}\small\item\em Imposta l\textquotesingle{}email istituzionale. \end{DoxyCompactList}\item 
+Array\+List$<$ \mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}} $>$ \mbox{\hyperlink{class_gestione_utente_1_1_utente_a0d2c11ee925496bee59c2c20467ae8da}{get\+Lista\+Prestiti}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce la lista dei prestiti dell\textquotesingle{}utente. \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{class_gestione_utente_1_1_utente_af5e1512bfc8ffe909dbb63ae3b3d56d3}{get\+Data\+Reg}} ()
+\item 
+Array\+List$<$ Local\+Date $>$ \mbox{\hyperlink{class_gestione_utente_1_1_utente_a34689b9c4e298726877641d433f0b497}{get\+Lista\+Data\+Restituzione}} (Array\+List$<$ \mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}} $>$ lista\+Prestiti)
+\item 
+void \mbox{\hyperlink{class_gestione_utente_1_1_utente_ad8c58a3a07c808753237f4306d2a505f}{add\+Prestito}} (\mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}} p)  throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestiti_esauriti_exception}{Prestiti\+Esauriti\+Exception}}
+\item 
+void \mbox{\hyperlink{class_gestione_utente_1_1_utente_a699aae2b7da2ab1afadc434302d50154}{rimuovi\+Prestito}} (\mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}} p)  throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestito_non_trovato_exception}{Prestito\+Non\+Trovato\+Exception}}
+\item 
+int \mbox{\hyperlink{class_gestione_utente_1_1_utente_ab0f093c0aa099f908a66491a5c41d7c2}{hash\+Code}} ()
+\begin{DoxyCompactList}\small\item\em Genera l\textquotesingle{}hash code basato sulla matricola. \end{DoxyCompactList}\item 
+boolean \mbox{\hyperlink{class_gestione_utente_1_1_utente_af57d739b1c2413a2ee77e82f8fe904a9}{equals}} (Object other)
+\begin{DoxyCompactList}\small\item\em Confronta due utenti per matricola, determinando se sono uguali oppure no in modo da evitare duplicati. Due utenti sono considerati uguali se possiedono la stessa matricola. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_gestione_utente_1_1_utente_aa720d668dc8afc6e4f49bb9c459ffa3f}{compare\+To}} (\mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}} other)
+\item 
+String \mbox{\hyperlink{class_gestione_utente_1_1_utente_ad4bcc8c25eb423bbf34cf46c8011a072}{to\+String}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce una rappresentazione testuale dell\textquotesingle{}utente. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Rappresenta un utente registrato nel sistema bibliotecario. 
+
+\begin{DoxyAuthor}{Author}
+chiara
+\end{DoxyAuthor}
+
+
+Questa classe gestisce i dati anagrafici dell\textquotesingle{}utente e mantiene lo stato attuale dei suoi prestiti.
+
+\begin{DoxyInvariant}{Invariant}
+matricola != null (Ogni utente deve essere identificabile univocamente). 
+
+lista\+Prestiti != null (La lista prestiti deve essere inizializzata, anche se vuota).
+\end{DoxyInvariant}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_gestione_prestito_1_1_prestito}{Gestione\+Prestito.\+Prestito} 
+
+java.\+io.\+Serializable
+\end{DoxySeeAlso}
+\begin{DoxyAuthor}{Author}
+chiara 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+
+
+\label{doc-constructors}
+\Hypertarget{class_gestione_utente_1_1_utente_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_gestione_utente_1_1_utente_af2b801a1459fa228e0da5fc87a167e32}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!Utente@{Utente}}
+\index{Utente@{Utente}!GestioneUtente.Utente@{GestioneUtente.Utente}}
+\doxysubsubsection{\texorpdfstring{Utente()}{Utente()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_af2b801a1459fa228e0da5fc87a167e32} 
+Gestione\+Utente.\+Utente.\+Utente (\begin{DoxyParamCaption}\item[{String}]{nome}{, }\item[{String}]{cognome}{, }\item[{String}]{matricola}{, }\item[{String}]{email\+Istituzionale}{}\end{DoxyParamCaption}) throws Illegal\+Argument\+Exception, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_matricola_not_valid_exception}{Matricola\+Not\+Valid\+Exception}}\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Costruttore della classe \doxylink{class_gestione_utente_1_1_utente}{Utente}. 
+
+\begin{DoxyPrecond}{Precondition}
+matricola != null \&\& !matricola.is\+Empty() 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Viene creata una nuova istanza di \doxylink{class_gestione_utente_1_1_utente}{Utente}. 
+
+lista\+Prestiti != null \&\& lista\+Prestiti.\+is\+Empty() (La lista viene inizializzata vuota).
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em nome} & Il nome dell\textquotesingle{}utente. \\
+\hline
+\mbox{\texttt{in}}  & {\em cognome} & Il cognome dell\textquotesingle{}utente. \\
+\hline
+\mbox{\texttt{in}}  & {\em matricola} & Il codice identificativo univoco (es. numero di matricola universitaria). \\
+\hline
+\mbox{\texttt{in}}  & {\em email\+Istituzionale} & L\textquotesingle{}indirizzo email dell\textquotesingle{}utente. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_gestione_utente_1_1_utente_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_gestione_utente_1_1_utente_ad8c58a3a07c808753237f4306d2a505f}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!addPrestito@{addPrestito}}
+\index{addPrestito@{addPrestito}!GestioneUtente.Utente@{GestioneUtente.Utente}}
+\doxysubsubsection{\texorpdfstring{addPrestito()}{addPrestito()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_ad8c58a3a07c808753237f4306d2a505f} 
+void Gestione\+Utente.\+Utente.\+add\+Prestito (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}}}]{p}{}\end{DoxyParamCaption}) throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestiti_esauriti_exception}{Prestiti\+Esauriti\+Exception}}\hspace{0.3cm}{\ttfamily [inline]}}
+
+Aggiunge un prestito alla lista dei prestiti attivi dell\textquotesingle{}utente.
+
+\begin{DoxyPrecond}{Precondition}
+p != null 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+lista\+Prestiti.\+size() == old\+\_\+size + 1 
+
+lista\+Prestiti.\+contains(p) == true
+\end{DoxyPostcond}
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Il prestito da aggiungere. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Illegal\+Argument\+Exception} & Se il prestito inserito come parametro è nullo. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_gestione_utente_1_1_utente_aa720d668dc8afc6e4f49bb9c459ffa3f}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!compareTo@{compareTo}}
+\index{compareTo@{compareTo}!GestioneUtente.Utente@{GestioneUtente.Utente}}
+\doxysubsubsection{\texorpdfstring{compareTo()}{compareTo()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_aa720d668dc8afc6e4f49bb9c459ffa3f} 
+int Gestione\+Utente.\+Utente.\+compare\+To (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}}}]{other}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Confronta questo utente con un altro in base all\textquotesingle{}ordinamento alfabetico. L\textquotesingle{}ordinamento avviene prima per cognome e, in caso di parità, per nome. Nel caso in cui due utenti hanno lo stesso cognome e nome, allora si ordina per matricola.
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & L\textquotesingle{}utente da confrontare con quello corrente. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+un numero negativo se questo utente precede other {\ttfamily other}, zero se sono equivalenti per ordinamento, un numero positivo se questo utente segue other {\ttfamily other}. 
+\end{DoxyReturn}
+\Hypertarget{class_gestione_utente_1_1_utente_af57d739b1c2413a2ee77e82f8fe904a9}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!equals@{equals}}
+\index{equals@{equals}!GestioneUtente.Utente@{GestioneUtente.Utente}}
+\doxysubsubsection{\texorpdfstring{equals()}{equals()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_af57d739b1c2413a2ee77e82f8fe904a9} 
+boolean Gestione\+Utente.\+Utente.\+equals (\begin{DoxyParamCaption}\item[{Object}]{other}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Confronta due utenti per matricola, determinando se sono uguali oppure no in modo da evitare duplicati. Due utenti sono considerati uguali se possiedono la stessa matricola. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em obj} & L\textquotesingle{}oggetto da confrontare. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true se le matricole coincidono, false altrimenti.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_gestione_utente_1_1_utente_ab0f093c0aa099f908a66491a5c41d7c2}{hash\+Code()} 
+\end{DoxySeeAlso}
+\Hypertarget{class_gestione_utente_1_1_utente_a54c1a51c1294cc77997281c9d490fa01}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!getCognome@{getCognome}}
+\index{getCognome@{getCognome}!GestioneUtente.Utente@{GestioneUtente.Utente}}
+\doxysubsubsection{\texorpdfstring{getCognome()}{getCognome()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_a54c1a51c1294cc77997281c9d490fa01} 
+String Gestione\+Utente.\+Utente.\+get\+Cognome (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce il cognome dell\textquotesingle{}utente. 
+
+\begin{DoxyReturn}{Returns}
+Il cognome. 
+\end{DoxyReturn}
+\Hypertarget{class_gestione_utente_1_1_utente_af5e1512bfc8ffe909dbb63ae3b3d56d3}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!getDataReg@{getDataReg}}
+\index{getDataReg@{getDataReg}!GestioneUtente.Utente@{GestioneUtente.Utente}}
+\doxysubsubsection{\texorpdfstring{getDataReg()}{getDataReg()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_af5e1512bfc8ffe909dbb63ae3b3d56d3} 
+String Gestione\+Utente.\+Utente.\+get\+Data\+Reg (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_gestione_utente_1_1_utente_abadf0c4a0daa71c8754a87ac95f0829b}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!getEmailIstituzionale@{getEmailIstituzionale}}
+\index{getEmailIstituzionale@{getEmailIstituzionale}!GestioneUtente.Utente@{GestioneUtente.Utente}}
+\doxysubsubsection{\texorpdfstring{getEmailIstituzionale()}{getEmailIstituzionale()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_abadf0c4a0daa71c8754a87ac95f0829b} 
+String Gestione\+Utente.\+Utente.\+get\+Email\+Istituzionale (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce l\textquotesingle{}email istituzionale. 
+
+\begin{DoxyReturn}{Returns}
+L\textquotesingle{}email. 
+\end{DoxyReturn}
+\Hypertarget{class_gestione_utente_1_1_utente_a34689b9c4e298726877641d433f0b497}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!getListaDataRestituzione@{getListaDataRestituzione}}
+\index{getListaDataRestituzione@{getListaDataRestituzione}!GestioneUtente.Utente@{GestioneUtente.Utente}}
+\doxysubsubsection{\texorpdfstring{getListaDataRestituzione()}{getListaDataRestituzione()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_a34689b9c4e298726877641d433f0b497} 
+Array\+List$<$ Local\+Date $>$ Gestione\+Utente.\+Utente.\+get\+Lista\+Data\+Restituzione (\begin{DoxyParamCaption}\item[{Array\+List$<$ \mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}} $>$}]{lista\+Prestiti}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Genera un elenco delle date di restituzione a partire da una lista di prestiti. Il metodo itera attraverso la lista fornita ed estrae la data di restituzione da ciascun prestito.
+
+
+\begin{DoxyParams}{Parameters}
+{\em lista\+Prestiti} & La lista di oggetti \doxylink{class_gestione_prestito_1_1_prestito}{Prestito} da elaborare. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Un Array\+List contenente le date di restituzione. Restituisce una lista vuota se il parametro lista\+Prestiti è null o vuoto. 
+\end{DoxyReturn}
+\Hypertarget{class_gestione_utente_1_1_utente_a0d2c11ee925496bee59c2c20467ae8da}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!getListaPrestiti@{getListaPrestiti}}
+\index{getListaPrestiti@{getListaPrestiti}!GestioneUtente.Utente@{GestioneUtente.Utente}}
+\doxysubsubsection{\texorpdfstring{getListaPrestiti()}{getListaPrestiti()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_a0d2c11ee925496bee59c2c20467ae8da} 
+Array\+List$<$ \mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}} $>$ Gestione\+Utente.\+Utente.\+get\+Lista\+Prestiti (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce la lista dei prestiti dell\textquotesingle{}utente. 
+
+\begin{DoxyPostcond}{Postcondition}
+Il risultato non è mai null (al massimo vuoto)
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+Array\+List contenente i prestiti. 
+\end{DoxyReturn}
+\Hypertarget{class_gestione_utente_1_1_utente_ab8bf1c753796e44195d4d47989eb2f02}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!getMatricola@{getMatricola}}
+\index{getMatricola@{getMatricola}!GestioneUtente.Utente@{GestioneUtente.Utente}}
+\doxysubsubsection{\texorpdfstring{getMatricola()}{getMatricola()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_ab8bf1c753796e44195d4d47989eb2f02} 
+String Gestione\+Utente.\+Utente.\+get\+Matricola (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce la matricola. 
+
+\begin{DoxyReturn}{Returns}
+La matricola univoca. 
+\end{DoxyReturn}
+\Hypertarget{class_gestione_utente_1_1_utente_aa9cea3304f07b0eee7be36bedfaf0559}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!getNome@{getNome}}
+\index{getNome@{getNome}!GestioneUtente.Utente@{GestioneUtente.Utente}}
+\doxysubsubsection{\texorpdfstring{getNome()}{getNome()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_aa9cea3304f07b0eee7be36bedfaf0559} 
+String Gestione\+Utente.\+Utente.\+get\+Nome (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce il nome dell\textquotesingle{}utente. 
+
+\begin{DoxyReturn}{Returns}
+Il nome. 
+\end{DoxyReturn}
+\Hypertarget{class_gestione_utente_1_1_utente_ab0f093c0aa099f908a66491a5c41d7c2}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!hashCode@{hashCode}}
+\index{hashCode@{hashCode}!GestioneUtente.Utente@{GestioneUtente.Utente}}
+\doxysubsubsection{\texorpdfstring{hashCode()}{hashCode()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_ab0f093c0aa099f908a66491a5c41d7c2} 
+int Gestione\+Utente.\+Utente.\+hash\+Code (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Genera l\textquotesingle{}hash code basato sulla matricola. 
+
+\begin{DoxyReturn}{Returns}
+Codice hash univoco per matricola.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_gestione_utente_1_1_utente_af57d739b1c2413a2ee77e82f8fe904a9}{equals(\+Object)} Utilizzato per la coerenza con \doxylink{class_gestione_utente_1_1_utente_af57d739b1c2413a2ee77e82f8fe904a9}{equals}. 
+\end{DoxySeeAlso}
+\Hypertarget{class_gestione_utente_1_1_utente_a699aae2b7da2ab1afadc434302d50154}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!rimuoviPrestito@{rimuoviPrestito}}
+\index{rimuoviPrestito@{rimuoviPrestito}!GestioneUtente.Utente@{GestioneUtente.Utente}}
+\doxysubsubsection{\texorpdfstring{rimuoviPrestito()}{rimuoviPrestito()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_a699aae2b7da2ab1afadc434302d50154} 
+void Gestione\+Utente.\+Utente.\+rimuovi\+Prestito (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}}}]{p}{}\end{DoxyParamCaption}) throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestito_non_trovato_exception}{Prestito\+Non\+Trovato\+Exception}}\hspace{0.3cm}{\ttfamily [inline]}}
+
+Rimuove un prestito dalla lista dei prestiti attivi dell\textquotesingle{}utente (ad esempio in caso di restituzione del materiale).
+
+\begin{DoxyPrecond}{Precondition}
+p != null 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+lista\+Prestiti.\+contains(p) == false
+\end{DoxyPostcond}
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Il prestito da rimuovere. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Illegal\+Argument\+Exception} & Se il prestito inserito come parametro è nullo. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_gestione_utente_1_1_utente_a11c9f5b7b6e73c08010e2a5e3cfc904c}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!setCognome@{setCognome}}
+\index{setCognome@{setCognome}!GestioneUtente.Utente@{GestioneUtente.Utente}}
+\doxysubsubsection{\texorpdfstring{setCognome()}{setCognome()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_a11c9f5b7b6e73c08010e2a5e3cfc904c} 
+void Gestione\+Utente.\+Utente.\+set\+Cognome (\begin{DoxyParamCaption}\item[{String}]{cognome}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Imposta il cognome dell\textquotesingle{}utente. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em cognome} & Il nuovo cognome. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_gestione_utente_1_1_utente_a44d692b8053e2ab50cb6467eb8cbfc6a}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!setEmailIstituzionale@{setEmailIstituzionale}}
+\index{setEmailIstituzionale@{setEmailIstituzionale}!GestioneUtente.Utente@{GestioneUtente.Utente}}
+\doxysubsubsection{\texorpdfstring{setEmailIstituzionale()}{setEmailIstituzionale()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_a44d692b8053e2ab50cb6467eb8cbfc6a} 
+void Gestione\+Utente.\+Utente.\+set\+Email\+Istituzionale (\begin{DoxyParamCaption}\item[{String}]{email\+Istituzionale}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Imposta l\textquotesingle{}email istituzionale. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em email\+Istituzionale} & La nuova email. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_gestione_utente_1_1_utente_ac8a37bd2e0b978bdc1c128fa0153c581}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!setNome@{setNome}}
+\index{setNome@{setNome}!GestioneUtente.Utente@{GestioneUtente.Utente}}
+\doxysubsubsection{\texorpdfstring{setNome()}{setNome()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_ac8a37bd2e0b978bdc1c128fa0153c581} 
+void Gestione\+Utente.\+Utente.\+set\+Nome (\begin{DoxyParamCaption}\item[{String}]{nome}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Imposta il nome dell\textquotesingle{}utente. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em nome} & Il nuovo nome. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_gestione_utente_1_1_utente_ad4bcc8c25eb423bbf34cf46c8011a072}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!toString@{toString}}
+\index{toString@{toString}!GestioneUtente.Utente@{GestioneUtente.Utente}}
+\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
+{\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_ad4bcc8c25eb423bbf34cf46c8011a072} 
+String Gestione\+Utente.\+Utente.\+to\+String (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce una rappresentazione testuale dell\textquotesingle{}utente. 
+
+Fornisce una stringa contenente i dati principali dell\textquotesingle{}utente (Nome, Cognome, Matricola, Email e Lista libri in prestito).
+
+\begin{DoxyPostcond}{Postcondition}
+Il risultato non è mai null (restituisce sempre una stringa, anche vuota).
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+Stringa con Nome, Cognome, Matricola, Email Istituzionale e Lista dei Prestiti. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/\+Gestione\+Utente/\mbox{\hyperlink{_utente_8java}{Utente.\+java}}\end{DoxyCompactItemize}

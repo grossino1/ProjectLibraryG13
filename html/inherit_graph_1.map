@@ -1,0 +1,23 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,55,97,80"/>
+<area shape="rect" id="Node000001" href="$class_gestione_libro_1_1_libro.html" title="Rappresenta l&#39;entità libro all&#39;interno del sistema di gestione bibliotecaria." alt="" coords="180,5,313,31"/>
+<area shape="poly" id="edge2_Node000000_Node000001" title=" " alt="" coords="110,49,144,40,190,30,186,33,145,45,113,53"/>
+<area shape="rect" id="Node000006" href="$class_gestione_prestito_1_1_prestito.html" title="Rappresenta l&#39;entità prestito all&#39;interno del sistema di gestione bibliotecaria." alt="" coords="163,55,330,80"/>
+<area shape="poly" id="edge3_Node000000_Node000006" title=" " alt="" coords="111,65,164,66,160,69,114,70"/>
+<area shape="rect" id="Node000008" href="$class_gestione_utente_1_1_utente.html" title="Rappresenta un utente registrato nel sistema bibliotecario." alt="" coords="169,104,324,130"/>
+<area shape="poly" id="edge4_Node000000_Node000008" title=" " alt="" coords="111,82,145,90,190,102,185,105,144,95,113,87"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="7,177,95,203"/>
+<area shape="poly" id="edge7_Node000002_Node000001" title=" " alt="" coords="59,162,90,100,114,67,143,40,181,24,177,28,146,44,118,71,95,103,64,164"/>
+<area shape="poly" id="edge9_Node000002_Node000006" title=" " alt="" coords="67,164,99,125,120,105,143,89,170,79,166,83,146,94,124,110,103,128,72,166"/>
+<area shape="poly" id="edge11_Node000002_Node000008" title=" " alt="" coords="85,167,144,138,180,128,176,132,146,143,89,171"/>
+<area shape="rect" id="Node000003" href="$class_autenticazione_1_1_bibliotecario.html" title="Rappresenta l&#39;utente con privilegi amministrativi (Librarian)." alt="" coords="155,367,338,392"/>
+<area shape="poly" id="edge5_Node000002_Node000003" title=" " alt="" coords="61,215,75,249,92,285,116,322,146,352,168,366,163,366,143,356,112,325,88,288,70,251,60,221"/>
+<area shape="rect" id="Node000004" href="$class_gestione_libro_1_1_catalogo_libri.html" title="Gestisce l&#39;insieme dei libri presenti nel sistema bibliotecario." alt="" coords="156,153,337,179"/>
+<area shape="poly" id="edge6_Node000002_Node000004" title=" " alt="" coords="109,181,157,176,153,179,112,185"/>
+<area shape="rect" id="Node000005" href="$class_gestione_prestito_1_1_elenco_prestiti.html" title="Gestisce l&#39;insieme di tutti i prestiti attivi." alt="" coords="145,203,348,228"/>
+<area shape="poly" id="edge8_Node000002_Node000005" title=" " alt="" coords="110,195,146,201,142,204,111,200"/>
+<area shape="rect" id="Node000007" href="$class_gestione_utente_1_1_lista_utenti.html" title="Gestisce l&#39;insieme di tutti gli utenti registrati." alt="" coords="157,252,336,278"/>
+<area shape="poly" id="edge10_Node000002_Node000007" title=" " alt="" coords="85,209,146,238,180,251,175,252,144,243,86,214"/>
+<area shape="rect" id="Node000009" href="$class_salvataggio_file_1_1_salvataggio_file_libro_1_1_salvataggio_file_libro.html" title="Gestisce la persistenza su file degli oggetti di tipo Libro." alt="" coords="151,302,342,342"/>
+<area shape="poly" id="edge12_Node000002_Node000009" title=" " alt="" coords="70,213,104,252,146,288,169,301,163,302,143,292,100,256,70,218"/>
+</map>

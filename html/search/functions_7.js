@@ -1,0 +1,7 @@
+var searchData=
+[
+  ['incrementacopialibro_0',['incrementaCopiaLibro',['../class_gestione_libro_1_1_libro.html#ae4804bd62fc1cf84526c920db770f5dd',1,'GestioneLibro::Libro']]],
+  ['incrementanprestitiattivi_1',['incrementaNPrestitiAttivi',['../class_gestione_libro_1_1_libro.html#acafeadf54af11126c7e7ce3e4b981350',1,'GestioneLibro::Libro']]],
+  ['initialize_2',['initialize',['../class_g_u_i_1_1_g_u_i___libro_1_1_catalogo_libri_view_controller.html#a83aec66d2842fd46b8f69a7958aea220',1,'GUI.GUI_Libro.CatalogoLibriViewController.initialize()'],['../class_g_u_i_1_1_g_u_i___login_1_1_login_view_controller.html#aa82982216fe2f6efb6dfe5541c80f9f3',1,'GUI.GUI_Login.LoginViewController.initialize()'],['../class_g_u_i_1_1_g_u_i___prestito_1_1_gestione_prestiti_view_controller.html#a6e635e28c31f62208016d53706a838a2',1,'GUI.GUI_Prestito.GestionePrestitiViewController.initialize()'],['../class_g_u_i_1_1_g_u_i___utente_1_1_gestione_utenti_view_controller.html#a006acbfdc048a2fa502fe2e370580ee8',1,'GUI.GUI_Utente.GestioneUtentiViewController.initialize()']]],
+  ['isbnnotvalidexception_3',['ISBNNotValidException',['../class_eccezioni_1_1_eccezioni_libri_1_1_i_s_b_n_not_valid_exception.html#ad0f95d6b8185cddba8b70bbcfb801c7d',1,'Eccezioni.EccezioniLibri.ISBNNotValidException.ISBNNotValidException()'],['../class_eccezioni_1_1_eccezioni_libri_1_1_i_s_b_n_not_valid_exception.html#a98261901c0bf752a4e2c81696f1e133b',1,'Eccezioni.EccezioniLibri.ISBNNotValidException.ISBNNotValidException(String msg)']]]
+];

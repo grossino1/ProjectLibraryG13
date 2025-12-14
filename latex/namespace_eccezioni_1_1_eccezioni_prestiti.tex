@@ -1,0 +1,19 @@
+\doxysection{Package Eccezioni.\+Eccezioni\+Prestiti}
+\hypertarget{namespace_eccezioni_1_1_eccezioni_prestiti}{}\label{namespace_eccezioni_1_1_eccezioni_prestiti}\index{Eccezioni.EccezioniPrestiti@{Eccezioni.EccezioniPrestiti}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_copie_esaurite_exception}{Copie\+Esaurite\+Exception}}
+\begin{DoxyCompactList}\small\item\em Eccezione lanciata quando le copie disponibili di un libro sono esaurite, ovvero un libro presenta un numero di copie \texorpdfstring{$<$}{<}=1 e si prova a registarre un nuovo prestito con quel libro. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1data_restituzione_exception}{data\+Restituzione\+Exception}}
+\begin{DoxyCompactList}\small\item\em Eccezione lanciata quando la data di restituzione di un libro è \texorpdfstring{$>$}{>} di 30 giorni. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_eccezioni_prestito}{Eccezioni\+Prestito}}
+\begin{DoxyCompactList}\small\item\em Classe base astratta per tutte le eccezioni legate alla gestione dei prestiti. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_elenco_pieno_exception}{Elenco\+Pieno\+Exception}}
+\begin{DoxyCompactList}\small\item\em Eccezione lanciata quando all\textquotesingle{}interno dell\textquotesingle{}elenco dei prestiti sono già presenti 500 prestiti e si cerca di regiostrarne uno. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestiti_esauriti_exception}{Prestiti\+Esauriti\+Exception}}
+\begin{DoxyCompactList}\small\item\em Eccezione lanciata quando un utente raggiunge il limite massimo di prestiti consentiti ovvero 3 e prova a reggistrare un nuovo prestito. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestito_gia_presente_exception}{Prestito\+Gia\+Presente\+Exception}}
+\begin{DoxyCompactList}\small\item\em Eccezione lanciata quando un utente ha già un libro in prestito e prova a registrare un nuovo prestito con lo stesso libro. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestito_non_trovato_exception}{Prestito\+Non\+Trovato\+Exception}}
+\begin{DoxyCompactList}\small\item\em Eccezione lanciata quando un prestito non viene trovato nell\textquotesingle{}elenco. \end{DoxyCompactList}\end{DoxyCompactItemize}

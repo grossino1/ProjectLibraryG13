@@ -1,0 +1,108 @@
+\doxysection{Salvataggio\+File.\+Salvataggio\+File\+Prestito.\+Salvataggio\+File\+Prestito Class Reference}
+\hypertarget{class_salvataggio_file_1_1_salvataggio_file_prestito_1_1_salvataggio_file_prestito}{}\label{class_salvataggio_file_1_1_salvataggio_file_prestito_1_1_salvataggio_file_prestito}\index{SalvataggioFile.SalvataggioFilePrestito.SalvataggioFilePrestito@{SalvataggioFile.SalvataggioFilePrestito.SalvataggioFilePrestito}}
+
+
+Gestisce la persistenza su file degli oggetti di tipo \doxylink{class_gestione_prestito_1_1_elenco_prestiti}{Elenco\+Prestiti}.  
+
+
+
+
+Collaboration diagram for Salvataggio\+File.\+Salvataggio\+File\+Prestito.\+Salvataggio\+File\+Prestito\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{class_salvataggio_file_1_1_salvataggio_file_prestito_1_1_salvataggio_file_prestito__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_salvataggio_file_1_1_salvataggio_file_prestito_1_1_salvataggio_file_prestito_aadca38c76f12860054292d9439b83925}{salva}} (\mbox{\hyperlink{class_gestione_prestito_1_1_elenco_prestiti}{Elenco\+Prestiti}} dati, String filename)  throws IOException
+\begin{DoxyCompactList}\small\item\em Salva lo stato di un oggetto \doxylink{class_gestione_prestito_1_1_elenco_prestiti}{Elenco\+Prestiti} su un file binario. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{class_gestione_prestito_1_1_elenco_prestiti}{Elenco\+Prestiti}} \mbox{\hyperlink{class_salvataggio_file_1_1_salvataggio_file_prestito_1_1_salvataggio_file_prestito_af5c11c32a605a494a10634b403f2b963}{carica}} (String filename)  throws IOException, Class\+Not\+Found\+Exception
+\begin{DoxyCompactList}\small\item\em Carica un oggetto \doxylink{class_gestione_prestito_1_1_elenco_prestiti}{Elenco\+Prestiti} da un file binario. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Gestisce la persistenza su file degli oggetti di tipo \doxylink{class_gestione_prestito_1_1_elenco_prestiti}{Elenco\+Prestiti}. 
+
+Questa classe si occupa di serializzare (salvare) e deserializzare (caricare) le istanze della classe \doxylink{class_gestione_prestito_1_1_elenco_prestiti}{Elenco\+Prestiti} su file binari.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_gestione_prestito_1_1_elenco_prestiti}{Gestione\+Prestito.\+Elenco\+Prestiti} 
+
+java.\+io.\+Object\+Output\+Stream 
+
+java.\+io.\+Object\+Input\+Stream
+\end{DoxySeeAlso}
+\begin{DoxyAuthor}{Author}
+grossino1 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+
+
+\label{doc-func-members}
+\Hypertarget{class_salvataggio_file_1_1_salvataggio_file_prestito_1_1_salvataggio_file_prestito_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_salvataggio_file_1_1_salvataggio_file_prestito_1_1_salvataggio_file_prestito_af5c11c32a605a494a10634b403f2b963}\index{SalvataggioFile.SalvataggioFilePrestito.SalvataggioFilePrestito@{SalvataggioFile.SalvataggioFilePrestito.SalvataggioFilePrestito}!carica@{carica}}
+\index{carica@{carica}!SalvataggioFile.SalvataggioFilePrestito.SalvataggioFilePrestito@{SalvataggioFile.SalvataggioFilePrestito.SalvataggioFilePrestito}}
+\doxysubsubsection{\texorpdfstring{carica()}{carica()}}
+{\footnotesize\ttfamily \label{class_salvataggio_file_1_1_salvataggio_file_prestito_1_1_salvataggio_file_prestito_af5c11c32a605a494a10634b403f2b963} 
+\mbox{\hyperlink{class_gestione_prestito_1_1_elenco_prestiti}{Elenco\+Prestiti}} Salvataggio\+File.\+Salvataggio\+File\+Prestito.\+Salvataggio\+File\+Prestito.\+carica (\begin{DoxyParamCaption}\item[{String}]{filename}{}\end{DoxyParamCaption}) throws IOException, Class\+Not\+Found\+Exception\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Carica un oggetto \doxylink{class_gestione_prestito_1_1_elenco_prestiti}{Elenco\+Prestiti} da un file binario. 
+
+Tenta di leggere e deserializzare un oggetto \doxylink{class_gestione_prestito_1_1_elenco_prestiti}{Elenco\+Prestiti} dal percorso specificato.
+
+\begin{DoxyPrecond}{Precondition}
+filename != null \&\& !filename.is\+Empty() 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Restituisce un oggetto \doxylink{class_gestione_prestito_1_1_elenco_prestiti}{Elenco\+Prestiti} valido se la lettura ha successo. 
+
+Restituisce null se il file non esiste o la deserializzazione fallisce.
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em filename} & Il percorso del file da leggere. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+L\textquotesingle{}istanza di \doxylink{class_gestione_prestito_1_1_elenco_prestiti}{Elenco\+Prestiti} recuperata, oppure null in caso di errore. 
+\end{DoxyReturn}
+\Hypertarget{class_salvataggio_file_1_1_salvataggio_file_prestito_1_1_salvataggio_file_prestito_aadca38c76f12860054292d9439b83925}\index{SalvataggioFile.SalvataggioFilePrestito.SalvataggioFilePrestito@{SalvataggioFile.SalvataggioFilePrestito.SalvataggioFilePrestito}!salva@{salva}}
+\index{salva@{salva}!SalvataggioFile.SalvataggioFilePrestito.SalvataggioFilePrestito@{SalvataggioFile.SalvataggioFilePrestito.SalvataggioFilePrestito}}
+\doxysubsubsection{\texorpdfstring{salva()}{salva()}}
+{\footnotesize\ttfamily \label{class_salvataggio_file_1_1_salvataggio_file_prestito_1_1_salvataggio_file_prestito_aadca38c76f12860054292d9439b83925} 
+void Salvataggio\+File.\+Salvataggio\+File\+Prestito.\+Salvataggio\+File\+Prestito.\+salva (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_gestione_prestito_1_1_elenco_prestiti}{Elenco\+Prestiti}}}]{dati}{, }\item[{String}]{filename}{}\end{DoxyParamCaption}) throws IOException\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Salva lo stato di un oggetto \doxylink{class_gestione_prestito_1_1_elenco_prestiti}{Elenco\+Prestiti} su un file binario. 
+
+Serializza l\textquotesingle{}oggetto passato come parametro e lo scrive nel percorso specificato. Se il file esiste già, viene sovrascritto.
+
+\begin{DoxyPrecond}{Precondition}
+dati != null (L\textquotesingle{}oggetto da salvare non può essere nullo). 
+
+filename != null \&\& !filename.is\+Empty() (Il nome del file deve essere valido). 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Viene creato o aggiornato un file contenente i dati dei prestiti.
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em dati} & L\textquotesingle{}oggetto \doxylink{class_gestione_prestito_1_1_elenco_prestiti}{Elenco\+Prestiti} da serializzare. \\
+\hline
+\mbox{\texttt{in}}  & {\em filename} & Il percorso o nome del file di destinazione. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/\+Salvataggio\+File/\+Salvataggio\+File\+Prestito/\mbox{\hyperlink{_salvataggio_file_prestito_8java}{Salvataggio\+File\+Prestito.\+java}}\end{DoxyCompactItemize}

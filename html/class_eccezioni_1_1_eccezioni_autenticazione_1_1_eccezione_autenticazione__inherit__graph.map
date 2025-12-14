@@ -1,0 +1,11 @@
+<map id="Eccezioni.EccezioniAutenticazione.EccezioneAutenticazione" name="Eccezioni.EccezioniAutenticazione.EccezioneAutenticazione">
+<area shape="rect" id="Node000001" title="Classe base astratta per tutte le eccezioni relative al processo di autenticazione." alt="" coords="248,120,467,221"/>
+<area shape="rect" id="Node000003" href="$class_eccezioni_1_1_eccezioni_autenticazione_1_1_login_credentials_not_valid_exception.html" title="Eccezione lanciata quando l&#39;usarname o la passward sono errati." alt="" coords="5,269,224,401"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="273,228,213,272,210,267,268,231"/>
+<area shape="rect" id="Node000004" href="$class_eccezioni_1_1_eccezioni_autenticazione_1_1_password_field_empty_exception.html" title="Eccezione lanciata quando il campo della passward è vuoto." alt="" coords="248,284,467,386"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="359,234,360,286,355,283,356,238"/>
+<area shape="rect" id="Node000005" href="$class_eccezioni_1_1_eccezioni_autenticazione_1_1_username_field_empty_exception.html" title="Eccezione lanciata quando il campo dell&#39;username è vuoto." alt="" coords="491,284,709,386"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="445,227,529,284,523,284,443,232"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="323,5,392,72"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="359,84,360,121,355,119,356,89"/>
+</map>

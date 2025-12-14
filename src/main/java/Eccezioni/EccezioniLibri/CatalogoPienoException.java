@@ -1,8 +1,7 @@
-  
-package Eccezioni.EccezioniLibri;
+  package Eccezioni.EccezioniLibri;
 
 /**
- * @class CatalogoPienoExceptoin
+ * @class CatalogoPienoException
  * @brief Eccezione lanciata quando viene superato il limite di 1000 libri nel catalogo.
  *
  * Questa eccezione viene sollevata durante la registrazione di un libro

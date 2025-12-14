@@ -1,0 +1,7 @@
+<map id="GestionePrestito.Prestito" name="GestionePrestito.Prestito">
+<area shape="rect" id="Node000001" title="Rappresenta l&#39;entità prestito all&#39;interno del sistema di gestione bibliotecaria." alt="" coords="69,120,227,369"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,155,72"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="96,83,110,120,104,120,95,89"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="179,5,256,72"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="203,84,193,121,188,119,200,88"/>
+</map>

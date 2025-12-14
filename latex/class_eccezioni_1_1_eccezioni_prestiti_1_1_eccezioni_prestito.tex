@@ -1,0 +1,85 @@
+\doxysection{Eccezioni.\+Eccezioni\+Prestiti.\+Eccezioni\+Prestito Class Reference}
+\hypertarget{class_eccezioni_1_1_eccezioni_prestiti_1_1_eccezioni_prestito}{}\label{class_eccezioni_1_1_eccezioni_prestiti_1_1_eccezioni_prestito}\index{Eccezioni.EccezioniPrestiti.EccezioniPrestito@{Eccezioni.EccezioniPrestiti.EccezioniPrestito}}
+
+
+Classe base astratta per tutte le eccezioni legate alla gestione dei prestiti.  
+
+
+
+
+Inheritance diagram for Eccezioni.\+Eccezioni\+Prestiti.\+Eccezioni\+Prestito\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_eccezioni_1_1_eccezioni_prestiti_1_1_eccezioni_prestito__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Eccezioni.\+Eccezioni\+Prestiti.\+Eccezioni\+Prestito\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{class_eccezioni_1_1_eccezioni_prestiti_1_1_eccezioni_prestito__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_eccezioni_prestito_a2d4bfa9193d1245a0be3b8672c0398ca}{Eccezioni\+Prestito}} ()
+\begin{DoxyCompactList}\small\item\em Costruttore di default. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_eccezioni_prestito_ae08318c6c818aaadd0f08bdfd682ecc5}{Eccezioni\+Prestito}} (String msg)
+\begin{DoxyCompactList}\small\item\em Costruttore con messaggio di errore. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe base astratta per tutte le eccezioni legate alla gestione dei prestiti. 
+
+Questa classe estende {\ttfamily Exception} e funge da superclasse per tutti gli errori specifici del dominio Prestiti. Essendo astratta, non può essere istanziata direttamente, ma permette di catturare tutti gli errori relativi ai libri in un unico blocco catch.
+
+\begin{DoxySeeAlso}{See also}
+java.\+lang.\+Exception
+\end{DoxySeeAlso}
+\begin{DoxyAuthor}{Author}
+grossino1 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+
+
+\label{doc-constructors}
+\Hypertarget{class_eccezioni_1_1_eccezioni_prestiti_1_1_eccezioni_prestito_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_eccezioni_1_1_eccezioni_prestiti_1_1_eccezioni_prestito_a2d4bfa9193d1245a0be3b8672c0398ca}\index{Eccezioni.EccezioniPrestiti.EccezioniPrestito@{Eccezioni.EccezioniPrestiti.EccezioniPrestito}!EccezioniPrestito@{EccezioniPrestito}}
+\index{EccezioniPrestito@{EccezioniPrestito}!Eccezioni.EccezioniPrestiti.EccezioniPrestito@{Eccezioni.EccezioniPrestiti.EccezioniPrestito}}
+\doxysubsubsection{\texorpdfstring{EccezioniPrestito()}{EccezioniPrestito()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_eccezioni_1_1_eccezioni_prestiti_1_1_eccezioni_prestito_a2d4bfa9193d1245a0be3b8672c0398ca} 
+Eccezioni.\+Eccezioni\+Prestiti.\+Eccezioni\+Prestito.\+Eccezioni\+Prestito (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Costruttore di default. 
+
+Inizializza l\textquotesingle{}eccezione senza un messaggio di dettaglio specifico. \Hypertarget{class_eccezioni_1_1_eccezioni_prestiti_1_1_eccezioni_prestito_ae08318c6c818aaadd0f08bdfd682ecc5}\index{Eccezioni.EccezioniPrestiti.EccezioniPrestito@{Eccezioni.EccezioniPrestiti.EccezioniPrestito}!EccezioniPrestito@{EccezioniPrestito}}
+\index{EccezioniPrestito@{EccezioniPrestito}!Eccezioni.EccezioniPrestiti.EccezioniPrestito@{Eccezioni.EccezioniPrestiti.EccezioniPrestito}}
+\doxysubsubsection{\texorpdfstring{EccezioniPrestito()}{EccezioniPrestito()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_eccezioni_1_1_eccezioni_prestiti_1_1_eccezioni_prestito_ae08318c6c818aaadd0f08bdfd682ecc5} 
+Eccezioni.\+Eccezioni\+Prestiti.\+Eccezioni\+Prestito.\+Eccezioni\+Prestito (\begin{DoxyParamCaption}\item[{String}]{msg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Costruttore con messaggio di errore. 
+
+Permette di passare una descrizione testuale della causa dell\textquotesingle{}errore, recuperabile successivamente tramite {\ttfamily get\+Message()}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em msg} & La stringa che descrive il dettaglio dell\textquotesingle{}eccezione. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/\+Eccezioni/\+Eccezioni\+Prestiti/\mbox{\hyperlink{_eccezioni_prestito_8java}{Eccezioni\+Prestito.\+java}}\end{DoxyCompactItemize}

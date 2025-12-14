@@ -1,0 +1,99 @@
+\doxysection{Salvataggio\+File.\+Salvataggio\+File\+Autenticazione.\+Salvataggio\+File\+Bibliotecario Class Reference}
+\hypertarget{class_salvataggio_file_1_1_salvataggio_file_autenticazione_1_1_salvataggio_file_bibliotecario}{}\label{class_salvataggio_file_1_1_salvataggio_file_autenticazione_1_1_salvataggio_file_bibliotecario}\index{SalvataggioFile.SalvataggioFileAutenticazione.SalvataggioFileBibliotecario@{SalvataggioFile.SalvataggioFileAutenticazione.SalvataggioFileBibliotecario}}
+
+
+Gestisce la persistenza su file degli oggetti di tipo \doxylink{class_autenticazione_1_1_bibliotecario}{Bibliotecario}.  
+
+
+
+
+Collaboration diagram for Salvataggio\+File.\+Salvataggio\+File\+Autenticazione.\+Salvataggio\+File\+Bibliotecario\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{class_salvataggio_file_1_1_salvataggio_file_autenticazione_1_1_salvataggio_file_bibliotecario__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_autenticazione_1_1_bibliotecario}{Bibliotecario}} \mbox{\hyperlink{class_salvataggio_file_1_1_salvataggio_file_autenticazione_1_1_salvataggio_file_bibliotecario_ac32db74f84e1ef00756a5e884f46a0b6}{carica}} (String filename)  throws IOException 
+\begin{DoxyCompactList}\small\item\em Carica un oggetto \doxylink{class_autenticazione_1_1_bibliotecario}{Bibliotecario} da un file binario. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_salvataggio_file_1_1_salvataggio_file_autenticazione_1_1_salvataggio_file_bibliotecario_a65ae2b6c4a6f2853f6b8d7fcdfa6cc8d}{salva}} (\mbox{\hyperlink{class_autenticazione_1_1_bibliotecario}{Bibliotecario}} dati, String filename)  throws IOException 
+\begin{DoxyCompactList}\small\item\em Salva lo stato di un oggetto \doxylink{class_autenticazione_1_1_bibliotecario}{Bibliotecario} su un file binario. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Gestisce la persistenza su file degli oggetti di tipo \doxylink{class_autenticazione_1_1_bibliotecario}{Bibliotecario}. 
+
+Questa classe si occupa di serializzare (salvare) e deserializzare (caricare) le istanze della classe \doxylink{class_autenticazione_1_1_bibliotecario}{Bibliotecario} su file binari.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_autenticazione_1_1_bibliotecario}{Autenticazione.\+Bibliotecario} 
+
+java.\+io.\+Object\+Output\+Stream 
+
+java.\+io.\+Object\+Input\+Stream
+\end{DoxySeeAlso}
+\begin{DoxyAuthor}{Author}
+grossino1 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+
+
+\label{doc-func-members}
+\Hypertarget{class_salvataggio_file_1_1_salvataggio_file_autenticazione_1_1_salvataggio_file_bibliotecario_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_salvataggio_file_1_1_salvataggio_file_autenticazione_1_1_salvataggio_file_bibliotecario_ac32db74f84e1ef00756a5e884f46a0b6}\index{SalvataggioFile.SalvataggioFileAutenticazione.SalvataggioFileBibliotecario@{SalvataggioFile.SalvataggioFileAutenticazione.SalvataggioFileBibliotecario}!carica@{carica}}
+\index{carica@{carica}!SalvataggioFile.SalvataggioFileAutenticazione.SalvataggioFileBibliotecario@{SalvataggioFile.SalvataggioFileAutenticazione.SalvataggioFileBibliotecario}}
+\doxysubsubsection{\texorpdfstring{carica()}{carica()}}
+{\footnotesize\ttfamily \label{class_salvataggio_file_1_1_salvataggio_file_autenticazione_1_1_salvataggio_file_bibliotecario_ac32db74f84e1ef00756a5e884f46a0b6} 
+\mbox{\hyperlink{class_autenticazione_1_1_bibliotecario}{Bibliotecario}} Salvataggio\+File.\+Salvataggio\+File\+Autenticazione.\+Salvataggio\+File\+Bibliotecario.\+carica (\begin{DoxyParamCaption}\item[{String}]{filename}{}\end{DoxyParamCaption}) throws IOException\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Carica un oggetto \doxylink{class_autenticazione_1_1_bibliotecario}{Bibliotecario} da un file binario. 
+
+Tenta di leggere e deserializzare un oggetto \doxylink{class_autenticazione_1_1_bibliotecario}{Bibliotecario} dal percorso specificato.
+
+\begin{DoxyPrecond}{Precondition}
+filename != null \&\& !filename.is\+Empty() 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Restituisce un oggetto \doxylink{class_autenticazione_1_1_bibliotecario}{Bibliotecario} valido se la lettura ha successo. 
+
+Restituisce null se il file non esiste o la deserializzazione fallisce.
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+L\textquotesingle{}istanza di \doxylink{class_autenticazione_1_1_bibliotecario}{Bibliotecario} recuperata, oppure null in caso di errore. 
+\end{DoxyReturn}
+\Hypertarget{class_salvataggio_file_1_1_salvataggio_file_autenticazione_1_1_salvataggio_file_bibliotecario_a65ae2b6c4a6f2853f6b8d7fcdfa6cc8d}\index{SalvataggioFile.SalvataggioFileAutenticazione.SalvataggioFileBibliotecario@{SalvataggioFile.SalvataggioFileAutenticazione.SalvataggioFileBibliotecario}!salva@{salva}}
+\index{salva@{salva}!SalvataggioFile.SalvataggioFileAutenticazione.SalvataggioFileBibliotecario@{SalvataggioFile.SalvataggioFileAutenticazione.SalvataggioFileBibliotecario}}
+\doxysubsubsection{\texorpdfstring{salva()}{salva()}}
+{\footnotesize\ttfamily \label{class_salvataggio_file_1_1_salvataggio_file_autenticazione_1_1_salvataggio_file_bibliotecario_a65ae2b6c4a6f2853f6b8d7fcdfa6cc8d} 
+void Salvataggio\+File.\+Salvataggio\+File\+Autenticazione.\+Salvataggio\+File\+Bibliotecario.\+salva (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_autenticazione_1_1_bibliotecario}{Bibliotecario}}}]{dati}{, }\item[{String}]{filename}{}\end{DoxyParamCaption}) throws IOException\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Salva lo stato di un oggetto \doxylink{class_autenticazione_1_1_bibliotecario}{Bibliotecario} su un file binario. 
+
+Serializza l\textquotesingle{}oggetto passato come parametro e lo scrive nel percorso specificato. Se il file esiste già, viene sovrascritto.
+
+\begin{DoxyPrecond}{Precondition}
+dati != null (L\textquotesingle{}oggetto da salvare non può essere nullo). 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Viene creato o aggiornato un file contenente i dati dei libri.
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em dati} & L\textquotesingle{}oggetto \doxylink{class_autenticazione_1_1_bibliotecario}{Bibliotecario} da serializzare. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/\+Salvataggio\+File/\+Salvataggio\+File\+Autenticazione/\mbox{\hyperlink{_salvataggio_file_bibliotecario_8java}{Salvataggio\+File\+Bibliotecario.\+java}}\end{DoxyCompactItemize}
