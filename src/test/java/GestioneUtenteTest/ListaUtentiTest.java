@@ -365,4 +365,49 @@ public class ListaUtentiTest {
             () -> assertEquals(nuovaEmail, utenteAggiornato.getEmailIstituzionale())
         );
     }
+    
+    // TEST TOSTRING
+
+    @Test
+    @DisplayName("toString: Lista Vuota")
+    void testToStringListaVuota() {
+        // Se la lista è vuota, stampa solo l'intestazione inizializzata nel StringBuffer
+        String attesa = "Lista Utenti:";
+        assertEquals(attesa, listaUtenti.toString());
+    }
+
+    @Test
+    @DisplayName("toString: Lista con Utenti (Verifica Ordinamento)")
+    @Timeout(value = 1, unit = TimeUnit.SECONDS)
+    void testToStringListaPiena() throws Exception {
+        // Inserisco gli utenti in ordine sparso
+        listaUtenti.registrazioneUtente(u1); // Rossi
+        listaUtenti.registrazioneUtente(u2); // Bianchi
+        listaUtenti.registrazioneUtente(u3); // Rossetti
+
+        /*
+         * COSTRUZIONE ATTESA:
+         * ListaUtenti usa un TreeSet, quindi gli utenti verranno stampati in ordine alfabetico
+         * in base al compareTo (Cognome -> Nome -> Matricola).
+         * * Ordine previsto:
+         * 1. Bianchi (u2)
+         * 2. Rossetti (u3) 
+         * 3. Rossi (u1)
+         */
+        
+        String separatore = "\n*****\n";
+        StringBuilder sbAttesa = new StringBuilder();
+        sbAttesa.append("Lista Utenti:");
+        
+        // 1. Bianchi
+        sbAttesa.append(separatore).append(u2.toString());
+        // 2. Rossetti
+        sbAttesa.append(separatore).append(u3.toString());
+        // 3. Rossi
+        sbAttesa.append(separatore).append(u1.toString());
+
+        // VERIFICA
+        assertEquals(sbAttesa.toString(), listaUtenti.toString(), 
+            "Il toString di ListaUtenti non rispetta l'ordinamento o il formato atteso.");
+    }
 }

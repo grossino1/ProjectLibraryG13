@@ -263,4 +263,24 @@ public class UtenteTest {
         Utente u3 = new Utente("Mario", "Rossi", "0000000001", EMAIL_VALIDA);
         assertTrue(utente.compareTo(u3) > 0); // 123... > 000...
     }
+    
+    // TEST TOSTRING
+    
+    @Test
+    @DisplayName("toString: Verifica formato stringa (senza prestiti)")
+    @Timeout(value = 500, unit = TimeUnit.MILLISECONDS)
+    void testToString() {
+        // Costruisco la stringa basandomi sull'implementazione della classe
+        StringBuilder sbAttesa = new StringBuilder();
+        sbAttesa.append("Utente: \n");
+        sbAttesa.append("Nome: ").append(NOME_VALIDO);
+        sbAttesa.append("Cognome: ").append(COGNOME_VALIDO);
+        sbAttesa.append("Matricola: ").append(MATRICOLA_VALIDA);
+        sbAttesa.append("E-Mail Istituzionale: ").append(EMAIL_VALIDA);
+        // Poiché nel setUp la lista prestiti è vuota, l'ArrayList restituisce "[]"
+        sbAttesa.append("Elenco dei Prestiti Attivi: []");
+
+        assertEquals(sbAttesa.toString(), utente.toString(), 
+            "Il formato della stringa restituita da toString non corrisponde alle attese.");
+    }
 }
