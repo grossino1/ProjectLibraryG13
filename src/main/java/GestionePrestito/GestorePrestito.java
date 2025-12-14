@@ -4,6 +4,7 @@ import Eccezioni.EccezioniLibri.LibroNotFoundException;
 import Eccezioni.EccezioniPrestiti.CopieEsauriteException;
 import Eccezioni.EccezioniPrestiti.EccezioniPrestito;
 import Eccezioni.EccezioniPrestiti.PrestitiEsauritiException;
+import Eccezioni.EccezioniPrestiti.PrestitoGiaPresenteException;
 import Eccezioni.EccezioniPrestiti.PrestitoNonTrovatoException;
 import Eccezioni.EccezioniUtenti.UtenteNotFoundException;
 import GestioneLibro.CatalogoLibri;
@@ -109,6 +110,12 @@ public class GestorePrestito {
 
         if (utente.getListaPrestiti().size() >= 3) {
             throw new PrestitiEsauritiException("Errore: L'utente " + utente.getNome() + " ha raggiunto il limite di 3 prestiti.");
+        }
+        
+        for(Prestito p: utente.getListaPrestiti()) {
+            if(p.getISBNLibro().equalsIgnoreCase(ISBN)) {
+                throw new PrestitoGiaPresenteException("Errore: L'utente " + utente.getNome() + " ha già questo libro: " + libro.getTitolo() + "in prestito");
+            } 
         }
 
         // 4. Se tutti i controlli passano, torno true e aggiungo il numero di copie ed il libro alla lista della matricola....

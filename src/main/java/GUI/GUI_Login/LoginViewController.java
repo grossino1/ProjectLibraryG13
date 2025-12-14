@@ -55,6 +55,7 @@ public class LoginViewController implements Initializable {
     @FXML
     private Button handleLogin;
 
+    private String FILENAME = "us.bin";
     /**
      * @brief Inizializza il controller.
      *
@@ -97,7 +98,7 @@ public class LoginViewController implements Initializable {
         String username = usernameField.getText();
         String password = passwordField.getText();
         
-        Bibliotecario admin = SalvataggioFile.SalvataggioFileAutenticazione.SalvataggioFileBibliotecario.carica();
+        Bibliotecario admin = SalvataggioFile.SalvataggioFileAutenticazione.SalvataggioFileBibliotecario.carica(FILENAME);
         
         // 2. Verifica Credenziali (Simulazione connessione al Model)
         // boolean accessoConsentito = autenticazioneService.login(username, password);

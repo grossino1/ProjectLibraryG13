@@ -25,8 +25,6 @@ import java.io.ObjectOutputStream;
 
 public class SalvataggioFileBibliotecario {
     
-    private static final String FILE_PATH = "us.bin";
-    
     /**
      * @brief Carica un oggetto Bibliotecario da un file binario.
      *
@@ -39,11 +37,11 @@ public class SalvataggioFileBibliotecario {
      * @return L'istanza di Bibliotecario recuperata, oppure null in caso di errore.
      */
     
-    public static Bibliotecario carica() throws IOException {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_PATH))) {
+    public static Bibliotecario carica(String filename) throws IOException {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
             return (Bibliotecario) ois.readObject();
         } catch (FileNotFoundException e) {
-            System.err.println("Errore: File credenziali 'us.bin' non trovato.");
+            System.err.println("Errore: File credenziali " + filename + " non trovato.");
         } catch (ClassNotFoundException e) {
             System.err.println("Errore durante la lettura del file credenziali: " + e.getMessage());
         }
@@ -61,13 +59,13 @@ public class SalvataggioFileBibliotecario {
      *
      * @param[in] dati: L'oggetto Bibliotecario da serializzare.
      */
-    public static void salva(Bibliotecario dati) throws IOException {
+    public static void salva(Bibliotecario dati, String filename) throws IOException {
     if (dati == null) {
         throw new IOException("Non puoi salvare un oggetto null!");
     }
-    try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
+    try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
         oos.writeObject(dati);
-        System.out.println("Credenziali salvate correttamente in " + FILE_PATH);
+        System.out.println("Credenziali salvate correttamente in " + filename);
     }
 }
 

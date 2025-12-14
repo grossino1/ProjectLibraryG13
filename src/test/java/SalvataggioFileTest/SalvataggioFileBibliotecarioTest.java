@@ -26,7 +26,7 @@ public class SalvataggioFileBibliotecarioTest {
     private final String USERNAME = "mrossi";
     private final String PASSWORD = "password123";
     
-    private static final String FILE_BIN = "us.bin"; 
+    private static final String FILE_BIN = "us_test.bin"; 
 
     // FIXTURE
 
@@ -56,14 +56,14 @@ public class SalvataggioFileBibliotecarioTest {
     void testSalvaECarica() throws IOException, ClassNotFoundException {
 
         // SALVATAGGIO
-        SalvataggioFileBibliotecario.salva(bibliotecarioTest);
+        SalvataggioFileBibliotecario.salva(bibliotecarioTest, FILE_BIN);
 
         File fileCreato = new File(FILE_BIN);
         assertTrue(fileCreato.exists(), "Il file dovrebbe essere stato creato.");
         assertTrue(fileCreato.length() > 0, "Il file non dovrebbe essere vuoto.");
 
         // CARICAMENTO
-        Bibliotecario bibliotecarioCaricato = SalvataggioFileBibliotecario.carica();
+        Bibliotecario bibliotecarioCaricato = SalvataggioFileBibliotecario.carica(FILE_BIN);
 
         assertNotNull(bibliotecarioCaricato, "Il bibliotecario caricato non deve essere null.");
         assertEquals(USERNAME, bibliotecarioCaricato.getUsername(), "Lo username deve corrispondere.");
@@ -75,7 +75,7 @@ public class SalvataggioFileBibliotecarioTest {
 
     void testSalvaBibliotecarioNull() {
         IOException ex = assertThrows(IOException.class, () -> {
-        SalvataggioFileBibliotecario.salva(null);
+        SalvataggioFileBibliotecario.salva(null, FILE_BIN);
     });
     assertEquals("Non puoi salvare un oggetto null!", ex.getMessage());
 }
@@ -94,7 +94,7 @@ public class SalvataggioFileBibliotecarioTest {
 
         Bibliotecario b = null;
         try {
-            b = SalvataggioFileBibliotecario.carica();
+            b = SalvataggioFileBibliotecario.carica(FILE_BIN);
         } catch (IOException e) {
             fail("Non dovrebbe lanciare IOException, deve ritornare null");
         }

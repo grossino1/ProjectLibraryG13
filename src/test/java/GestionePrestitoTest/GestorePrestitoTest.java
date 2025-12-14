@@ -6,6 +6,7 @@ import Eccezioni.EccezioniLibri.LibroNotFoundException;
 import Eccezioni.EccezioniLibri.LibroPresenteException;
 import Eccezioni.EccezioniPrestiti.CopieEsauriteException;
 import Eccezioni.EccezioniPrestiti.PrestitiEsauritiException;
+import Eccezioni.EccezioniPrestiti.PrestitoGiaPresenteException;
 import Eccezioni.EccezioniUtenti.ListaUtentiPienaException;
 import Eccezioni.EccezioniUtenti.MatricolaNotValidException;
 import Eccezioni.EccezioniUtenti.UtenteNotFoundException;
@@ -91,6 +92,13 @@ public class GestorePrestitoTest {
         // L'utente esiste ma ha già 3 prestiti
         assertThrows(PrestitiEsauritiException.class, () -> {
             gestore.nuovoPrestito(ISBN_DISPONIBILE, MATR_PIENA);
+        });
+        
+        // L'utente ha già quel libro in prestito
+        assertThrows(PrestitoGiaPresenteException.class, () -> {
+            gestore.nuovoPrestito(ISBN_DISPONIBILE, MATR_OK);
+            gestore.aggiungiPrestitoListaUtente(MATR_OK, new Prestito(ISBN_DISPONIBILE, MATR_OK));
+            gestore.nuovoPrestito(ISBN_DISPONIBILE, MATR_OK);
         });
     }
     

@@ -9,6 +9,7 @@ import Eccezioni.EccezioniLibri.LibroNotFoundException;
 import Eccezioni.EccezioniPrestiti.CopieEsauriteException;
 import Eccezioni.EccezioniPrestiti.ElencoPienoException;
 import Eccezioni.EccezioniPrestiti.PrestitiEsauritiException;
+import Eccezioni.EccezioniPrestiti.PrestitoGiaPresenteException;
 import Eccezioni.EccezioniPrestiti.PrestitoNonTrovatoException;
 import Eccezioni.EccezioniPrestiti.dataRestituzioneException;
 import Eccezioni.EccezioniUtenti.UtenteNotFoundException;
@@ -56,6 +57,7 @@ public class ElencoPrestitiTest {
         public boolean lanciaEccezioneUtente = false;
         public boolean lanciaEccezioneCopia = false;
         public boolean lanciaEccezionePrestito = false;
+        public boolean lanciaEccezionePrestitoGiaPresente = false;
         
         public GestoreStub() throws IOException, ClassNotFoundException {
             // Passiamo file fittizi
@@ -63,7 +65,7 @@ public class ElencoPrestitiTest {
         }
 
         @Override
-        public boolean nuovoPrestito(String isbn, String matricola) throws LibroNotFoundException, UtenteNotFoundException, CopieEsauriteException, PrestitiEsauritiException {
+        public boolean nuovoPrestito(String isbn, String matricola) throws LibroNotFoundException, UtenteNotFoundException, CopieEsauriteException, PrestitiEsauritiException, PrestitoGiaPresenteException {
             if (lanciaEccezioneLibro) {
                 throw new LibroNotFoundException();
             }
@@ -75,6 +77,9 @@ public class ElencoPrestitiTest {
             }
             if(lanciaEccezionePrestito) {
                 throw new PrestitiEsauritiException();
+            }
+            if(lanciaEccezionePrestitoGiaPresente) {
+                throw new PrestitoGiaPresenteException();
             }
             return risultatoNuovoPrestito;
         }
@@ -189,23 +194,33 @@ public class ElencoPrestitiTest {
             elenco.registrazionePrestito("ISBN_INESISTENTE", MATRICOLA_VALIDA);
         });
         
-        assertThrows(LibroNotFoundException.class, () -> {
+        assertThrows(UtenteNotFoundException.class, () -> {
+            gestoreStub.lanciaEccezioneLibro = false;
             gestoreStub.lanciaEccezioneUtente = true;
             elenco.registrazionePrestito(ISBN_VALIDO, "Matricola non valida");
         });
         
-        assertThrows(LibroNotFoundException.class, () -> {
+        assertThrows(CopieEsauriteException.class, () -> {
+            gestoreStub.lanciaEccezioneUtente = false;
             gestoreStub.lanciaEccezioneCopia = true;
             elenco.registrazionePrestito(ISBN_VALIDO, MATRICOLA_VALIDA);
         });
 
-        assertThrows(LibroNotFoundException.class, () -> {
+        assertThrows(PrestitiEsauritiException.class, () -> {
+            gestoreStub.lanciaEccezioneCopia = false;
             gestoreStub.lanciaEccezionePrestito = true;
             elenco.registrazionePrestito(ISBN_VALIDO, MATRICOLA_VALIDA);
         });
         
+        assertThrows(PrestitoGiaPresenteException.class, () -> {
+            gestoreStub.lanciaEccezionePrestito = false;
+            elenco.registrazionePrestito(ISBN_VALIDO, MATRICOLA_VALIDA);
+            gestoreStub.lanciaEccezionePrestitoGiaPresente = true;
+            elenco.registrazionePrestito(ISBN_VALIDO, MATRICOLA_VALIDA);
+        });
+        
         // Verifica Stato: La lista deve essere vuota
-        assertTrue(elenco.getElencoPrestiti().isEmpty());
+        assertFalse(elenco.getElencoPrestiti().isEmpty());
     }
 
     // Test del Boundary Value (> 99)
