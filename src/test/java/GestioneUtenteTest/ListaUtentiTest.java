@@ -1,4 +1,4 @@
-package UtenteTest;
+package GestioneUtenteTest;
 
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,13 +33,13 @@ public class ListaUtentiTest {
     private Utente u2;
     private final String NOME_VALIDO_U2 = "Chiara";
     private final String COGNOME_VALIDO_U2 = "Bianchi";
-    private final String MATRICOLA_VALIDA_U2 = "0987654321";
+    private final String MATRICOLA_VALIDA_U2 = "1234509876";
     private final String EMAIL_VALIDA_U2 = "c.bianchi@studenti.unisa.it";
     
     private Utente u3;
     private final String NOME_VALIDO_U3 = "Aurora";
     private final String COGNOME_VALIDO_U3 = "Rossetti";
-    private final String MATRICOLA_VALIDA_U3 = "1234509876";
+    private final String MATRICOLA_VALIDA_U3 = "0987654321";
     private final String EMAIL_VALIDA_U3 = "a.rossetti@studenti.unisa.it";
     
     private final String TEST_FILENAME = "test_listaUtenti.txt";
@@ -230,7 +230,7 @@ public class ListaUtentiTest {
         listaUtenti.registrazioneUtente(u2); // Bianchi
         listaUtenti.registrazioneUtente(u3); // Rossetti
         
-        // Ricerca parziale per Cognome "ros" -> devo ottenere u1 e u3
+        // Ricerca parziale per Cognome "ros" -> Deve restituire u1 e u3
         ArrayList<Utente> risultatiCognome = listaUtenti.cercaUtente("ros");
         
         assertEquals(2, risultatiCognome.size(), "Dovrebbe trovare due utenti (Rossi e Rossetti)");
@@ -238,12 +238,18 @@ public class ListaUtentiTest {
         assertTrue(risultatiCognome.contains(u3));
         assertFalse(risultatiCognome.contains(u2));
         
-        // Ricerca parziale per Matricola "098765" (completa o parziale) -> devo ottenere u2
+        // Ricerca per Nome "Mario" (Parziale o completa) -> Deve restituire u2
+        ArrayList<Utente> risultatiNome = listaUtenti.cercaUtente("Chiara");
+
+        assertEquals(1, risultatiNome.size(), "Dovrebbe trovare un utente con nome Chiara");
+        assertTrue(risultatiNome.contains(u2));
+        
+        // Ricerca parziale per Matricola "098765" (completa o parziale) -> Deve restituire u3
         ArrayList<Utente> risultatiMatricola = listaUtenti.cercaUtente("098765");
         assertEquals(1, risultatiMatricola.size());
-        assertEquals(u2, risultatiMatricola.get(0));
+        assertEquals(u3, risultatiMatricola.get(0));
         
-        // Ricerca case-insensitive "ROSSI"
+        // Ricerca case-insensitive "ROSSI" -> Deve restituire u1
         ArrayList<Utente> risultatiCase = listaUtenti.cercaUtente("ROSSI");
         assertEquals(1, risultatiCase.size());
         assertEquals(u1, risultatiCase.get(0));
@@ -358,5 +364,50 @@ public class ListaUtentiTest {
             () -> assertEquals(nuovoCognome, utenteAggiornato.getCognome()),
             () -> assertEquals(nuovaEmail, utenteAggiornato.getEmailIstituzionale())
         );
+    }
+    
+    // TEST TOSTRING
+
+    @Test
+    @DisplayName("toString: Lista Vuota")
+    void testToStringListaVuota() {
+        // Se la lista è vuota, stampa solo l'intestazione inizializzata nel StringBuffer
+        String attesa = "Lista Utenti:";
+        assertEquals(attesa, listaUtenti.toString());
+    }
+
+    @Test
+    @DisplayName("toString: Lista con Utenti (Verifica Ordinamento)")
+    @Timeout(value = 1, unit = TimeUnit.SECONDS)
+    void testToStringListaPiena() throws Exception {
+        // Inserisco gli utenti in ordine sparso
+        listaUtenti.registrazioneUtente(u1); // Rossi
+        listaUtenti.registrazioneUtente(u2); // Bianchi
+        listaUtenti.registrazioneUtente(u3); // Rossetti
+
+        /*
+         * COSTRUZIONE ATTESA:
+         * ListaUtenti usa un TreeSet, quindi gli utenti verranno stampati in ordine alfabetico
+         * in base al compareTo (Cognome -> Nome -> Matricola).
+         * * Ordine previsto:
+         * 1. Bianchi (u2)
+         * 2. Rossetti (u3) 
+         * 3. Rossi (u1)
+         */
+        
+        String separatore = "\n*****\n";
+        StringBuilder sbAttesa = new StringBuilder();
+        sbAttesa.append("Lista Utenti:");
+        
+        // 1. Bianchi
+        sbAttesa.append(separatore).append(u2.toString());
+        // 2. Rossetti
+        sbAttesa.append(separatore).append(u3.toString());
+        // 3. Rossi
+        sbAttesa.append(separatore).append(u1.toString());
+
+        // VERIFICA
+        assertEquals(sbAttesa.toString(), listaUtenti.toString(), 
+            "Il toString di ListaUtenti non rispetta l'ordinamento o il formato atteso.");
     }
 }

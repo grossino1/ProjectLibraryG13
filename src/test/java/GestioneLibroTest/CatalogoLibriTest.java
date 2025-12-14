@@ -17,6 +17,8 @@ import Eccezioni.EccezioniLibri.*;
 import Eccezioni.EccezioniPrestiti.CopieEsauriteException;
 import GestioneLibro.CatalogoLibri;
 import GestioneLibro.Libro;
+import GestionePrestito.ElencoPrestiti;
+import java.io.File;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,6 +38,8 @@ public class CatalogoLibriTest {
     // Si crea un nuovo catalogo e un libro valido per poi toglierlo nell'AfterEach 
     @BeforeEach
     public void setUp() throws ISBNNotValidException, IOException, ClassNotFoundException {
+        File fp = new File(FILENAME);
+        fp.createNewFile();
         catalogo = new CatalogoLibri(false, FILENAME);
         libroValido = new Libro(TITOLO, AUTORI, ANNO, ISBN_VALIDO, COPIE);
     }
@@ -44,6 +48,10 @@ public class CatalogoLibriTest {
     public void pulizia() {
         catalogo = null;
         libroValido = null;
+        File fp = new File(FILENAME);
+        if (fp.exists()) {
+            fp.delete();
+        }
     }
 
     // --- TEST ---

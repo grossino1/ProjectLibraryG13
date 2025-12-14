@@ -11,6 +11,7 @@ import java.util.List;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 /**
  *
  * @author chiara
@@ -155,8 +156,9 @@ public class Utente implements Comparable<Utente>, Serializable {
         return new ArrayList<Prestito>(listaPrestiti); 
     }
 
-    public LocalDateTime getDataReg() {
-        return dataReg;
+    public String getDataReg() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return dataReg.format(formatter);
     }
 
     // METODI LOGICI

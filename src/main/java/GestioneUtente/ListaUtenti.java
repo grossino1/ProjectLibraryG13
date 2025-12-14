@@ -37,7 +37,7 @@ public class ListaUtenti implements Serializable{
      * Collezione ordinata degli utenti registrati.
      */
     private static final long serialVersionUID = 1L;
-        
+    private static final int MAX_UTENTI = 1000;
     private Set<Utente> listaUtenti;
     private String filename;
     
@@ -125,7 +125,7 @@ public class ListaUtenti implements Serializable{
         }
         
         // Controllo che listaUtenti==1000: se la lista è piena non posso inserire l'utente.
-        if(listaUtenti.size() == 1000){
+        if(listaUtenti.size() >= MAX_UTENTI){
             throw new ListaUtentiPienaException("La listaUtenti non può contenere più di 1000 utenti!");
         }
             
@@ -220,7 +220,7 @@ public class ListaUtenti implements Serializable{
     }
     
     /**
-     * @brief Cerca utenti in base a una Stringa generica che rappresenta il Cognome o la Matricola.
+     * @brief Cerca utenti in base a una Stringa generica che rappresenta il Cognome, il Nome o la Matricola.
      *
      * @pre u != null (La stringa di ricerca non deve essere nulla).
      * @post La lista restituita non è mai null (può essere vuota).
@@ -246,10 +246,11 @@ public class ListaUtenti implements Serializable{
     for (Utente utente : listaUtenti) {
         // Recupero i valori e li converto in minuscolo per il confronto
         String cognomeLower = utente.getCognome().toLowerCase();
+        String nomeLower = utente.getNome().toLowerCase();
         String matricolaLower = utente.getMatricola().toLowerCase();
 
         // Controllo se il Cognome O la Matricola INIZIANO con la stringa cercata
-        if (cognomeLower.startsWith(utenteCercato) || matricolaLower.startsWith(utenteCercato)) {
+        if (cognomeLower.startsWith(utenteCercato) || nomeLower.startsWith(utenteCercato) || matricolaLower.startsWith(utenteCercato)) {
             // Se un utente corrisponde ai criteri allora viene aggiunto all'interno dell'ArrayList
             listaRicerca.add(utente);
         }            

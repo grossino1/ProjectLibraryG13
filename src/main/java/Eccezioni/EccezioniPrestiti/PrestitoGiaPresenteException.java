@@ -1,9 +1,9 @@
 package Eccezioni.EccezioniPrestiti;
 
 /**
- * @class CopieEsauriteException
- * @brief Eccezione lanciata quando le copie disponibili di un libro sono esaurite, 
- * ovvero un libro presenta un numero di copie <=1 e si prova a registarre un nuovo prestito con quel libro.
+ * @class PrestitoGiaPresenteException
+ * @brief Eccezione lanciata quando un utente ha già un libro in prestito e prova a 
+ * registrare un nuovo prestito con lo stesso libro.
  *
  * @see EccezioniPrestito
  *
@@ -11,14 +11,14 @@ package Eccezioni.EccezioniPrestiti;
  * @version 1.0
  */
 
-public class CopieEsauriteException extends EccezioniPrestito {
+public class PrestitoGiaPresenteException extends EccezioniPrestito {
 
     /**
      * @brief Costruttore di default.
      *
      * Inizializza l'eccezione senza un messaggio di dettaglio specifico.
      */
-    public CopieEsauriteException() {
+    public PrestitoGiaPresenteException() {
     }
     
     /**
@@ -26,7 +26,7 @@ public class CopieEsauriteException extends EccezioniPrestito {
      *
      * @param[in] msg La descrizione dell'errore.
      */
-    public CopieEsauriteException(String msg){
+    public PrestitoGiaPresenteException(String msg){
         super(msg);
     }
 }

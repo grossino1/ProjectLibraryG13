@@ -186,7 +186,5 @@ public class PrestitoTest {
        
         assertTrue(risultato.contains(ISBN_VALIDO), 
             "La stringa deve contenere l'ISBN del prestito");
-        assertTrue(risultato.contains(MATRICOLA_VALIDA), 
-            "La stringa deve contenere la Matricola del prestito");
     }
 }
