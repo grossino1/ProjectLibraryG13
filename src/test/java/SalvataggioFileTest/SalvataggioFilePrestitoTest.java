@@ -45,9 +45,6 @@ public class SalvataggioFilePrestitoTest {
     // Nome file temporaneo
     private static final String FILE_TEST = "test_persistenza_prestiti_temp.bin";
 
-    // ============================================================
-    // FIXTURE: BEFORE EACH
-    // ============================================================
 
     class GestoreStub extends GestorePrestito {
         

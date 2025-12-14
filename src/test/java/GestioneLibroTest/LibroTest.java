@@ -38,6 +38,7 @@ public class LibroTest {
     }
 
     // --- TEST ---
+    // si inizializza correttamente il costruttore
     @Test
     public void testCostruttoreValido() {
         assertNotNull(libroValido);
@@ -48,26 +49,33 @@ public class LibroTest {
         assertEquals(COPIE_INIZIALI, libroValido.getNumeroCopie());
     }
 
+    
     @Test
     public void testCostruttoreISBNInvalido() {
+    
+        // viene controllato che se viene inserito un ISBN null venga lanciata l'eccezione ISBNNotValidException
         assertThrows(ISBNNotValidException.class, () -> {
             new Libro(TITOLO, AUTORI, ANNO, null, COPIE_INIZIALI);
         });
 
+        // viene controllato che se viene inserito un ISBN vuoto venga lanciata l'eccezione ISBNNotValidException
         assertThrows(ISBNNotValidException.class, () -> {
             new Libro(TITOLO, AUTORI, ANNO, "", COPIE_INIZIALI);
         });
 
+        // viene controllato che se viene inserito un ISBN con meno di 13 cifre venga lanciata l'eccezione ISBNNotValidException
         assertThrows(ISBNNotValidException.class, () -> {
             new Libro(TITOLO, AUTORI, ANNO, "123456", COPIE_INIZIALI); // troppo corto
         });
 
+        // viene controllato che se viene inserito un ISBN con un formato sbagliato venga lanciata l'eccezione ISBNNotValidException
         assertThrows(ISBNNotValidException.class, () -> {
             new Libro(TITOLO, AUTORI, ANNO, "AB12345678901", COPIE_INIZIALI); // lettere
         });
     }
 
-    @Test
+    @Test 
+    // vengono verificati i vari set se viene registrato rispettivamente: Titolo, Autori, Anno di pubblicazione, Numero di Copie corretto 
     public void testSetTitolo() {
         String nuovoTitolo = "Nuovo Titolo";
         libroValido.setTitolo(nuovoTitolo);
@@ -93,21 +101,25 @@ public class LibroTest {
         libroValido.setNumeroCopie(10);
         assertEquals(10, libroValido.getNumeroCopie());
     }
-
+    
+    // viene inserito un numero di copie errato e ci si aspetta il lancio dell'eccezione IllegalArgumentException
     @Test
     public void testSetNumeroCopieInvalido() {
         assertThrows(IllegalArgumentException.class, () -> {
             libroValido.setNumeroCopie(-1);
         });
     }
-
+    
+    //viene verificato il corretto incremento delle copie di un libro, salvando il nuero di copie nella variabile copiePrima
+    // incrementandola di uno per poi confrontarla con il numero di copie del libro dopo la l'istruzione libroValido.incrementaCopiaLibro()
     @Test
     public void testIncrementaCopia() {
         int copiePrima = libroValido.getNumeroCopie();
         libroValido.incrementaCopiaLibro();
         assertEquals(copiePrima + 1, libroValido.getNumeroCopie());
     }
-
+    
+    //questo metodo segue lo stesso funzionamento del metodo precedente ma con il decremento di 1
     @Test
     public void testDecrementaCopiaValida() throws CopieEsauriteException {
         libroValido.setNumeroCopie(3); // Assicuriamoci che >1
@@ -115,7 +127,8 @@ public class LibroTest {
         libroValido.decrementaCopiaLibro();
         assertEquals(copiePrima - 1, libroValido.getNumeroCopie());
     }
-
+    
+    // testa il lancio dell'eccezione CopieEsauriteException quando viene provato a fare un decremento con una sola copia disponibile di un libro
     @Test
     public void testDecrementaCopiaEsaurite() {
         libroValido.setNumeroCopie(1); // limite per eccezione
@@ -123,20 +136,24 @@ public class LibroTest {
             libroValido.decrementaCopiaLibro();
         });
     }
-
+    
+    // testa il confronto due libri per verificare se si tratta dello stesso libro
     @Test
     public void testEqualsHashCode() throws ISBNNotValidException {
         Libro stessoLibro = new Libro("Altro titolo", "Autore diverso", 2019, ISBN_VALIDO, 2);
         assertTrue(libroValido.equals(stessoLibro));
         assertEquals(libroValido.hashCode(), stessoLibro.hashCode());
     }
-
+    
+    
+    // testa il confronto due libri per gestire l'ordinamento tra due libri diversi 
     @Test
     public void testCompareTo() throws ISBNNotValidException {
         Libro libroDiverso = new Libro("Titolo 2", "Autore 2", 2021, "9781234567898", 1);
         assertTrue(libroValido.compareTo(libroDiverso) < 0 || libroValido.compareTo(libroDiverso) > 0);
     }
 
+    // testa la descrizione (con le principali informazioni) del libro
     @Test
     public void testToString() {
         String descrizione = libroValido.toString();
