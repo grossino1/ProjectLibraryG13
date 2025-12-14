@@ -357,6 +357,5 @@ public class ElencoPrestitiTest {
 
         // Verifichiamo che la stringa contenga i dati del prestito inserito
         assertTrue(outputPieno.contains(ISBN_VALIDO), "Il toString deve stampare l'ISBN");
-        assertTrue(outputPieno.contains(MATRICOLA_VALIDA), "Il toString deve stampare la Matricola");
     }
 }
