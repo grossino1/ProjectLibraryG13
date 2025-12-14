@@ -116,12 +116,11 @@
                   
                   <Button fx:id="btnModifica" onAction="#handleModifyPrestito" style="-fx-background-color: #f39c12; -fx-text-fill: white;" text="Modifica" />
                   <Button fx:id="btnElimina" onAction="#handleRemovePrestito" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Elimina" />
-                  <Button fx:id="filterScaduti" prefHeight="0.0" prefWidth="55.0" style="-fx-background-color: #ffcccc; -fx-text-fill: #c0392b;" text="Scaduti" />
                </children>
             </HBox>
             <TableView fx:id="tabellaPrestiti" VBox.vgrow="ALWAYS">
               <columns>
-                <TableColumn fx:id="colLibro" prefWidth="200.0" text="Libro (Titolo)" />
+                <TableColumn fx:id="colLibro" prefWidth="200.0" text="Libro (ISBN)" />
                 <TableColumn fx:id="colUtente" prefWidth="150.0" text="Utente (Matricola)" />
                 <TableColumn fx:id="colDataRegistrazione" prefWidth="120.0" text="Data Registrazione" />
                 <TableColumn fx:id="colDataScadenza" prefWidth="120.0" text="Data Scadenza" />

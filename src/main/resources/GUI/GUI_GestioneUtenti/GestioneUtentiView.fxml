@@ -120,6 +120,7 @@
                 <TableColumn fx:id="colNome" prefWidth="125.0" text="Nome" />
                 <TableColumn fx:id="colCognome" prefWidth="125.0" text="Cognome" />
                 <TableColumn fx:id="colEmail" prefWidth="200.0" text="Email Istituzionale" />
+                <TableColumn fx:id="colPrestiti" prefWidth="200.0" style="-fx-alignment: CENTER;" text="Prestiti" />
                 <TableColumn fx:id="colNPrestitiAttivi" prefWidth="200.0" style="-fx-alignment: CENTER;" text="N. Prestiti Attivi" />
                 <TableColumn fx:id="colDataReg" prefWidth="200.0" style="-fx-alignment: CENTER;" text="Data di Registrazione" />
               </columns>

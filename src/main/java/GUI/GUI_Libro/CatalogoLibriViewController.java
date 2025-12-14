@@ -421,7 +421,7 @@ public class CatalogoLibriViewController implements Initializable {
             try{selected.decrementaCopiaLibro();
                 catalogoLibri.modificaLibro(selected, selected.getTitolo(), selected.getAutori(),selected.getAnnoPubblicazione(), selected.getNumeroCopie());
             }catch(CopieEsauriteException ex){
-                showAlert(Alert.AlertType.ERROR, "Errore generico5", ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
+                showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
             }
         }   
         refreshTable();
@@ -461,7 +461,7 @@ public class CatalogoLibriViewController implements Initializable {
                 catalogoLibri.eliminazioneLibro(selected);
                 refreshTable();
             }catch(LibroNotFoundException ex){
-                showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage());
+                showAlert(Alert.AlertType.ERROR, "Errore generico",  ex.getClass().getName() + " " + ex.getMessage());
             }catch (LibroWithPrestitoException ex){
                 showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage()); //gestione delle eccezioni
             }
@@ -664,7 +664,7 @@ public class CatalogoLibriViewController implements Initializable {
      * @param[in] title Il titolo della finestra di dialogo.
      * @param[in] content Il messaggio principale da visualizzare.
      */
-    private void showAlert(Alert.AlertType type, String title, String content) {
+    private void showAlert(Alert.AlertType type, String title, String content){
         //scheletro
         Alert alert = new Alert(type);
         alert.setTitle(title);

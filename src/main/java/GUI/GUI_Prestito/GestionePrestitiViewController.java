@@ -41,6 +41,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -102,6 +103,9 @@ public class GestionePrestitiViewController implements Initializable {
     private GestorePrestito gestorePrestito;
     private FilteredList<Prestito> filteredData;
     
+    private ListaUtenti lista;
+    private CatalogoLibri catalogo;
+    
     private String fileNamePrestiti ="elencoPrestiti.bin";
     private String fileNameLibri = "catalogoLibri.bin";
     private String fileNameUtenti = "listaUtenti.bin";
@@ -140,18 +144,162 @@ public class GestionePrestitiViewController implements Initializable {
         SortedList<Prestito> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tabellaPrestiti.comparatorProperty());
         
+        try {
+            catalogo = SalvataggioFileLibro.carica(fileNameLibri);
+        } catch (IOException ex) {
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+        }
+        
+        try {
+            lista = SalvataggioFileUtente.carica(fileNameUtenti);
+        } catch (IOException ex) {
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+        }
+        
         colLibro.setCellValueFactory(new PropertyValueFactory<>("ISBNLibro"));
         colUtente.setCellValueFactory(new PropertyValueFactory<>("matricolaUtente"));
         colDataRegistrazione.setCellValueFactory(new PropertyValueFactory<>("dataRegistrazione"));
         colDataScadenza.setCellValueFactory(new PropertyValueFactory<>("dataRestituzione"));
+        
         //colStato.setCellValueFactory(new PropertyValueFactory<>(""));
+
+        colLibro.setCellFactory(column -> {
+            return new javafx.scene.control.TableCell<Prestito, String>() {
+                @Override
+                protected void updateItem(String isbn, boolean empty) {
+                    super.updateItem(isbn, empty);
+
+                    if (isbn == null || empty) {
+                        setText(null);
+                        setTooltip(null); // Rimuove il tooltip se la cella è vuota
+                    } else {
+                        // Imposta il testo della cella (Solo ISBN)
+                        setText(isbn);
+
+                        // Logica per trovare i dettagli del libro
+                        String dettagliLibro = "Libro non trovato nel catalogo.";
+                        if (catalogo != null) {
+                            for (Libro l : catalogo.getCatalogoLibri()) {
+                                if (l.getIsbn().equals(isbn)) {
+                                    // Qui puoi mettere tutte le info che vuoi nel fumetto giallo
+                                    dettagliLibro = l.getTitolo() + "\n" + 
+                                                    "Autore: " + l.getAutori() + "\n";
+                                    break;
+                                }
+                            }
+                        }
+
+                        // Crea il Tooltip e lo installa sulla cella
+                        javafx.scene.control.Tooltip tooltip = new javafx.scene.control.Tooltip(dettagliLibro);
+
+                        // Opzionale: rende il tooltip istantaneo (senza ritardo)
+                        tooltip.setShowDelay(javafx.util.Duration.millis(100)); 
+
+                        setTooltip(tooltip);
+                    }
+                }
+            };
+        });
+
+        colUtente.setCellFactory(column -> {
+            return new javafx.scene.control.TableCell<Prestito, String>() {
+                @Override
+                protected void updateItem(String matricola, boolean empty) {
+                    super.updateItem(matricola, empty);
+
+                    if (matricola == null || empty) {
+                        setText(null);
+                        setTooltip(null);
+                    } else {
+                        setText(matricola);
+
+                        String dettagliUtente = "Utente sconosciuto";
+                        if (lista != null) {
+                            for (Utente u : lista.getListaUtenti()) {
+                                if (u.getMatricola().equals(matricola)) {
+                                    dettagliUtente = u.getNome() + " " + u.getCognome() + "\n" + 
+                                                     u.getEmailIstituzionale();
+                                    break;
+                                }
+                            }
+                        }
+                        javafx.scene.control.Tooltip tooltip = new javafx.scene.control.Tooltip(dettagliUtente);
+                        setTooltip(tooltip);
+                    }
+                }
+            };
+        });
+
+        tabellaPrestiti.setRowFactory(tv -> {
+    
+            // Definiamo la riga sovrascrivendo updateItem per colorarla SUBITO all'avvio
+            TableRow<Prestito> row = new TableRow<Prestito>() {
+                @Override
+                protected void updateItem(Prestito item, boolean empty) {
+                    super.updateItem(item, empty);
+                    // Richiamiamo la logica di stile ogni volta che la riga viene disegnata
+                    aggiornaStileRiga(this);
+                }
+            };
+
+            // Aggiungiamo ANCHE un listener per quando la riga viene selezionata/deselezionata
+            row.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+                aggiornaStileRiga(row);
+            });
+
+            return row;
+        });
+        
         
         //no sorting 
         colLibro.setSortable(false);
         colUtente.setSortable(false);
         colDataScadenza.setSortable(false);
         colDataRegistrazione.setSortable(false);
+        try {
+            refreshTable();
+        } catch (IOException ex) {
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+        }
     
+    }
+
+    private void aggiornaStileRiga(TableRow<Prestito> row) {
+        Prestito prestito = row.getItem();
+
+        // 1. Se la riga è vuota -> Nessuno stile
+        if (prestito == null || row.isEmpty()) {
+            row.setStyle("");
+            return;
+        }
+
+        // 2. Se la riga è SELEZIONATA -> Stile di default (Blu/Azzurro di JavaFX)
+        if (row.isSelected()) {
+            row.setStyle(""); 
+            return;
+        }
+
+        // 3. Altrimenti -> Calcola Colore (Rosso/Giallo)
+        LocalDate scadenza = prestito.getDataRestituzione();
+        LocalDate oggi = LocalDate.now();
+        long giorni = java.time.temporal.ChronoUnit.DAYS.between(oggi, scadenza);
+
+        if (giorni < 0) {
+            // SCADUTO: Rosso
+            row.setStyle("-fx-background-color: #ffcccc;"); 
+        } else if (giorni <= 3) {
+            // IN SCADENZA: Giallo
+            row.setStyle("-fx-background-color: #ffffc4;"); 
+        } else {
+            // NORMALE: Bianco/Default
+            row.setStyle("");
+        }
     }
     
     /**
@@ -283,7 +431,6 @@ public class GestionePrestitiViewController implements Initializable {
             ComboBox<String> cmbISBN = (ComboBox<String>) child.lookup("#cmbISBN");
 
             ArrayList<String> listaCodiciLibri = new ArrayList<>();
-            CatalogoLibri catalogo = SalvataggioFileLibro.carica("catalogoLibri.bin");
             for(Libro l : catalogo.getCatalogoLibri()) { // Ipotizzo tu abbia accesso alla lista libri
                 listaCodiciLibri.add(l.getIsbn() + " - " + l.getTitolo());
             }
@@ -291,7 +438,6 @@ public class GestionePrestitiViewController implements Initializable {
             cmbISBN.setEditable(true);
             
             ArrayList<String> listaMatricole = new ArrayList<>();
-            ListaUtenti lista = SalvataggioFileUtente.carica("listaUtenti.bin");
             for(Utente u : lista.getListaUtenti()) {
                 listaMatricole.add(u.getMatricola() + " - " + u.getNome() + " " + u.getCognome());
             }

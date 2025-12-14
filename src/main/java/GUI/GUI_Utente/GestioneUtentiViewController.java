@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -95,6 +96,8 @@ public class GestioneUtentiViewController implements Initializable {
     @FXML
     private TableColumn<Utente, Integer> colNPrestitiAttivi; // Contatore prestiti correnti
     @FXML
+    private TableColumn<Utente, String> colPrestiti; // Contatore prestiti correnti
+    @FXML
     private TableColumn<Utente, LocalDateTime> colDataReg; // Contatore prestiti correnti
 
     private ObservableList<Utente> utenteList;
@@ -130,6 +133,15 @@ public class GestioneUtentiViewController implements Initializable {
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colCognome.setCellValueFactory(new PropertyValueFactory<>("cognome"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("emailIstituzionale"));
+        colPrestiti.setCellValueFactory(cellData -> {
+            Utente p = cellData.getValue();
+            if (p != null) {
+                // Chiama il metodo toString() dell'oggetto Prestito
+                return new SimpleStringProperty(p.getListaPrestiti().toString());
+            } else {
+                return new SimpleStringProperty("");
+            }
+        });
         colNPrestitiAttivi.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getListaPrestiti().size()).asObject());
         colDataReg.setCellValueFactory(new PropertyValueFactory<>("dataReg"));
         
