@@ -129,6 +129,10 @@ public class Libro implements Comparable<Libro>, Serializable {
             throw new IllegalArgumentException("Non sono ammesse quantità di copie negative");
         this.numeroCopie = numeroCopie; 
     }
+    
+    public void setnPrestitiAttivi(int nPrestitiAttivi){
+        this.nPrestitiAttivi = nPrestitiAttivi;
+    }
 
     // Metodi Logici
     
