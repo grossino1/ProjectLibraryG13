@@ -17,6 +17,7 @@ import Eccezioni.EccezioniLibri.*;
 import Eccezioni.EccezioniPrestiti.CopieEsauriteException;
 import GestioneLibro.CatalogoLibri;
 import GestioneLibro.Libro;
+import GestionePrestito.ElencoPrestiti;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -110,7 +111,7 @@ public class CatalogoLibriTest {
     @Test
     public void testEliminazioneLibroConPrestitoAttivo() throws Exception {
         // Simula un prestito attivo
-        libroValido.setPrestitiAttivi(1);
+        libroValido.setnPrestitiAttivi(1);
         // Aggiungi il libro al catalogo
         catalogo.registrazioneLibro(libroValido);
         
