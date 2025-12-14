@@ -1,0 +1,4 @@
+var _login_credentials_not_valid_exception_8java =
+[
+    [ "Eccezioni.EccezioniAutenticazione.LoginCredentialsNotValidException", "class_eccezioni_1_1_eccezioni_autenticazione_1_1_login_credentials_not_valid_exception.html", "class_eccezioni_1_1_eccezioni_autenticazione_1_1_login_credentials_not_valid_exception" ]
+];

@@ -111,7 +111,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                <children>
-                   <Label fx:id="prestitiPresentiLabel" text="Prestiti Presenti: " textFill="#7f8c8d"/>
+                  <Label fx:id="prestitiPresentiLabel" text="Prestiti presenti:" textFill="#7f8c8d" />
                    <HBox HBox.hgrow="ALWAYS" />
                   <Label text="Azioni Prestito Selezionato:" textFill="#7f8c8d" />
                   
@@ -121,10 +121,10 @@
             </HBox>
             <TableView fx:id="tabellaPrestiti" VBox.vgrow="ALWAYS">
               <columns>
-                <TableColumn fx:id="colLibro" prefWidth="200.0" text="Libro (ISBN)" />
-                <TableColumn fx:id="colUtente" prefWidth="150.0" text="Utente (Matricola)" />
-                <TableColumn fx:id="colDataRegistrazione" prefWidth="120.0" text="Data Registrazione" />
-                <TableColumn fx:id="colDataScadenza" prefWidth="120.0" text="Data Scadenza" />
+                <TableColumn fx:id="colLibro" editable="false" prefWidth="200.0" text="Libro (ISBN)" />
+                <TableColumn fx:id="colUtente" editable="false" prefWidth="150.0" text="Utente (Matricola)" />
+                <TableColumn fx:id="colDataRegistrazione" editable="false" prefWidth="120.0" text="Data Registrazione" />
+                <TableColumn fx:id="colDataScadenza" editable="false" prefWidth="120.0" text="Data Scadenza" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

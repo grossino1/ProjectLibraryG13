@@ -74,15 +74,14 @@ public class GestionePrestitiViewController implements Initializable {
     private Button handleSortReturnData;
     @FXML
     private Button handleSortMostRecent;
-    //@FXML
-    //private Button handleSortLatestRecent;
+    @FXML
+    private Label prestitiPresentiLabel;
     
+    //per la ricerca
     @FXML
     private TextField handleCercaPrestito;
     @FXML
     private Button filterScaduti;
-    @FXML
-    private Label prestitiPresentiLabel;
     
     /**
      * Tabella per la visualizzazione dei prestiti.
@@ -108,6 +107,7 @@ public class GestionePrestitiViewController implements Initializable {
     private ListaUtenti lista;
     private CatalogoLibri catalogo;
     
+    //file con i dati 
     private String fileNamePrestiti ="elencoPrestiti.bin";
     private String fileNameLibri = "catalogoLibri.bin";
     private String fileNameUtenti = "listaUtenti.bin";
@@ -135,9 +135,9 @@ public class GestionePrestitiViewController implements Initializable {
         try {
             elencoPrestiti= new ElencoPrestiti(true, fileNamePrestiti, gestorePrestito);
         } catch (IOException ex) {
-            showAlert(Alert.AlertType.ERROR, "Errore Critico!", ex.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Errore Critico!", ex.getMessage());   //gestione delle eccezioni
         } catch (ClassNotFoundException ex) {
-            showAlert(Alert.AlertType.ERROR, "Errore Critico!", ex.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Errore Critico!", ex.getMessage());   //gestione delle eccezioni
         }
         
         prestitoList = FXCollections.observableArrayList(elencoPrestiti.getElencoPrestiti());
@@ -149,26 +149,27 @@ public class GestionePrestitiViewController implements Initializable {
         try {
             catalogo = SalvataggioFileLibro.carica(fileNameLibri);
         } catch (IOException ex) {
-            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + "\n" + ex.getMessage());   //gestione delle eccezioni
         } catch (ClassNotFoundException ex) {
-            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + "\n" + ex.getMessage());   //gestione delle eccezioni
         }
         
         try {
             lista = SalvataggioFileUtente.carica(fileNameUtenti);
         } catch (IOException ex) {
-            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + "\n" + ex.getMessage());   //gestione delle eccezioni
         } catch (ClassNotFoundException ex) {
-            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + "\n" + ex.getMessage());   //gestione delle eccezioni
         }
         
+        //set delle colonne della tabella
         colLibro.setCellValueFactory(new PropertyValueFactory<>("ISBNLibro"));
         colUtente.setCellValueFactory(new PropertyValueFactory<>("matricolaUtente"));
         colDataRegistrazione.setCellValueFactory(new PropertyValueFactory<>("dataRegistrazione"));
         colDataScadenza.setCellValueFactory(new PropertyValueFactory<>("dataRestituzione"));
-        
-        //colStato.setCellValueFactory(new PropertyValueFactory<>(""));
 
+        
+        //permette di visualizzare delle informaizoni sul libro quando si passa con il mouse sopra
         colLibro.setCellFactory(column -> {
             return new javafx.scene.control.TableCell<Prestito, String>() {
                 @Override
@@ -207,6 +208,7 @@ public class GestionePrestitiViewController implements Initializable {
             };
         });
 
+        //permette di visualizzare delle informazioni dell'utente quando si passa con il mouse sopra
         colUtente.setCellFactory(column -> {
             return new javafx.scene.control.TableCell<Prestito, String>() {
                 @Override
@@ -235,33 +237,33 @@ public class GestionePrestitiViewController implements Initializable {
                 }
             };
         });
-
+        
+        //permette di andare a cambiare lo stile quando il prestito sta per scadere o è scaduto
         tabellaPrestiti.setRowFactory(tv -> {
-    
             // Definiamo la riga sovrascrivendo updateItem per colorarla SUBITO all'avvio
             TableRow<Prestito> row = new TableRow<Prestito>() {
                 @Override
                 protected void updateItem(Prestito item, boolean empty) {
                     super.updateItem(item, empty);
-                    // Richiamiamo la logica di stile ogni volta che la riga viene disegnata
+                    //chiama la funzione che permette di cambiare lo stile
                     aggiornaStileRiga(this);
                 }
             };
-
-            // Aggiungiamo ANCHE un listener per quando la riga viene selezionata/deselezionata
+            
+            //listener per quando la riga viene selezionata/deselezionata
             row.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
                 aggiornaStileRiga(row);
             });
-
             return row;
         });
-        
         
         //no sorting 
         colLibro.setSortable(false);
         colUtente.setSortable(false);
         colDataScadenza.setSortable(false);
         colDataRegistrazione.setSortable(false);
+        
+        //refresh della tabella
         try {
             refreshTable();
         } catch (IOException ex) {
@@ -272,22 +274,32 @@ public class GestionePrestitiViewController implements Initializable {
     
     }
 
+    /**
+     * @brief aggiorna lo stile di una riga della tabella in base a dei parametri
+     * 
+     * questo metodo permette di aggiornare lo stile di una riga della tabella in modo
+     * tale da evidenziare quando un prestito sta per scadere o è scaduto. esso viene invocato
+     * all'interno della lambda expression tv.
+     * 
+     * @param row La riga (TableRow) corrente contenente l'oggetto Prestito da analizzare.
+     */
     private void aggiornaStileRiga(TableRow<Prestito> row) {
         Prestito prestito = row.getItem();
 
-        // 1. Se la riga è vuota -> Nessuno stile
+       //se la riga è vuota non viene applicato nessuno stile
         if (prestito == null || row.isEmpty()) {
             row.setStyle("");
             return;
         }
 
-        // 2. Se la riga è SELEZIONATA -> Stile di default (Blu/Azzurro di JavaFX)
+        //se la riga è selezionata viene impostato lo stile di default
         if (row.isSelected()) {
             row.setStyle(""); 
             return;
         }
 
-        // 3. Altrimenti -> Calcola Colore (Rosso/Giallo)
+        //altrimenti, viene colorata in base a dei parametri
+        //gestione 
         LocalDate scadenza = prestito.getDataRestituzione();
         LocalDate oggi = LocalDate.now();
         long giorni = java.time.temporal.ChronoUnit.DAYS.between(oggi, scadenza);
@@ -305,15 +317,11 @@ public class GestionePrestitiViewController implements Initializable {
     }
     
     /**
-     * @brief Metodo di utilità per la navigazione tra le schermate (Scene).
-     *
-     * @pre fxmlPath != null && !fxmlPath.isEmpty()
-     * @post La scena corrente viene sostituita.
-     *
-     * @param[in] event L'evento scatenante.
-     * @param[in] fxmlPath Il percorso della risorsa FXML da caricare.
+     * @brief Gestisce il cambio scena generico.
+     * 
+     * @param[in] event Evento scatenante.
+     * @param[in] fxmlPath Percorso della nuova vista.
      */
-    @FXML 
     void switchScene(ActionEvent event, String fxmlPath) throws IOException{
         //permette di cambiare scena in base al pulsante cliccato e al path fornito in fxmlPath
         //si potrebbe effettuare un salvataggio dei dati prima del passaggio
@@ -337,8 +345,7 @@ public class GestionePrestitiViewController implements Initializable {
      * Questo metodo svuota la lista visualizzata nella TableView e la ripopola
      * recuperando tutti i prestiti presenti nell'elenco. Serve per riflettere
      * visivamente eventuali modifiche (come nuove aggiunte o rimozioni).
-     * Inoltre, questo metodo salva le operazioni effettuate e ricarica l'elenco e di conseguenza la tabella
-     *
+     * 
      * @post La lista visibile (prestitiList) contiene esattamente gli elementi attuali di elencoPrestiti.
      * 
      * @throws IOException se il path passato è errato.
@@ -349,8 +356,7 @@ public class GestionePrestitiViewController implements Initializable {
     void refreshTable() throws IOException, ClassNotFoundException{
         String nPrestitiPresenti = String.valueOf(elencoPrestiti.getElencoPrestiti().size());
         prestitiPresentiLabel.setText("Prestiti Presenti: " + nPrestitiPresenti);
-        prestitoList.clear(); // 1. Cancella i dati vecchi dalla vista
-        //catalogoLibri = SalvataggioFileLibro.carica(filename);
+        prestitoList.clear();
         prestitoList.addAll(elencoPrestiti.getElencoPrestiti());
         colDataScadenza.setSortable(true);
         colDataScadenza.setSortType(TableColumn.SortType.ASCENDING);
@@ -404,6 +410,8 @@ public class GestionePrestitiViewController implements Initializable {
      *
      * @post Se l'operazione va a buon fine, un nuovo prestito viene aggiunto alla lista.
      * @post La TableView viene aggiornata per mostrare il nuovo record.
+     * 
+     * @see #refreshTable() 
      *
      * @param[in] event L'evento di click sul pulsante.
      */
@@ -482,15 +490,15 @@ public class GestionePrestitiViewController implements Initializable {
                     refreshTable();
                     aggiungiPrestitoStage.close();
                 } catch (LibroNotFoundException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
                 } catch (UtenteNotFoundException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+                    showAlert(Alert.AlertType.ERROR, "Errore generico",ex.getMessage()); //gestione delle eccezioni
                 } catch (EccezioniPrestito ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+                    showAlert(Alert.AlertType.ERROR, "Errore generico",ex.getMessage()); //gestione delle eccezioni
                 } catch (IOException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + "\n" + ex.getMessage()); //gestione delle eccezioni
                 } catch (ClassNotFoundException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + " " + ex.getMessage());
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getClass().getName() + "\n" + ex.getMessage()); //gestione delle eccezioni
                 }
             });
             
@@ -507,10 +515,12 @@ public class GestionePrestitiViewController implements Initializable {
     }
     
     /**
-     * @brief Modifica i dati di un prestito esistente (es. proroga scadenza).
+     * @brief Modifica i dati di un prestito esistente 
      *
      * @pre Un prestito deve essere selezionato nella tabella.
-     * @post I dati del prestito vengono aggiornati e la vista rinfrescata.
+     * @post I dati del prestito vengono aggiornati e la vista refreshata.
+     * 
+     * @see #refreshTable() 
      *
      * @param[in] event L'evento di click.
      */
@@ -641,20 +651,20 @@ public class GestionePrestitiViewController implements Initializable {
     /**
      * @brief Ordina i prestiti per Data di Restituzione (Scadenza).
      *
-     * Utile per visualizzare quali prestiti sono in scadenza o scaduti.
+     * Serve per visualizzare quali prestiti sono in scadenza o scaduti.
      *
      * @post La tabella visualizza i prestiti ordinati per data di fine.
+     * 
+     * @param[in] event L'evento del click
      */
     @FXML
     void handleSortReturnDate(ActionEvent event){
         //permette di ordinare in base alla data di restituzione
         //scheletro
         
-        // CIAO SONO GIACOMO, IL TREESET DEL PRESTITO DI BASE NON ORDINA PER DATA DI RESTITUZIONE 
-        // PERCHE SENNO MI SFANCULAVA I DUPLICATI. TE LO DEVI IMPLEMEMTARE DA TE.
         colDataScadenza.setSortable(true);
-        // 1. Controlla se stiamo già ordinando per questa colonna
-            // Se sì, inverti l'ordine (da ASC a DESC o viceversa)
+        //controllo se stiamo già ordinando per questa colonna
+            //in caso affermativo inverti l'ordine (da ASC a DESC)
             if (colDataScadenza.getSortType() == TableColumn.SortType.ASCENDING) {
                 colDataScadenza.setSortType(TableColumn.SortType.DESCENDING);
                 tabellaPrestiti.getSortOrder().clear();
@@ -672,18 +682,20 @@ public class GestionePrestitiViewController implements Initializable {
     /**
      * @brief Ordina i prestiti dal più recente al meno recente (Newest First).
      *
-     * Basato sulla data di inizio prestito.
+     * Visualizza la lista ordinata in base alla registrazione
      *
      * @post I prestiti appena creati appaiono in cima alla lista.
+     * 
+     * @param[in] event L'evento del click
      */
     @FXML
     void handleSortMostRecent(ActionEvent event){
         //permette di ordinare la lista dei prestiti dal più recente
         //scheletro
         colDataRegistrazione.setSortable(true);
-        // 1. Controlla se stiamo già ordinando per questa colonna
+        // controllo se stiamo già ordinando per questa colonna
         if (tabellaPrestiti.getSortOrder().contains(colDataRegistrazione)) {
-            // Se sì, inverti l'ordine (da ASC a DESC o viceversa)
+            // in caso affermativo, inverti l'ordine (da ASC a DESC)
             if (colDataRegistrazione.getSortType() == TableColumn.SortType.ASCENDING) {
                 colDataRegistrazione.setSortType(TableColumn.SortType.DESCENDING);
                 tabellaPrestiti.getSortOrder().clear();
@@ -707,16 +719,16 @@ public class GestionePrestitiViewController implements Initializable {
     }
     
     /**
-     * @brief Filtra la tabella in base al testo inserito nella barra di ricerca.
+     * @brief Filtra la tabella in base al testo inserito nella barra di ricerca e ne visualizza il risultato
      * 
-     * @param[in] event L'evento (es. pressione tasto invio o click su lente).
+     * @param[in] event L'evento (pressione tasto invio o click su Invio).
      */
    @FXML
     void handleCercaPrestito(ActionEvent event) {
         String filtro = handleCercaPrestito.getText(); 
 
         if (filtro == null || filtro.trim().isEmpty()) {
-        // Qui devi ricaricare TUTTI i libri (es. dal tuo elenco completo)
+     
             prestitoList.setAll(elencoPrestiti.getElencoPrestiti()); 
         return;
         }
@@ -729,21 +741,7 @@ public class GestionePrestitiViewController implements Initializable {
         }
         System.out.println("Ricerca libro effettuata per: " + filtro);
     }
-    
-    /**
-     * @brief Ordina i prestiti dal meno recente al più recente (Oldest First).
-     *
-     * Basato sulla data di inizio prestito.
-     *
-     * @post I prestiti più vecchi appaiono in cima alla lista.
-     
-    @FXML
-    void handleSortLatestRecent(ActionEvent event){
-        //permette di ordinare la lista dei prestiti dal meno recente
-        //scheletro
-    }
-    * */
-    
+
     /**
      * @brief Mostra una finestra di dialogo (Pop-up) all'utente.
      *

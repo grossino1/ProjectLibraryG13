@@ -1,0 +1,289 @@
+\doxysection{Gestione\+Libro.\+Catalogo\+Libri Class Reference}
+\hypertarget{class_gestione_libro_1_1_catalogo_libri}{}\label{class_gestione_libro_1_1_catalogo_libri}\index{GestioneLibro.CatalogoLibri@{GestioneLibro.CatalogoLibri}}
+
+
+Gestisce l\textquotesingle{}insieme dei libri presenti nel sistema bibliotecario.  
+
+
+
+
+Inheritance diagram for Gestione\+Libro.\+Catalogo\+Libri\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{class_gestione_libro_1_1_catalogo_libri__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Gestione\+Libro.\+Catalogo\+Libri\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{class_gestione_libro_1_1_catalogo_libri__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_gestione_libro_1_1_catalogo_libri_af999104b7b6c257b33988f1949a662b4}{Catalogo\+Libri}} ()
+\begin{DoxyCompactList}\small\item\em Costruttore di default. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_gestione_libro_1_1_catalogo_libri_a5d27c8b4831178a87f8fb11a7029fcff}{Catalogo\+Libri}} (boolean caricamento\+File, String filename)  throws IOException, Class\+Not\+Found\+Exception 
+\item 
+\mbox{\hyperlink{class_gestione_libro_1_1_libro}{Libro}} \mbox{\hyperlink{class_gestione_libro_1_1_catalogo_libri_aeccc9952f3a0dc82523ebd98805846b4}{get\+Libro\+By\+ISBN}} (String isbn)
+\begin{DoxyCompactList}\small\item\em Cerca un libro specifico tramite il suo codice ISBN. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestione_libro_1_1_catalogo_libri_a43a02d35f2962f735ed0c01916d0af1a}{registrazione\+Libro}} (\mbox{\hyperlink{class_gestione_libro_1_1_libro}{Libro}} l)  throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_i_s_b_n_not_valid_exception}{ISBNNot\+Valid\+Exception}}, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_presente_exception}{Libro\+Presente\+Exception}}, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception}{Libro\+Not\+Found\+Exception}}, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_catalogo_pieno_exception}{Catalogo\+Pieno\+Exception}}, IOException 
+\begin{DoxyCompactList}\small\item\em Registra un nuovo libro nel catalogo. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestione_libro_1_1_catalogo_libri_ab2bca61752c734de3549fd5a46d1cee5}{eliminazione\+Libro}} (\mbox{\hyperlink{class_gestione_libro_1_1_libro}{Libro}} l)  throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception}{Libro\+Not\+Found\+Exception}}, IOException, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_with_prestito_exception}{Libro\+With\+Prestito\+Exception}}
+\begin{DoxyCompactList}\small\item\em Rimuove un libro dal catalogo. \end{DoxyCompactList}\item 
+Array\+List$<$ \mbox{\hyperlink{class_gestione_libro_1_1_libro}{Libro}} $>$ \mbox{\hyperlink{class_gestione_libro_1_1_catalogo_libri_a9b45c9866acd0119d0de0ffae69e619f}{cerca\+Libro}} (String l)  throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception}{Libro\+Not\+Found\+Exception}} 
+\begin{DoxyCompactList}\small\item\em Cerca libri in base a una stringa generica (Titolo, Autore o ISBN). \end{DoxyCompactList}\item 
+Array\+List$<$ \mbox{\hyperlink{class_gestione_libro_1_1_libro}{Libro}} $>$ \mbox{\hyperlink{class_gestione_libro_1_1_catalogo_libri_a31f353e71160defd4cb149f855497710}{get\+Catalogo\+Libri}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce una copia dell\textquotesingle{}intero catalogo come lista. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gestione_libro_1_1_catalogo_libri_a5c845fe807e5c10d9deb31f87c2761ac}{modifica\+Libro}} (\mbox{\hyperlink{class_gestione_libro_1_1_libro}{Libro}} l, String titolo, String autori, int anno\+Pubblicazione, int numero\+Copie)  throws IOException, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception}{Libro\+Not\+Found\+Exception}} 
+\begin{DoxyCompactList}\small\item\em Modifica le informazioni del libro. \end{DoxyCompactList}\item 
+String \mbox{\hyperlink{class_gestione_libro_1_1_catalogo_libri_ad008c81e752fef9b9f09f46c08dd21e3}{to\+String}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce una rappresentazione testuale dell\textquotesingle{}oggetto \doxylink{class_gestione_libro_1_1_catalogo_libri}{Catalogo\+Libri}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Gestisce l\textquotesingle{}insieme dei libri presenti nel sistema bibliotecario. 
+
+Questa classe funge da container principale per gli oggetti di tipo \doxylink{class_gestione_libro_1_1_libro}{Libro}. Utilizza internamente un {\ttfamily Tree\+Set} per mantenere i libri ordinati secondo il loro ordinamento naturale (definito in \doxylink{class_gestione_libro_1_1_libro_ada9d5af6b64a175f603a5f94eefe4fcc}{Libro.\+compare\+To}) ed evitare duplicati.
+
+\begin{DoxyInvariant}{Invariant}
+catalogo\+Libri != null (Il riferimento alla collezione interna non è mai nullo). 
+
+catalogo\+Libri non contiene elementi null (Tree\+Set non accetta null).
+\end{DoxyInvariant}
+\begin{DoxyAuthor}{Author}
+grossino1 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+
+
+\label{doc-constructors}
+\Hypertarget{class_gestione_libro_1_1_catalogo_libri_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_gestione_libro_1_1_catalogo_libri_af999104b7b6c257b33988f1949a662b4}\index{GestioneLibro.CatalogoLibri@{GestioneLibro.CatalogoLibri}!CatalogoLibri@{CatalogoLibri}}
+\index{CatalogoLibri@{CatalogoLibri}!GestioneLibro.CatalogoLibri@{GestioneLibro.CatalogoLibri}}
+\doxysubsubsection{\texorpdfstring{CatalogoLibri()}{CatalogoLibri()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_gestione_libro_1_1_catalogo_libri_af999104b7b6c257b33988f1949a662b4} 
+Gestione\+Libro.\+Catalogo\+Libri.\+Catalogo\+Libri (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Costruttore di default. 
+
+\Hypertarget{class_gestione_libro_1_1_catalogo_libri_a5d27c8b4831178a87f8fb11a7029fcff}\index{GestioneLibro.CatalogoLibri@{GestioneLibro.CatalogoLibri}!CatalogoLibri@{CatalogoLibri}}
+\index{CatalogoLibri@{CatalogoLibri}!GestioneLibro.CatalogoLibri@{GestioneLibro.CatalogoLibri}}
+\doxysubsubsection{\texorpdfstring{CatalogoLibri()}{CatalogoLibri()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_gestione_libro_1_1_catalogo_libri_a5d27c8b4831178a87f8fb11a7029fcff} 
+Gestione\+Libro.\+Catalogo\+Libri.\+Catalogo\+Libri (\begin{DoxyParamCaption}\item[{boolean}]{caricamento\+File}{, }\item[{String}]{filename}{}\end{DoxyParamCaption}) throws IOException, Class\+Not\+Found\+Exception\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_gestione_libro_1_1_catalogo_libri_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_gestione_libro_1_1_catalogo_libri_a9b45c9866acd0119d0de0ffae69e619f}\index{GestioneLibro.CatalogoLibri@{GestioneLibro.CatalogoLibri}!cercaLibro@{cercaLibro}}
+\index{cercaLibro@{cercaLibro}!GestioneLibro.CatalogoLibri@{GestioneLibro.CatalogoLibri}}
+\doxysubsubsection{\texorpdfstring{cercaLibro()}{cercaLibro()}}
+{\footnotesize\ttfamily \label{class_gestione_libro_1_1_catalogo_libri_a9b45c9866acd0119d0de0ffae69e619f} 
+Array\+List$<$ \mbox{\hyperlink{class_gestione_libro_1_1_libro}{Libro}} $>$ Gestione\+Libro.\+Catalogo\+Libri.\+cerca\+Libro (\begin{DoxyParamCaption}\item[{String}]{l}{}\end{DoxyParamCaption}) throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception}{Libro\+Not\+Found\+Exception}}\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Cerca libri in base a una stringa generica (Titolo, Autore o ISBN). 
+
+Restituisce una lista di libri che corrispondono alla ricerca. Nota\+: Restituisce un Array\+List invece di un Set per gestire potenziali omonimie.
+
+\begin{DoxyPrecond}{Precondition}
+l != null 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+La lista restituita.
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em l} & La stringa di ricerca. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Array\+List$<$\+Libro$>$ contenente i risultati della ricerca. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception}{Libro\+Not\+Found\+Exception}} & se un libro non viene trovato \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_gestione_libro_1_1_catalogo_libri_ab2bca61752c734de3549fd5a46d1cee5}\index{GestioneLibro.CatalogoLibri@{GestioneLibro.CatalogoLibri}!eliminazioneLibro@{eliminazioneLibro}}
+\index{eliminazioneLibro@{eliminazioneLibro}!GestioneLibro.CatalogoLibri@{GestioneLibro.CatalogoLibri}}
+\doxysubsubsection{\texorpdfstring{eliminazioneLibro()}{eliminazioneLibro()}}
+{\footnotesize\ttfamily \label{class_gestione_libro_1_1_catalogo_libri_ab2bca61752c734de3549fd5a46d1cee5} 
+void Gestione\+Libro.\+Catalogo\+Libri.\+eliminazione\+Libro (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_gestione_libro_1_1_libro}{Libro}}}]{l}{}\end{DoxyParamCaption}) throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception}{Libro\+Not\+Found\+Exception}}, IOException, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_with_prestito_exception}{Libro\+With\+Prestito\+Exception}}\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Rimuove un libro dal catalogo. 
+
+\begin{DoxyPrecond}{Precondition}
+l != null. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Il libro specificato non è più presente nel catalogo. 
+
+Se il libro non c\textquotesingle{}è, il catalogo resta invariato.
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em l} & L\textquotesingle{}oggetto \doxylink{class_gestione_libro_1_1_libro}{Libro} da rimuovere. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception}{Libro\+Not\+Found\+Exception}} & il libro non è presente nel catalogo \\
+\hline
+{\em IOException} & se il salvataggio fallisce \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_gestione_libro_1_1_catalogo_libri_a31f353e71160defd4cb149f855497710}\index{GestioneLibro.CatalogoLibri@{GestioneLibro.CatalogoLibri}!getCatalogoLibri@{getCatalogoLibri}}
+\index{getCatalogoLibri@{getCatalogoLibri}!GestioneLibro.CatalogoLibri@{GestioneLibro.CatalogoLibri}}
+\doxysubsubsection{\texorpdfstring{getCatalogoLibri()}{getCatalogoLibri()}}
+{\footnotesize\ttfamily \label{class_gestione_libro_1_1_catalogo_libri_a31f353e71160defd4cb149f855497710} 
+Array\+List$<$ \mbox{\hyperlink{class_gestione_libro_1_1_libro}{Libro}} $>$ Gestione\+Libro.\+Catalogo\+Libri.\+get\+Catalogo\+Libri (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce una copia dell\textquotesingle{}intero catalogo come lista. 
+
+Crea un nuovo Array\+List contenente tutti gli elementi presenti nel Tree\+Set.
+
+\begin{DoxyPostcond}{Postcondition}
+La lista restituita è una copia indipendente. 
+
+La lista mantiene lo stesso ordinamento del Tree\+Set. 
+
+La lista non è mai null (può essere vuota).
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+Un Array\+List$<$\+Libro$>$ ordinato contenente tutti i libri presenti. 
+\end{DoxyReturn}
+\Hypertarget{class_gestione_libro_1_1_catalogo_libri_aeccc9952f3a0dc82523ebd98805846b4}\index{GestioneLibro.CatalogoLibri@{GestioneLibro.CatalogoLibri}!getLibroByISBN@{getLibroByISBN}}
+\index{getLibroByISBN@{getLibroByISBN}!GestioneLibro.CatalogoLibri@{GestioneLibro.CatalogoLibri}}
+\doxysubsubsection{\texorpdfstring{getLibroByISBN()}{getLibroByISBN()}}
+{\footnotesize\ttfamily \label{class_gestione_libro_1_1_catalogo_libri_aeccc9952f3a0dc82523ebd98805846b4} 
+\mbox{\hyperlink{class_gestione_libro_1_1_libro}{Libro}} Gestione\+Libro.\+Catalogo\+Libri.\+get\+Libro\+By\+ISBN (\begin{DoxyParamCaption}\item[{String}]{isbn}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Cerca un libro specifico tramite il suo codice ISBN. 
+
+Esegue una scansione del catalogo per trovare il libro corrispondente. È essenziale per le operazioni di prestito.
+
+\begin{DoxyPrecond}{Precondition}
+isbn != null (Il codice di ricerca non può essere nullo). 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Se trovato, restituisce l\textquotesingle{}istanza del libro; altrimenti null. 
+
+Lo stato del catalogo rimane invariato (sola lettura).
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em isbn} & La stringa rappresentante il codice ISBN da cercare. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+L\textquotesingle{}oggetto \doxylink{class_gestione_libro_1_1_libro}{Libro} associato all\textquotesingle{}ISBN, oppure {\ttfamily null} se non presente. 
+\end{DoxyReturn}
+\Hypertarget{class_gestione_libro_1_1_catalogo_libri_a5c845fe807e5c10d9deb31f87c2761ac}\index{GestioneLibro.CatalogoLibri@{GestioneLibro.CatalogoLibri}!modificaLibro@{modificaLibro}}
+\index{modificaLibro@{modificaLibro}!GestioneLibro.CatalogoLibri@{GestioneLibro.CatalogoLibri}}
+\doxysubsubsection{\texorpdfstring{modificaLibro()}{modificaLibro()}}
+{\footnotesize\ttfamily \label{class_gestione_libro_1_1_catalogo_libri_a5c845fe807e5c10d9deb31f87c2761ac} 
+void Gestione\+Libro.\+Catalogo\+Libri.\+modifica\+Libro (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_gestione_libro_1_1_libro}{Libro}}}]{l}{, }\item[{String}]{titolo}{, }\item[{String}]{autori}{, }\item[{int}]{anno\+Pubblicazione}{, }\item[{int}]{numero\+Copie}{}\end{DoxyParamCaption}) throws IOException, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception}{Libro\+Not\+Found\+Exception}}\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Modifica le informazioni del libro. 
+
+La modifica avviene su tutti gli attrbuti del libro eccetto l\textquotesingle{}ISBN che non è modificabile
+
+\begin{DoxyPostcond}{Postcondition}
+L\textquotesingle{}elemento \doxylink{class_gestione_libro_1_1_libro}{Libro} viene modificato.
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em l} & il libro da modificare. \\
+\hline
+ & {\em \mbox{[}i\mbox{]}} & titolo, autori, anno\+Pubblicazione, numero\+Copie \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception}{Libro\+Not\+Found\+Exception}} & il libro non è presente nel catalogo \\
+\hline
+{\em IOException} & se il salvataggio fallisce \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_gestione_libro_1_1_catalogo_libri_a43a02d35f2962f735ed0c01916d0af1a}\index{GestioneLibro.CatalogoLibri@{GestioneLibro.CatalogoLibri}!registrazioneLibro@{registrazioneLibro}}
+\index{registrazioneLibro@{registrazioneLibro}!GestioneLibro.CatalogoLibri@{GestioneLibro.CatalogoLibri}}
+\doxysubsubsection{\texorpdfstring{registrazioneLibro()}{registrazioneLibro()}}
+{\footnotesize\ttfamily \label{class_gestione_libro_1_1_catalogo_libri_a43a02d35f2962f735ed0c01916d0af1a} 
+void Gestione\+Libro.\+Catalogo\+Libri.\+registrazione\+Libro (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_gestione_libro_1_1_libro}{Libro}}}]{l}{}\end{DoxyParamCaption}) throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_i_s_b_n_not_valid_exception}{ISBNNot\+Valid\+Exception}}, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_presente_exception}{Libro\+Presente\+Exception}}, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception}{Libro\+Not\+Found\+Exception}}, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_libri_1_1_catalogo_pieno_exception}{Catalogo\+Pieno\+Exception}}, IOException\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Registra un nuovo libro nel catalogo. 
+
+Aggiunge un libro alla collezione. Se il libro è già presente (stesso ISBN), il Set non lo duplicherà (rispettando l\textquotesingle{}equals di \doxylink{class_gestione_libro_1_1_libro}{Libro}), ma non verrà lanciato errore. L\textquotesingle{}errore viene lanciato solo se l\textquotesingle{}ISBN non è valido strutturalmente.
+
+\begin{DoxyPrecond}{Precondition}
+l != null (Non si possono inserire libri nulli). 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+catalogo\+Libri.\+contains(l) == true. 
+
+size() \texorpdfstring{$>$}{>}= old\+\_\+size().
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em l} & L\textquotesingle{}oggetto \doxylink{class_gestione_libro_1_1_libro}{Libro} da aggiungere. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \doxylink{class_eccezioni_1_1_eccezioni_libri_1_1_i_s_b_n_not_valid_exception}{ISBNNot\+Valid\+Exception}} & Se il libro ha un formato ISBN non valido. \\
+\hline
+{\em \doxylink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception}{Libro\+Not\+Found\+Exception}} & Se il libro non è presente nel catalogo. \\
+\hline
+{\em \doxylink{class_eccezioni_1_1_eccezioni_libri_1_1_catalogo_pieno_exception}{Catalogo\+Pieno\+Exception}} & Se il catalogo ha raggiunto la capienza massima. \\
+\hline
+{\em IOException} & Se il salvataggio fallisce. \\
+\hline
+{\em \doxylink{class_eccezioni_1_1_eccezioni_libri_1_1_libro_presente_exception}{Libro\+Presente\+Exception}} & Se il libro è già presente nel catalogo. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_gestione_libro_1_1_catalogo_libri_ad008c81e752fef9b9f09f46c08dd21e3}\index{GestioneLibro.CatalogoLibri@{GestioneLibro.CatalogoLibri}!toString@{toString}}
+\index{toString@{toString}!GestioneLibro.CatalogoLibri@{GestioneLibro.CatalogoLibri}}
+\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
+{\footnotesize\ttfamily \label{class_gestione_libro_1_1_catalogo_libri_ad008c81e752fef9b9f09f46c08dd21e3} 
+String Gestione\+Libro.\+Catalogo\+Libri.\+to\+String (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce una rappresentazione testuale dell\textquotesingle{}oggetto \doxylink{class_gestione_libro_1_1_catalogo_libri}{Catalogo\+Libri}. 
+
+\begin{DoxyPostcond}{Postcondition}
+Il risultato non è mai null (restituisce sempre una stringa, anche vuota).
+\end{DoxyPostcond}
+\begin{DoxyReturn}{Returns}
+Una stringa contenente la descrizione completa del catalogo. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/\+Gestione\+Libro/\mbox{\hyperlink{_catalogo_libri_8java}{Catalogo\+Libri.\+java}}\end{DoxyCompactItemize}
