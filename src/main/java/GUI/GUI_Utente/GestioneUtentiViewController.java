@@ -16,6 +16,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -136,14 +137,33 @@ public class GestioneUtentiViewController implements Initializable {
         colCognome.setCellValueFactory(new PropertyValueFactory<>("cognome"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("emailIstituzionale"));
         colPrestiti.setCellValueFactory(cellData -> {
-            Utente p = cellData.getValue();
-            if (p != null) {
-                // Chiama il metodo toString() dell'oggetto Prestito
-                return new SimpleStringProperty(p.getListaPrestiti().toString());
-            } else {
-                return new SimpleStringProperty("");
+            Utente utente = cellData.getValue();
+            // 1. Controllo di sicurezza: se l'utente è null o non ha prestiti
+            if (utente == null || utente.getListaPrestiti().isEmpty()) {
+                return new SimpleStringProperty("Nessun prestito");
             }
+
+            // 2. Stream per formattare i dati
+            String testoFormattato = utente.getListaPrestiti().stream()
+            .map(prestito -> {
+                // A. Recuperiamo l'ISBN
+                String isbn = prestito.getISBNLibro(); 
+            
+                // B. Recuperiamo e formattiamo la data (per renderla leggibile)
+                // Se la tua data è una stringa usa direttamente quella.
+                // Se è un oggetto (Calendar/Date), qui la rendiamo carina:
+                String dataScadenza = String.valueOf(prestito.getDataRestituzione()); 
+            
+                // C. Costruiamo la stringa per il SINGOLO prestito
+                // Esempio output: "ISBN: 97888... | Restituzione: 13/01/2026"
+                return "ISBN: " + isbn + "  (Scadenza: " + dataScadenza + ")";
+            })
+            .collect(Collectors.joining("\n")); // <--- Questo va a capo per ogni prestito!
+
+            // 3. Restituisce la stringa completa
+            return new SimpleStringProperty(testoFormattato);
         });
+        
         colNPrestitiAttivi.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getListaPrestiti().size()).asObject());
         colDataReg.setCellValueFactory(new PropertyValueFactory<>("dataReg"));
         
