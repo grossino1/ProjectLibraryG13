@@ -33,13 +33,13 @@ public class ListaUtentiTest {
     private Utente u2;
     private final String NOME_VALIDO_U2 = "Chiara";
     private final String COGNOME_VALIDO_U2 = "Bianchi";
-    private final String MATRICOLA_VALIDA_U2 = "0987654321";
+    private final String MATRICOLA_VALIDA_U2 = "1234509876";
     private final String EMAIL_VALIDA_U2 = "c.bianchi@studenti.unisa.it";
     
     private Utente u3;
     private final String NOME_VALIDO_U3 = "Aurora";
     private final String COGNOME_VALIDO_U3 = "Rossetti";
-    private final String MATRICOLA_VALIDA_U3 = "1234509876";
+    private final String MATRICOLA_VALIDA_U3 = "0987654321";
     private final String EMAIL_VALIDA_U3 = "a.rossetti@studenti.unisa.it";
     
     private final String TEST_FILENAME = "test_listaUtenti.txt";
@@ -230,7 +230,7 @@ public class ListaUtentiTest {
         listaUtenti.registrazioneUtente(u2); // Bianchi
         listaUtenti.registrazioneUtente(u3); // Rossetti
         
-        // Ricerca parziale per Cognome "ros" -> devo ottenere u1 e u3
+        // Ricerca parziale per Cognome "ros" -> Deve restituire u1 e u3
         ArrayList<Utente> risultatiCognome = listaUtenti.cercaUtente("ros");
         
         assertEquals(2, risultatiCognome.size(), "Dovrebbe trovare due utenti (Rossi e Rossetti)");
@@ -238,12 +238,18 @@ public class ListaUtentiTest {
         assertTrue(risultatiCognome.contains(u3));
         assertFalse(risultatiCognome.contains(u2));
         
-        // Ricerca parziale per Matricola "098765" (completa o parziale) -> devo ottenere u2
+        // Ricerca per Nome "Mario" (Parziale o completa) -> Deve restituire u2
+        ArrayList<Utente> risultatiNome = listaUtenti.cercaUtente("Chiara");
+
+        assertEquals(1, risultatiNome.size(), "Dovrebbe trovare un utente con nome Chiara");
+        assertTrue(risultatiNome.contains(u2));
+        
+        // Ricerca parziale per Matricola "098765" (completa o parziale) -> Deve restituire u3
         ArrayList<Utente> risultatiMatricola = listaUtenti.cercaUtente("098765");
         assertEquals(1, risultatiMatricola.size());
-        assertEquals(u2, risultatiMatricola.get(0));
+        assertEquals(u3, risultatiMatricola.get(0));
         
-        // Ricerca case-insensitive "ROSSI"
+        // Ricerca case-insensitive "ROSSI" -> Deve restituire u1
         ArrayList<Utente> risultatiCase = listaUtenti.cercaUtente("ROSSI");
         assertEquals(1, risultatiCase.size());
         assertEquals(u1, risultatiCase.get(0));

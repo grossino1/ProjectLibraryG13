@@ -220,7 +220,7 @@ public class ListaUtenti implements Serializable{
     }
     
     /**
-     * @brief Cerca utenti in base a una Stringa generica che rappresenta il Cognome o la Matricola.
+     * @brief Cerca utenti in base a una Stringa generica che rappresenta il Cognome, il Nome o la Matricola.
      *
      * @pre u != null (La stringa di ricerca non deve essere nulla).
      * @post La lista restituita non è mai null (può essere vuota).
@@ -246,10 +246,11 @@ public class ListaUtenti implements Serializable{
     for (Utente utente : listaUtenti) {
         // Recupero i valori e li converto in minuscolo per il confronto
         String cognomeLower = utente.getCognome().toLowerCase();
+        String nomeLower = utente.getNome().toLowerCase();
         String matricolaLower = utente.getMatricola().toLowerCase();
 
         // Controllo se il Cognome O la Matricola INIZIANO con la stringa cercata
-        if (cognomeLower.startsWith(utenteCercato) || matricolaLower.startsWith(utenteCercato)) {
+        if (cognomeLower.startsWith(utenteCercato) || nomeLower.startsWith(utenteCercato) || matricolaLower.startsWith(utenteCercato)) {
             // Se un utente corrisponde ai criteri allora viene aggiunto all'interno dell'ArrayList
             listaRicerca.add(utente);
         }            
