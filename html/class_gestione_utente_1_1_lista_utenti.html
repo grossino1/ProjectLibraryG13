@@ -128,6 +128,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a274c6d5a7aba5c19e550bf48c55cbe8e" id="r_a274c6d5a7aba5c19e550bf48c55cbe8e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a274c6d5a7aba5c19e550bf48c55cbe8e">eliminazioneUtente</a> (<a class="el" href="class_gestione_utente_1_1_utente.html">Utente</a> u)  throws <a class="el" href="class_eccezioni_1_1_eccezioni_utenti_1_1_utente_not_found_exception.html">UtenteNotFoundException</a>, IOException, <a class="el" href="class_eccezioni_1_1_eccezioni_utenti_1_1_utente_with_prestito_exception.html">UtenteWithPrestitoException</a> </td></tr>
 <tr class="memdesc:a274c6d5a7aba5c19e550bf48c55cbe8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rimuove un utente dal sistema.  <br /></td></tr>
 <tr class="memitem:a7212cf9e62aa766bdb59a7598ee6eed5" id="r_a7212cf9e62aa766bdb59a7598ee6eed5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7212cf9e62aa766bdb59a7598ee6eed5">modificaUtente</a> (<a class="el" href="class_gestione_utente_1_1_utente.html">Utente</a> u, String nome, String cognome, String emailIstituzionale)  throws IOException</td></tr>
+<tr class="memdesc:a7212cf9e62aa766bdb59a7598ee6eed5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifica i dati dell'utente specificato e salva lo stato corrente su file.  <br /></td></tr>
 <tr class="memitem:a25409b622ff621d6c65d973797456678" id="r_a25409b622ff621d6c65d973797456678"><td class="memItemLeft" align="right" valign="top">ArrayList&lt; <a class="el" href="class_gestione_utente_1_1_utente.html">Utente</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25409b622ff621d6c65d973797456678">cercaUtente</a> (String u)  throws <a class="el" href="class_eccezioni_1_1_eccezioni_utenti_1_1_utente_not_found_exception.html">UtenteNotFoundException</a></td></tr>
 <tr class="memdesc:a25409b622ff621d6c65d973797456678"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cerca utenti in base a una Stringa generica che rappresenta il Cognome, il Nome o la Matricola.  <br /></td></tr>
 <tr class="memitem:a3b63c9e228fdb77e7450fd5519814d3f" id="r_a3b63c9e228fdb77e7450fd5519814d3f"><td class="memItemLeft" align="right" valign="top">ArrayList&lt; <a class="el" href="class_gestione_utente_1_1_utente.html">Utente</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3b63c9e228fdb77e7450fd5519814d3f">getListaUtenti</a> ()</td></tr>
@@ -138,7 +139,7 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Gestisce l'insieme di tutti gli utenti registrati. </p>
 <dl class="section author"><dt>Author</dt><dd>chiara</dd></dl>
-<p>Questa classe agisce come contenitore principale per gli oggetti <a class="el" href="class_gestione_utente_1_1_utente.html">Utente</a>. Utilizza un <span class="tt">TreeSet</span> per garantire che gli utenti siano sempre ordinati (per cognome e nome, come definito in <a class="el" href="class_gestione_utente_1_1_utente.html#aa720d668dc8afc6e4f49bb9c459ffa3f">Utente.compareTo</a>) e che non ci siano duplicati.</p>
+<p>Questa classe agisce come contenitore principale per gli oggetti <a class="el" href="class_gestione_utente_1_1_utente.html">Utente</a>. Utilizza un <span class="tt">TreeSet</span> per garantire che gli utenti siano sempre ordinati (per cognome e nome, come definito in <a class="el" href="class_gestione_utente_1_1_utente.html#aa720d668dc8afc6e4f49bb9c459ffa3f" title="Confronta questo utente con un altro in base all&#39;ordinamento alfabetico. L&#39;ordinamento avviene prima ...">Utente.compareTo</a>) e che non ci siano duplicati.</p>
 <dl class="section invariant"><dt>Invariant</dt><dd>listaUtenti != null (La struttura dati interna è sempre inizializzata). </dd>
 <dd>
 listaUtenti non contiene valori null.</dd></dl>
@@ -200,7 +201,20 @@ listaUtenti non contiene valori null.</dd></dl>
 </div><div class="memdoc">
 
 <p>Costruttore predefinito. </p>
-<dl class="section post"><dt>Postcondition</dt><dd>listaUtenti != null &amp;&amp; listaUtenti.isEmpty() </dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>listaUtenti != null &amp;&amp; listaUtenti.isEmpty()</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">caricamentoFile</td><td><ul>
+<li>True: il programma cercherà di leggere i dati dal disco.<ul>
+<li>False: il programma crea una lista nuova vuota. </li>
+</ul>
+</li>
+</ul>
+</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">filename</td><td>nome del file in cui salvare la listaUtenti serializzare. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -278,13 +292,15 @@ listaUtenti non contiene valori null.</dd></dl>
 Se l'utente passato come parametro non è presente all'interno della lista, essa resta invariata.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>L'oggetto da rimuovere (deve essere un'istanza di <a class="el" href="class_gestione_utente_1_1_utente.html" title="Rappresenta un utente registrato nel sistema bibliotecario.">Utente</a>). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>L'oggetto da rimuovere (deve essere un'istanza di <a class="el" href="class_gestione_utente_1_1_utente.html" title="Rappresenta un utente registrato nel sistema bibliotecario.">Utente</a>).</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">IllegalArgumentException</td><td>Se l'utente inserito come parametro è nullo. </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_eccezioni_1_1_eccezioni_utenti_1_1_utente_with_prestito_exception.html" title="Eccezione lanciata quando si vuole eliminare un utente con un prestito attivo.">UtenteWithPrestitoException</a></td><td>Se l'utente ha dei prestiti attivi non può essere eliminato. </td></tr>
+    <tr><td class="paramname">IOException</td><td>Se si verifica un errore di input/output durante la scrittura sul file. </td></tr>
   </table>
   </dd>
 </dl>
@@ -358,13 +374,16 @@ La lista non è mai null (può essere vuota).</dd></dl>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>L'oggetto <a class="el" href="class_gestione_utente_1_1_utente.html" title="Rappresenta un utente registrato nel sistema bibliotecario.">Utente</a> corrispondente se trovato, altrimenti <span class="tt">null</span>. </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
+<dl class="section return"><dt>Returns</dt><dd>L'oggetto <a class="el" href="class_gestione_utente_1_1_utente.html" title="Rappresenta un utente registrato nel sistema bibliotecario.">Utente</a> corrispondente se trovato, altrimenti <span class="tt">null</span>.</dd></dl>
+<ul>
+<li><dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">IllegalArgumentException</td><td>Se la matricola inserita come parametro è nullo. </td></tr>
   </table>
   </dd>
 </dl>
+</li>
+</ul>
 
 </div>
 </div>
@@ -404,19 +423,20 @@ La lista non è mai null (può essere vuota).</dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Modifica i dati dell'utente specificato e salva lo stato corrente su file.</p>
-<p>Questo metodo aggiorna i campi dell'oggetto <code class="JavaDocCode">Utente</code> passato come parametro (reimpostando i valori correnti) e successivamente invoca il metodo statico di salvataggio per persistere le modifiche nel file specificato.</p>
+
+<p>Modifica i dati dell'utente specificato e salva lo stato corrente su file. </p>
+<p>Questo metodo aggiorna i campi dell'oggetto <a class="el" href="class_gestione_utente_1_1_utente.html" title="Rappresenta un utente registrato nel sistema bibliotecario.">Utente</a> passato come parametro (reimpostando i valori correnti) e successivamente invoca il metodo statico di salvataggio per persistere le modifiche nel file specificato.</p>
 <dl class="section pre"><dt>Precondition</dt><dd>(u != null) L'utente da modificare non può essere nullo.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">u</td><td>L'oggetto <code class="JavaDocCode">Utente</code> da modificare. Non deve essere null. </td></tr>
-    <tr><td class="paramname">nomeFile</td><td>Il nome (o percorso) del file su cui effettuare il salvataggio dei dati. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>L'oggetto <a class="el" href="class_gestione_utente_1_1_utente.html" title="Rappresenta un utente registrato nel sistema bibliotecario.">Utente</a> da modificare. Non deve essere null. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">nomeFile</td><td>Il nome (o percorso) del file su cui effettuare il salvataggio dei dati. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">IllegalArgumentException</td><td>Se l'oggetto <code class="JavaDocCode">Utente</code> passato è <code class="JavaDocCode">null</code>. </td></tr>
+    <tr><td class="paramname">IllegalArgumentException</td><td>Se l'oggetto <a class="el" href="class_gestione_utente_1_1_utente.html" title="Rappresenta un utente registrato nel sistema bibliotecario.">Utente</a> passato è null. </td></tr>
     <tr><td class="paramname">IOException</td><td>Se si verifica un errore di input/output durante la scrittura sul file. </td></tr>
   </table>
   </dd>
@@ -455,10 +475,7 @@ La lista non è mai null (può essere vuota).</dd></dl>
 size() &gt;= old_size().</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>L'oggetto <a class="el" href="class_gestione_utente_1_1_utente.html" title="Rappresenta un utente registrato nel sistema bibliotecario.">Utente</a> da registrare.<ul>
-<li></li>
-</ul>
-</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">u</td><td>L'oggetto <a class="el" href="class_gestione_utente_1_1_utente.html" title="Rappresenta un utente registrato nel sistema bibliotecario.">Utente</a> da registrare.</td></tr>
   </table>
   </dd>
 </dl>

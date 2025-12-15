@@ -99,9 +99,9 @@ Inheritance diagram for Autenticazione.Bibliotecario:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_autenticazione_1_1_bibliotecario__inherit__graph.png" border="0" usemap="#a_autenticazione_8_bibliotecario_inherit__map" loading="lazy" alt="Inheritance graph"/></div>
 <map name="a_autenticazione_8_bibliotecario_inherit__map" id="a_autenticazione_8_bibliotecario_inherit__map">
-<area shape="rect" title="Rappresenta l&#39;utente con privilegi amministrativi (Librarian)." alt="" coords="5,120,177,247"/>
+<area shape="rect" title="Rappresenta l&#39;utente con privilegi amministrativi (Librarian)." alt="" coords="5,120,177,288"/>
 <area shape="rect" title=" " alt="" coords="52,5,130,72"/>
-<area shape="poly" title=" " alt="" coords="92,84,94,121,89,120,90,89"/>
+<area shape="poly" title=" " alt="" coords="92,84,94,120,89,119,90,89"/>
 </map>
 </div>
 <div class="dynheader">
@@ -109,9 +109,9 @@ Collaboration diagram for Autenticazione.Bibliotecario:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_autenticazione_1_1_bibliotecario__coll__graph.png" border="0" usemap="#a_autenticazione_8_bibliotecario_coll__map" loading="lazy" alt="Collaboration graph"/></div>
 <map name="a_autenticazione_8_bibliotecario_coll__map" id="a_autenticazione_8_bibliotecario_coll__map">
-<area shape="rect" title="Rappresenta l&#39;utente con privilegi amministrativi (Librarian)." alt="" coords="5,120,177,247"/>
+<area shape="rect" title="Rappresenta l&#39;utente con privilegi amministrativi (Librarian)." alt="" coords="5,120,177,288"/>
 <area shape="rect" title=" " alt="" coords="52,5,130,72"/>
-<area shape="poly" title=" " alt="" coords="92,84,94,121,89,120,90,89"/>
+<area shape="poly" title=" " alt="" coords="92,84,94,120,89,119,90,89"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -123,6 +123,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a1134f7d4cc2742b566f824dc425e6537"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce lo username.  <br /></td></tr>
 <tr class="memitem:a6d66b94d85148991ad054d19dd97029b" id="r_a6d66b94d85148991ad054d19dd97029b"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d66b94d85148991ad054d19dd97029b">getPassword</a> ()</td></tr>
 <tr class="memdesc:a6d66b94d85148991ad054d19dd97029b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce la password.  <br /></td></tr>
+<tr class="memitem:a6ed361ec86fe071d80e4ce4a27b97114" id="r_a6ed361ec86fe071d80e4ce4a27b97114"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ed361ec86fe071d80e4ce4a27b97114">setUsername</a> (String username)</td></tr>
+<tr class="memdesc:a6ed361ec86fe071d80e4ce4a27b97114"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce lo username.  <br /></td></tr>
+<tr class="memitem:a9f29ab862e2013a7a576566e08c005e2" id="r_a9f29ab862e2013a7a576566e08c005e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9f29ab862e2013a7a576566e08c005e2">setPassword</a> (String password)</td></tr>
+<tr class="memdesc:a9f29ab862e2013a7a576566e08c005e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce la password.  <br /></td></tr>
 <tr class="memitem:a9a86681a492b85a53358fc9705fd4cca" id="r_a9a86681a492b85a53358fc9705fd4cca"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a86681a492b85a53358fc9705fd4cca">login</a> (String user, String pass)  throws <a class="el" href="class_eccezioni_1_1_eccezioni_autenticazione_1_1_username_field_empty_exception.html">UsernameFieldEmptyException</a>, <a class="el" href="class_eccezioni_1_1_eccezioni_autenticazione_1_1_password_field_empty_exception.html">PasswordFieldEmptyException</a>, <a class="el" href="class_eccezioni_1_1_eccezioni_autenticazione_1_1_login_credentials_not_valid_exception.html">LoginCredentialsNotValidException</a></td></tr>
 <tr class="memdesc:a9a86681a492b85a53358fc9705fd4cca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Verifica le credenziali di accesso (Login).  <br /></td></tr>
 </table>
@@ -275,6 +279,62 @@ pass != null</dd></dl>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true se user e pass coincidono con quelli del bibliotecario, false altrimenti. </dd></dl>
+
+</div>
+</div>
+<a id="a9f29ab862e2013a7a576566e08c005e2" name="a9f29ab862e2013a7a576566e08c005e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f29ab862e2013a7a576566e08c005e2">&#9670;&#160;</a></span>setPassword()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Autenticazione.Bibliotecario.setPassword </td>
+          <td>(</td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>password</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Restituisce la password. </p>
+<dl class="section return"><dt>Returns</dt><dd>La stringa della password. </dd></dl>
+
+</div>
+</div>
+<a id="a6ed361ec86fe071d80e4ce4a27b97114" name="a6ed361ec86fe071d80e4ce4a27b97114"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ed361ec86fe071d80e4ce4a27b97114">&#9670;&#160;</a></span>setUsername()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Autenticazione.Bibliotecario.setUsername </td>
+          <td>(</td>
+          <td class="paramtype">String</td>          <td class="paramname"><span class="paramname"><em>username</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Restituisce lo username. </p>
+<dl class="section return"><dt>Returns</dt><dd>La stringa dello username. </dd></dl>
 
 </div>
 </div>

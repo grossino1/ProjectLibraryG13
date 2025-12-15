@@ -1,5 +1,9 @@
 var NAVTREEINDEX1 =
 {
+"class_gestione_libro_1_1_libro.html#a3e67bf9d1ad159186e280f9f8e9872f6":[1,0,2,1,5],
+"class_gestione_libro_1_1_libro.html#a59373aae02f5cfa2d0f9f9df3defc978":[0,0,3,1,16],
+"class_gestione_libro_1_1_libro.html#a59373aae02f5cfa2d0f9f9df3defc978":[1,0,2,1,16],
+"class_gestione_libro_1_1_libro.html#a5f73b6bb06268e4028e79d5a117165d0":[0,0,3,1,15],
 "class_gestione_libro_1_1_libro.html#a5f73b6bb06268e4028e79d5a117165d0":[1,0,2,1,15],
 "class_gestione_libro_1_1_libro.html#a66d59b5726287d548a7e3b54b1e68265":[0,0,3,1,14],
 "class_gestione_libro_1_1_libro.html#a66d59b5726287d548a7e3b54b1e68265":[1,0,2,1,14],
@@ -245,9 +249,5 @@ var NAVTREEINDEX1 =
 "class_gestione_utente_1_1_lista_utenti.html#ae5cec2c795a360ac808b3afaecf7f5bd":[1,0,6,0,8],
 "class_gestione_utente_1_1_lista_utenti.html#ae84b4c7d9a2b375a8ef51921e6242585":[0,0,7,0,5],
 "class_gestione_utente_1_1_lista_utenti.html#ae84b4c7d9a2b375a8ef51921e6242585":[1,0,6,0,5],
-"class_gestione_utente_1_1_lista_utenti.html#af3df2c83c73a7ec839c250bb82531a40":[0,0,7,0,1],
-"class_gestione_utente_1_1_lista_utenti.html#af3df2c83c73a7ec839c250bb82531a40":[1,0,6,0,1],
-"class_gestione_utente_1_1_utente.html":[0,0,7,1],
-"class_gestione_utente_1_1_utente.html":[1,0,6,1],
-"class_gestione_utente_1_1_utente.html#a0d2c11ee925496bee59c2c20467ae8da":[0,0,7,1,8]
+"class_gestione_utente_1_1_lista_utenti.html#af3df2c83c73a7ec839c250bb82531a40":[0,0,7,0,1]
 };
