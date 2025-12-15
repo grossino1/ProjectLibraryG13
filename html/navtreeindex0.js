@@ -61,8 +61,12 @@ var NAVTREEINDEX0 =
 "class_autenticazione_1_1_bibliotecario.html#a3f2708c24847a6a9c9df03c93fba15f4":[1,0,0,0,0],
 "class_autenticazione_1_1_bibliotecario.html#a6d66b94d85148991ad054d19dd97029b":[0,0,0,0,1],
 "class_autenticazione_1_1_bibliotecario.html#a6d66b94d85148991ad054d19dd97029b":[1,0,0,0,1],
+"class_autenticazione_1_1_bibliotecario.html#a6ed361ec86fe071d80e4ce4a27b97114":[0,0,0,0,5],
+"class_autenticazione_1_1_bibliotecario.html#a6ed361ec86fe071d80e4ce4a27b97114":[1,0,0,0,5],
 "class_autenticazione_1_1_bibliotecario.html#a9a86681a492b85a53358fc9705fd4cca":[0,0,0,0,3],
 "class_autenticazione_1_1_bibliotecario.html#a9a86681a492b85a53358fc9705fd4cca":[1,0,0,0,3],
+"class_autenticazione_1_1_bibliotecario.html#a9f29ab862e2013a7a576566e08c005e2":[0,0,0,0,4],
+"class_autenticazione_1_1_bibliotecario.html#a9f29ab862e2013a7a576566e08c005e2":[1,0,0,0,4],
 "class_eccezioni_1_1_eccezioni_autenticazione_1_1_eccezione_autenticazione.html":[0,0,2,0,0],
 "class_eccezioni_1_1_eccezioni_autenticazione_1_1_eccezione_autenticazione.html":[1,0,1,0,0],
 "class_eccezioni_1_1_eccezioni_autenticazione_1_1_eccezione_autenticazione.html#a64868ebf81af407d3ec27a41dc486c59":[0,0,2,0,0,0],
@@ -245,9 +249,5 @@ var NAVTREEINDEX0 =
 "class_gestione_libro_1_1_libro.html#a2daea71e63434f0c1546cb240ed66146":[1,0,2,1,6],
 "class_gestione_libro_1_1_libro.html#a2e8b3b327b0b968c8bf684876352c9dc":[0,0,3,1,9],
 "class_gestione_libro_1_1_libro.html#a2e8b3b327b0b968c8bf684876352c9dc":[1,0,2,1,9],
-"class_gestione_libro_1_1_libro.html#a3e67bf9d1ad159186e280f9f8e9872f6":[0,0,3,1,5],
-"class_gestione_libro_1_1_libro.html#a3e67bf9d1ad159186e280f9f8e9872f6":[1,0,2,1,5],
-"class_gestione_libro_1_1_libro.html#a59373aae02f5cfa2d0f9f9df3defc978":[0,0,3,1,16],
-"class_gestione_libro_1_1_libro.html#a59373aae02f5cfa2d0f9f9df3defc978":[1,0,2,1,16],
-"class_gestione_libro_1_1_libro.html#a5f73b6bb06268e4028e79d5a117165d0":[0,0,3,1,15]
+"class_gestione_libro_1_1_libro.html#a3e67bf9d1ad159186e280f9f8e9872f6":[0,0,3,1,5]
 };

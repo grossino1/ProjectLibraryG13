@@ -140,14 +140,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0d2c11ee925496bee59c2c20467ae8da" id="r_a0d2c11ee925496bee59c2c20467ae8da"><td class="memItemLeft" align="right" valign="top">ArrayList&lt; <a class="el" href="class_gestione_prestito_1_1_prestito.html">Prestito</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d2c11ee925496bee59c2c20467ae8da">getListaPrestiti</a> ()</td></tr>
 <tr class="memdesc:a0d2c11ee925496bee59c2c20467ae8da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce la lista dei prestiti dell'utente.  <br /></td></tr>
 <tr class="memitem:af5e1512bfc8ffe909dbb63ae3b3d56d3" id="r_af5e1512bfc8ffe909dbb63ae3b3d56d3"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5e1512bfc8ffe909dbb63ae3b3d56d3">getDataReg</a> ()</td></tr>
+<tr class="memdesc:af5e1512bfc8ffe909dbb63ae3b3d56d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce la data di registrazione dell'<a class="el" href="class_gestione_utente_1_1_utente.html" title="Rappresenta un utente registrato nel sistema bibliotecario.">Utente</a>.  <br /></td></tr>
 <tr class="memitem:a34689b9c4e298726877641d433f0b497" id="r_a34689b9c4e298726877641d433f0b497"><td class="memItemLeft" align="right" valign="top">ArrayList&lt; LocalDate &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a34689b9c4e298726877641d433f0b497">getListaDataRestituzione</a> (ArrayList&lt; <a class="el" href="class_gestione_prestito_1_1_prestito.html">Prestito</a> &gt; listaPrestiti)</td></tr>
+<tr class="memdesc:a34689b9c4e298726877641d433f0b497"><td class="mdescLeft">&#160;</td><td class="mdescRight">Genera un elenco delle date di restituzione a partire da una lista di prestiti. Il metodo itera attraverso la lista fornita ed estrae la data di restituzione da ciascun prestito.  <br /></td></tr>
 <tr class="memitem:ad8c58a3a07c808753237f4306d2a505f" id="r_ad8c58a3a07c808753237f4306d2a505f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad8c58a3a07c808753237f4306d2a505f">addPrestito</a> (<a class="el" href="class_gestione_prestito_1_1_prestito.html">Prestito</a> p)  throws <a class="el" href="class_eccezioni_1_1_eccezioni_prestiti_1_1_prestiti_esauriti_exception.html">PrestitiEsauritiException</a></td></tr>
+<tr class="memdesc:ad8c58a3a07c808753237f4306d2a505f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aggiunge un prestito alla lista dei prestiti attivi dell'utente.  <br /></td></tr>
 <tr class="memitem:a699aae2b7da2ab1afadc434302d50154" id="r_a699aae2b7da2ab1afadc434302d50154"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a699aae2b7da2ab1afadc434302d50154">rimuoviPrestito</a> (<a class="el" href="class_gestione_prestito_1_1_prestito.html">Prestito</a> p)  throws <a class="el" href="class_eccezioni_1_1_eccezioni_prestiti_1_1_prestito_non_trovato_exception.html">PrestitoNonTrovatoException</a></td></tr>
+<tr class="memdesc:a699aae2b7da2ab1afadc434302d50154"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rimuove un prestito dalla lista dei prestiti attivi dell'utente (ad esempio in caso di restituzione del materiale).  <br /></td></tr>
 <tr class="memitem:ab0f093c0aa099f908a66491a5c41d7c2" id="r_ab0f093c0aa099f908a66491a5c41d7c2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab0f093c0aa099f908a66491a5c41d7c2">hashCode</a> ()</td></tr>
 <tr class="memdesc:ab0f093c0aa099f908a66491a5c41d7c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Genera l'hash code basato sulla matricola.  <br /></td></tr>
 <tr class="memitem:af57d739b1c2413a2ee77e82f8fe904a9" id="r_af57d739b1c2413a2ee77e82f8fe904a9"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af57d739b1c2413a2ee77e82f8fe904a9">equals</a> (Object other)</td></tr>
 <tr class="memdesc:af57d739b1c2413a2ee77e82f8fe904a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Confronta due utenti per matricola, determinando se sono uguali oppure no in modo da evitare duplicati. Due utenti sono considerati uguali se possiedono la stessa matricola.  <br /></td></tr>
 <tr class="memitem:aa720d668dc8afc6e4f49bb9c459ffa3f" id="r_aa720d668dc8afc6e4f49bb9c459ffa3f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa720d668dc8afc6e4f49bb9c459ffa3f">compareTo</a> (<a class="el" href="class_gestione_utente_1_1_utente.html">Utente</a> other)</td></tr>
+<tr class="memdesc:aa720d668dc8afc6e4f49bb9c459ffa3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Confronta questo utente con un altro in base all'ordinamento alfabetico. L'ordinamento avviene prima per cognome e, in caso di parità, per nome. Nel caso in cui due utenti hanno lo stesso cognome e nome, allora si ordina per matricola.  <br /></td></tr>
 <tr class="memitem:ad4bcc8c25eb423bbf34cf46c8011a072" id="r_ad4bcc8c25eb423bbf34cf46c8011a072"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad4bcc8c25eb423bbf34cf46c8011a072">toString</a> ()</td></tr>
 <tr class="memdesc:ad4bcc8c25eb423bbf34cf46c8011a072"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restituisce una rappresentazione testuale dell'utente.  <br /></td></tr>
 </table>
@@ -211,7 +216,14 @@ listaPrestiti != null &amp;&amp; listaPrestiti.isEmpty() (La lista viene inizial
     <tr><td class="paramdir">[in]</td><td class="paramname">nome</td><td>Il nome dell'utente. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">cognome</td><td>Il cognome dell'utente. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">matricola</td><td>Il codice identificativo univoco (es. numero di matricola universitaria). </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">emailIstituzionale</td><td>L'indirizzo email dell'utente. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">emailIstituzionale</td><td>L'indirizzo email dell'utente.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IllegalArgumentException</td><td>Se la matricola passata come parametro è null. </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_eccezioni_1_1_eccezioni_utenti_1_1_matricola_not_valid_exception.html" title="Eccezione lanciata quando il formato di una matricola non è valido.">MatricolaNotValidException</a></td><td>Se la matricola passata come parametro non è valida. </td></tr>
   </table>
   </dd>
 </dl>
@@ -241,20 +253,22 @@ listaPrestiti != null &amp;&amp; listaPrestiti.isEmpty() (La lista viene inizial
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Aggiunge un prestito alla lista dei prestiti attivi dell'utente.</p>
+
+<p>Aggiunge un prestito alla lista dei prestiti attivi dell'utente. </p>
 <dl class="section pre"><dt>Precondition</dt><dd>p != null </dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>listaPrestiti.size() == old_size + 1 </dd>
 <dd>
 listaPrestiti.contains(p) == true</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">p</td><td>Il prestito da aggiungere. </td></tr>
+    <tr><td class="paramname">p</td><td>Il prestito da aggiungere.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">IllegalArgumentException</td><td>Se il prestito inserito come parametro è nullo. </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_eccezioni_1_1_eccezioni_prestiti_1_1_prestiti_esauriti_exception.html" title="Eccezione lanciata quando un utente raggiunge il limite massimo di prestiti consentiti ovvero 3 e pro...">PrestitiEsauritiException</a></td><td>Se l'utente ha già 3 prestiti attivi. </td></tr>
   </table>
   </dd>
 </dl>
@@ -283,14 +297,15 @@ listaPrestiti.contains(p) == true</dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Confronta questo utente con un altro in base all'ordinamento alfabetico. L'ordinamento avviene prima per cognome e, in caso di parità, per nome. Nel caso in cui due utenti hanno lo stesso cognome e nome, allora si ordina per matricola.</p>
+
+<p>Confronta questo utente con un altro in base all'ordinamento alfabetico. L'ordinamento avviene prima per cognome e, in caso di parità, per nome. Nel caso in cui due utenti hanno lo stesso cognome e nome, allora si ordina per matricola. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">other</td><td>L'utente da confrontare con quello corrente. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>un numero negativo se questo utente precede other <code class="JavaDocCode">other</code>, zero se sono equivalenti per ordinamento, un numero positivo se questo utente segue other <code class="JavaDocCode">other</code>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Un numero negativo se questo utente precede other, zero se sono equivalenti per ordinamento, un numero positivo se questo utente segue other. </dd></dl>
 
 </div>
 </div>
@@ -380,6 +395,9 @@ listaPrestiti.contains(p) == true</dd></dl>
 </table>
 </div><div class="memdoc">
 
+<p>Restituisce la data di registrazione dell'<a class="el" href="class_gestione_utente_1_1_utente.html" title="Rappresenta un utente registrato nel sistema bibliotecario.">Utente</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>La data di registrazione, ma in formato String. </dd></dl>
+
 </div>
 </div>
 <a id="abadf0c4a0daa71c8754a87ac95f0829b" name="abadf0c4a0daa71c8754a87ac95f0829b"></a>
@@ -432,7 +450,8 @@ listaPrestiti.contains(p) == true</dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Genera un elenco delle date di restituzione a partire da una lista di prestiti. Il metodo itera attraverso la lista fornita ed estrae la data di restituzione da ciascun prestito.</p>
+
+<p>Genera un elenco delle date di restituzione a partire da una lista di prestiti. Il metodo itera attraverso la lista fornita ed estrae la data di restituzione da ciascun prestito. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">listaPrestiti</td><td>La lista di oggetti <a class="el" href="class_gestione_prestito_1_1_prestito.html" title="Rappresenta l&#39;entità prestito all&#39;interno del sistema di gestione bibliotecaria.">Prestito</a> da elaborare. </td></tr>
@@ -579,7 +598,8 @@ listaPrestiti.contains(p) == true</dd></dl>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Rimuove un prestito dalla lista dei prestiti attivi dell'utente (ad esempio in caso di restituzione del materiale).</p>
+
+<p>Rimuove un prestito dalla lista dei prestiti attivi dell'utente (ad esempio in caso di restituzione del materiale). </p>
 <dl class="section pre"><dt>Precondition</dt><dd>p != null </dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>listaPrestiti.contains(p) == false</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -591,6 +611,7 @@ listaPrestiti.contains(p) == true</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">IllegalArgumentException</td><td>Se il prestito inserito come parametro è nullo. </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_eccezioni_1_1_eccezioni_prestiti_1_1_prestito_non_trovato_exception.html" title="Eccezione lanciata quando un prestito non viene trovato nell&#39;elenco.">PrestitoNonTrovatoException</a></td><td>Se il prestito non è presente nella lista. </td></tr>
   </table>
   </dd>
 </dl>

@@ -37,7 +37,7 @@ void \mbox{\hyperlink{class_gestione_utente_1_1_lista_utenti_ab706851463549bc6c6
 void \mbox{\hyperlink{class_gestione_utente_1_1_lista_utenti_a274c6d5a7aba5c19e550bf48c55cbe8e}{eliminazione\+Utente}} (\mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}} u)  throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_utente_not_found_exception}{Utente\+Not\+Found\+Exception}}, IOException, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_utente_with_prestito_exception}{Utente\+With\+Prestito\+Exception}} 
 \begin{DoxyCompactList}\small\item\em Rimuove un utente dal sistema. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_gestione_utente_1_1_lista_utenti_a7212cf9e62aa766bdb59a7598ee6eed5}{modifica\+Utente}} (\mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}} u, String nome, String cognome, String email\+Istituzionale)  throws IOException
-\item 
+\begin{DoxyCompactList}\small\item\em Modifica i dati dell\textquotesingle{}utente specificato e salva lo stato corrente su file. \end{DoxyCompactList}\item 
 Array\+List$<$ \mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}} $>$ \mbox{\hyperlink{class_gestione_utente_1_1_lista_utenti_a25409b622ff621d6c65d973797456678}{cerca\+Utente}} (String u)  throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_utenti_1_1_utente_not_found_exception}{Utente\+Not\+Found\+Exception}}
 \begin{DoxyCompactList}\small\item\em Cerca utenti in base a una Stringa generica che rappresenta il Cognome, il Nome o la Matricola. \end{DoxyCompactList}\item 
 Array\+List$<$ \mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}} $>$ \mbox{\hyperlink{class_gestione_utente_1_1_lista_utenti_a3b63c9e228fdb77e7450fd5519814d3f}{get\+Lista\+Utenti}} ()
@@ -93,8 +93,21 @@ Gestione\+Utente.\+Lista\+Utenti.\+Lista\+Utenti (\begin{DoxyParamCaption}\item[
 Costruttore predefinito. 
 
 \begin{DoxyPostcond}{Postcondition}
-lista\+Utenti != null \&\& lista\+Utenti.\+is\+Empty() 
+lista\+Utenti != null \&\& lista\+Utenti.\+is\+Empty()
 \end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em caricamento\+File} & 
+\begin{DoxyItemize}
+\item True\+: il programma cercherà di leggere i dati dal disco.
+\begin{DoxyItemize}
+\item False\+: il programma crea una lista nuova vuota. 
+\end{DoxyItemize}
+\end{DoxyItemize}\\
+\hline
+\mbox{\texttt{in}}  & {\em filename} & nome del file in cui salvare la lista\+Utenti serializzare. \\
+\hline
+\end{DoxyParams}
 
 
 \label{doc-func-members}
@@ -151,12 +164,16 @@ Se l\textquotesingle{}utente passato come parametro non è presente all\textquot
 \end{DoxyPostcond}
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{in}}  & {\em u} & L\textquotesingle{}oggetto da rimuovere (deve essere un\textquotesingle{}istanza di \doxylink{class_gestione_utente_1_1_utente}{Utente}). \\
+\mbox{\texttt{in}}  & {\em u} & L\textquotesingle{}oggetto da rimuovere (deve essere un\textquotesingle{}istanza di \doxylink{class_gestione_utente_1_1_utente}{Utente}).\\
 \hline
 \end{DoxyParams}
 
 \begin{DoxyExceptions}{Exceptions}
 {\em Illegal\+Argument\+Exception} & Se l\textquotesingle{}utente inserito come parametro è nullo. \\
+\hline
+{\em \doxylink{class_eccezioni_1_1_eccezioni_utenti_1_1_utente_with_prestito_exception}{Utente\+With\+Prestito\+Exception}} & Se l\textquotesingle{}utente ha dei prestiti attivi non può essere eliminato. \\
+\hline
+{\em IOException} & Se si verifica un errore di input/output durante la scrittura sul file. \\
 \hline
 \end{DoxyExceptions}
 \Hypertarget{class_gestione_utente_1_1_lista_utenti_a3b63c9e228fdb77e7450fd5519814d3f}\index{GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}!getListaUtenti@{getListaUtenti}}
@@ -205,36 +222,41 @@ Lo stato della lista rimane invariato (sola lettura).
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-L\textquotesingle{}oggetto \doxylink{class_gestione_utente_1_1_utente}{Utente} corrispondente se trovato, altrimenti {\ttfamily null}. 
+L\textquotesingle{}oggetto \doxylink{class_gestione_utente_1_1_utente}{Utente} corrispondente se trovato, altrimenti {\ttfamily null}.
 \end{DoxyReturn}
 
+\begin{DoxyItemize}
+\item 
 \begin{DoxyExceptions}{Exceptions}
 {\em Illegal\+Argument\+Exception} & Se la matricola inserita come parametro è nullo. \\
 \hline
 \end{DoxyExceptions}
-\Hypertarget{class_gestione_utente_1_1_lista_utenti_a7212cf9e62aa766bdb59a7598ee6eed5}\index{GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}!modificaUtente@{modificaUtente}}
+
+\end{DoxyItemize}\Hypertarget{class_gestione_utente_1_1_lista_utenti_a7212cf9e62aa766bdb59a7598ee6eed5}\index{GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}!modificaUtente@{modificaUtente}}
 \index{modificaUtente@{modificaUtente}!GestioneUtente.ListaUtenti@{GestioneUtente.ListaUtenti}}
 \doxysubsubsection{\texorpdfstring{modificaUtente()}{modificaUtente()}}
 {\footnotesize\ttfamily \label{class_gestione_utente_1_1_lista_utenti_a7212cf9e62aa766bdb59a7598ee6eed5} 
 void Gestione\+Utente.\+Lista\+Utenti.\+modifica\+Utente (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}}}]{u}{, }\item[{String}]{nome}{, }\item[{String}]{cognome}{, }\item[{String}]{email\+Istituzionale}{}\end{DoxyParamCaption}) throws IOException\hspace{0.3cm}{\ttfamily [inline]}}
 
-Modifica i dati dell\textquotesingle{}utente specificato e salva lo stato corrente su file.
 
-Questo metodo aggiorna i campi dell\textquotesingle{}oggetto {\ttfamily Utente} passato come parametro (reimpostando i valori correnti) e successivamente invoca il metodo statico di salvataggio per persistere le modifiche nel file specificato.
+
+Modifica i dati dell\textquotesingle{}utente specificato e salva lo stato corrente su file. 
+
+Questo metodo aggiorna i campi dell\textquotesingle{}oggetto \doxylink{class_gestione_utente_1_1_utente}{Utente} passato come parametro (reimpostando i valori correnti) e successivamente invoca il metodo statico di salvataggio per persistere le modifiche nel file specificato.
 
 \begin{DoxyPrecond}{Precondition}
 (u != null) L\textquotesingle{}utente da modificare non può essere nullo.
 \end{DoxyPrecond}
 
-\begin{DoxyParams}{Parameters}
-{\em u} & L\textquotesingle{}oggetto {\ttfamily Utente} da modificare. Non deve essere null. \\
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em u} & L\textquotesingle{}oggetto \doxylink{class_gestione_utente_1_1_utente}{Utente} da modificare. Non deve essere null. \\
 \hline
-{\em nome\+File} & Il nome (o percorso) del file su cui effettuare il salvataggio dei dati. \\
+\mbox{\texttt{in}}  & {\em nome\+File} & Il nome (o percorso) del file su cui effettuare il salvataggio dei dati. \\
 \hline
 \end{DoxyParams}
 
 \begin{DoxyExceptions}{Exceptions}
-{\em Illegal\+Argument\+Exception} & Se l\textquotesingle{}oggetto {\ttfamily Utente} passato è {\ttfamily null}. \\
+{\em Illegal\+Argument\+Exception} & Se l\textquotesingle{}oggetto \doxylink{class_gestione_utente_1_1_utente}{Utente} passato è null. \\
 \hline
 {\em IOException} & Se si verifica un errore di input/output durante la scrittura sul file. \\
 \hline
@@ -261,10 +283,7 @@ size() \texorpdfstring{$>$}{>}= old\+\_\+size().
 \end{DoxyPostcond}
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\texttt{in}}  & {\em u} & L\textquotesingle{}oggetto \doxylink{class_gestione_utente_1_1_utente}{Utente} da registrare.
-\begin{DoxyItemize}
-\item 
-\end{DoxyItemize}\\
+\mbox{\texttt{in}}  & {\em u} & L\textquotesingle{}oggetto \doxylink{class_gestione_utente_1_1_utente}{Utente} da registrare.\\
 \hline
 \end{DoxyParams}
 

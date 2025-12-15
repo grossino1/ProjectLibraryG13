@@ -7,7 +7,8 @@ Rappresenta l\textquotesingle{}utente con privilegi amministrativi (Librarian).
 
 
 
-Inheritance diagram for Autenticazione.\+Bibliotecario\+:\nopagebreak
+Inheritance diagram for Autenticazione.\+Bibliotecario\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -16,7 +17,8 @@ Inheritance diagram for Autenticazione.\+Bibliotecario\+:\nopagebreak
 \end{figure}
 
 
-Collaboration diagram for Autenticazione.\+Bibliotecario\+:\nopagebreak
+Collaboration diagram for Autenticazione.\+Bibliotecario\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -31,6 +33,10 @@ Collaboration diagram for Autenticazione.\+Bibliotecario\+:\nopagebreak
 String \mbox{\hyperlink{class_autenticazione_1_1_bibliotecario_a1134f7d4cc2742b566f824dc425e6537}{get\+Username}} ()
 \begin{DoxyCompactList}\small\item\em Restituisce lo username. \end{DoxyCompactList}\item 
 String \mbox{\hyperlink{class_autenticazione_1_1_bibliotecario_a6d66b94d85148991ad054d19dd97029b}{get\+Password}} ()
+\begin{DoxyCompactList}\small\item\em Restituisce la password. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_autenticazione_1_1_bibliotecario_a6ed361ec86fe071d80e4ce4a27b97114}{set\+Username}} (String username)
+\begin{DoxyCompactList}\small\item\em Restituisce lo username. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_autenticazione_1_1_bibliotecario_a9f29ab862e2013a7a576566e08c005e2}{set\+Password}} (String password)
 \begin{DoxyCompactList}\small\item\em Restituisce la password. \end{DoxyCompactList}\item 
 boolean \mbox{\hyperlink{class_autenticazione_1_1_bibliotecario_a9a86681a492b85a53358fc9705fd4cca}{login}} (String user, String pass)  throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_autenticazione_1_1_username_field_empty_exception}{Username\+Field\+Empty\+Exception}}, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_autenticazione_1_1_password_field_empty_exception}{Password\+Field\+Empty\+Exception}}, \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_autenticazione_1_1_login_credentials_not_valid_exception}{Login\+Credentials\+Not\+Valid\+Exception}}
 \begin{DoxyCompactList}\small\item\em Verifica le credenziali di accesso (Login). \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -141,6 +147,32 @@ pass != null
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 true se user e pass coincidono con quelli del bibliotecario, false altrimenti. 
+\end{DoxyReturn}
+\Hypertarget{class_autenticazione_1_1_bibliotecario_a9f29ab862e2013a7a576566e08c005e2}\index{Autenticazione.Bibliotecario@{Autenticazione.Bibliotecario}!setPassword@{setPassword}}
+\index{setPassword@{setPassword}!Autenticazione.Bibliotecario@{Autenticazione.Bibliotecario}}
+\doxysubsubsection{\texorpdfstring{setPassword()}{setPassword()}}
+{\footnotesize\ttfamily \label{class_autenticazione_1_1_bibliotecario_a9f29ab862e2013a7a576566e08c005e2} 
+void Autenticazione.\+Bibliotecario.\+set\+Password (\begin{DoxyParamCaption}\item[{String}]{password}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce la password. 
+
+\begin{DoxyReturn}{Returns}
+La stringa della password. 
+\end{DoxyReturn}
+\Hypertarget{class_autenticazione_1_1_bibliotecario_a6ed361ec86fe071d80e4ce4a27b97114}\index{Autenticazione.Bibliotecario@{Autenticazione.Bibliotecario}!setUsername@{setUsername}}
+\index{setUsername@{setUsername}!Autenticazione.Bibliotecario@{Autenticazione.Bibliotecario}}
+\doxysubsubsection{\texorpdfstring{setUsername()}{setUsername()}}
+{\footnotesize\ttfamily \label{class_autenticazione_1_1_bibliotecario_a6ed361ec86fe071d80e4ce4a27b97114} 
+void Autenticazione.\+Bibliotecario.\+set\+Username (\begin{DoxyParamCaption}\item[{String}]{username}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Restituisce lo username. 
+
+\begin{DoxyReturn}{Returns}
+La stringa dello username. 
 \end{DoxyReturn}
 
 

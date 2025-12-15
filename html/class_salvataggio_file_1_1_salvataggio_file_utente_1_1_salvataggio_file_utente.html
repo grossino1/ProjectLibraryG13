@@ -106,14 +106,14 @@ Collaboration diagram for SalvataggioFile.SalvataggioFileUtente.SalvataggioFileU
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:afebb4297b94ab468eb519267718960ce" id="r_afebb4297b94ab468eb519267718960ce"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afebb4297b94ab468eb519267718960ce">salva</a> (<a class="el" href="class_gestione_utente_1_1_lista_utenti.html">ListaUtenti</a> dati, String filename)  throws IOException</td></tr>
-<tr class="memdesc:afebb4297b94ab468eb519267718960ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Salva lo stato di un oggetto Utente su un file binario.  <br /></td></tr>
+<tr class="memdesc:afebb4297b94ab468eb519267718960ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Salva lo stato di un oggetto <a class="el" href="class_gestione_utente_1_1_lista_utenti.html" title="Gestisce l&#39;insieme di tutti gli utenti registrati.">ListaUtenti</a> su un file binario.  <br /></td></tr>
 <tr class="memitem:a3ae617e8fc50aa4ae58683a4f66c6831" id="r_a3ae617e8fc50aa4ae58683a4f66c6831"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_gestione_utente_1_1_lista_utenti.html">ListaUtenti</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3ae617e8fc50aa4ae58683a4f66c6831">carica</a> (String filename)  throws IOException, ClassNotFoundException</td></tr>
-<tr class="memdesc:a3ae617e8fc50aa4ae58683a4f66c6831"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carica un oggetto Utente da un file binario.  <br /></td></tr>
+<tr class="memdesc:a3ae617e8fc50aa4ae58683a4f66c6831"><td class="mdescLeft">&#160;</td><td class="mdescRight">Carica un oggetto <a class="el" href="class_gestione_utente_1_1_lista_utenti.html" title="Gestisce l&#39;insieme di tutti gli utenti registrati.">ListaUtenti</a> da un file binario.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Gestisce la persistenza su file degli oggetti di tipo Utente. </p>
 <dl class="section author"><dt>Author</dt><dd>chiara</dd></dl>
-<p>Questa classe di utilità si occupa di serializzare (salvare) e deserializzare (caricare) le istanze della classe Utente su file binari.</p>
+<p>Questa classe di utilità si occupa di serializzare (salvare) e deserializzare (caricare) le istanze della classe <a class="el" href="class_gestione_utente_1_1_lista_utenti.html" title="Gestisce l&#39;insieme di tutti gli utenti registrati.">ListaUtenti</a> su file binari.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_gestione_utente_1_1_utente.html" title="Rappresenta un utente registrato nel sistema bibliotecario.">GestioneUtente.Utente</a> </dd>
 <dd>
 java.io.ObjectOutputStream </dd>
@@ -145,10 +145,10 @@ java.io.ObjectInputStream</dd></dl>
 </table>
 </div><div class="memdoc">
 
-<p>Carica un oggetto Utente da un file binario. </p>
-<p>Tenta di leggere e deserializzare un oggetto Utente dal percorso specificato.</p>
+<p>Carica un oggetto <a class="el" href="class_gestione_utente_1_1_lista_utenti.html" title="Gestisce l&#39;insieme di tutti gli utenti registrati.">ListaUtenti</a> da un file binario. </p>
+<p>Tenta di leggere e deserializzare un oggetto <a class="el" href="class_gestione_utente_1_1_lista_utenti.html" title="Gestisce l&#39;insieme di tutti gli utenti registrati.">ListaUtenti</a> dal percorso specificato.</p>
 <dl class="section pre"><dt>Precondition</dt><dd>filename != null </dd></dl>
-<dl class="section post"><dt>Postcondition</dt><dd>Restituisce un oggetto Utente valido se la lettura ha successo. </dd>
+<dl class="section post"><dt>Postcondition</dt><dd>Restituisce un oggetto <a class="el" href="class_gestione_utente_1_1_lista_utenti.html" title="Gestisce l&#39;insieme di tutti gli utenti registrati.">ListaUtenti</a> valido se la lettura ha successo. </dd>
 <dd>
 Restituisce null se il file non esiste o la deserializzazione fallisce.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -157,7 +157,13 @@ Restituisce null se il file non esiste o la deserializzazione fallisce.</dd></dl
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>L'istanza di <a class="el" href="class_gestione_utente_1_1_lista_utenti.html" title="Gestisce l&#39;insieme di tutti gli utenti registrati.">ListaUtenti</a> recuperata, oppure null in caso di errore. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>L'istanza di <a class="el" href="class_gestione_utente_1_1_lista_utenti.html" title="Gestisce l&#39;insieme di tutti gli utenti registrati.">ListaUtenti</a> recuperata, oppure null in caso di errore.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IOException</td><td>se le precondizioni non sono verificate. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -188,7 +194,7 @@ Restituisce null se il file non esiste o la deserializzazione fallisce.</dd></dl
 </table>
 </div><div class="memdoc">
 
-<p>Salva lo stato di un oggetto Utente su un file binario. </p>
+<p>Salva lo stato di un oggetto <a class="el" href="class_gestione_utente_1_1_lista_utenti.html" title="Gestisce l&#39;insieme di tutti gli utenti registrati.">ListaUtenti</a> su un file binario. </p>
 <p>Serializza l'oggetto passato come parametro e lo scrive nel percorso specificato. Se il file esiste già, viene sovrascritto.</p>
 <dl class="section pre"><dt>Precondition</dt><dd>dati != null (L'oggetto da salvare non può essere nullo). </dd>
 <dd>
@@ -197,7 +203,13 @@ filename != null (Il nome del file deve essere valido). </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">dati</td><td>L'oggetto <a class="el" href="class_gestione_utente_1_1_lista_utenti.html" title="Gestisce l&#39;insieme di tutti gli utenti registrati.">ListaUtenti</a> da serializzare. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">filename</td><td>Il percorso o nome del file di destinazione. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">filename</td><td>Il percorso o nome del file di destinazione.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IOException</td><td>se le precondizioni non sono verificate. </td></tr>
   </table>
   </dd>
 </dl>
