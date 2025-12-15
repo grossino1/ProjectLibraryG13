@@ -88,6 +88,17 @@
                   <Insets bottom="10.0" top="10.0" />
                </padding>
             </Button>
+            <Button  fx:id="modifyCredentials" onAction="#modifyCredentials" maxWidth="1.7976931348623157E308" textFill="#7f8c8d" mnemonicParsing="false" style="-fx-background-color: #2196f3; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 5;"  text="Password dimenticata">
+             <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </Button>
        </children>
     </VBox>
 

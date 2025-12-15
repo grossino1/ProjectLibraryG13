@@ -7,6 +7,8 @@ import Eccezioni.EccezioniAutenticazione.UsernameFieldEmptyException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,6 +50,9 @@ public class LoginViewController implements Initializable {
      */
     @FXML
     private PasswordField passwordField;
+    
+    @FXML
+    private Button modifyCredentials;
 
     /**
      * Bottone per avviare la procedura di autenticazione.
@@ -130,6 +135,68 @@ public class LoginViewController implements Initializable {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR,"Errore Critico!","Errore nel caricamento della Scena: " + e.getMessage());
         }     
+    }
+    
+    /**
+     * @brief Gestisce il cambio di password
+     * 
+     * Metodo utilizzato in caso di password dimenticata. Verifica se l'username e il codice UNISA 
+     * sono corretti e effettua il cambio di password.
+     * 
+     * @param[in] event Evento scatenante.
+     */
+    @FXML
+    void modifyCredentials(ActionEvent event){
+            try{
+                //inizio della parte di codice per il caricamento della finestra per l'aggiunta di un nuovo libro
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/GUI_Login/ModifyCredentialsView.fxml"));
+                Parent child = loader.load();
+                
+                Stage modificaPSWStage = new Stage();
+                modificaPSWStage.setTitle("Modifica Password");
+                Scene scenePSW = new Scene(child);
+                modificaPSWStage.setScene(scenePSW);
+                modificaPSWStage.show();
+                //fine 
+                
+                TextField usrnField = (TextField) child.lookup("#txtUsername");
+                TextField codUnisaField = (TextField) child.lookup("#txtCodUnisa");
+                TextField pswField = (TextField) child.lookup("#txtPassword");
+                
+                Bibliotecario t = SalvataggioFile.SalvataggioFileAutenticazione.SalvataggioFileBibliotecario.carica(FILENAME);
+
+                Button btnSalva = (Button) child.lookup("#btnSalva");
+                Button btnAnnulla = (Button) child.lookup("#btnAnnulla");
+                
+                //lambda expression per la registrazione del libro
+                btnSalva.setOnAction(e -> {
+                    boolean codiceCorretto = "@MrFantastic2099!".equals(codUnisaField.getText());
+                    boolean userCorretto = t.getUsername().equals(usrnField.getText());
+
+                    if(codiceCorretto && userCorretto){
+                        t.setPassword(pswField.getText());
+                        try {
+                            SalvataggioFile.SalvataggioFileAutenticazione.SalvataggioFileBibliotecario.salva(t, FILENAME);
+                        } catch (IOException ex) {
+                            showAlert(Alert.AlertType.ERROR, "Errore critico", ex.getMessage());
+                        }
+                        modificaPSWStage.close();
+                    }else{
+                        showAlert(Alert.AlertType.ERROR, "Errore critico", "Codice UNISA o Username errati!");
+                    }
+                });
+
+                btnAnnulla.setOnAction(e -> { 
+                    try {
+                        
+                        modificaPSWStage.close();
+                    } catch (Exception ex) {
+                        showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
+                    }
+                });
+            }catch(IOException e){
+                showAlert(Alert.AlertType.ERROR, "Errore generico", e.getMessage()); //gestione delle eccezioni
+            }
     }
 
     /**
