@@ -105,7 +105,7 @@ public class CatalogoLibriViewController implements Initializable {
     
     //Oggetto di classe catalogo libro per svolgere diverse funzioni
     private CatalogoLibri catalogoLibri;
-    private String filename = "catalogoLibri.bin";
+    private String filename = "..\\src\\main\\resources\\data\\catalogoLibri.bin";
     
     /**
      * @brief Inizializza il controller e configura la tabella.
@@ -199,7 +199,7 @@ public class CatalogoLibriViewController implements Initializable {
         //permette di cambiare scena in base al pulsante cliccato e al path fornito in fxmlPath
         //si potrebbe effettuare un salvataggio dei dati prima del passaggio
         //scheletro
-        SalvataggioFileLibro.salva(catalogoLibri, "catalogoLibri.bin");
+        SalvataggioFileLibro.salva(catalogoLibri, filename);
 
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));

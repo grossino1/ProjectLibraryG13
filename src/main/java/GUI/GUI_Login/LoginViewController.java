@@ -61,7 +61,7 @@ public class LoginViewController implements Initializable {
     private Button handleLogin;
 
     //percorso del file con le credenziali
-    private String FILENAME = "us.bin";
+    private String FILENAME = "..\\src\\main\\resources\\data\\us.bin";
     /**
      * @brief Inizializza il controller.
      *

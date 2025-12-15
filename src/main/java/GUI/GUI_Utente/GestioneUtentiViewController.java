@@ -107,7 +107,7 @@ public class GestioneUtentiViewController implements Initializable {
     private FilteredList<Utente> filteredData;
     private ListaUtenti listaUtenti;
     
-    private String filename = "listaUtenti.bin";
+    private String filename = "..\\src\\main\\resources\\data\\listaUtenti.bin";
     
     /**
      * @brief Inizializza il controller.
