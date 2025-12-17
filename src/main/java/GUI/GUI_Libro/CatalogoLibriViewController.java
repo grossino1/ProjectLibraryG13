@@ -105,7 +105,7 @@ public class CatalogoLibriViewController implements Initializable {
     
     //Oggetto di classe catalogo libro per svolgere diverse funzioni
     private CatalogoLibri catalogoLibri;
-    private String filename = "..\\src\\main\\resources\\data\\catalogoLibri.bin";
+    private String filename = "catalogoLibri.bin";
     
     /**
      * @brief Inizializza il controller e configura la tabella.

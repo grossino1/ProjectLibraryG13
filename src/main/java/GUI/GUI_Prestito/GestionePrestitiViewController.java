@@ -108,9 +108,9 @@ public class GestionePrestitiViewController implements Initializable {
     private CatalogoLibri catalogo;
     
     //file con i dati 
-    private String fileNamePrestiti ="..\\src\\main\\resources\\data\\elencoPrestiti.bin";
-    private String fileNameLibri = "..\\src\\main\\resources\\data\\catalogoLibri.bin";
-    private String fileNameUtenti = "..\\src\\main\\resources\\data\\listaUtenti.bin";
+    private String fileNamePrestiti ="elencoPrestiti.bin";
+    private String fileNameLibri = "catalogoLibri.bin";
+    private String fileNameUtenti = "listaUtenti.bin";
 
     /**
      * @brief Inizializza il controller.

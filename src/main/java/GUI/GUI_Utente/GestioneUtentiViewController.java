@@ -107,7 +107,7 @@ public class GestioneUtentiViewController implements Initializable {
     private FilteredList<Utente> filteredData;
     private ListaUtenti listaUtenti;
     
-    private String filename = "..\\src\\main\\resources\\data\\listaUtenti.bin";
+    private String filename = "listaUtenti.bin";
     
     /**
      * @brief Inizializza il controller.
@@ -558,7 +558,7 @@ public class GestioneUtentiViewController implements Initializable {
         } else {
             // --- CASO ATTIVAZIONE: Non era ordinato per Data, ordiniamo per DATA CRESCENTE ---
             // Nota: Crescente (ASCENDING) mette le date più vecchie in alto.
-            colDataReg.setSortType(TableColumn.SortType.ASCENDING);
+            colDataReg.setSortType(TableColumn.SortType.DESCENDING);
 
             tabellaUtenti.getSortOrder().clear();
             tabellaUtenti.getSortOrder().add(colDataReg);
@@ -597,7 +597,7 @@ public class GestioneUtentiViewController implements Initializable {
         } else {
             // --- CASO ATTIVAZIONE: Non era ordinato per Data, ordiniamo per DATA CRESCENTE ---
             // Nota: Crescente (ASCENDING) mette le date più vecchie in alto.
-            colDataReg.setSortType(TableColumn.SortType.DESCENDING);
+            colDataReg.setSortType(TableColumn.SortType.ASCENDING);
 
             tabellaUtenti.getSortOrder().clear();
             tabellaUtenti.getSortOrder().add(colDataReg);
