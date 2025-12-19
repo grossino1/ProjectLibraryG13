@@ -306,6 +306,7 @@ public class Utente implements Comparable<Utente>, Serializable {
     @Override
     public int compareTo(Utente other) {
         // Confronto i due oggetti per cognome.
+        /*
         int cmp = this.cognome.compareToIgnoreCase(other.cognome);
         // Se compareTo() restituisce un numero diverso da 0, allora i due cognomi sono diversi e restituisco questo ordinamento.
         if (cmp != 0) {
@@ -316,11 +317,12 @@ public class Utente implements Comparable<Utente>, Serializable {
         int compare = this.nome.compareToIgnoreCase(other.nome);
         if (compare != 0){
             return compare;
-        }
+        }*/
         
         // Se due utenti hanno lo stesso cognome e nome, allora ordino per matricola,
         // la quale è per definizione univoca. 
         // Questo confronto permette di inserire due utenti con stesso cognome e nome ma con matricola diversa.
+        if(other == null) return 1;
         return this.matricola.compareToIgnoreCase(other.matricola);
     }
 

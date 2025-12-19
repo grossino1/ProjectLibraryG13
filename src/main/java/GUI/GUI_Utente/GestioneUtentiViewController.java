@@ -173,7 +173,14 @@ public class GestioneUtentiViewController implements Initializable {
         colDataReg.setSortable(false);
         tabellaUtenti.setItems(sortedData);
         String nUtentiPresenti = String.valueOf(listaUtenti.getListaUtenti().size());
-        utentiPresentiLabel.setText("Libri Presenti: " + nUtentiPresenti);
+        utentiPresentiLabel.setText("Utenti Presenti: " + nUtentiPresenti);
+        try {
+            refreshTable();
+        } catch (IOException ex) {
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
+        } catch (ClassNotFoundException ex) {
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
+        }
     }
     
     /**
@@ -190,10 +197,30 @@ public class GestioneUtentiViewController implements Initializable {
      * non corrisponde alla versione della classe locale.
      */    
     @FXML
-    void refreshTable() throws IOException, ClassNotFoundException{
-        utenteList.clear(); // 1. Cancella i dati vecchi dalla vista
+        void refreshTable() throws IOException, ClassNotFoundException {
+        utenteList.clear(); 
         listaUtenti = SalvataggioFileUtente.carica(filename);
         utenteList.addAll(listaUtenti.getListaUtenti());
+
+        // 1. Rendi le colonne ordinabili temporaneamente
+        colNome.setSortable(true);
+        colCognome.setSortable(true);
+
+        // 2. Imposta il tipo di ordinamento (Crescente)
+        colNome.setSortType(TableColumn.SortType.ASCENDING);
+        colCognome.setSortType(TableColumn.SortType.ASCENDING);
+
+        // 3. Pulisci i criteri precedenti e aggiungi la gerarchia
+        tabellaUtenti.getSortOrder().clear();
+        tabellaUtenti.getSortOrder().add(colNome);    // Priorità 2 (se i cognomi sono uguali)
+        tabellaUtenti.getSortOrder().add(colCognome); // Priorità 1
+
+        // 4. Esegui l'ordinamento
+        tabellaUtenti.sort();
+
+        // 5. Blocca l'ordinamento manuale se desiderato
+        colNome.setSortable(false);
+        colCognome.setSortable(false);
     }
     
     /**
