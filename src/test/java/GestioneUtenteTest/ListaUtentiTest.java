@@ -402,10 +402,10 @@ public class ListaUtentiTest {
         sbAttesa.append("Lista Utenti:");
         
         // 1. Bianchi
-        sbAttesa.append(separatore).append(u2.toString());
-        // 2. Rossetti
         sbAttesa.append(separatore).append(u3.toString());
-        // 3. Rossi
+        // 2. Rossetti
+        sbAttesa.append(separatore).append(u2.toString());
+        // 3. Ross
         sbAttesa.append(separatore).append(u1.toString());
 
         // VERIFICA
