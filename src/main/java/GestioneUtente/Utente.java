@@ -23,7 +23,7 @@ import java.time.format.DateTimeFormatter;
  *
  * Questa classe gestisce i dati anagrafici dell'utente e mantiene lo stato attuale dei suoi prestiti. 
  *
- * @invariant matricola != null (Ogni utente deve essere identificabile univocamente).
+ * matricola != null && matricola.matches("\\d{10}") (Ogni utente deve essere identificabile univocamente).
  * @invariant listaPrestiti != null (La lista prestiti deve essere inizializzata, anche se vuota).
  *
  * @see GestionePrestito.Prestito
@@ -178,7 +178,7 @@ public class Utente implements Comparable<Utente>, Serializable {
      *        Il metodo itera attraverso la lista fornita ed estrae la data di restituzione
      *        da ciascun prestito.
      *
-     * @param listaPrestiti La lista di oggetti Prestito da elaborare.
+     * @param[in] listaPrestiti La lista di oggetti Prestito da elaborare.
      * @return Un ArrayList contenente le date di restituzione.
      * Restituisce una lista vuota se il parametro listaPrestiti è null o vuoto.
      */
@@ -202,11 +202,12 @@ public class Utente implements Comparable<Utente>, Serializable {
     /**
      * @brief Aggiunge un prestito alla lista dei prestiti attivi dell'utente.
      *
-     * @pre  p != null
+     * @pre  p != null 
+     * @pre listaPrestiti.size() < 3
      * @post listaPrestiti.size() == old_size + 1
      * @post listaPrestiti.contains(p) == true
      *
-     * @param p Il prestito da aggiungere.
+     * @param[in] p Il prestito da aggiungere.
      * 
      * @throws IllegalArgumentException: Se il prestito inserito come parametro è nullo.
      * @throws PrestitiEsauritiException: Se l'utente ha già 3 prestiti attivi.
@@ -233,7 +234,7 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @pre  p != null
      * @post listaPrestiti.contains(p) == false
      *
-     * @param p Il prestito da rimuovere.
+     * @param[in] p Il prestito da rimuovere.
      * @throws IllegalArgumentException: Se il prestito inserito come parametro è nullo.
      * @throws PrestitoNonTrovatoException: Se il prestito non è presente nella lista.
      */
@@ -298,7 +299,7 @@ public class Utente implements Comparable<Utente>, Serializable {
      * L'ordinamento avviene prima per cognome e, in caso di parità, per nome.
      * Nel caso in cui due utenti hanno lo stesso cognome e nome, allora si ordina per matricola.
      * 
-     * @param other: L'utente da confrontare con quello corrente.
+     * @param[in] other: L'utente da confrontare con quello corrente.
      * @return Un numero negativo se questo utente precede other,
      *         zero se sono equivalenti per ordinamento,
      *         un numero positivo se questo utente segue other.

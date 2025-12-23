@@ -37,20 +37,21 @@ import java.io.ObjectOutputStream;
 public class SalvataggioFileUtente {
     
     /**
-     * @brief Salva lo stato di un oggetto ListaUtenti su un file binario.
-     *
-     * Serializza l'oggetto passato come parametro e lo scrive nel percorso specificato.
-     * Se il file esiste già, viene sovrascritto.
-     *
-     * @pre dati != null (L'oggetto da salvare non può essere nullo).
-     * @pre filename != null (Il nome del file deve essere valido).
-     * @post Viene creato o aggiornato un file contenente i dati degli utenti.
-     *
-     * @param[in] dati: L'oggetto ListaUtenti da serializzare.
-     * @param[in] filename: Il percorso o nome del file di destinazione.
-     * 
-     * @throws  IOException: se le precondizioni non sono verificate.
-     */
+    * @brief Salva lo stato di un oggetto ListaUtenti su un file binario.
+    *
+    * Serializza l'oggetto passato come parametro e lo scrive nel percorso specificato.
+    * Se il file esiste già, viene sovrascritto.
+    *
+    * @pre dati != null
+    * @pre filename != null
+    * @post Viene creato o aggiornato un file sul disco contenente la serializzazione di dati.
+    *
+    * @param[in] dati L'oggetto ListaUtenti da serializzare.
+    * @param[in] filename Il percorso o nome del file di destinazione.
+    * 
+    * @throws IOException Se si verifica un errore durante la scrittura su disco (es. permessi negati).
+    * @throws IllegalArgumentException Se dati o filename sono nulli.
+    */
     public static void salva(ListaUtenti dati, String filename) throws IOException{
         // Controllo non necessario (lo deve fare il client)
         // Inserito per motivi di sicurezza del programma
@@ -72,20 +73,22 @@ public class SalvataggioFileUtente {
             throw new IOException(ex.getMessage());
         }
     }
+    
     /**
-     * @brief Carica un oggetto ListaUtenti da un file binario.
-     *
-     * Tenta di leggere e deserializzare un oggetto ListaUtenti dal percorso specificato.
-     *
-     * @pre filename != null
-     * @post Restituisce un oggetto ListaUtenti valido se la lettura ha successo.
-     * @post Restituisce null se il file non esiste o la deserializzazione fallisce.
-     *
-     * @param[in] filename: Il percorso del file da leggere.
-     * @return L'istanza di ListaUtenti recuperata, oppure null in caso di errore.
-     * 
-     * @throws  IOException: se le precondizioni non sono verificate.
-     */
+    * @brief Carica un oggetto ListaUtenti da un file binario.
+    *
+    * Tenta di leggere e deserializzare un oggetto ListaUtenti dal percorso specificato.
+    *
+    * @pre filename != null
+    * @post Restituisce un'istanza valida di ListaUtenti popolata con i dati del file.
+    *
+    * @param[in] filename Il percorso del file da leggere.
+    * @return L'istanza di ListaUtenti recuperata.
+    * 
+    * @throws IOException Se il file non esiste o ci sono errori di lettura.
+    * @throws ClassNotFoundException Se la struttura dell'oggetto nel file non corrisponde alla classe ListaUtenti.
+    * @throws IllegalArgumentException Se filename è nullo.
+    */
     public static ListaUtenti carica(String filename)  throws IOException, ClassNotFoundException{
         // Controllo non necessario (lo deve fare il client)
         // Inserito per motivi di sicurezza del programma

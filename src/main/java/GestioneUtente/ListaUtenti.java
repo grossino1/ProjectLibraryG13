@@ -56,6 +56,8 @@ public class ListaUtenti implements Serializable{
      *            - True: il programma cercherà di leggere i dati dal disco.
      *             - False: il programma crea una lista nuova vuota.
      * @param[in] filename: nome del file in cui salvare la listaUtenti serializzare.       
+     * @throws IOException Se si verificano errori di lettura file.
+     * @throws ClassNotFoundException Se il file caricato non contiene un oggetto compatibile.
      */
     public ListaUtenti(boolean caricamentoFile, String filename) throws IOException, ClassNotFoundException{
         // Controllo su caricamentoFile
@@ -199,8 +201,10 @@ public class ListaUtenti implements Serializable{
      * 
      * @pre (u != null) L'utente da modificare non può essere nullo.
      *
-     * @param[in] u L'oggetto Utente da modificare. Non deve essere null.
-     * @param[in] nomeFile Il nome (o percorso) del file su cui effettuare il salvataggio dei dati.
+     * @param[in] u L'oggetto Utente da modificare.
+     * @param[in] nome Nuovo nome da assegnare.
+     * @param[in] cognome Nuovo cognome da assegnare.
+     * @param[in] emailIstituzionale Nuova email da assegnare.
      * @throws IllegalArgumentException: Se l'oggetto Utente passato è null.
      * @throws IOException: Se si verifica un errore di input/output durante la scrittura sul file.
      * 
