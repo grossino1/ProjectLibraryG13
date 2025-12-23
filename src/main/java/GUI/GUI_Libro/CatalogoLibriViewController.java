@@ -199,7 +199,7 @@ public class CatalogoLibriViewController implements Initializable {
         //permette di cambiare scena in base al pulsante cliccato e al path fornito in fxmlPath
         //si potrebbe effettuare un salvataggio dei dati prima del passaggio
         //scheletro
-        SalvataggioFileLibro.salva(catalogoLibri, "catalogoLibri.bin");
+        SalvataggioFileLibro.salva(catalogoLibri, filename);
 
         try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));

@@ -20,7 +20,8 @@ var hierarchy =
         [ "Eccezioni.EccezioniLibri.CatalogoPienoException", "class_eccezioni_1_1_eccezioni_libri_1_1_catalogo_pieno_exception.html", null ],
         [ "Eccezioni.EccezioniLibri.ISBNNotValidException", "class_eccezioni_1_1_eccezioni_libri_1_1_i_s_b_n_not_valid_exception.html", null ],
         [ "Eccezioni.EccezioniLibri.LibroNotFoundException", "class_eccezioni_1_1_eccezioni_libri_1_1_libro_not_found_exception.html", null ],
-        [ "Eccezioni.EccezioniLibri.LibroPresenteException", "class_eccezioni_1_1_eccezioni_libri_1_1_libro_presente_exception.html", null ]
+        [ "Eccezioni.EccezioniLibri.LibroPresenteException", "class_eccezioni_1_1_eccezioni_libri_1_1_libro_presente_exception.html", null ],
+        [ "Eccezioni.EccezioniLibri.LibroWithPrestitoException", "class_eccezioni_1_1_eccezioni_libri_1_1_libro_with_prestito_exception.html", null ]
       ] ],
       [ "Eccezioni.EccezioniPrestiti.EccezioniPrestito", "class_eccezioni_1_1_eccezioni_prestiti_1_1_eccezioni_prestito.html", [
         [ "Eccezioni.EccezioniPrestiti.CopieEsauriteException", "class_eccezioni_1_1_eccezioni_prestiti_1_1_copie_esaurite_exception.html", null ],
@@ -31,7 +32,6 @@ var hierarchy =
         [ "Eccezioni.EccezioniPrestiti.dataRestituzioneException", "class_eccezioni_1_1_eccezioni_prestiti_1_1data_restituzione_exception.html", null ]
       ] ],
       [ "Eccezioni.EccezioniUtenti.EccezioniUtente", "class_eccezioni_1_1_eccezioni_utenti_1_1_eccezioni_utente.html", [
-        [ "Eccezioni.EccezioniLibri.LibroWithPrestitoException", "class_eccezioni_1_1_eccezioni_libri_1_1_libro_with_prestito_exception.html", null ],
         [ "Eccezioni.EccezioniUtenti.ListaUtentiPienaException", "class_eccezioni_1_1_eccezioni_utenti_1_1_lista_utenti_piena_exception.html", null ],
         [ "Eccezioni.EccezioniUtenti.MatricolaNotValidException", "class_eccezioni_1_1_eccezioni_utenti_1_1_matricola_not_valid_exception.html", null ],
         [ "Eccezioni.EccezioniUtenti.UtenteNotFoundException", "class_eccezioni_1_1_eccezioni_utenti_1_1_utente_not_found_exception.html", null ],

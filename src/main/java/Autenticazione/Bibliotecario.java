@@ -28,8 +28,8 @@ import java.io.Serializable;
 
 public class Bibliotecario implements Serializable {
     private static final long serialVersionUID = 1L;
-    private final String username;
-    private final String password;
+    private String username;
+    private String password;
     
     /**
      * @brief Costruttore della classe Bibliotecario.
@@ -65,6 +65,24 @@ public class Bibliotecario implements Serializable {
      */
     public String getPassword() {
         return password;
+    }
+    
+    /**
+     * @brief Restituisce lo username.
+     * 
+     * @return La stringa dello username.
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * @brief Restituisce la password.
+     * 
+     * @return La stringa della password.
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
     
     /**

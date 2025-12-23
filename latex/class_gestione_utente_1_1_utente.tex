@@ -45,19 +45,19 @@ void \mbox{\hyperlink{class_gestione_utente_1_1_utente_a44d692b8053e2ab50cb6467e
 Array\+List$<$ \mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}} $>$ \mbox{\hyperlink{class_gestione_utente_1_1_utente_a0d2c11ee925496bee59c2c20467ae8da}{get\+Lista\+Prestiti}} ()
 \begin{DoxyCompactList}\small\item\em Restituisce la lista dei prestiti dell\textquotesingle{}utente. \end{DoxyCompactList}\item 
 String \mbox{\hyperlink{class_gestione_utente_1_1_utente_af5e1512bfc8ffe909dbb63ae3b3d56d3}{get\+Data\+Reg}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Restituisce la data di registrazione dell\textquotesingle{}\doxylink{class_gestione_utente_1_1_utente}{Utente}. \end{DoxyCompactList}\item 
 Array\+List$<$ Local\+Date $>$ \mbox{\hyperlink{class_gestione_utente_1_1_utente_a34689b9c4e298726877641d433f0b497}{get\+Lista\+Data\+Restituzione}} (Array\+List$<$ \mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}} $>$ lista\+Prestiti)
-\item 
+\begin{DoxyCompactList}\small\item\em Genera un elenco delle date di restituzione a partire da una lista di prestiti. Il metodo itera attraverso la lista fornita ed estrae la data di restituzione da ciascun prestito. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_gestione_utente_1_1_utente_ad8c58a3a07c808753237f4306d2a505f}{add\+Prestito}} (\mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}} p)  throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestiti_esauriti_exception}{Prestiti\+Esauriti\+Exception}}
-\item 
+\begin{DoxyCompactList}\small\item\em Aggiunge un prestito alla lista dei prestiti attivi dell\textquotesingle{}utente. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_gestione_utente_1_1_utente_a699aae2b7da2ab1afadc434302d50154}{rimuovi\+Prestito}} (\mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}} p)  throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestito_non_trovato_exception}{Prestito\+Non\+Trovato\+Exception}}
-\item 
+\begin{DoxyCompactList}\small\item\em Rimuove un prestito dalla lista dei prestiti attivi dell\textquotesingle{}utente (ad esempio in caso di restituzione del materiale). \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_gestione_utente_1_1_utente_ab0f093c0aa099f908a66491a5c41d7c2}{hash\+Code}} ()
 \begin{DoxyCompactList}\small\item\em Genera l\textquotesingle{}hash code basato sulla matricola. \end{DoxyCompactList}\item 
 boolean \mbox{\hyperlink{class_gestione_utente_1_1_utente_af57d739b1c2413a2ee77e82f8fe904a9}{equals}} (Object other)
 \begin{DoxyCompactList}\small\item\em Confronta due utenti per matricola, determinando se sono uguali oppure no in modo da evitare duplicati. Due utenti sono considerati uguali se possiedono la stessa matricola. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_gestione_utente_1_1_utente_aa720d668dc8afc6e4f49bb9c459ffa3f}{compare\+To}} (\mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}} other)
-\item 
+\begin{DoxyCompactList}\small\item\em Confronta questo utente con un altro in base all\textquotesingle{}ordinamento alfabetico. L\textquotesingle{}ordinamento avviene prima per cognome e, in caso di parità, per nome. Nel caso in cui due utenti hanno lo stesso cognome e nome, allora si ordina per matricola. \end{DoxyCompactList}\item 
 String \mbox{\hyperlink{class_gestione_utente_1_1_utente_ad4bcc8c25eb423bbf34cf46c8011a072}{to\+String}} ()
 \begin{DoxyCompactList}\small\item\em Restituisce una rappresentazione testuale dell\textquotesingle{}utente. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -119,9 +119,16 @@ lista\+Prestiti != null \&\& lista\+Prestiti.\+is\+Empty() (La lista viene inizi
 \hline
 \mbox{\texttt{in}}  & {\em matricola} & Il codice identificativo univoco (es. numero di matricola universitaria). \\
 \hline
-\mbox{\texttt{in}}  & {\em email\+Istituzionale} & L\textquotesingle{}indirizzo email dell\textquotesingle{}utente. \\
+\mbox{\texttt{in}}  & {\em email\+Istituzionale} & L\textquotesingle{}indirizzo email dell\textquotesingle{}utente.\\
 \hline
 \end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Illegal\+Argument\+Exception} & Se la matricola passata come parametro è null. \\
+\hline
+{\em \doxylink{class_eccezioni_1_1_eccezioni_utenti_1_1_matricola_not_valid_exception}{Matricola\+Not\+Valid\+Exception}} & Se la matricola passata come parametro non è valida. \\
+\hline
+\end{DoxyExceptions}
 
 
 \label{doc-func-members}
@@ -133,7 +140,9 @@ lista\+Prestiti != null \&\& lista\+Prestiti.\+is\+Empty() (La lista viene inizi
 {\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_ad8c58a3a07c808753237f4306d2a505f} 
 void Gestione\+Utente.\+Utente.\+add\+Prestito (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}}}]{p}{}\end{DoxyParamCaption}) throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestiti_esauriti_exception}{Prestiti\+Esauriti\+Exception}}\hspace{0.3cm}{\ttfamily [inline]}}
 
-Aggiunge un prestito alla lista dei prestiti attivi dell\textquotesingle{}utente.
+
+
+Aggiunge un prestito alla lista dei prestiti attivi dell\textquotesingle{}utente. 
 
 \begin{DoxyPrecond}{Precondition}
 p != null 
@@ -145,12 +154,14 @@ lista\+Prestiti.\+contains(p) == true
 \end{DoxyPostcond}
 
 \begin{DoxyParams}{Parameters}
-{\em p} & Il prestito da aggiungere. \\
+{\em p} & Il prestito da aggiungere.\\
 \hline
 \end{DoxyParams}
 
 \begin{DoxyExceptions}{Exceptions}
 {\em Illegal\+Argument\+Exception} & Se il prestito inserito come parametro è nullo. \\
+\hline
+{\em \doxylink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestiti_esauriti_exception}{Prestiti\+Esauriti\+Exception}} & Se l\textquotesingle{}utente ha già 3 prestiti attivi. \\
 \hline
 \end{DoxyExceptions}
 \Hypertarget{class_gestione_utente_1_1_utente_aa720d668dc8afc6e4f49bb9c459ffa3f}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!compareTo@{compareTo}}
@@ -159,7 +170,9 @@ lista\+Prestiti.\+contains(p) == true
 {\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_aa720d668dc8afc6e4f49bb9c459ffa3f} 
 int Gestione\+Utente.\+Utente.\+compare\+To (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_gestione_utente_1_1_utente}{Utente}}}]{other}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-Confronta questo utente con un altro in base all\textquotesingle{}ordinamento alfabetico. L\textquotesingle{}ordinamento avviene prima per cognome e, in caso di parità, per nome. Nel caso in cui due utenti hanno lo stesso cognome e nome, allora si ordina per matricola.
+
+
+Confronta questo utente con un altro in base all\textquotesingle{}ordinamento alfabetico. L\textquotesingle{}ordinamento avviene prima per cognome e, in caso di parità, per nome. Nel caso in cui due utenti hanno lo stesso cognome e nome, allora si ordina per matricola. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -167,7 +180,7 @@ Confronta questo utente con un altro in base all\textquotesingle{}ordinamento al
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-un numero negativo se questo utente precede other {\ttfamily other}, zero se sono equivalenti per ordinamento, un numero positivo se questo utente segue other {\ttfamily other}. 
+Un numero negativo se questo utente precede other, zero se sono equivalenti per ordinamento, un numero positivo se questo utente segue other. 
 \end{DoxyReturn}
 \Hypertarget{class_gestione_utente_1_1_utente_af57d739b1c2413a2ee77e82f8fe904a9}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!equals@{equals}}
 \index{equals@{equals}!GestioneUtente.Utente@{GestioneUtente.Utente}}
@@ -209,6 +222,13 @@ Il cognome.
 {\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_af5e1512bfc8ffe909dbb63ae3b3d56d3} 
 String Gestione\+Utente.\+Utente.\+get\+Data\+Reg (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
+
+
+Restituisce la data di registrazione dell\textquotesingle{}\doxylink{class_gestione_utente_1_1_utente}{Utente}. 
+
+\begin{DoxyReturn}{Returns}
+La data di registrazione, ma in formato String. 
+\end{DoxyReturn}
 \Hypertarget{class_gestione_utente_1_1_utente_abadf0c4a0daa71c8754a87ac95f0829b}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!getEmailIstituzionale@{getEmailIstituzionale}}
 \index{getEmailIstituzionale@{getEmailIstituzionale}!GestioneUtente.Utente@{GestioneUtente.Utente}}
 \doxysubsubsection{\texorpdfstring{getEmailIstituzionale()}{getEmailIstituzionale()}}
@@ -228,7 +248,9 @@ L\textquotesingle{}email.
 {\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_a34689b9c4e298726877641d433f0b497} 
 Array\+List$<$ Local\+Date $>$ Gestione\+Utente.\+Utente.\+get\+Lista\+Data\+Restituzione (\begin{DoxyParamCaption}\item[{Array\+List$<$ \mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}} $>$}]{lista\+Prestiti}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
-Genera un elenco delle date di restituzione a partire da una lista di prestiti. Il metodo itera attraverso la lista fornita ed estrae la data di restituzione da ciascun prestito.
+
+
+Genera un elenco delle date di restituzione a partire da una lista di prestiti. Il metodo itera attraverso la lista fornita ed estrae la data di restituzione da ciascun prestito. 
 
 
 \begin{DoxyParams}{Parameters}
@@ -302,7 +324,9 @@ Codice hash univoco per matricola.
 {\footnotesize\ttfamily \label{class_gestione_utente_1_1_utente_a699aae2b7da2ab1afadc434302d50154} 
 void Gestione\+Utente.\+Utente.\+rimuovi\+Prestito (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_gestione_prestito_1_1_prestito}{Prestito}}}]{p}{}\end{DoxyParamCaption}) throws \mbox{\hyperlink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestito_non_trovato_exception}{Prestito\+Non\+Trovato\+Exception}}\hspace{0.3cm}{\ttfamily [inline]}}
 
-Rimuove un prestito dalla lista dei prestiti attivi dell\textquotesingle{}utente (ad esempio in caso di restituzione del materiale).
+
+
+Rimuove un prestito dalla lista dei prestiti attivi dell\textquotesingle{}utente (ad esempio in caso di restituzione del materiale). 
 
 \begin{DoxyPrecond}{Precondition}
 p != null 
@@ -318,6 +342,8 @@ lista\+Prestiti.\+contains(p) == false
 
 \begin{DoxyExceptions}{Exceptions}
 {\em Illegal\+Argument\+Exception} & Se il prestito inserito come parametro è nullo. \\
+\hline
+{\em \doxylink{class_eccezioni_1_1_eccezioni_prestiti_1_1_prestito_non_trovato_exception}{Prestito\+Non\+Trovato\+Exception}} & Se il prestito non è presente nella lista. \\
 \hline
 \end{DoxyExceptions}
 \Hypertarget{class_gestione_utente_1_1_utente_a11c9f5b7b6e73c08010e2a5e3cfc904c}\index{GestioneUtente.Utente@{GestioneUtente.Utente}!setCognome@{setCognome}}

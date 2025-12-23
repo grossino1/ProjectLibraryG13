@@ -22,7 +22,6 @@ public class Launcher {
      * * @param[in] args Argomenti da riga di comando passati al programma.
      */
     public static void main(String[] args) {
-        
         App.main(args);
     }
 }

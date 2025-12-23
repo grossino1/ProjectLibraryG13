@@ -38,6 +38,20 @@ class BibliotecarioTest {
         assertEquals(USERNAME_CORRETTO, bibliotecario.getUsername(), "Lo username restituito deve corrispondere a quello impostato");
         assertEquals(PASSWORD_CORRETTA, bibliotecario.getPassword(), "La password restituita deve corrispondere a quella impostata");
     }
+    
+    @Test
+    void testSetUsername() {
+        String nuovoUsername = "Nuovo Username";
+        bibliotecario.setUsername(nuovoUsername);
+        assertEquals(nuovoUsername, bibliotecario.getUsername());
+    }
+    
+     @Test
+    void testSetPassword() {
+        String nuovaPassword = "Nuova Password";
+        bibliotecario.setPassword(nuovaPassword);
+        assertEquals(nuovaPassword, bibliotecario.getPassword());
+    }
 
     @Test
     void testLoginSuccesso() throws Exception {

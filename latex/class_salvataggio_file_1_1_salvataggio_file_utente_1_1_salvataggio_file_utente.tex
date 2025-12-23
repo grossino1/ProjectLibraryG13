@@ -18,9 +18,9 @@ Collaboration diagram for Salvataggio\+File.\+Salvataggio\+File\+Utente.\+Salvat
 \begin{DoxyCompactItemize}
 \item 
 static void \mbox{\hyperlink{class_salvataggio_file_1_1_salvataggio_file_utente_1_1_salvataggio_file_utente_afebb4297b94ab468eb519267718960ce}{salva}} (\mbox{\hyperlink{class_gestione_utente_1_1_lista_utenti}{Lista\+Utenti}} dati, String filename)  throws IOException
-\begin{DoxyCompactList}\small\item\em Salva lo stato di un oggetto Utente su un file binario. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Salva lo stato di un oggetto \doxylink{class_gestione_utente_1_1_lista_utenti}{Lista\+Utenti} su un file binario. \end{DoxyCompactList}\item 
 static \mbox{\hyperlink{class_gestione_utente_1_1_lista_utenti}{Lista\+Utenti}} \mbox{\hyperlink{class_salvataggio_file_1_1_salvataggio_file_utente_1_1_salvataggio_file_utente_a3ae617e8fc50aa4ae58683a4f66c6831}{carica}} (String filename)  throws IOException, Class\+Not\+Found\+Exception
-\begin{DoxyCompactList}\small\item\em Carica un oggetto Utente da un file binario. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Carica un oggetto \doxylink{class_gestione_utente_1_1_lista_utenti}{Lista\+Utenti} da un file binario. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -31,7 +31,7 @@ chiara
 \end{DoxyAuthor}
 
 
-Questa classe di utilità si occupa di serializzare (salvare) e deserializzare (caricare) le istanze della classe Utente su file binari.
+Questa classe di utilità si occupa di serializzare (salvare) e deserializzare (caricare) le istanze della classe \doxylink{class_gestione_utente_1_1_lista_utenti}{Lista\+Utenti} su file binari.
 
 \begin{DoxySeeAlso}{See also}
 \doxylink{class_gestione_utente_1_1_utente}{Gestione\+Utente.\+Utente} 
@@ -59,15 +59,15 @@ chiara
 
 
 
-Carica un oggetto Utente da un file binario. 
+Carica un oggetto \doxylink{class_gestione_utente_1_1_lista_utenti}{Lista\+Utenti} da un file binario. 
 
-Tenta di leggere e deserializzare un oggetto Utente dal percorso specificato.
+Tenta di leggere e deserializzare un oggetto \doxylink{class_gestione_utente_1_1_lista_utenti}{Lista\+Utenti} dal percorso specificato.
 
 \begin{DoxyPrecond}{Precondition}
 filename != null 
 \end{DoxyPrecond}
 \begin{DoxyPostcond}{Postcondition}
-Restituisce un oggetto Utente valido se la lettura ha successo. 
+Restituisce un oggetto \doxylink{class_gestione_utente_1_1_lista_utenti}{Lista\+Utenti} valido se la lettura ha successo. 
 
 Restituisce null se il file non esiste o la deserializzazione fallisce.
 \end{DoxyPostcond}
@@ -77,8 +77,13 @@ Restituisce null se il file non esiste o la deserializzazione fallisce.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-L\textquotesingle{}istanza di \doxylink{class_gestione_utente_1_1_lista_utenti}{Lista\+Utenti} recuperata, oppure null in caso di errore. 
+L\textquotesingle{}istanza di \doxylink{class_gestione_utente_1_1_lista_utenti}{Lista\+Utenti} recuperata, oppure null in caso di errore.
 \end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em IOException} & se le precondizioni non sono verificate. \\
+\hline
+\end{DoxyExceptions}
 \Hypertarget{class_salvataggio_file_1_1_salvataggio_file_utente_1_1_salvataggio_file_utente_afebb4297b94ab468eb519267718960ce}\index{SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente@{SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente}!salva@{salva}}
 \index{salva@{salva}!SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente@{SalvataggioFile.SalvataggioFileUtente.SalvataggioFileUtente}}
 \doxysubsubsection{\texorpdfstring{salva()}{salva()}}
@@ -87,7 +92,7 @@ void Salvataggio\+File.\+Salvataggio\+File\+Utente.\+Salvataggio\+File\+Utente.\
 
 
 
-Salva lo stato di un oggetto Utente su un file binario. 
+Salva lo stato di un oggetto \doxylink{class_gestione_utente_1_1_lista_utenti}{Lista\+Utenti} su un file binario. 
 
 Serializza l\textquotesingle{}oggetto passato come parametro e lo scrive nel percorso specificato. Se il file esiste già, viene sovrascritto.
 
@@ -103,9 +108,14 @@ Viene creato o aggiornato un file contenente i dati degli utenti.
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{in}}  & {\em dati} & L\textquotesingle{}oggetto \doxylink{class_gestione_utente_1_1_lista_utenti}{Lista\+Utenti} da serializzare. \\
 \hline
-\mbox{\texttt{in}}  & {\em filename} & Il percorso o nome del file di destinazione. \\
+\mbox{\texttt{in}}  & {\em filename} & Il percorso o nome del file di destinazione.\\
 \hline
 \end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em IOException} & se le precondizioni non sono verificate. \\
+\hline
+\end{DoxyExceptions}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

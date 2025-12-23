@@ -5,8 +5,6 @@
  */
 package Eccezioni.EccezioniLibri;
 
-import Eccezioni.EccezioniUtenti.*;
-
 /**
  *
  * @author chiara
@@ -17,13 +15,13 @@ import Eccezioni.EccezioniUtenti.*;
  * @brief Eccezione lanciata quando si vuole eliminare un libro con un prestito attivo.
  *
  *
- * @see EccezioniUtente
+ * @see EccezioniLibro
  * @see CatalogoLibri.Libro#eliminazioneLibro(CatalogoLibri.Libro) 
  *
  * @author mello
  * @version 1.0
  */
-public class LibroWithPrestitoException extends EccezioniUtente{
+public class LibroWithPrestitoException extends EccezioniLibro{
     /**
      * @brief Costruttore di default.
      *

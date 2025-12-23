@@ -173,7 +173,14 @@ public class GestioneUtentiViewController implements Initializable {
         colDataReg.setSortable(false);
         tabellaUtenti.setItems(sortedData);
         String nUtentiPresenti = String.valueOf(listaUtenti.getListaUtenti().size());
-        utentiPresentiLabel.setText("Libri Presenti: " + nUtentiPresenti);
+        utentiPresentiLabel.setText("Utenti Presenti: " + nUtentiPresenti);
+        try {
+            refreshTable();
+        } catch (IOException ex) {
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
+        } catch (ClassNotFoundException ex) {
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
+        }
     }
     
     /**
@@ -190,10 +197,30 @@ public class GestioneUtentiViewController implements Initializable {
      * non corrisponde alla versione della classe locale.
      */    
     @FXML
-    void refreshTable() throws IOException, ClassNotFoundException{
-        utenteList.clear(); // 1. Cancella i dati vecchi dalla vista
+        void refreshTable() throws IOException, ClassNotFoundException {
+        utenteList.clear(); 
         listaUtenti = SalvataggioFileUtente.carica(filename);
         utenteList.addAll(listaUtenti.getListaUtenti());
+
+        // 1. Rendi le colonne ordinabili temporaneamente
+        colNome.setSortable(true);
+        colCognome.setSortable(true);
+
+        // 2. Imposta il tipo di ordinamento (Crescente)
+        colNome.setSortType(TableColumn.SortType.ASCENDING);
+        colCognome.setSortType(TableColumn.SortType.ASCENDING);
+
+        // 3. Pulisci i criteri precedenti e aggiungi la gerarchia
+        tabellaUtenti.getSortOrder().clear();
+        tabellaUtenti.getSortOrder().add(colNome);    // Priorità 2 (se i cognomi sono uguali)
+        tabellaUtenti.getSortOrder().add(colCognome); // Priorità 1
+
+        // 4. Esegui l'ordinamento
+        tabellaUtenti.sort();
+
+        // 5. Blocca l'ordinamento manuale se desiderato
+        colNome.setSortable(false);
+        colCognome.setSortable(false);
     }
     
     /**
@@ -319,15 +346,15 @@ public class GestioneUtentiViewController implements Initializable {
                     refreshTable();
                     aggiungiUtenteStage.close();
                 }catch (MatricolaNotValidException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico1", ex.getMessage());
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage());
                 } catch (UtentePresenteException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico2", ex.getMessage());
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage());
                 } catch (IOException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico3", ex.getMessage());
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage());
                 } catch (ClassNotFoundException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico4", ex.getMessage());
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage());
                 } catch (ListaUtentiPienaException ex) {
-                    showAlert(Alert.AlertType.ERROR, "Errore generico4", ex.getMessage());
+                    showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage());
 
                 }
             });
@@ -339,8 +366,8 @@ public class GestioneUtentiViewController implements Initializable {
                     showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
                 }
             });
-        }catch(IOException e){
-            showAlert(Alert.AlertType.ERROR, "Errore generico", e.getMessage()); //gestione delle eccezioni
+        }catch(IOException ex){
+            showAlert(Alert.AlertType.ERROR, "Errore generico", ex.getMessage()); //gestione delle eccezioni
         }
     }
    
@@ -397,20 +424,14 @@ public class GestioneUtentiViewController implements Initializable {
                 //lambda expression per la registrazione del libro
                 btnSalva.setOnAction(e -> {
                     try {
-                        // Leggiamo i dati dai campi che abbiamo appena trovato
-
-                        System.out.println("DEBUG DATI LETTI:");
-                        System.out.println("ISBN letto: '" + nome.getText() + "'");
-                        System.out.println("Titolo letto: '" + cognome.getText() + "'");
-
                         listaUtenti.modificaUtente(u, nome.getText(), cognome.getText() , email.getText());
                         System.out.println(listaUtenti.toString());
                         refreshTable();
                         aggiungiUtenteStage.close();
                     } catch (IOException ex) {
-                        showAlert(Alert.AlertType.ERROR, "Errore generico3", ex.getMessage());
+                        showAlert(Alert.AlertType.ERROR, "Errore generico",ex.getClass().getName() + "\n" +  ex.getMessage());
                     } catch (ClassNotFoundException ex) {
-                        showAlert(Alert.AlertType.ERROR, "Errore generico4", ex.getMessage());
+                        showAlert(Alert.AlertType.ERROR, "Errore generico",ex.getClass().getName() + "\n" +  ex.getMessage());
                     }
                 });
 
@@ -564,7 +585,7 @@ public class GestioneUtentiViewController implements Initializable {
         } else {
             // --- CASO ATTIVAZIONE: Non era ordinato per Data, ordiniamo per DATA CRESCENTE ---
             // Nota: Crescente (ASCENDING) mette le date più vecchie in alto.
-            colDataReg.setSortType(TableColumn.SortType.ASCENDING);
+            colDataReg.setSortType(TableColumn.SortType.DESCENDING);
 
             tabellaUtenti.getSortOrder().clear();
             tabellaUtenti.getSortOrder().add(colDataReg);
@@ -603,7 +624,7 @@ public class GestioneUtentiViewController implements Initializable {
         } else {
             // --- CASO ATTIVAZIONE: Non era ordinato per Data, ordiniamo per DATA CRESCENTE ---
             // Nota: Crescente (ASCENDING) mette le date più vecchie in alto.
-            colDataReg.setSortType(TableColumn.SortType.DESCENDING);
+            colDataReg.setSortType(TableColumn.SortType.ASCENDING);
 
             tabellaUtenti.getSortOrder().clear();
             tabellaUtenti.getSortOrder().add(colDataReg);

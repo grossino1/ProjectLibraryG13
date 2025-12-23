@@ -26,7 +26,7 @@ public class LibroTest {
     private final String AUTORI = "Mario Rossi";
     private final int ANNO = 2020;
     private final int COPIE_INIZIALI = 5;
-
+    
     @BeforeEach
     public void setUp() throws ISBNNotValidException {
         libroValido = new Libro(TITOLO, AUTORI, ANNO, ISBN_VALIDO, COPIE_INIZIALI);

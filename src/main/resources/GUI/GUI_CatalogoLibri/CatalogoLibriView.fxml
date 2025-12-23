@@ -97,7 +97,7 @@
                     <Label text="Ordina per:" textFill="#7f8c8d" />
                     <Button fx:id="handleSortTitolo" onAction="#handleSortLibro" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" text="Autore" />
                     <Button fx:id="handleSortAnno" onAction="#handleSortAnno" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" text="Anno" />
-                    <TextField fx:id="handleCercaLibro" promptText="Cerca per titolo..." onAction="#handleCercaLibro" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" />
+                    <TextField fx:id="handleCercaLibro" promptText="Cerca per ISBN, titolo o autore..." onAction="#handleCercaLibro" style="-fx-background-color: #ecf0f1; -fx-text-fill: black;" />
                     <Button fx:id="handleInvio" onAction="#handleCercaLibro" layoutX="20.0" layoutY="20.0" style="-fx-background-color: #27ae60; -fx-text-fill: white;" text="Invio" />
                 </children>
             </HBox>

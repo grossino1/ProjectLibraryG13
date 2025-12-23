@@ -100,7 +100,7 @@ public class SalvataggioFileLibroTest {
         assertEquals(AUTORI_VALIDI, libroRecuperato.getAutori(), "Gli autori devono corrispondere.");
     }
 
-
+    // verifica il lancio dell'eccezione quando si prova a salvare un file null
     @Test
     void testSalvaCatalogoNull() {
         IOException ex = assertThrows(IOException.class, () -> {
@@ -109,6 +109,7 @@ public class SalvataggioFileLibroTest {
         assertEquals("Non puoi salvare un oggetto vuoto!", ex.getMessage());
     }
 
+    // verifica il lancio dell'eccezione quando si prova a salvare un file con un percorso null
     @Test
     void testSalvaFilenameNull() {
         IOException ex = assertThrows(IOException.class, () -> {
@@ -117,9 +118,9 @@ public class SalvataggioFileLibroTest {
         assertEquals("Percorso non specificato!", ex.getMessage());
     }
 
-
+    
+    // verifica il lancio dell'eccezione quando si vuole caricare un file non esistente 
     @Test
-    @DisplayName("Errore: Caricamento File Inesistente")
     void testCaricaFileNonTrovato() {
 
         String fileFantasma = "file_non_esistente_libri.bin";
@@ -134,8 +135,9 @@ public class SalvataggioFileLibroTest {
         assertEquals("File non trovato!", ex.getMessage());
     }
 
+
+    // verifica il lancio dell'eccezione quando si vuole caricare un file con un percorso null
     @Test
-    @DisplayName("Errore: Caricamento con Filename Null")
     void testCaricaFilenameNull() {
 
         IOException ex = assertThrows(IOException.class, () -> {
