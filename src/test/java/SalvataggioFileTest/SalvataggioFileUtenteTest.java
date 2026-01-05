@@ -98,13 +98,13 @@ public class SalvataggioFileUtenteTest {
     @Test
     @DisplayName("Errore: Salvataggio con parametri Null")
     void testSalvaParametriNull() {
-        // Testo il controllo: if(dati == null)
+        // Test il controllo: if(dati == null)
         IOException ex1 = assertThrows(IOException.class, () -> {
             SalvataggioFileUtente.salva(null, FILE_TEST);
         });
         assertEquals("Non puoi salvare un oggetto vuoto!", ex1.getMessage());
 
-        // Testo il controllo: if(filename == null)
+        // Test il controllo: if(filename == null)
         IOException ex2 = assertThrows(IOException.class, () -> {
             SalvataggioFileUtente.salva(listaDaSalvare, null);
         });

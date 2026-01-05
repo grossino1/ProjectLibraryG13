@@ -92,7 +92,7 @@ public class ListaUtenti implements Serializable{
         // Controllo non necessario (lo deve fare il client)
         // Inserito per motivi di sicurezza del programma
         if(matricola == null){
-            throw new IllegalArgumentException("Errore: La chiave di ricerca non può essere nulla.");
+            throw new IllegalArgumentException("Errore: La matricola non può essere nulla.");
         }
         
         // Cerco nella lista l'Utente che abbia la matricola passata.

@@ -167,7 +167,9 @@ public class Utente implements Comparable<Utente>, Serializable {
      * @return La data di registrazione, ma in formato String.
      */
     public String getDataReg() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        // Prende un oggetto di tipo data (LocalDateTime) e
+        // lo trasforma in una stringa leggibile seguendo un formato personalizzato.
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");  // Creo il modello
         return dataReg.format(formatter);
     }
 
@@ -307,7 +309,6 @@ public class Utente implements Comparable<Utente>, Serializable {
     @Override
     public int compareTo(Utente other) {
         // Confronto i due oggetti per cognome.
-        /*
         int cmp = this.cognome.compareToIgnoreCase(other.cognome);
         // Se compareTo() restituisce un numero diverso da 0, allora i due cognomi sono diversi e restituisco questo ordinamento.
         if (cmp != 0) {
@@ -318,7 +319,7 @@ public class Utente implements Comparable<Utente>, Serializable {
         int compare = this.nome.compareToIgnoreCase(other.nome);
         if (compare != 0){
             return compare;
-        }*/
+        }
         
         // Se due utenti hanno lo stesso cognome e nome, allora ordino per matricola,
         // la quale è per definizione univoca. 
