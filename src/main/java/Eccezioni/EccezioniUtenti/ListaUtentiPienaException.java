@@ -35,7 +35,7 @@ public class ListaUtentiPienaException extends EccezioniUtente{
     /**
      * @brief Costruttore con messaggio di errore.
      *
-     * @param[in] msg La descrizione dell'errore (es. "Utente con matricola X non trovato").
+     * @param[in] msg La descrizione dell'errore (es. "La listaUtenti non può contenere più di 1000 utenti!").
      */
     public ListaUtentiPienaException(String msg){
         super(msg);

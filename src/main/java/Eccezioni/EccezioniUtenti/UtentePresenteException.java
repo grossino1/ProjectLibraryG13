@@ -18,7 +18,7 @@ package Eccezioni.EccezioniUtenti;
  *  all'interno di listaUtenti.
  *
  * @see EccezioniUtente
- * @see GestioneUtente.ListaUtenti
+ * @see GestioneUtente.ListaUtenti#registrazioneUtente(GestioneUtente.Utente) 
  *
  * @author chiara
  * @version 1.0
@@ -36,7 +36,7 @@ public class UtentePresenteException extends EccezioniUtente{
     /**
      * @brief Costruttore con messaggio di errore.
      *
-     * @param[in] msg La descrizione dell'errore (es. "Utente con matricola X non trovato").
+     * @param[in] msg La descrizione dell'errore (es. "Utente già presente").
      */
     public UtentePresenteException(String msg){
         super(msg);
