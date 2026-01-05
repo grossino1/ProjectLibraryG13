@@ -169,7 +169,7 @@ public class ListaUtentiTest {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
             listaUtenti.getUtenteByMatricola(null);
         });
-        assertEquals("Errore: La chiave di ricerca non può essere nulla.", e.getMessage());
+        assertEquals("Errore: La matricola non può essere nulla.", e.getMessage());
     }
     
     // TEST REGISTRAZIONE 
@@ -283,7 +283,7 @@ public class ListaUtentiTest {
     // TEST RIMOZIONE 
     
     @Test
-    @DisplayName("Eliminazione: Errore Utente Null (MODIFICATO)")
+    @DisplayName("Eliminazione: Errore Utente Null")
     void testEliminazioneUtenteNull() {
         // Deve lanciare l'eccezione IllegalArgumentException
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
@@ -402,9 +402,9 @@ public class ListaUtentiTest {
         sbAttesa.append("Lista Utenti:");
         
         // 1. Bianchi
-        sbAttesa.append(separatore).append(u3.toString());
-        // 2. Rossetti
         sbAttesa.append(separatore).append(u2.toString());
+        // 2. Rossetti
+        sbAttesa.append(separatore).append(u3.toString());
         // 3. Ross
         sbAttesa.append(separatore).append(u1.toString());
 

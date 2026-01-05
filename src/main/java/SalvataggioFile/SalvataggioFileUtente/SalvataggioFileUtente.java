@@ -21,12 +21,12 @@ import java.io.ObjectOutputStream;
 
 /**
  * @class SalvataggioFileUtente
- * @brief Gestisce la persistenza su file degli oggetti di tipo Utente.
+ * @brief Gestisce la persistenza su file degli oggetti di tipo ListaUtenti.
  *
  * Questa classe di utilità si occupa di serializzare (salvare) e deserializzare (caricare)
  * le istanze della classe ListaUtenti su file binari.
  *
- * @see GestioneUtente.Utente
+ * @see GestioneUtente.ListaUtenti
  * @see java.io.ObjectOutputStream
  * @see java.io.ObjectInputStream
  *
