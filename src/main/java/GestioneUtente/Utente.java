@@ -33,7 +33,7 @@ import java.time.format.DateTimeFormatter;
  * @version 1.0
  */
 public class Utente implements Comparable<Utente>, Serializable {
-
+    /// serialVersionUID: Identifica univocamente la versione della classe serializzata per evitare errori durante la deserializzazione.
     private static final long serialVersionUID = 1L;
     private String nome;
     private String cognome;
