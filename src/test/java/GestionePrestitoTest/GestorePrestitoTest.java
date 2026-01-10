@@ -39,7 +39,7 @@ public class GestorePrestitoTest {
 
     // Dati di prova costanti
     private final String ISBN_DISPONIBILE = "9788800000001";
-    private final String ISBN_ESAURITO = "9788800000002";
+    private final String ISBN_ESAURITO = "9788800000002"; // Ha solo 1 copia disponibile
     private final String ISBN_INESISTENTE = "0000000000000";
     
     private final String MATR_OK = "1000000001";
@@ -104,10 +104,10 @@ public class GestorePrestitoTest {
     
     /*
      * Poiché la classe GestorePrestito salva su file ma non ha getter 
-     * per ispezionare lo stato interno (catalogo/utenti), per verificare 
-     * se la modifica è avvenuta dobbiamo ricaricare i dati dai file.
+     * per ispezionare lo stato interno del catalogo libri della lista utenti), per verificare 
+     * se la modifica è avvenuta dobbiamo ricaricare i dati del catalogo e della lista dai file.
+     * NON è uno Unit Test puro, ma un Integration Test, perché coinvolge il File System.
      */
-
     @Test
     public void testDiminuisciCopiaPrestitoLibro() throws Exception {
         
@@ -171,8 +171,8 @@ public class GestorePrestitoTest {
     }
 
 
-    // --- METODI HELPER PER CREARE I FILE DI PROVA ---
-    // Questi metodi simulano ciò che fanno le tue classi SalvataggioFile.
+    // --- Classe stub ---
+    // Simulano ciò che fanno le classi SalvataggioFile.
 
     private void creaFileLibriTest() throws IOException, ISBNNotValidException, LibroPresenteException, LibroNotFoundException, CatalogoPienoException, ClassNotFoundException {
         CatalogoLibri catalogo = new CatalogoLibri(false, FILE_LIBRI_TEST);
@@ -181,7 +181,7 @@ public class GestorePrestitoTest {
         Libro l1 = new Libro("Titolo1", "Autore1", 2020, ISBN_DISPONIBILE, 5);
         catalogo.registrazioneLibro(l1);
         
-        // Libro esaurito (0 copie)
+        // Libro esaurito (1 copie)
         Libro l2 = new Libro("Titolo2", "Autore2", 2021, ISBN_ESAURITO, 1);
         catalogo.registrazioneLibro(l2);
 

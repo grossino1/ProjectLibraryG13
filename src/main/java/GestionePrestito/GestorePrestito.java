@@ -17,7 +17,7 @@ import java.io.IOException;
 
 /**
  * @class GestorePrestito
- * @brief Classe che tratta l'aggiornamento dei dati di un @ref Utente e un @ref Libro.
+ * @brief Classe che tratta la validazione di un prestito e l'aggiornamento dei dati di un @ref Utente e un @ref Libro.
  *
  * Questa classe funge da intermediario tra i dati (Libri, Utenti) e l'operazione di prestito.
  * Si occupa di validare se un prestito è ammissibile secondo le politiche della biblioteca 
@@ -27,7 +27,7 @@ import java.io.IOException;
  * @invariant utenti != null (Deve esserci un riferimento valido all'elenco utenti).
  *
  * @see GestioneLibro.CatalogoLibri
- * @see GestioneUtente.ListaUtentiù
+ * @see GestioneUtente.ListaUtenti
  * @see GestioneLibro.Libro
  * @see GestioneUtente.Utente
  *
@@ -70,8 +70,8 @@ public class GestorePrestito {
      * @brief Valida e autorizza la creazione di un nuovo prestito.
      *
      * Questo metodo applica le seguenti regole:
-     * 1. **Esistenza**: Il libro e l'utente devono esistere nei rispettivi archivi.
-     * 2. **Disponibilità**: Il libro deve avere almeno una copia disponibile (copie > 0).
+     * 1. **Esistenza**: Il libro e l'utente devono esistere.
+     * 2. **Disponibilità**: Il libro deve avere almeno una copia disponibile (copie > 1).
      * 3. **Limitazione**: L'utente non deve aver superato il limite massimo di prestiti (Max 3).
      * 4. **Copia**: Il prestito non deve esser già presente.
      *
@@ -80,8 +80,8 @@ public class GestorePrestito {
      *
      * @pre ISBN != null && !ISBN.isEmpty()
      * @pre matricola != null && !matricola.isEmpty()
-     * @post Se restituisce true: Tutte le condizioni sono soddisfatte, old_libro.getNumeroCopie()+1 && utente.getListaPrestiti().size+1.
-     * @post Se restituisce false: Almeno una condizione ha fallito (nessuna modifica ai dati).
+     * @post Se tutte le condizioni sono soddisfatte restituisce true.
+     * @post Se una della condizione non è soddisfatta restituisce false.
      *
      * @param[in] ISBN Il codice del libro richiesto.
      * @param[in] matricola La matricola dell'utente richiedente.
@@ -135,7 +135,7 @@ public class GestorePrestito {
      * @brief Quando un prestito termina (viene eliminato dall'elenco prestiti) la copia del libro relativo viene aumentata 
      * ed il numero di prestiti attivi diminuito.
      * 
-     * Nota: non ci sono controll sulle eccezioni, perché quelle sono già controllate prima della chiamata del metodo
+     * Nota: non ci sono controlli sulle eccezioni, perché quelle sono già controllate prima della chiamata del metodo
      *
      * @pre ISBN != null && !ISBN.isEmpty()
      * @post Il numero delle copie del libro è aumentato di 1.
@@ -165,7 +165,7 @@ public class GestorePrestito {
      * @brief Quando un prestito termina (viene eliminato dall'elenco prestiti) il prestito viene 
      * eliminato dalla lista dell'utente che lo ha terminato.
      * 
-     * Nota: non ci sono controll sulle eccezioni, perché quelle sono già controllate prima della chiamata del metodo
+     * Nota: non ci sono controlli sulle eccezioni, perché quelle sono già controllate prima della chiamata del metodo
      *
      * @pre matricola != null && !matricola.isEmpty()
      * @pre p != null
@@ -191,7 +191,7 @@ public class GestorePrestito {
      * @brief Quando un prestito inizia (viene aggiunto all'elenco prestiti) la copia del libro relativo viene diminuita 
      * ed il numero di prestiti attivi aumentato.
      *
-     * Nota: non ci sono controll sulle eccezioni, perché quelle sono già controllate prima della chiamata del metodo.
+     * Nota: non ci sono controlli sulle eccezioni, perché quelle sono già controllate prima della chiamata del metodo.
      * 
      * @pre ISBN != null && !ISBN.isEmpty()
      * @post Il numero delle copie del libro è diminuito di 1.
@@ -220,7 +220,7 @@ public class GestorePrestito {
      * @brief Quando un prestito inizia (viene aggiunto all'elenco prestiti) il prestito viene 
      * aggiunto alla lista dell'utente che lo ha richiesto.
      * 
-     * Nota: non ci sono controll sulle eccezioni, perché quelle sono già controllate prima della chiamata del metodo
+     * Nota: non ci sono controlli sulle eccezioni, perché quelle sono già controllate prima della chiamata del metodo
      *
      * @pre matricola != null && !matricola.isEmpty()
      * @pre p != null

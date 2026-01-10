@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GestionePrestitoTest;
 
 import Eccezioni.EccezioniLibri.LibroNotFoundException;
@@ -85,22 +80,22 @@ public class ElencoPrestitiTest {
         }
         @Override
         public void diminuisciCopiaPrestitoLibro(String isbn) {
-            // Non fare nulla: stiamo simulando che sia andato tutto bene
+            // Non fa nulla, simuliamo vada tutto bene (serve per il test ti aggiunta) 
         }
 
         @Override
         public void aggiungiPrestitoListaUtente(String matricola, Prestito p) {
-            // Non fare nulla
+            // Non fa nulla (serve per il test ti aggiunta) 
         }
 
         @Override
         public void aggiungiCopiaPrestitoLibro(String isbn) {
-            // Non fare nulla (serve per il test di eliminazione)
+            // Non fa nulla (serve per il test di eliminazione)
         }
 
         @Override
         public void rimuoviPrestitoListaUtente(String matricola, Prestito p) {
-            // Non fare nulla (serve per il test di eliminazione)
+            // Non fa nulla (serve per il test di eliminazione)
         }
     }
    
@@ -108,7 +103,7 @@ public class ElencoPrestitiTest {
     public void setUp() {
         try {
             
-            // 2. Creamo il file fittizio 
+            // Creamo il file fittizio 
             File fp = new File(FILENAMEPRESTITI_TEST);
             fp.createNewFile(); 
             
@@ -129,12 +124,9 @@ public class ElencoPrestitiTest {
                 outUtenti.writeObject(new ListaUtenti()); 
             }
             
-            // 3. Creiamo l'elenco pulito (false = non caricare da file)
+            // Creiamo l'elenco pulito (false = non caricare da file)
             gestoreStub = new GestoreStub();
-            elenco = new ElencoPrestiti(false, FILENAMEPRESTITI_TEST, gestoreStub);
-            
-            
-            
+            elenco = new ElencoPrestiti(false, FILENAMEPRESTITI_TEST, gestoreStub);       
         } catch (Exception e) {
             e.printStackTrace();
             fail("Setup fallito: " + e.getMessage());
@@ -172,7 +164,7 @@ public class ElencoPrestitiTest {
 
     @Test
     public void testRegistrazione_GestoreRestituisceTrue() throws Exception {
-        // SCENARIO: Il gestore approva il prestito (ritorna true)
+        // Il gestore approva il prestito (ritorna true)
         gestoreStub.risultatoNuovoPrestito = true; 
 
         // Azione
@@ -241,7 +233,7 @@ public class ElencoPrestitiTest {
         
         assertEquals(500, elenco.getElencoPrestiti().size());
 
-        // Proviamo ad inserire il 101esimo elemento
+        // Proviamo ad inserire il 501esimo elemento
         // Deve scattare l'eccezione ElencoPienoException
         assertThrows(ElencoPienoException.class, () -> {
             elenco.registrazionePrestito(ISBN_VALIDO, MATRICOLA_VALIDA);
@@ -333,6 +325,13 @@ public class ElencoPrestitiTest {
         
         assertThrows(dataRestituzioneException.class, () -> {
             elenco.modificaPrestito(p, nuovaData);
+        });     
+        
+        // La data di restituzione è < 1
+        LocalDate nuovaData2 = LocalDate.now().minusDays(1);
+        
+        assertThrows(dataRestituzioneException.class, () -> {
+            elenco.modificaPrestito(p, nuovaData2);
         });     
     }
     

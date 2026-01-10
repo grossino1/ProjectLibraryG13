@@ -58,6 +58,7 @@ public class ElencoPrestiti implements Serializable{
      *
      * @param[in] caricamentoFile Flag indica se prendere i dati da un file.
      * @param[in] filename Nome del file da cui caricare o su cui salvare.
+     * @param[in] gestore É un'istanza del gestore delle regore.;
      * 
      * @see SalvataggioFile.SalvataggioFilePrestito.SalvataggioFilePrestito#carica(java.lang.String) 
      * 
@@ -163,7 +164,7 @@ public class ElencoPrestiti implements Serializable{
      * @pre chiave != null.
      * @post La lista restituita.
      * 
-     * @param[in] chaive La stringa di ricerca.
+     * @param[in] chiave La stringa di ricerca.
      * @return ArrayList<Prestito> contenente i prestiti che soddisfano il criterio.
      * 
      * @throws PrestitoNonTrovatoException Se un prestito non viene trovato.
@@ -194,8 +195,8 @@ public class ElencoPrestiti implements Serializable{
      * 
      * @post La data di restituzione del prestito viene modificata.
      * 
-     * @param[in] p Il Prestito da modificare.
-     * @param[i] dataNuova La nuova data del prestito.
+     * @param[inout] p Il Prestito da modificare.
+     * @param[in] dataNuova La nuova data del prestito.
      * 
      * @see Prestito#setDataRestituzione(java.time.LocalDate) 
      * @see SalvataggioFile.SalvataggioFilePrestito.SalvataggioFilePrestito#salva(GestionePrestito.ElencoPrestiti, java.lang.String) 

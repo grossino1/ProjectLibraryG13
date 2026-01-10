@@ -3,9 +3,10 @@ package Eccezioni.EccezioniPrestiti;
 /**
  * @class ElencoPienoException
  * @brief Eccezione lanciata quando all'interno dell'elenco dei prestiti sono già presenti 
- * 500 prestiti e si cerca di regiostrarne uno.
+ * MAX_PRESTITI e si cerca di regiostrarne uno.
  *
  * @see EccezioniPrestito
+ * @see GestionePrestito.ElencoPrestiti#MAX_PRESTITI
  * 
  * @author grossino1
  * @version 1.0

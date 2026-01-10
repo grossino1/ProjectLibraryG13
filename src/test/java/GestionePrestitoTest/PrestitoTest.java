@@ -1,9 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GestionePrestitoTest;
+
 import Eccezioni.EccezioniPrestiti.dataRestituzioneException;
 import GestionePrestito.Prestito;
 import org.junit.jupiter.api.*;
@@ -61,13 +57,14 @@ public class PrestitoTest {
             new Prestito("", MATRICOLA_VALIDA);
         });
 
-        // Caso 3: ISBN Formato errato (es. contiene lettere o lunghezza errata)
+        // Caso 3: ISBN Formato errato (Contiene lettere)
         assertThrows(IllegalArgumentException.class, () -> {
-            new Prestito("AB12345678901", MATRICOLA_VALIDA); // Lettere invece di numeri
+            new Prestito("AB12345678901", MATRICOLA_VALIDA); 
         });
         
+        // Lunghezza errata
         assertThrows(IllegalArgumentException.class, () -> {
-            new Prestito("123", MATRICOLA_VALIDA); // Troppo corto
+            new Prestito("123", MATRICOLA_VALIDA);
         });
     }
 
@@ -83,9 +80,14 @@ public class PrestitoTest {
             new Prestito(ISBN_VALIDO, "");
         });
 
-        // Caso 3: Matricola Formato errato
+        // Caso 3: Matricola Formato errato (Contiene Lettere)
         assertThrows(IllegalArgumentException.class, () -> {
-            new Prestito(ISBN_VALIDO, "123"); // Troppo corta (deve essere 10)
+            new Prestito(ISBN_VALIDO, "ABCDEFGHII"); 
+        });
+        
+        // Lunghezza errata
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Prestito(ISBN_VALIDO, "123"); 
         });
     }
 
@@ -127,7 +129,7 @@ public class PrestitoTest {
         Prestito prestitoCopia = new Prestito(ISBN_VALIDO, MATRICOLA_VALIDA);
 
         assertEquals(prestitoValido, prestitoCopia, 
-            "Il prestito della fixture deve essere uguale a uno nuovo con gli stessi ISBN/Matricola");
+            "I prestiti devono essere uguale se hanno stesso ISBN e Matricola");
         
         assertEquals(prestitoValido.hashCode(), prestitoCopia.hashCode(), 
             "Se equals è true, gli hashCode devono coincidere");
@@ -141,6 +143,9 @@ public class PrestitoTest {
         Prestito prestitoIsbnDiverso = new Prestito("0000000000000", MATRICOLA_VALIDA);
         assertNotEquals(prestitoValido, prestitoIsbnDiverso, 
             "Devono essere diversi se cambia l'ISBN");
+        
+        assertNotEquals(prestitoValido.hashCode(), prestitoIsbnDiverso.hashCode(), 
+            "Se equals è false, gli hashCode devono essere diversi");
 
         // Casi Limite
         assertNotEquals(prestitoValido, null, "Non deve essere uguale a null");
@@ -164,7 +169,7 @@ public class PrestitoTest {
         assertTrue(prestitoValido.compareTo(otherMatricolaMinore) > 0, 
             "prestitoValido deve seguire quello con matricola più bassa");
         
-         // Creiamo un prestito con ISBN "maggiore" .
+        // Creiamo un prestito con ISBN "maggiore" .
         Prestito otherIsbnMaggiore = new Prestito("9999999999999", MATRICOLA_VALIDA);
         
         // Risultato negativo (< 0).
@@ -186,5 +191,8 @@ public class PrestitoTest {
        
         assertTrue(risultato.contains(ISBN_VALIDO), 
             "La stringa deve contenere l'ISBN del prestito");
+        
+        assertTrue(risultato.contains(String.valueOf(prestitoValido.getDataRestituzione())), 
+            "La stringa deve contenere la data di restituzione del prestito");
     }
 }

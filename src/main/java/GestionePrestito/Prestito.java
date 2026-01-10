@@ -25,7 +25,13 @@ import java.time.temporal.ChronoUnit;
 
 public class Prestito implements Comparable<Prestito>, Serializable {
 
-    private static final long serialVersionUID = 1L;
+    /* 
+    É un identificatore univoco utilizzato durante il processo di Serializzazione e Deserializzazione di un oggetto.
+    Quando salvi un oggetto, Java "timbra" il file con il serialVersionUID corrente.
+    Quando provi a ricaricare l'oggetto, Java controlla se il numero nel file corrisponde a quello 
+    presente nella classe caricata in memoria.
+    */
+    private static final long serialVersionUID = 1L; // Versione 1 Long
     private final LocalDateTime dataRegistrazione;
     private final String ISBNLibro;
     private final String matricolaUtente;
@@ -34,8 +40,8 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     /**
      * @brief Costruttore della classe Prestito.
      *
-     * @pre ISBNLibro != null && !ISBNLibro.isEmpty() && !Libro.matches("\\d{13}")
-     * @pre matricolaUtente != null && !matricolaUtente.isEmpty() && !matricolaUtente.matches("\\d{10}")
+     * @pre !ISBNLibro.isEmpty() && !Libro.matches("\\d{13}")
+     * @pre !matricolaUtente.isEmpty() && !matricolaUtente.matches("\\d{10}")
      * @post Viene creata una nuova istanza valida di Prestito.
      * @post dataRegistrazionePrestito viene generato univocamente in base alla data di aggiunta.
      * @post dataRestituzione viene inizializzata (Data odierna + 30gg).
@@ -108,7 +114,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
      *
      * @pre dataRestituzione < 30 giorni dal giorno corrente && dataRestituzione > 0 giorni dal giorno corrente && dataRestituzione != null.
      * 
-     * @param[in] dataRestituzione La nuova data di restituzione.
+     * @param[inout] dataRestituzione La nuova data di restituzione.
      * @throws dataRestituzioneException
      */
     public void setDataRestituzione(LocalDate dataRestituzione) throws dataRestituzioneException{
@@ -192,7 +198,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     /**
      * @brief Restituisce una rappresentazione testuale del prestito.
      *
-     * Fornisce una stringa contenente i dati: ISBN Data di restituzione.
+     * Fornisce una stringa contenente i dati: ISBN e Data di restituzione.
      * Utile per mostrare i prestiti associati ad ogni utente.
      * 
      * @post Il risultato non è mai null.
